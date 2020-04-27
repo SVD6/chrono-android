@@ -1,11 +1,11 @@
 package com.example.chrono
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.databinding.ActivityMainBinding
+import com.example.chrono.util.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     var bind: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
