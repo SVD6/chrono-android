@@ -1,5 +1,6 @@
 package com.example.chrono.util
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -28,6 +29,15 @@ open class BaseActivity : AppCompatActivity() {
     public override fun onSaveInstanceState(state: Bundle) {
         state.putBoolean("StateSaved", true)
         super.onSaveInstanceState(state)
+    }
+
+     fun isUsingNightModeResources(): Boolean {
+        return when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> true
+            Configuration.UI_MODE_NIGHT_NO -> false
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> false
+            else -> false
+        }
     }
 
     private fun setStatusBarInvisible() {
