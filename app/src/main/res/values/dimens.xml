@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="elevation">5dp</dimen>
+
+    <!-- Font sizes -->
+    <dimen name="xs_tiny_text">5sp</dimen>
+    <dimen name="tiny_text">8sp</dimen>
+    <dimen name="xs_small_text">10sp</dimen>
+    <dimen name="small_text">14sp</dimen>
+    <dimen name="xs_medium_text">16sp</dimen>
+    <dimen name="medium_text">18sp</dimen>
+    <dimen name="xl_medium_text">20sp</dimen>
+    <dimen name="large_text">22sp</dimen>
+    <dimen name="xl_large_text">24sp</dimen>
+    <dimen name="huge_text">30sp</dimen>
+    <dimen name="xl_huge_text">40sp</dimen>
+    <dimen name="xxl_huge_text">60sp</dimen>
+
+    <!-- View padding and sizes -->
+    <dimen name="tiny_element_padding">2dp</dimen>
+    <dimen name="xs_small_element_padding">5dp</dimen>
+    <dimen name="small_element_padding">10dp</dimen>
+    <dimen name="xs_medium_element_padding">15dp</dimen>
+    <dimen name="medium_element_padding">20dp</dimen>
+    <dimen name="large_element_padding">30dp</dimen>
+    <dimen name="xl_large_element_padding">45dp</dimen>
+    <dimen name="xs_huge_element_padding">60dp</dimen>
+    <dimen name="huge_element_padding">85dp</dimen>
+</resources>
