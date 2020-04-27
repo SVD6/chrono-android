@@ -5,6 +5,50 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true" />
+        android:layout_marginTop="@dimen/xl_large_element_padding"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="@dimen/medium_element_padding">
 
+        <ToggleButton
+            android:id="@+id/navtoggle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/toggle_button"
+            android:text=""
+            android:textOff=""
+            android:textOn="" />
+
+        <LinearLayout
+            android:id="@+id/timerlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="TIMER"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/swatchlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="STOPWATCH"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </layout>
