@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4F60F8</color>
+    <color name="colorPrimary">#434343</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#4F60F8</color>
 
     <!-- General Colors -->
     <color name="white">#FFFFFF</color>
@@ -10,4 +10,9 @@
     <color name="grey_dark">#434343</color>
     <color name="weird_grey">#58595F</color>
     <color name="black">#000000</color>
+
+    <!-- App Specific Colors -->
+    <color name="stop_red">#E73B3B</color>
+    <color name="resume_green">#9BE73B</color>
+    <color name="reset_grey">#7B7B7B</color>
 </resources>

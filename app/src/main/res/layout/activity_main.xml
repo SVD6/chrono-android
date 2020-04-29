@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/xl_large_element_padding"
-        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:paddingHorizontal="@dimen/medium_element_padding">
 
         <ToggleButton
@@ -18,37 +18,15 @@
             android:textOff=""
             android:textOn="" />
 
-        <LinearLayout
-            android:id="@+id/timerlay"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textview.MaterialTextView
+            <com.example.chrono.util.helpers.NonSwipeableViewPager
+                android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="TIMER"
-                android:textColor="@color/white" />
+                android:layout_height="match_parent" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/swatchlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="STOPWATCH"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </layout>

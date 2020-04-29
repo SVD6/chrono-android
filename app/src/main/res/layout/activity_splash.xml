@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_splash_screen"
-                android:tint="@color/colorPrimary"></ImageView>
+                android:tint="@color/colorAccent"></ImageView>
 
         </RelativeLayout>
 

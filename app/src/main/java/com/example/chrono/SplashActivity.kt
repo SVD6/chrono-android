@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.databinding.ActivitySplashBinding
+import com.example.chrono.main.MainActivity
 import com.example.chrono.util.BaseActivity
 
 class SplashActivity : BaseActivity() {
