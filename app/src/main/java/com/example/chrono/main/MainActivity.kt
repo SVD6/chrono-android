@@ -50,20 +50,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     }
 
-    private inner class MainAdapter internal constructor(fm: FragmentManager) :
-        FragmentPagerAdapter(fm) {
-        override fun getItem(position: Int): Fragment {
-            return when (position) {
-                0 -> timerFrag
-                else -> swatchFrag
-            }
-        }
-
-        override fun getCount(): Int {
-            return 2
-        }
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         TODO("Not yet implemented")
     }

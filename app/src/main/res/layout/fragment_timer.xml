@@ -6,20 +6,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/nunito_semibold"
-            android:gravity="center"
-            android:text="TIMER"
-            android:textSize="@dimen/xl_large_text" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
+
+            <include
+                android:id="@+id/timer"
+                layout="@layout/timer_lay" />
 
             <LinearLayout
                 android:id="@+id/buttons"
