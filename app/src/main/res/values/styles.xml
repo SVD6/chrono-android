@@ -13,7 +13,7 @@
     </style>
 
     <style name="MainButtons" parent="Widget.MaterialComponents.Button">
-        <item name="android:width">126dp</item> 
+        <item name="android:width">126dp</item>
         <item name="android:height">50dp</item>
         <item name="android:layout_margin">@dimen/medium_element_padding</item>
         <item name="android:inputType">text</item>
