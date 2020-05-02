@@ -28,7 +28,6 @@ class TimerFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_timer, container, false)
-        return bind!!.root
 
         // Change up some UI elements based on light/dark mode
         if ((activity as MainActivity).isUsingNightModeResources()) {
@@ -39,8 +38,9 @@ class TimerFrag : Fragment() {
                 ContextCompat.getDrawable(context!!, R.drawable.circle_light)
         }
 
-        
 
+
+        return bind!!.root
     }
 
 }
