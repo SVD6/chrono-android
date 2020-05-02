@@ -21,6 +21,7 @@ class TimerFrag : Fragment() {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_timer, container, false)
         return bind!!.root
 
+        // Change up some UI elements based on light/dark mode
         if ((activity as MainActivity).isUsingNightModeResources()) {
             bind!!.progressbar.background =
                 ContextCompat.getDrawable(context!!, R.drawable.circle_dark)

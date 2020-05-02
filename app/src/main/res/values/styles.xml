@@ -12,6 +12,7 @@
         <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 
+    <!-- Theme for all the buttons. -->
     <style name="MainButtons" parent="Widget.MaterialComponents.Button">
         <item name="android:width">125dp</item>
         <item name="android:height">50dp</item>
@@ -22,6 +23,7 @@
         <item name="cornerRadius">13dp</item>
     </style>
 
+    <!-- Lowercase theme for tab text -->
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:fontFamily">@font/nunito_regular</item>
         <item name="android:textSize">@dimen/xl_medium_text</item>
