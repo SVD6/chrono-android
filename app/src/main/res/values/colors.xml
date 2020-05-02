@@ -14,4 +14,5 @@
     <color name="reset_grey">#7B7B7B</color>
     <color name="dark_grey">#58595F</color>
     <color name="light_grey">#E7E6E6</color>
+    <color name="not_light_grey">#D2D5E4</color>
 </resources>
