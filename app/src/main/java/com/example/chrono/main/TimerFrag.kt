@@ -1,6 +1,7 @@
 package com.example.chrono.main
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,14 @@ import com.example.chrono.databinding.FragmentTimerBinding
 
 class TimerFrag : Fragment() {
     var bind: FragmentTimerBinding? = null
+
+    enum class TimerState {
+        Stopped, Paused, Running
+    }
+
+    private lateinit var timer: CountDownTimer
+    private var timerLengthSeconds: Long = 0
+    private var timerState = TimerState.Stopped
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +38,9 @@ class TimerFrag : Fragment() {
             bind!!.progressbar.background =
                 ContextCompat.getDrawable(context!!, R.drawable.circle_light)
         }
+
+        
+
     }
 
 }
