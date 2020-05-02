@@ -2,8 +2,6 @@ package com.example.chrono.main
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,13 +11,12 @@ import androidx.viewpager.widget.ViewPager
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityMainBinding
 import com.example.chrono.util.BaseActivity
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity() {
 
-    var pager: ViewPager? = null
+    var pager: ViewPager? = null //
     var bind: ActivityMainBinding? = null
     private var tablay: TabLayout? = null
 
@@ -40,10 +37,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         } else {
             tablay!!.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_light)
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        TODO("Not yet implemented")
     }
 
     private inner class TabFragmentAdapter(fm: FragmentManager) :
@@ -72,7 +65,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
             }
         }
-
     }
 }
 
