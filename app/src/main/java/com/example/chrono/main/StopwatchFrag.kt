@@ -2,17 +2,23 @@ package com.example.chrono.main
 
 import android.os.Bundle
 import android.os.SystemClock
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Chronometer
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentStopwatchBinding
+import com.google.android.material.button.MaterialButton
 
 class StopwatchFrag : Fragment() {
     var bind: FragmentStopwatchBinding? = null
+    var isPlaying: Boolean = false
+
+    var chronometer: Chronometer? = null
+    var startstopbutton: MaterialButton? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,38 +26,57 @@ class StopwatchFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
-        val chronometer = bind!!.chronometer
+
+        chronometer = bind!!.chronometer
+        isPlaying = false
         var offset = 0
 
-        val SSbutton = bind!!.startstopbutton
-        SSbutton?.setOnClickListener(object : View.OnClickListener {
-            internal var isPlaying = false
+        startstopbutton = bind!!.startstopbutton
 
+        startstopbutton?.setOnClickListener {
+            if (!isPlaying) {
+                chronometer!!.base = SystemClock.elapsedRealtime() - offset
+                chronometer!!.start()
+                playingUI()
+                isPlaying = true
 
-            override fun onClick(v: View?) {
-                if(!isPlaying) {
-                    chronometer.base = SystemClock.elapsedRealtime()-offset
-                    chronometer.start()
-                    isPlaying = true
-
-                } else {
-                    chronometer.stop()
-                    offset = (SystemClock.elapsedRealtime() - chronometer.base).toInt()
-                    isPlaying = false
-                }
-                SSbutton.setText(if(isPlaying) R.string.stop else R.string.start)
+            } else {
+                chronometer!!.stop()
+                offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
+                pausedUI()
+                isPlaying = false
             }
-        })
+        }
 
-        val Rbutton = bind!!.resetbutton
-        Rbutton?.setOnClickListener(object: View.OnClickListener{
-
-            override fun onClick(v: View?) {
-                chronometer.base = SystemClock.elapsedRealtime()
-                offset = 0
-            }
-        })
+        bind!!.resetbutton.setOnClickListener {
+            chronometer!!.base = SystemClock.elapsedRealtime()
+            offset = 0
+            resetUI()
+        }
 
         return bind!!.root
+    }
+
+    private fun playingUI() {
+        startstopbutton?.setText(R.string.stop)
+        startstopbutton?.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(), R.color.stop_red
+            )
+        )
+    }
+
+    private fun pausedUI() {
+        startstopbutton?.setText(R.string.resume)
+        startstopbutton?.setBackgroundColor(
+            ContextCompat.getColor(requireContext(), R.color.resume_green)
+        )
+    }
+
+    private fun resetUI() {
+        startstopbutton?.setText(R.string.start)
+        startstopbutton?.setBackgroundColor(
+            ContextCompat.getColor(requireContext(), R.color.resume_green)
+        )
     }
 }

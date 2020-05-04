@@ -33,14 +33,11 @@ class TimerFrag : Fragment() {
         // Change up some UI elements based on light/dark mode
         if ((activity as MainActivity).isUsingNightModeResources()) {
             bind!!.progressbar.background =
-                ContextCompat.getDrawable(context!!, R.drawable.circle_dark)
+                ContextCompat.getDrawable(requireContext(), R.drawable.circle_dark)
         } else {
             bind!!.progressbar.background =
-                ContextCompat.getDrawable(context!!, R.drawable.circle_light)
+                ContextCompat.getDrawable(requireContext(), R.drawable.circle_light)
         }
-
-        
-
     }
 
 }

@@ -4,34 +4,23 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        >
-
-<!--        <com.google.android.material.textview.MaterialTextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            -->
-<!--            android:fontFamily="@font/nunito_semibold"-->
-<!--            android:gravity="center"-->
-<!--            android:text="STOPWATCH"-->
-<!--            android:textSize="@dimen/xl_large_text" />-->
-
-        <Chronometer
-            android:id="@+id/chronometer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:textSize="80dp"
-            android:layout_margin="20dp"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
+
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="80dp" />
 
             <LinearLayout
                 android:id="@+id/buttons"
@@ -48,8 +37,9 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/resume_green"
-                    android:inputType="text"
                     android:text="@string/start"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/large_text"
                     app:cornerRadius="13dp" />
 
@@ -59,13 +49,13 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/reset_grey"
-                    android:inputType="text"
                     android:text="@string/reset"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/large_text"
                     app:cornerRadius="13dp" />
 
             </LinearLayout>
-
         </LinearLayout>
     </RelativeLayout>
 </layout>
