@@ -17,9 +17,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="20dp"
+                android:clickable="true"
+                android:fontFamily="@font/opensans_regular"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="@dimen/medium_element_padding"
                 android:textSize="80dp" />
 
             <LinearLayout

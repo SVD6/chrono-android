@@ -19,6 +19,7 @@ class StopwatchFrag : Fragment() {
 
     var chronometer: Chronometer? = null
     var startstopbutton: MaterialButton? = null
+    var offset: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,35 +30,41 @@ class StopwatchFrag : Fragment() {
 
         chronometer = bind!!.chronometer
         isPlaying = false
-        var offset = 0
 
         startstopbutton = bind!!.startstopbutton
 
         startstopbutton?.setOnClickListener {
             if (!isPlaying) {
-                chronometer!!.base = SystemClock.elapsedRealtime() - offset
-                chronometer!!.start()
                 playingUI()
-                isPlaying = true
-
             } else {
-                chronometer!!.stop()
-                offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
+                pausedUI()
+            }
+        }
+
+        bind!!.resetbutton.setOnClickListener { reset() }
+
+        chronometer!!.setOnClickListener {
+            if (!isPlaying) {
+                playingUI()
+            } else {
                 pausedUI()
                 isPlaying = false
             }
         }
 
-        bind!!.resetbutton.setOnClickListener {
-            chronometer!!.base = SystemClock.elapsedRealtime()
-            offset = 0
-            resetUI()
+        chronometer!!.setOnLongClickListener {
+            reset()
+            return@setOnLongClickListener true
         }
 
         return bind!!.root
     }
 
     private fun playingUI() {
+        chronometer!!.base = SystemClock.elapsedRealtime() - offset
+        chronometer!!.start()
+        isPlaying = true
+
         startstopbutton?.setText(R.string.stop)
         startstopbutton?.setBackgroundColor(
             ContextCompat.getColor(
@@ -67,13 +74,21 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun pausedUI() {
+        chronometer!!.stop()
+        offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
+        isPlaying = false
+
         startstopbutton?.setText(R.string.resume)
         startstopbutton?.setBackgroundColor(
             ContextCompat.getColor(requireContext(), R.color.resume_green)
         )
     }
 
-    private fun resetUI() {
+    private fun reset() {
+        chronometer!!.stop()
+        chronometer!!.base = SystemClock.elapsedRealtime()
+        offset = 0
+
         startstopbutton?.setText(R.string.start)
         startstopbutton?.setBackgroundColor(
             ContextCompat.getColor(requireContext(), R.color.resume_green)
