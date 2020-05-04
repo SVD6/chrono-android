@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">chrono</string>
     <string name="stop">Stop</string>
+    <string name="start">Start</string>
     <string name="resume">Resume</string>
     <string name="reset">Reset</string>
+    <string name="playing">Playing...</string>
+    <string name="stopped">Stopped...</string>
 </resources>
