@@ -35,11 +35,11 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
     }
 
     public MyChronometer(Context context, AttributeSet attrs) {
-        this (context, attrs, 0);
+        this(context, attrs, 0);
     }
 
     public MyChronometer(Context context, AttributeSet attrs, int defStyle) {
-        super (context, attrs, defStyle);
+        super(context, attrs, defStyle);
         init();
     }
 
@@ -84,14 +84,14 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
 
     @Override
     protected void onDetachedFromWindow() {
-        super .onDetachedFromWindow();
+        super.onDetachedFromWindow();
         mVisible = false;
         updateRunning();
     }
 
     @Override
     protected void onWindowVisibilityChanged(int visibility) {
-        super .onWindowVisibilityChanged(visibility);
+        super.onWindowVisibilityChanged(visibility);
         mVisible = visibility == VISIBLE;
         updateRunning();
     }
@@ -101,19 +101,19 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
 
         DecimalFormat df = new DecimalFormat("00");
 
-        int hours = (int)(timeElapsed / (3600 * 1000));
-        int remaining = (int)(timeElapsed % (3600 * 1000));
+        int hours = (int) (timeElapsed / (3600 * 1000));
+        int remaining = (int) (timeElapsed % (3600 * 1000));
 
-        int minutes = (int)(remaining / (60 * 1000));
-        remaining = (int)(remaining % (60 * 1000));
+        int minutes = (int) (remaining / (60 * 1000));
+        remaining = (int) (remaining % (60 * 1000));
 
-        int seconds = (int)(remaining / 1000);
-        remaining = (int)(remaining % (1000));
+        int seconds = (int) (remaining / 1000);
+        remaining = (int) (remaining % (1000));
 
-        int milliseconds = (int)(((int)timeElapsed % 1000) / 100);
-        remaining = (int)(remaining % (100));
+        int milliseconds = (int) (((int) timeElapsed % 1000) / 100);
+        remaining = (int) (remaining % (100));
 
-        int tenthmillisecond = (int)(remaining % 10);
+        int tenthmillisecond = (int) (remaining % 10);
 
         String text = "";
 
@@ -148,7 +148,7 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
             if (mRunning) {
                 updateText(SystemClock.elapsedRealtime());
                 dispatchChronometerTick();
-                sendMessageDelayed(Message.obtain(this , TICK_WHAT),
+                sendMessageDelayed(Message.obtain(this, TICK_WHAT),
                         10);
             }
         }
