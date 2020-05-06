@@ -1,14 +1,13 @@
-package com.example.chrono.util;
+package com.example.chrono.util.components;
 
-/*
- * The Android chronometer widget revised so as to count milliseconds
- */
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.AttributeSet;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 
@@ -104,16 +103,16 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
         int hours = (int) (timeElapsed / (3600 * 1000));
         int remaining = (int) (timeElapsed % (3600 * 1000));
 
-        int minutes = (int) (remaining / (60 * 1000));
-        remaining = (int) (remaining % (60 * 1000));
+        int minutes = (remaining / (60 * 1000));
+        remaining = (remaining % (60 * 1000));
 
-        int seconds = (int) (remaining / 1000);
-        remaining = (int) (remaining % (1000));
+        int seconds = (remaining / 1000);
+        remaining = (remaining % (1000));
 
-        int milliseconds = (int) (((int) timeElapsed % 1000) / 100);
-        remaining = (int) (remaining % (100));
+        int milliseconds = (((int) timeElapsed % 1000) / 100);
+        remaining =(remaining % (100));
 
-        int tenthmillisecond = (int) (remaining % 10);
+        int tenthmillisecond = (remaining % 10);
 
         String text = "";
 
@@ -143,8 +142,9 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
-        public void handleMessage(Message m) {
+        public void handleMessage(@NotNull Message m) {
             if (mRunning) {
                 updateText(SystemClock.elapsedRealtime());
                 dispatchChronometerTick();

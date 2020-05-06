@@ -5,13 +5,12 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Chronometer
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentStopwatchBinding
-import com.example.chrono.util.MyChronometer
+import com.example.chrono.util.components.MyChronometer
 import com.google.android.material.button.MaterialButton
 
 class StopwatchFrag : Fragment() {
