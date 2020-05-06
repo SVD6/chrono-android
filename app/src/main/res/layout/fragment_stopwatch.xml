@@ -12,7 +12,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <Chronometer
+            <com.example.chrono.util.MyChronometer
                 android:id="@+id/chronometer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -21,7 +21,8 @@
                 android:fontFamily="@font/opensans_regular"
                 android:gravity="center"
                 android:padding="@dimen/medium_element_padding"
-                android:textSize="80dp" />
+                android:text="Chronometer"
+                android:textSize="@dimen/xxl_huge_text" />
 
             <LinearLayout
                 android:id="@+id/buttons"
