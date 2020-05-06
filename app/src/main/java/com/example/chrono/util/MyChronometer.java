@@ -111,6 +111,9 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
         remaining = (int)(remaining % (1000));
 
         int milliseconds = (int)(((int)timeElapsed % 1000) / 100);
+        remaining = (int)(remaining % (100));
+
+        int tenthmillisecond = (int)(remaining % 10);
 
         String text = "";
 
@@ -120,7 +123,7 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
 
         text += df.format(minutes) + ":";
         text += df.format(seconds) + ":";
-        text += Integer.toString(milliseconds);
+        text += milliseconds + Integer.toString(tenthmillisecond);
 
         setText(text);
     }
@@ -132,7 +135,7 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
                 updateText(SystemClock.elapsedRealtime());
                 dispatchChronometerTick();
                 mHandler.sendMessageDelayed(Message.obtain(mHandler,
-                        TICK_WHAT), 100);
+                        TICK_WHAT), 10);
             } else {
                 mHandler.removeMessages(TICK_WHAT);
             }
@@ -146,7 +149,7 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
                 updateText(SystemClock.elapsedRealtime());
                 dispatchChronometerTick();
                 sendMessageDelayed(Message.obtain(this , TICK_WHAT),
-                        100);
+                        10);
             }
         }
     };
