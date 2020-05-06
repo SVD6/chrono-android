@@ -11,13 +11,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentStopwatchBinding
+import com.example.chrono.util.MyChronometer
 import com.google.android.material.button.MaterialButton
 
 class StopwatchFrag : Fragment() {
     var bind: FragmentStopwatchBinding? = null
     var isPlaying: Boolean = false
 
-    var chronometer: Chronometer? = null
+    var chronometer: MyChronometer? = null
     var startstopbutton: MaterialButton? = null
     var offset: Int = 0
 
@@ -88,6 +89,7 @@ class StopwatchFrag : Fragment() {
         chronometer!!.stop()
         chronometer!!.base = SystemClock.elapsedRealtime()
         offset = 0
+        isPlaying = false
 
         startstopbutton?.setText(R.string.start)
         startstopbutton?.setBackgroundColor(
