@@ -16,20 +16,16 @@
                 android:id="@+id/timerlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_element_padding"
                 android:clickable="true"
-                android:focusable="true"
-                android:paddingHorizontal="@dimen/medium_element_padding">
+                android:focusable="true">
 
-                <ProgressBar
+                <com.example.chrono.util.components.MyProgressBar
                     android:id="@+id/progressbar"
-                    style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
-                    android:layout_width="match_parent"
+                    android:layout_width="360dp"
                     android:layout_height="360dp"
-                    android:background="@drawable/circle_dark"
-                    android:indeterminate="false"
-                    android:max="100"
-                    android:progress="65"
-                    android:progressDrawable="@drawable/circular_progress_bar" />
+                    android:layout_centerInParent="true"
+                    android:clickable="true" />
 
                 <TextView
                     android:id="@+id/countdown"
@@ -58,7 +54,7 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/resume_green"
-                    android:text="Resume"
+                    android:text="Start"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"

@@ -2,6 +2,7 @@ package com.example.chrono.main
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.health.TimerStat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,21 +14,23 @@ import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentTimerBinding
 import com.example.chrono.util.PrefUtil
+import com.example.chrono.util.components.MyProgressBar
+import kotlinx.android.synthetic.main.fragment_timer.*
 
 class TimerFrag : Fragment() {
     var bind: FragmentTimerBinding? = null
 
     enum class TimerState {
-        Stopped, Paused, Running
+        Initial, Paused, Running
     }
 
     private lateinit var timer: CountDownTimer
     private var timerLengthSeconds: Long = 0
-    private var timerState = TimerState.Stopped
+    private var timerState = TimerState.Initial
 
     private var secondsRemaining: Long = 0
 
-    private var progressCountdown: ProgressBar? = null
+    private var progressCountdown: MyProgressBar? = null
     private var countdown: TextView? = null
 
     override fun onCreateView(
@@ -40,36 +43,35 @@ class TimerFrag : Fragment() {
         progressCountdown = bind!!.progressbar
         countdown = bind!!.countdown
 
-        // Change up some UI elements based on light/dark mode
-        if ((activity as MainActivity).isUsingNightModeResources()) {
-            bind!!.progressbar.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.circle_dark)
-        } else {
-            bind!!.progressbar.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.circle_light)
-        }
-
-        bind!!.timerlayout.setOnClickListener {
-            when (timerState) {
-                TimerState.Paused -> {
-                    startTimer()
-                    timerState = TimerState.Running
-                }
-                TimerState.Running -> {
-                    timer.cancel()
-                    timerState = TimerState.Paused
-                }
-            }
-        }
+//        bind!!.timerlayout.setOnClickListener {
+//            when (timerState) {
+//                TimerState.Paused -> {
+//                    startTimer()
+//                    timerState = TimerState.Running
+//                }
+//                TimerState.Running -> {
+//                    timer.cancel()
+//                    timerState = TimerState.Paused
+//                }
+//            }
+//        }
 
         bind!!.startstopbutton.setOnClickListener {
             when (timerState) {
                 TimerState.Paused -> {
-                    startTimer()
+                    timerState = TimerState.Running
+                    initTimer()
+                }
+                TimerState.Initial -> {
+                    timerState = TimerState.Running
+                    initTimer()
+                }
+                TimerState.Running -> {
+                    timer.cancel()
+                    timerState = TimerState.Paused
+                    pausedUI()
                 }
             }
-            startTimer()
-            timerState = TimerState.Running
         }
 
         return bind!!.root
@@ -79,10 +81,12 @@ class TimerFrag : Fragment() {
         super.onResume()
 
         initTimer()
+        playingUI()
     }
 
     override fun onPause() {
         super.onPause()
+        pausedUI()
 
         if (timerState == TimerState.Running) {
             timer.cancel()
@@ -97,7 +101,7 @@ class TimerFrag : Fragment() {
     private fun initTimer() {
         timerState = PrefUtil.getTimerState(requireContext())
 
-        if (timerState == TimerState.Stopped)
+        if (timerState == TimerState.Initial)
             setNewTimerLength()
         else
             setPreviousTimerLength()
@@ -114,11 +118,11 @@ class TimerFrag : Fragment() {
     }
 
     private fun onTimerFinished() {
-        timerState = TimerState.Stopped
-
+        timerState = TimerState.Initial
+        initialUI()
         setNewTimerLength()
 
-        progressCountdown!!.progress = 0
+        progressCountdown!!.setProgress(0)
 
         PrefUtil.setSecondsRemaining(timerLengthSeconds, requireContext())
         secondsRemaining = timerLengthSeconds
@@ -128,6 +132,7 @@ class TimerFrag : Fragment() {
 
     private fun startTimer() {
         timerState = TimerState.Running
+        playingUI()
 
         timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
             override fun onFinish() = onTimerFinished()
@@ -142,12 +147,12 @@ class TimerFrag : Fragment() {
     private fun setNewTimerLength() {
         val lengthInMinutes = PrefUtil.getTimerLength(requireContext())
         timerLengthSeconds = (lengthInMinutes * 60L)
-        progressCountdown!!.max = timerLengthSeconds.toInt()
+        progressCountdown!!.setmMaxProgress(timerLengthSeconds.toInt())
     }
 
     private fun setPreviousTimerLength() {
         timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(requireContext())
-        progressCountdown!!.max = timerLengthSeconds.toInt()
+        progressCountdown!!.setmMaxProgress(timerLengthSeconds.toInt())
     }
 
     private fun updateCountdownUI() {
@@ -157,7 +162,40 @@ class TimerFrag : Fragment() {
 
         countdown!!.text =
             "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
-        progressCountdown!!.progress = (timerLengthSeconds - secondsRemaining).toInt()
+//        progressCountdown!!.progress = (timerLengthSeconds - secondsRemaining).toInt()
+        progressCountdown!!.setProgress((timerLengthSeconds - secondsRemaining).toInt())
+    }
+
+    private fun playingUI() {
+        startstopbutton?.setText(R.string.pause)
+        startstopbutton?.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(), R.color.stop_red
+            )
+        )
+    }
+
+    private fun initialUI() {
+        startstopbutton?.setText(R.string.start)
+        startstopbutton?.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(), R.color.resume_green
+            )
+        )
+    }
+
+    private fun pausedUI() {
+        startstopbutton?.setText(R.string.resume)
+        startstopbutton?.setBackgroundColor(
+            ContextCompat.getColor(requireContext(), R.color.resume_green)
+        )
+    }
+
+    private fun reset() {
+        startstopbutton?.setText(R.string.start)
+        startstopbutton?.setBackgroundColor(
+            ContextCompat.getColor(requireContext(), R.color.resume_green)
+        )
     }
 
 }

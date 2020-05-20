@@ -8,7 +8,7 @@
         android:thickness="12dp"
         android:useLevel="true"><!-- this line fixes the issue for lollipop api 21 -->
 
-        <corners android:radius="27dp" />
+        <corners android:radius="10dp"/>
 
         <gradient
             android:angle="0"
