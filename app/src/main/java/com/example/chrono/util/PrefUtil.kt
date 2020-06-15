@@ -2,7 +2,7 @@ package com.example.chrono.util
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.example.chrono.main.TimerFrag
+import com.example.chrono.main.timer.TimerFrag
 
 class PrefUtil {
     companion object {

@@ -1,24 +1,18 @@
-package com.example.chrono.main
+package com.example.chrono.main.timer
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.health.TimerStat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentTimerBinding
 import com.example.chrono.util.PrefUtil
 import com.example.chrono.util.components.MyProgressBar
-import kotlinx.android.synthetic.main.fragment_timer.*
-import kotlinx.android.synthetic.main.fragment_timer.view.*
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class TimerFrag : Fragment() {
     var bind: FragmentTimerBinding? = null
@@ -29,7 +23,8 @@ class TimerFrag : Fragment() {
 
     private lateinit var timer: CountDownTimer
     private var timerLengthSeconds: Long = 0
-    private var timerState = TimerState.Stopped
+    private var timerState =
+        TimerState.Stopped
 
     private var secondsRemaining: Long = 0
 
@@ -53,6 +48,17 @@ class TimerFrag : Fragment() {
                 }
             }
         }
+
+        bind!!.createTimer.setOnClickListener {
+            val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.new_timer_dialog, null)
+
+            val mBuilder = MaterialAlertDialogBuilder(requireContext()).setView(mDialogView)
+
+            val mAlertDialog = mBuilder.show()
+
+        }
+
+
 
 //        initTimer()
 

@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityMainBinding
+import com.example.chrono.main.stopwatch.StopwatchFrag
+import com.example.chrono.main.timer.TimerFrag
 import com.example.chrono.util.BaseActivity
 import com.google.android.material.tabs.TabLayout
 

@@ -1,4 +1,4 @@
-package com.example.chrono.main
+package com.example.chrono.main.stopwatch
 
 import android.os.Bundle
 import android.os.SystemClock
