@@ -21,12 +21,12 @@ class TimerFrag : Fragment() {
     var bind: FragmentTimerBinding? = null
 
     enum class TimerState {
-        Initial, Paused, Running
+        Stopped, Paused, Running
     }
 
     private lateinit var timer: CountDownTimer
     private var timerLengthSeconds: Long = 0
-    private var timerState = TimerState.Initial
+    private var timerState = TimerState.Stopped
 
     private var secondsRemaining: Long = 0
 
@@ -43,6 +43,16 @@ class TimerFrag : Fragment() {
         progressCountdown = bind!!.progressbar
         countdown = bind!!.countdown
 
+        bind!!.startstopbutton.setOnClickListener {
+            when (timerState) {
+                TimerState.Stopped -> {
+                    initTimer()
+                }
+            }
+        }
+
+//        initTimer()
+
 //        bind!!.timerlayout.setOnClickListener {
 //            when (timerState) {
 //                TimerState.Paused -> {
@@ -56,92 +66,25 @@ class TimerFrag : Fragment() {
 //            }
 //        }
 
-        bind!!.startstopbutton.setOnClickListener {
-            when (timerState) {
-                TimerState.Paused -> {
-                    timerState = TimerState.Running
-                    initTimer()
-                }
-                TimerState.Initial -> {
-                    timerState = TimerState.Running
-                    initTimer()
-                }
-                TimerState.Running -> {
-                    timer.cancel()
-                    timerState = TimerState.Paused
-                    pausedUI()
-                }
-            }
-        }
+//        bind!!.startstopbutton.setOnClickListener {
+//            when (timerState) {
+//                TimerState.Paused -> {
+//                    timerState = TimerState.Running
+//                    initTimer()
+//                }
+//                TimerState.Initial -> {
+//                    timerState = TimerState.Running
+//                    initTimer()
+//                }
+//                TimerState.Running -> {
+//                    timer.cancel()
+//                    timerState = TimerState.Paused
+//                    pausedUI()
+//                }
+//            }
+//        }
 
         return bind!!.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        initTimer()
-        playingUI()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        pausedUI()
-
-        if (timerState == TimerState.Running) {
-            timer.cancel()
-        } else if (timerState == TimerState.Paused) {
-
-        }
-        PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, requireContext())
-        PrefUtil.setSecondsRemaining(secondsRemaining, requireContext())
-        PrefUtil.setTimerState(timerState, requireContext())
-    }
-
-    private fun initTimer() {
-        timerState = PrefUtil.getTimerState(requireContext())
-
-        if (timerState == TimerState.Initial)
-            setNewTimerLength()
-        else
-            setPreviousTimerLength()
-
-        secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
-            PrefUtil.getSecondsRemaining(requireContext())
-        else
-            timerLengthSeconds
-
-        if (timerState == TimerState.Running)
-            startTimer()
-
-        updateCountdownUI()
-    }
-
-    private fun onTimerFinished() {
-        timerState = TimerState.Initial
-        initialUI()
-        setNewTimerLength()
-
-        progressCountdown!!.setProgress(0)
-
-        PrefUtil.setSecondsRemaining(timerLengthSeconds, requireContext())
-        secondsRemaining = timerLengthSeconds
-
-        updateCountdownUI()
-    }
-
-    private fun startTimer() {
-        timerState = TimerState.Running
-        playingUI()
-
-        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
-            override fun onFinish() = onTimerFinished()
-
-            override fun onTick(millisUntilFinished: Long) {
-                secondsRemaining = millisUntilFinished / 1000
-                updateCountdownUI()
-            }
-        }.start()
     }
 
     private fun setNewTimerLength() {
@@ -166,36 +109,111 @@ class TimerFrag : Fragment() {
         progressCountdown!!.setProgress((timerLengthSeconds - secondsRemaining).toInt())
     }
 
-    private fun playingUI() {
-        startstopbutton?.setText(R.string.pause)
-        startstopbutton?.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(), R.color.stop_red
-            )
-        )
+    private fun initTimer() {
+        timerState = PrefUtil.getTimerState(requireContext())
+
+        if (timerState == TimerState.Stopped)
+            setNewTimerLength()
+        else
+            setPreviousTimerLength()
+
+        secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
+            PrefUtil.getSecondsRemaining(requireContext())
+        else
+            timerLengthSeconds
+
+        if (timerState == TimerState.Running)
+            startTimer()
+
+        updateCountdownUI()
     }
 
-    private fun initialUI() {
-        startstopbutton?.setText(R.string.start)
-        startstopbutton?.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(), R.color.resume_green
-            )
-        )
+    private fun startTimer() {
+        timerState = TimerState.Running
+//        playingUI()
+
+        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
+            override fun onFinish() = onTimerFinished()
+
+            override fun onTick(millisUntilFinished: Long) {
+                secondsRemaining = millisUntilFinished / 1000
+                updateCountdownUI()
+            }
+        }.start()
     }
 
-    private fun pausedUI() {
-        startstopbutton?.setText(R.string.resume)
-        startstopbutton?.setBackgroundColor(
-            ContextCompat.getColor(requireContext(), R.color.resume_green)
-        )
+    //    override fun onResume() {
+//        super.onResume()
+//
+//        initTimer()
+//        playingUI()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        pausedUI()
+//
+//        if (timerState == TimerState.Running) {
+//            timer.cancel()
+//        } else if (timerState == TimerState.Paused) {
+//
+//        }
+//        PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, requireContext())
+//        PrefUtil.setSecondsRemaining(secondsRemaining, requireContext())
+//        PrefUtil.setTimerState(timerState, requireContext())
+//    }
+//
+
+//
+    private fun onTimerFinished() {
+        timerState = TimerState.Stopped
+//        initialUI()
+        setNewTimerLength()
+
+        progressCountdown!!.setProgress(0)
+
+        PrefUtil.setSecondsRemaining(timerLengthSeconds, requireContext())
+        secondsRemaining = timerLengthSeconds
+
+        updateCountdownUI()
     }
 
-    private fun reset() {
-        startstopbutton?.setText(R.string.start)
-        startstopbutton?.setBackgroundColor(
-            ContextCompat.getColor(requireContext(), R.color.resume_green)
-        )
-    }
+
+//
+
+//
+
+//
+//    private fun playingUI() {
+//        startstopbutton?.setText(R.string.pause)
+//        startstopbutton?.setBackgroundColor(
+//            ContextCompat.getColor(
+//                requireContext(), R.color.stop_red
+//            )
+//        )
+//    }
+//
+//    private fun initialUI() {
+//        startstopbutton?.setText(R.string.start)
+//        startstopbutton?.setBackgroundColor(
+//            ContextCompat.getColor(
+//                requireContext(), R.color.resume_green
+//            )
+//        )
+//    }
+//
+//    private fun pausedUI() {
+//        startstopbutton?.setText(R.string.resume)
+//        startstopbutton?.setBackgroundColor(
+//            ContextCompat.getColor(requireContext(), R.color.resume_green)
+//        )
+//    }
+//
+//    private fun reset() {
+//        startstopbutton?.setText(R.string.start)
+//        startstopbutton?.setBackgroundColor(
+//            ContextCompat.getColor(requireContext(), R.color.resume_green)
+//        )
+//    }
 
 }
