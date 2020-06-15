@@ -17,23 +17,30 @@
                 android:layout_height="200dp">
 
                 <LinearLayout
+                    android:id="@+id/timer_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:isScrollContainer="true"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="@dimen/small_element_padding">
 
-                    <RelativeLayout
+                    <include
+                        layout="@layout/timer_card_lay"
+                        android:layout_margin="@dimen/small_element_padding"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/large_element_padding"
-                            android:layout_gravity="center"
-                            android:text="Create new timer" />
+                    <include
+                        layout="@layout/timer_card_lay"
+                        android:layout_margin="@dimen/small_element_padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                    </RelativeLayout>
+                    <include
+                        layout="@layout/timer_card_lay"
+                        android:layout_margin="@dimen/small_element_padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </ScrollView>
