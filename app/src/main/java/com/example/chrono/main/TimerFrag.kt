@@ -1,5 +1,6 @@
 package com.example.chrono.main
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.health.TimerStat
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
@@ -16,6 +18,7 @@ import com.example.chrono.databinding.FragmentTimerBinding
 import com.example.chrono.util.PrefUtil
 import com.example.chrono.util.components.MyProgressBar
 import kotlinx.android.synthetic.main.fragment_timer.*
+import kotlinx.android.synthetic.main.fragment_timer.view.*
 
 class TimerFrag : Fragment() {
     var bind: FragmentTimerBinding? = null
