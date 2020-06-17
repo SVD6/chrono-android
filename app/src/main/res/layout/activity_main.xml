@@ -5,14 +5,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/medium_element_padding"
+        android:layout_marginBottom="@dimen/small_element_padding"
         android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:padding="@dimen/large_element_padding">
+            android:clipToPadding="true"
+            android:paddingTop="@dimen/xl_large_element_padding"
+            android:paddingHorizontal="@dimen/medium_element_padding">
 
             <View
                 android:id="@+id/indicator"

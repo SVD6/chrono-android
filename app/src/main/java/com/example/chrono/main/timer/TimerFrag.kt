@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -22,6 +23,9 @@ class TimerFrag : Fragment() {
     }
 
     private lateinit var timer: CountDownTimer
+
+    private lateinit var timerLay: LinearLayout
+
     private var timerLengthSeconds: Long = 0
     private var timerState =
         TimerState.Stopped
@@ -40,6 +44,9 @@ class TimerFrag : Fragment() {
 
         progressCountdown = bind!!.progressbar
         countdown = bind!!.countdown
+
+        timerLay = bind!!.timerList
+
 
         bind!!.startstopbutton.setOnClickListener {
             when (timerState) {
