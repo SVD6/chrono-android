@@ -5,6 +5,7 @@
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="reset">Reset</string>
+    <string name="lap">Lap</string>
     <string name="playing">Playing...</string>
     <string name="stopped">Stopped...</string>
 </resources>
