@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -38,7 +39,8 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.1.1'
 
     // Firebase Dependencies
-    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.3'
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
 
     // Design/UI Dependencies
     implementation 'com.google.android.material:material:1.1.0'

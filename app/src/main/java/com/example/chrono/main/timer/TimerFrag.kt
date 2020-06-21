@@ -62,10 +62,9 @@ class TimerFrag : Fragment() {
             val mBuilder = MaterialAlertDialogBuilder(requireContext()).setView(mDialogView)
 
             val mAlertDialog = mBuilder.show()
-
         }
 
-
+        bind
 
 //        initTimer()
 
