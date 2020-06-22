@@ -4,12 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+    android:layout_height="match_parent"
+    >
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="placeholder"
-        android:id="@+id/lapContent"></TextView>
+        android:layout_width="125dp"
+        android:layout_height="60dp"
+        android:id="@+id/lapContent"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large_text"
+        app:cornerRadius="13dp"
+        android:layout_gravity="center"
+        ></TextView>
 
 </LinearLayout>

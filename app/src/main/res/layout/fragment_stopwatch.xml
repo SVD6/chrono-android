@@ -43,7 +43,7 @@
                 android:textSize="@dimen/xxl_huge_text" />
 
             <LinearLayout
-                android:id="@+id/buttons"
+                android:id="@+id/singlebutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -52,7 +52,30 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/startstopbutton"
+                    android:id="@+id/singlestartstopbutton"
+                    android:layout_width="125dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/medium_element_padding"
+                    android:backgroundTint="@color/resume_green"
+                    android:text="@string/start"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/large_text"
+                    app:cornerRadius="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/multibuttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/xs_medium_element_padding"
+                android:gravity="center"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/multissbutton"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
@@ -63,7 +86,19 @@
                     android:textSize="@dimen/large_text"
                     app:cornerRadius="13dp" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/resetlapbutton"
+                    android:layout_width="125dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/medium_element_padding"
+                    android:backgroundTint="@color/reset_grey"
+                    android:text="@string/lap"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/large_text"
+                    app:cornerRadius="13dp">
 
+                </com.google.android.material.button.MaterialButton>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
