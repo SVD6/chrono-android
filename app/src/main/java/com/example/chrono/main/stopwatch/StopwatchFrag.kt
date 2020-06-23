@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -18,6 +19,8 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
 import kotlinx.android.synthetic.main.lap_row.*
 import kotlinx.android.synthetic.main.lap_row.view.*
+import kotlinx.android.synthetic.main.lap_header.*
+import kotlinx.android.synthetic.main.lap_header.view.*
 
 class StopwatchFrag : Fragment() {
     var bind: FragmentStopwatchBinding? = null
@@ -33,12 +36,17 @@ class StopwatchFrag : Fragment() {
     var single_button_layout: LinearLayout? = null
     var multi_button_layout: LinearLayout? = null
 
+    var lap_header_active = false
+    var header_view: View? = null
+    var lap_count = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
+        header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
 
         chronometer = bind!!.chronometer
 
@@ -157,6 +165,11 @@ class StopwatchFrag : Fragment() {
             init_stopwatch = false
         }
 
+        if (lap_header_active){
+            container.removeView(header_view)
+            lap_header_active = false
+        }
+
         singlestartstopbutton?.setText(R.string.start)
         singlestartstopbutton?.setBackgroundColor(
             ContextCompat.getColor(requireContext(), R.color.resume_green)
@@ -169,9 +182,17 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun lap() {
+        if(!lap_header_active){
+            //we need to add in the lap table header
+            container.addView(header_view)
+            lap_header_active = true
+        }
+
+        lap_count += 1
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
-        view.lapContent.text = (SystemClock.elapsedRealtime() - chronometer!!.base).toString()
+        view.lapNum.text = lap_count.toString()
+        view.lapTimes.text = (SystemClock.elapsedRealtime() - chronometer!!.base).toString()
+        view.overallTime.text = "fuck"
+        container.addView(view)
     }
-
-
 }
