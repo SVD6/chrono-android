@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "836711410960",
+    "firebase_url": "https://chrono-92a7e.firebaseio.com",
+    "project_id": "chrono-92a7e",
+    "storage_bucket": "chrono-92a7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836711410960:android:1d717bcea382888477c995",
+        "android_client_info": {
+          "package_name": "com.example.chrono"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836711410960-fb5l5odvr808gvs2rlv0jtpaplee7hal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmED1nMXveEkAyv4rDPwwbUPKUYRAlIJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836711410960-fb5l5odvr808gvs2rlv0jtpaplee7hal.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

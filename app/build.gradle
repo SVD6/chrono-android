@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
@@ -34,10 +37,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
     implementation 'androidx.preference:preference-ktx:1.1.1'
 
+    // Firebase Dependencies
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.3'
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
+
+    // Design/UI Dependencies
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+
+    // DataBinding
     kapt 'com.android.databinding:compiler:2.3.1'
 }

@@ -15,6 +15,8 @@ import com.example.chrono.util.PrefUtil
 import com.example.chrono.util.components.MyProgressBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+import java.lang.RuntimeException
+
 class TimerFrag : Fragment() {
     var bind: FragmentTimerBinding? = null
 
@@ -62,10 +64,7 @@ class TimerFrag : Fragment() {
             val mBuilder = MaterialAlertDialogBuilder(requireContext()).setView(mDialogView)
 
             val mAlertDialog = mBuilder.show()
-
         }
-
-
 
 //        initTimer()
 
