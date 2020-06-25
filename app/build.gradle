@@ -7,7 +7,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -46,6 +45,7 @@ dependencies {
     // Design/UI Dependencies
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation 'com.github.GoodieBag:HorizontalPicker:v1.0'
 
     // DataBinding
     kapt 'com.android.databinding:compiler:2.3.1'

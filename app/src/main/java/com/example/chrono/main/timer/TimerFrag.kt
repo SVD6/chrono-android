@@ -1,5 +1,6 @@
 package com.example.chrono.main.timer
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -59,11 +60,7 @@ class TimerFrag : Fragment() {
         }
 
         bind!!.createTimer.setOnClickListener {
-            val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.new_timer_dialog, null)
-
-            val mBuilder = MaterialAlertDialogBuilder(requireContext()).setView(mDialogView)
-
-            val mAlertDialog = mBuilder.show()
+            startActivity(Intent(requireContext(), TimerCreate::class.java))
         }
 
 //        initTimer()
@@ -179,7 +176,7 @@ class TimerFrag : Fragment() {
 //    }
 //
 
-//
+    //
     private fun onTimerFinished() {
         timerState = TimerState.Stopped
 //        initialUI()

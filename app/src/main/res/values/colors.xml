@@ -10,7 +10,7 @@
 
     <!-- App Specific Colors -->
     <color name="stop_red">#E73B3B</color>
-    <color name="resume_green">#9BE73B</color>
+    <color name="resume_green">#12A973</color>
     <color name="lap_blue">#0E4D92</color>
     <color name="reset_grey">#7B7B7B</color>
     <color name="dark_grey">#58595F</color>
