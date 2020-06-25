@@ -5,40 +5,41 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:padding="@dimen/huge_text"
 android:stretchColumns="1">
-    <TableRow>
+    <TableRow
+        android:layout_gravity="center">
         <TextView
             android:text="placeholder"
-            android:layout_width="125dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:id="@+id/lapNum"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/large_text"
-            app:cornerRadius="13dp"
+            android:textSize="@dimen/small_text"
+            app:cornerRadius="10dp"
             android:layout_gravity="center"
             ></TextView>
 
         <TextView
             android:text="placeholder"
-            android:layout_width="125dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:id="@+id/lapTimes"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/large_text"
-            app:cornerRadius="13dp"
+            android:textSize="@dimen/small_text"
+            app:cornerRadius="10dp"
             android:layout_gravity="center"
             ></TextView>
 
         <TextView
             android:text="placeholder"
-            android:layout_width="125dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:id="@+id/overallTime"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/large_text"
-            app:cornerRadius="13dp"
+            android:textSize="@dimen/small_text"
+            app:cornerRadius="10dp"
             android:layout_gravity="center"
             ></TextView>
     </TableRow>
