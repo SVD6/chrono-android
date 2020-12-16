@@ -14,7 +14,7 @@ class TimerCreate : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bind = DataBindingUtil.setContentView(this, R.layout.create_timer_lay)
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_timer_create)
 //        carousel = bind!!.carousel
 //
 //        var icon_list: ArrayList<CarouselPicker.PickerItem> = ArrayList()
