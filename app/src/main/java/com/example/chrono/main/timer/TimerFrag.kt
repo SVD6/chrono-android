@@ -26,12 +26,10 @@ class TimerFrag : Fragment() {
     }
 
     private lateinit var timer: CountDownTimer
-
     private lateinit var timerLay: LinearLayout
 
     private var timerLengthSeconds: Long = 0
-    private var timerState =
-        TimerState.Stopped
+    private var timerState = TimerState.Stopped
 
     private var secondsRemaining: Long = 0
 
