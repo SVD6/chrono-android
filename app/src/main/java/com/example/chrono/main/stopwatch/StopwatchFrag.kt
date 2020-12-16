@@ -1,13 +1,11 @@
 package com.example.chrono.main.stopwatch
 
-import android.content.Context
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,8 +14,8 @@ import com.example.chrono.databinding.FragmentStopwatchBinding
 import com.example.chrono.util.components.MyChronometer
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
-import kotlinx.android.synthetic.main.lap_row.*
 import kotlinx.android.synthetic.main.lap_row.view.*
+import java.text.DecimalFormat
 
 class StopwatchFrag : Fragment() {
     var bind: FragmentStopwatchBinding? = null
@@ -33,12 +31,18 @@ class StopwatchFrag : Fragment() {
     var single_button_layout: LinearLayout? = null
     var multi_button_layout: LinearLayout? = null
 
+    var lap_header_active = false
+    var header_view: View? = null
+    var lap_count = 0
+    var lastLap = 0.toLong()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
+        header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
 
         chronometer = bind!!.chronometer
 
@@ -157,6 +161,15 @@ class StopwatchFrag : Fragment() {
             init_stopwatch = false
         }
 
+        if (lap_header_active){
+            container.removeView(header_view)
+            lap_header_active = false
+            lap_count = 0
+            lastLap = 0.toLong()
+            container.removeAllViews()
+
+        }
+
         singlestartstopbutton?.setText(R.string.start)
         singlestartstopbutton?.setBackgroundColor(
             ContextCompat.getColor(requireContext(), R.color.resume_green)
@@ -169,9 +182,63 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun lap() {
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
-        view.lapContent.text = (SystemClock.elapsedRealtime() - chronometer!!.base).toString()
+        if(!lap_header_active){
+            //we need to add in the lap table header
+            container.addView(header_view)
+            lap_header_active = true
+        }
+
+        //track lap numbers
+        lap_count += 1
+        var lap_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
+
+        //get lap numbers
+        lap_view.lapNum.text = lap_count.toString()
+
+        var timeNow = SystemClock.elapsedRealtime() - chronometer!!.base
+
+        // get overall time that the current lap finished at.
+        var overall_time = getTime(timeNow)
+
+        // get lap time for current lap
+        var lapTimeDiff = timeNow - lastLap
+        lastLap = lapTimeDiff
+        var lapTime= getTime(lapTimeDiff)
+
+        //set text views
+        lap_view.lapTimes.text = lapTime
+        lap_view.overallTime.text = overall_time
+        container.addView(lap_view)
     }
 
+    private fun getTime(timeElapsed: Long) : String{
 
+        val df = DecimalFormat("00")
+
+        val hours = (timeElapsed / (3600 * 1000))
+        var remaining = (timeElapsed % (3600 * 1000))
+
+        val minutes = remaining / (60 * 1000)
+        remaining = remaining % (60 * 1000)
+
+        val seconds = remaining / 1000
+        remaining = remaining % 1000
+
+        val milliseconds = timeElapsed % 1000 / 100
+        remaining = remaining % 100
+
+        val tenthmillisecond = remaining % 10
+
+        var text = ""
+
+        if (hours > 0) {
+            text += df.format(hours.toLong()) + ":"
+        }
+
+        text += df.format(minutes.toLong()) + ":"
+        text += df.format(seconds.toLong()) + ":"
+        text += milliseconds.toString() + tenthmillisecond.toString()
+
+        return text
+    }
 }
