@@ -28,12 +28,10 @@ class TimerFrag : Fragment() {
     private lateinit var timer: CountDownTimer
     private lateinit var timerLay: LinearLayout
 
-    private var timer_milli_seconds: Long = 0
+    private var timerMilliSeconds: Long = 0
     private var timerState = TimerState.Stopped
 
-    private var secondsRemaining: Long = 0
 
-    private var progressCountdown: MyProgressBar? = null
     private var countdown: TextView? = null
 
     override fun onCreateView(
@@ -43,7 +41,6 @@ class TimerFrag : Fragment() {
     ): View? {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_timer, container, false)
 
-//        progressCountdown = bind!!.progressbar
         countdown = bind!!.countdown
 
         timerLay = bind!!.timerList
@@ -74,17 +71,16 @@ class TimerFrag : Fragment() {
             }
 
             override fun onTick(p0: Long) {
-                timer_milli_seconds = p0
+                timerMilliSeconds = p0
             }
         }
     }
 
     private fun updateTimerUI() {
-        val minute = (timer_milli_seconds / 1000) / 60
-        val seconds = (timer_milli_seconds / 1000) % 60
+        val minute = (timerMilliSeconds / 1000) / 60
+        val seconds = (timerMilliSeconds / 1000) % 60
 
         countdown!!.text = "$ "
     }
-
 
 }
