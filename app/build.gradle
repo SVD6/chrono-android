@@ -38,14 +38,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'androidx.preference:preference-ktx:1.1.1'
 
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+
     // Firebase Dependencies
-    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.3'
-    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Design/UI Dependencies
     implementation 'com.google.android.material:material:1.1.0'
-    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
-    implementation 'com.github.GoodieBag:HorizontalPicker:v1.0'
+//    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+//    implementation 'com.github.GoodieBag:HorizontalPicker:v1.0'
 
     // DataBinding
     kapt 'com.android.databinding:compiler:2.3.1'
