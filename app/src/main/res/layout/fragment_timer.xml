@@ -119,14 +119,15 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/large_element_padding"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:paddingVertical="@dimen/huge_element_padding">
 
-                <com.example.chrono.util.components.MyProgressBar
-                    android:id="@+id/progressbar"
-                    android:layout_width="360dp"
-                    android:layout_height="360dp"
-                    android:layout_centerInParent="true"
-                    android:clickable="true" />
+                <!--                <com.example.chrono.util.components.MyProgressBar-->
+                <!--                    android:id="@+id/progressbar"-->
+                <!--                    android:layout_width="360dp"-->
+                <!--                    android:layout_height="360dp"-->
+                <!--                    android:layout_centerInParent="true"-->
+                <!--                    android:clickable="true" />-->
 
                 <TextView
                     android:id="@+id/countdown"
@@ -134,6 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/opensans_regular"
+                    android:gravity="center"
                     android:text="00:00:00"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:textSize="@dimen/xxl_huge_text" />
