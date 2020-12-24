@@ -52,7 +52,7 @@ class TimerFrag : Fragment() {
                     startTimer(6000)
                 }
                 TimerState.Running -> {
-
+                    // Test
                 }
             }
         }
