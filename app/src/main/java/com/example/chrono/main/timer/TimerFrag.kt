@@ -1,6 +1,5 @@
 package com.example.chrono.main.timer
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -11,9 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentTimerBinding
-import java.sql.Time
+import java.util.*
+import kotlin.concurrent.schedule
 import kotlin.math.roundToInt
-import kotlin.properties.Delegates
 
 
 class TimerFrag : Fragment() {
@@ -36,7 +35,7 @@ class TimerFrag : Fragment() {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_timer, container, false)
 
         bind!!.startbutton.setOnClickListener {
-            createTimer(20, false)
+            createTimer(10, false)
             timerState = TimerState.RUNNING
             updateButtonUI()
         }
@@ -74,6 +73,8 @@ class TimerFrag : Fragment() {
 
                 override fun onFinish() {
                     Toast.makeText(context, "Timer completed.", Toast.LENGTH_LONG).show()
+                    timerState = TimerState.INIT
+                    updateButtonUI()
                 }
             }.start()
         } else {
@@ -87,6 +88,8 @@ class TimerFrag : Fragment() {
 
                 override fun onFinish() {
                     Toast.makeText(context, "Timer completed.", Toast.LENGTH_LONG).show()
+                    timerState = TimerState.INIT
+                    updateButtonUI()
                 }
             }.start()
         }
