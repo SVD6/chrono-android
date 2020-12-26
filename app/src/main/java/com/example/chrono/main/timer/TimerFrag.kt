@@ -10,13 +10,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentTimerBinding
-import java.util.*
-import kotlin.concurrent.schedule
 import kotlin.math.roundToInt
 
 
 class TimerFrag : Fragment() {
-    var bind: FragmentTimerBinding? = null
+    private var bind: FragmentTimerBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
 
@@ -78,7 +76,7 @@ class TimerFrag : Fragment() {
                 }
             }.start()
         } else {
-            countdown = object: CountDownTimer((seconds * 1000 + 500).toLong(), 250) {
+            countdown = object: CountDownTimer((seconds * 1000 + 250).toLong(), 250) {
                 override fun onTick(p0: Long) {
                     if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                         secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()
@@ -103,6 +101,12 @@ class TimerFrag : Fragment() {
     // Update the buttons layout based on the current state of the timer
     private fun updateButtonUI() {
         when (timerState) {
+            TimerState.INIT -> {
+                bind!!.initButtonLay.visibility = View.VISIBLE
+                bind!!.runButtonLay.visibility = View.GONE
+                bind!!.pauseButtonLay.visibility = View.GONE
+                bind!!.countdown.text = "0"
+            }
             TimerState.RUNNING -> {
                 bind!!.initButtonLay.visibility = View.GONE
                 bind!!.runButtonLay.visibility = View.VISIBLE
@@ -112,12 +116,6 @@ class TimerFrag : Fragment() {
                 bind!!.initButtonLay.visibility = View.GONE
                 bind!!.runButtonLay.visibility = View.GONE
                 bind!!.pauseButtonLay.visibility = View.VISIBLE
-            }
-            TimerState.INIT -> {
-                bind!!.initButtonLay.visibility = View.VISIBLE
-                bind!!.runButtonLay.visibility = View.GONE
-                bind!!.pauseButtonLay.visibility = View.GONE
-                bind!!.countdown.text = "0"
             }
         }
     }

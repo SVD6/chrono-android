@@ -2,6 +2,13 @@
   <dictionary name="vikra">
     <words>
       <w>chrono</w>
+      <w>lapbutton</w>
+      <w>opensans</w>
+      <w>pausebutton</w>
+      <w>resetbutton</w>
+      <w>resumebutton</w>
+      <w>startbutton</w>
+      <w>stopbutton</w>
     </words>
   </dictionary>
 </component>
