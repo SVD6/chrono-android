@@ -23,12 +23,10 @@ class StopwatchFrag : Fragment() {
     private var swatchState: SwatchState = SwatchState.INIT
     private var offset: Int = 0
 
-    var isPlaying: Boolean = false
-    var init_stopwatch = false // Clock has not been initialized
+    private var lapCount = 0
 
-    var lap_header_active = false
-    var header_view: View? = null
-    var lap_count = 0
+    private var lap_header_active = false
+    private var header_view: View? = null
     var lastLap = 0.toLong()
 
     override fun onCreateView(
@@ -37,6 +35,7 @@ class StopwatchFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
+        header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
         swatch = bind!!.chronometer
 
         swatch.base = SystemClock.elapsedRealtime() - offset
@@ -70,10 +69,8 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.lapbutton.setOnClickListener {
-
+            lap()
         }
-
-        header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
 
         return bind!!.root
     }
@@ -86,12 +83,8 @@ class StopwatchFrag : Fragment() {
         }
 
         //track lap numbers
-        lap_count += 1
-        var lap_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
-
-        //get lap numbers
-        lap_view.lapNum.text = lap_count.toString()
-
+        lapCount += 1
+        var lapView = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
         var timeNow = SystemClock.elapsedRealtime() - chronometer!!.base
 
         // get overall time that the current lap finished at.
@@ -103,9 +96,10 @@ class StopwatchFrag : Fragment() {
         var lapTime = getTime(lapTimeDiff)
 
         //set text views
-        lap_view.lapTimes.text = lapTime
-        lap_view.overallTime.text = overall_time
-        container.addView(lap_view)
+        lapView.lapNum.text = lapCount.toString()
+        lapView.lapTimes.text = lapTime
+        lapView.overallTime.text = overall_time
+        bind!!.container.addView(lapView)
     }
 
     private fun getTime(timeElapsed: Long): String {
