@@ -19,6 +19,13 @@ import java.text.DecimalFormat
 
 class StopwatchFrag : Fragment() {
     var bind: FragmentStopwatchBinding? = null
+
+    enum class SwatchState { INITIAL, RUNNING, PAUSED}
+
+    var swatchState: SwatchState = SwatchState.INITIAL
+
+    lateinit var swatch: MyChronometer
+
     var isPlaying: Boolean = false
     var init_stopwatch = false // Clock has not been initialized
 
@@ -42,6 +49,7 @@ class StopwatchFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
+
         header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
 
         chronometer = bind!!.chronometer
