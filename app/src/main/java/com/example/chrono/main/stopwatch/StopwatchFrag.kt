@@ -17,7 +17,7 @@ import java.text.DecimalFormat
 class StopwatchFrag : Fragment() {
     private var bind: FragmentStopwatchBinding? = null
 
-    enum class SwatchState { INIT, RUNNING, STOPPED}
+    enum class SwatchState { INIT, RUNNING, STOPPED }
 
     private lateinit var swatch: MyChronometer
     private var swatchState: SwatchState = SwatchState.INIT
@@ -79,7 +79,7 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun lap() {
-        if(!lap_header_active){
+        if (!lap_header_active) {
             //we need to add in the lap table header
             container.addView(header_view)
             lap_header_active = true
@@ -100,7 +100,7 @@ class StopwatchFrag : Fragment() {
         // get lap time for current lap
         var lapTimeDiff = timeNow - lastLap
         lastLap = lapTimeDiff
-        var lapTime= getTime(lapTimeDiff)
+        var lapTime = getTime(lapTimeDiff)
 
         //set text views
         lap_view.lapTimes.text = lapTime
@@ -108,7 +108,7 @@ class StopwatchFrag : Fragment() {
         container.addView(lap_view)
     }
 
-    private fun getTime(timeElapsed: Long) : String{
+    private fun getTime(timeElapsed: Long): String {
 
         val df = DecimalFormat("00")
 
