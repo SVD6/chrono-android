@@ -5,196 +5,86 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentStopwatchBinding
 import com.example.chrono.util.components.MyChronometer
-import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
 import kotlinx.android.synthetic.main.lap_row.view.*
 import java.text.DecimalFormat
 
 class StopwatchFrag : Fragment() {
-    var bind: FragmentStopwatchBinding? = null
-    var isPlaying: Boolean = false
-    var init_stopwatch = false // Clock has not been initialized
+    private var bind: FragmentStopwatchBinding? = null
 
-    var chronometer: MyChronometer? = null
-    var singlestartstopbutton: MaterialButton? = null
-    var multissbutton: MaterialButton? = null
-    var resetlapbutton: MaterialButton? = null
-    var offset: Int = 0
+    enum class SwatchState { INIT, RUNNING, STOPPED }
 
-    var single_button_layout: LinearLayout? = null
-    var multi_button_layout: LinearLayout? = null
+    private lateinit var swatch: MyChronometer
+    private var swatchState: SwatchState = SwatchState.INIT
+    private var offset: Int = 0
 
-    var lap_header_active = false
-    var header_view: View? = null
-    var lap_count = 0
+    private var lapCount = 0
+
+    private var lap_header_active = false
+    private var header_view: View? = null
     var lastLap = 0.toLong()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
         header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
+        swatch = bind!!.chronometer
 
-        chronometer = bind!!.chronometer
+        swatch.base = SystemClock.elapsedRealtime() - offset
 
-        singlestartstopbutton = bind!!.singlestartstopbutton
-        multissbutton = bind!!.multissbutton
-        resetlapbutton = bind!!.resetlapbutton
-
-        single_button_layout = bind!!.singlebutton
-        multi_button_layout = bind!!.multibuttons
-
-        singlestartstopbutton?.setOnClickListener {
-            if (!isPlaying) {
-                playingUI()
-            } else {
-                pausedUI()
-            }
-        }
-        multissbutton?.setOnClickListener {
-            if (!isPlaying) {
-                playingUI()
-            } else {
-                pausedUI()
-            }
+        bind!!.startbutton.setOnClickListener {
+            swatch.start()
+            swatchState = SwatchState.RUNNING
+            updateButtonUI()
         }
 
-        bind!!.resetlapbutton.setOnClickListener {
-            if(!isPlaying){
-                //The stopwatch is not running, therefore user clicked the reset button
-                reset()
-            } else {
-                //The stopwatch is running, therefore the button is a lap button
-                lap()
-            }
+        bind!!.stopbutton.setOnClickListener {
+            swatch.stop()
+            offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
+            swatchState = SwatchState.STOPPED
+            updateButtonUI()
         }
 
-        chronometer!!.setOnClickListener {
-            if (!isPlaying) {
-                playingUI()
-            } else {
-                pausedUI()
-                isPlaying = false
-            }
+        bind!!.resumebutton.setOnClickListener {
+            swatch.base = SystemClock.elapsedRealtime() - offset
+            swatch.start()
+            swatchState = SwatchState.RUNNING
+            updateButtonUI()
         }
 
-        chronometer!!.setOnLongClickListener {
-            reset()
-            return@setOnLongClickListener true
+        bind!!.resetbutton.setOnClickListener {
+            swatch.stop()
+            swatch.base = SystemClock.elapsedRealtime()
+            offset = 0
+            swatchState = SwatchState.INIT
+            updateButtonUI()
+        }
+
+        bind!!.lapbutton.setOnClickListener {
+            lap()
         }
 
         return bind!!.root
     }
 
-    private fun playingUI() {
-        if (!init_stopwatch) { //The stopwatch has not been initialized and this is the first instance of it starting.
-                single_button_layout!!.visibility = View.GONE
-                multi_button_layout!!.visibility = View.VISIBLE
-
-            init_stopwatch =  true//Init is done
-        }
-
-        chronometer!!.base = SystemClock.elapsedRealtime() - offset
-        chronometer!!.start()
-        isPlaying = true
-
-        singlestartstopbutton?.setText(R.string.stop)
-        singlestartstopbutton?.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(), R.color.stop_red
-            )
-        )
-
-        multissbutton?.setText(R.string.stop)
-        multissbutton?.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(), R.color.stop_red
-            )
-        )
-
-        resetlapbutton?.text = "Lap"
-        resetlapbutton?.setBackgroundColor(
-            ContextCompat.getColor(requireContext(), R.color.lap_blue)
-        )
-    }
-
-    private fun pausedUI() {
-        chronometer!!.stop()
-        offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
-        isPlaying = false
-
-        singlestartstopbutton?.setText(R.string.resume)
-        singlestartstopbutton?.setBackgroundColor(
-            ContextCompat.getColor(requireContext(), R.color.resume_green)
-        )
-
-        multissbutton?.setText(R.string.resume)
-        multissbutton?.setBackgroundColor(
-            ContextCompat.getColor(requireContext(), R.color.resume_green)
-        )
-
-        resetlapbutton?.text = "Reset"
-        resetlapbutton?.setBackgroundColor(
-            ContextCompat.getColor(requireContext(), R.color.reset_grey)
-        )
-    }
-
-    private fun reset() {
-        chronometer!!.stop()
-        chronometer!!.base = SystemClock.elapsedRealtime()
-        offset = 0
-        isPlaying = false
-
-        if (init_stopwatch){
-            single_button_layout!!.visibility = View.VISIBLE
-            multi_button_layout!!.visibility = View.GONE
-
-            init_stopwatch = false
-        }
-
-        if (lap_header_active){
-            container.removeView(header_view)
-            lap_header_active = false
-            lap_count = 0
-            lastLap = 0.toLong()
-            container.removeAllViews()
-
-        }
-
-        singlestartstopbutton?.setText(R.string.start)
-        singlestartstopbutton?.setBackgroundColor(
-            ContextCompat.getColor(requireContext(), R.color.resume_green)
-        )
-
-        multissbutton?.setText(R.string.start)
-        multissbutton?.setBackgroundColor(
-            ContextCompat.getColor(requireContext(), R.color.resume_green)
-        )
-    }
-
     private fun lap() {
-        if(!lap_header_active){
+        if (!lap_header_active) {
             //we need to add in the lap table header
             container.addView(header_view)
             lap_header_active = true
         }
 
         //track lap numbers
-        lap_count += 1
-        var lap_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
-
-        //get lap numbers
-        lap_view.lapNum.text = lap_count.toString()
-
+        lapCount += 1
+        var lapView = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
         var timeNow = SystemClock.elapsedRealtime() - chronometer!!.base
 
         // get overall time that the current lap finished at.
@@ -203,15 +93,16 @@ class StopwatchFrag : Fragment() {
         // get lap time for current lap
         var lapTimeDiff = timeNow - lastLap
         lastLap = lapTimeDiff
-        var lapTime= getTime(lapTimeDiff)
+        var lapTime = getTime(lapTimeDiff)
 
         //set text views
-        lap_view.lapTimes.text = lapTime
-        lap_view.overallTime.text = overall_time
-        container.addView(lap_view)
+        lapView.lapNum.text = lapCount.toString()
+        lapView.lapTimes.text = lapTime
+        lapView.overallTime.text = overall_time
+        bind!!.container.addView(lapView)
     }
 
-    private fun getTime(timeElapsed: Long) : String{
+    private fun getTime(timeElapsed: Long): String {
 
         val df = DecimalFormat("00")
 
@@ -219,13 +110,13 @@ class StopwatchFrag : Fragment() {
         var remaining = (timeElapsed % (3600 * 1000))
 
         val minutes = remaining / (60 * 1000)
-        remaining = remaining % (60 * 1000)
+        remaining %= (60 * 1000)
 
         val seconds = remaining / 1000
-        remaining = remaining % 1000
+        remaining %= 1000
 
         val milliseconds = timeElapsed % 1000 / 100
-        remaining = remaining % 100
+        remaining %= 100
 
         val tenthmillisecond = remaining % 10
 
@@ -241,4 +132,60 @@ class StopwatchFrag : Fragment() {
 
         return text
     }
+
+    // Update the buttons layout based on the current state of the timer
+    private fun updateButtonUI() {
+        when (swatchState) {
+            SwatchState.INIT -> {
+                bind!!.initButtonLay.visibility = View.VISIBLE
+                bind!!.runButtonLay.visibility = View.GONE
+                bind!!.stopButtonLay.visibility = View.GONE
+//                bind!!.countdown.text = "0"
+            }
+            SwatchState.RUNNING -> {
+                bind!!.initButtonLay.visibility = View.GONE
+                bind!!.runButtonLay.visibility = View.VISIBLE
+                bind!!.stopButtonLay.visibility = View.GONE
+            }
+            SwatchState.STOPPED -> {
+                bind!!.initButtonLay.visibility = View.GONE
+                bind!!.runButtonLay.visibility = View.GONE
+                bind!!.stopButtonLay.visibility = View.VISIBLE
+            }
+        }
+    }
 }
+
+
+//    private fun reset() {
+//        chronometer!!.stop()
+//        chronometer!!.base = SystemClock.elapsedRealtime()
+//        offset = 0
+//        isPlaying = false
+//
+//        if (init_stopwatch){
+//            single_button_layout!!.visibility = View.VISIBLE
+//            multi_button_layout!!.visibility = View.GONE
+//
+//            init_stopwatch = false
+//        }
+//
+//        if (lap_header_active){
+//            container.removeView(header_view)
+//            lap_header_active = false
+//            lap_count = 0
+//            lastLap = 0.toLong()
+//            container.removeAllViews()
+//
+//        }
+//
+//        singlestartstopbutton?.setText(R.string.start)
+//        singlestartstopbutton?.setBackgroundColor(
+//            ContextCompat.getColor(requireContext(), R.color.resume_green)
+//        )
+//
+//        multissbutton?.setText(R.string.start)
+//        multissbutton?.setBackgroundColor(
+//            ContextCompat.getColor(requireContext(), R.color.resume_green)
+//        )
+//    }

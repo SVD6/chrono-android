@@ -1,46 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:padding="@dimen/huge_text"
-android:stretchColumns="1">
-    <TableRow
-        android:layout_gravity="center">
-        <TextView
-            android:text="placeholder"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:id="@+id/lapNum"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/small_text"
-            app:cornerRadius="10dp"
-            android:layout_gravity="center"
-            ></TextView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="@dimen/huge_text">
 
-        <TextView
-            android:text="placeholder"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:id="@+id/lapTimes"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/small_text"
-            app:cornerRadius="10dp"
-            android:layout_gravity="center"
-            ></TextView>
+    <TextView
+        android:id="@+id/lapNum"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/lap_blue"
+        android:textSize="@dimen/small_text"
+        app:cornerRadius="10dp"/>
 
-        <TextView
-            android:text="placeholder"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:id="@+id/overallTime"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/small_text"
-            app:cornerRadius="10dp"
-            android:layout_gravity="center"
-            ></TextView>
-    </TableRow>
-</TableLayout>
+    <TextView
+        android:id="@+id/lapTimes"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/lap_blue"
+        android:textSize="@dimen/small_text"
+        app:cornerRadius="10dp"/>
+
+    <TextView
+        android:id="@+id/overallTime"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/lap_blue"
+        android:textSize="@dimen/small_text"
+        app:cornerRadius="10dp"/>
+</LinearLayout>
