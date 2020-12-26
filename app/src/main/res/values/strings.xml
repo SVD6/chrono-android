@@ -8,6 +8,4 @@
     <string name="lap">Lap</string>
     <string name="playing">Playing...</string>
     <string name="stopped">Stopped...</string>
-    <string name="_0">0</string>
-    <string name="chronometer">Chronometer</string>
 </resources>

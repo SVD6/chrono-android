@@ -12,21 +12,121 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <LinearLayout
+                    android:id="@+id/timer_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:isScrollContainer="true"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/medium_element_padding">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/small_element_padding"
+                        android:backgroundTint="@color/dark_grey"
+                        android:clickable="true"
+                        app:cardCornerRadius="@dimen/xs_medium_element_padding"
+                        app:cardElevation="@dimen/xs_small_element_padding">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/xs_medium_element_padding">
+
+                            <ImageView
+                                android:id="@+id/timer_icon1"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/ic_mat"
+                                android:tint="@color/white" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/medium_element_padding"
+                                android:layout_toRightOf="@+id/timer_icon1"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Pre Workout Stretch Circuit"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/xl_medium_text" />
+
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/small_element_padding"
+                        android:backgroundTint="@color/dark_grey"
+                        android:clickable="true"
+                        app:cardCornerRadius="@dimen/xs_medium_element_padding"
+                        app:cardElevation="@dimen/xs_small_element_padding">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/xs_medium_element_padding">
+
+                            <ImageView
+                                android:id="@+id/timer_icon"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/ic_abs"
+                                android:tint="@color/white" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/medium_element_padding"
+                                android:layout_toRightOf="@+id/timer_icon"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Ab Wheel Circuit"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/xl_medium_text" />
+
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <include
+                        android:id="@+id/timer_1"
+                        layout="@layout/timer_card_lay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/small_element_padding" />
+
+                    <include
+                        android:id="@+id/create_timer"
+                        layout="@layout/create_timer_lay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/small_element_padding" />
+
+                </LinearLayout>
+            </ScrollView>
+
             <RelativeLayout
                 android:id="@+id/timerlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/small_element_padding"
+                android:layout_margin="@dimen/large_element_padding"
                 android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="@dimen/medium_element_padding">
+                android:focusable="true">
 
-                <!--                <com.example.chrono.util.components.MyProgressBar-->
-                <!--                    android:id="@+id/progressbar"-->
-                <!--                    android:layout_width="360dp"-->
-                <!--                    android:layout_height="360dp"-->
-                <!--                    android:layout_centerInParent="true"-->
-                <!--                    android:clickable="true" />-->
+                <com.example.chrono.util.components.MyProgressBar
+                    android:id="@+id/progressbar"
+                    android:layout_width="360dp"
+                    android:layout_height="360dp"
+                    android:layout_centerInParent="true"
+                    android:clickable="true" />
 
                 <TextView
                     android:id="@+id/countdown"
@@ -34,84 +134,40 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/opensans_regular"
-                    android:gravity="center"
-                    android:text="@string/_0"
-                    android:textSize="@dimen/xl_massive_text" />
+                    android:text="00:00:00"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textSize="@dimen/xxl_huge_text" />
 
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/init_button_lay"
+                android:id="@+id/buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_margin="@dimen/xs_medium_element_padding"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/startbutton"
+                    android:id="@+id/startstopbutton"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/resume_green"
-                    android:text="@string/start"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/xl_medium_text"
-                    app:cornerRadius="13dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/run_button_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/xs_medium_element_padding"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/pausebutton"
-                    android:layout_width="125dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="@dimen/medium_element_padding"
-                    android:backgroundTint="@color/lap_blue"
-                    android:text="@string/pause"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/xl_medium_text"
-                    app:cornerRadius="13dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/pause_button_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/xs_medium_element_padding"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/resumebutton"
-                    android:layout_width="125dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="@dimen/medium_element_padding"
-                    android:backgroundTint="@color/resume_green"
-                    android:text="@string/resume"
+                    android:text="Start"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
                     app:cornerRadius="13dp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/stopbutton"
+                    android:id="@+id/resetbutton"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
-                    android:backgroundTint="@color/stop_red"
-                    android:text="@string/stop"
+                    android:backgroundTint="@color/reset_grey"
+                    android:text="Reset"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
@@ -121,105 +177,3 @@
         </LinearLayout>
     </RelativeLayout>
 </layout>
-
-
-    <!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="200dp">-->
-
-    <!--<LinearLayout-->
-    <!--    android:id="@+id/timer_list"-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    android:isScrollContainer="true"-->
-    <!--    android:orientation="vertical"-->
-    <!--    android:paddingHorizontal="@dimen/medium_element_padding">-->
-
-    <!--    <com.google.android.material.card.MaterialCardView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="@dimen/small_element_padding"-->
-    <!--        android:backgroundTint="@color/dark_grey"-->
-    <!--        android:clickable="true"-->
-    <!--        app:cardCornerRadius="@dimen/xs_medium_element_padding"-->
-    <!--        app:cardElevation="@dimen/xs_small_element_padding">-->
-
-    <!--        <RelativeLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:padding="@dimen/xs_medium_element_padding">-->
-
-    <!--            <ImageView-->
-    <!--                android:id="@+id/timer_icon1"-->
-    <!--                android:layout_width="45dp"-->
-    <!--                android:layout_height="45dp"-->
-    <!--                android:src="@drawable/ic_mat"-->
-    <!--                android:tint="@color/white" />-->
-
-    <!--            <com.google.android.material.textview.MaterialTextView-->
-    <!--                android:layout_width="200dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_centerVertical="true"-->
-    <!--                android:layout_marginLeft="@dimen/medium_element_padding"-->
-    <!--                android:layout_toRightOf="@+id/timer_icon1"-->
-    <!--                android:ellipsize="end"-->
-    <!--                android:maxLines="1"-->
-    <!--                android:text="Pre Workout Stretch Circuit"-->
-    <!--                android:textColor="@color/white"-->
-    <!--                android:textSize="@dimen/xl_medium_text" />-->
-
-    <!--        </RelativeLayout>-->
-    <!--    </com.google.android.material.card.MaterialCardView>-->
-
-    <!--    <com.google.android.material.card.MaterialCardView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="@dimen/small_element_padding"-->
-    <!--        android:backgroundTint="@color/dark_grey"-->
-    <!--        android:clickable="true"-->
-    <!--        app:cardCornerRadius="@dimen/xs_medium_element_padding"-->
-    <!--        app:cardElevation="@dimen/xs_small_element_padding">-->
-
-    <!--        <RelativeLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:padding="@dimen/xs_medium_element_padding">-->
-
-    <!--            <ImageView-->
-    <!--                android:id="@+id/timer_icon"-->
-    <!--                android:layout_width="45dp"-->
-    <!--                android:layout_height="45dp"-->
-    <!--                android:src="@drawable/ic_abs"-->
-    <!--                android:tint="@color/white" />-->
-
-    <!--            <com.google.android.material.textview.MaterialTextView-->
-    <!--                android:layout_width="200dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_centerVertical="true"-->
-    <!--                android:layout_marginLeft="@dimen/medium_element_padding"-->
-    <!--                android:layout_toRightOf="@+id/timer_icon"-->
-    <!--                android:ellipsize="end"-->
-    <!--                android:maxLines="1"-->
-    <!--                android:text="Ab Wheel Circuit"-->
-    <!--                android:textColor="@color/white"-->
-    <!--                android:textSize="@dimen/xl_medium_text" />-->
-
-    <!--        </RelativeLayout>-->
-    <!--    </com.google.android.material.card.MaterialCardView>-->
-
-    <!--    <include-->
-    <!--        android:id="@+id/timer_1"-->
-    <!--        layout="@layout/timer_card_lay"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="@dimen/small_element_padding" />-->
-
-    <!--    <include-->
-    <!--        android:id="@+id/create_timer"-->
-    <!--        layout="@layout/create_timer_lay"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="@dimen/small_element_padding" />-->
-
-    <!--</LinearLayout>-->
-    <!--</ScrollView>-->
