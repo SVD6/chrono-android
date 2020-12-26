@@ -14,11 +14,10 @@ import com.example.chrono.main.timer.TimerFrag
 import com.example.chrono.util.BaseActivity
 import com.google.android.material.tabs.TabLayout
 
-
 class MainActivity : BaseActivity() {
 
-    var pager: ViewPager? = null // ViewPager where the fragments sit
-    var bind: ActivityMainBinding? = null // Bind variable for the activity
+    private var pager: ViewPager? = null // ViewPager where the fragments sit
+    private var bind: ActivityMainBinding? = null // Bind variable for the activity
     private var tablay: TabLayout? = null // The timer/stopwatch navigation tab layout
 
     override fun onCreate(savedInstanceState: Bundle?) {

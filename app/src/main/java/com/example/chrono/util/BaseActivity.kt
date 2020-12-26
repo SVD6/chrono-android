@@ -16,17 +16,17 @@ open class BaseActivity : AppCompatActivity() {
 
         // The code to mess around with the status bar, only works on KitKat and onwards
         // If it's after KitKat we change the color of the status bar, else we just make it invisible
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val w: Window = window
-            w.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-            val decor = window.decorView
-            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        } else {
-            setStatusBarInvisible()
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            val w: Window = window
+//            w.setFlags(
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//            )
+//            val decor = window.decorView
+//            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        } else {
+//            setStatusBarInvisible()
+//        }
     }
 
     public override fun onSaveInstanceState(state: Bundle) {

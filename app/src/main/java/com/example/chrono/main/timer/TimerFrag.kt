@@ -18,11 +18,11 @@ class TimerFrag : Fragment() {
 
     enum class TimerState { INIT, RUNNING, PAUSED }
 
-    enum class RunningState { INITIAL, WORK, REST }
+//    enum class RunningState { INITIAL, WORK, REST }
 
     private lateinit var countdown: CountDownTimer
     private var timerState: TimerState = TimerState.INIT
-    private lateinit var runningState: RunningState
+//    private lateinit var runningState: RunningState
     private var secondsLeft: Float = 0.0f
 
     override fun onCreateView(

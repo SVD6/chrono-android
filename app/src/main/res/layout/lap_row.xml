@@ -14,7 +14,7 @@
         android:textAllCaps="false"
         android:textColor="@color/lap_blue"
         android:textSize="@dimen/small_text"
-        app:cornerRadius="10dp"/>
+        app:cornerRadius="10dp" />
 
     <TextView
         android:id="@+id/lapTimes"
@@ -24,7 +24,7 @@
         android:textAllCaps="false"
         android:textColor="@color/lap_blue"
         android:textSize="@dimen/small_text"
-        app:cornerRadius="10dp"/>
+        app:cornerRadius="10dp" />
 
     <TextView
         android:id="@+id/overallTime"
@@ -34,5 +34,5 @@
         android:textAllCaps="false"
         android:textColor="@color/lap_blue"
         android:textSize="@dimen/small_text"
-        app:cornerRadius="10dp"/>
+        app:cornerRadius="10dp" />
 </LinearLayout>
