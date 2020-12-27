@@ -3,20 +3,19 @@ package com.example.chrono.main.timer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityTimerCreateBinding
 import com.example.chrono.util.objects.CircuitObject
 
-class TimerCreate : AppCompatActivity() {
+class CircuitCreate : AppCompatActivity() {
 
     var bind: ActivityTimerCreateBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bind = DataBindingUtil.setContentView(this, R.layout.activity_timer_create)
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
 
         bind!!.nameInput.setStartIconOnClickListener {
             // Select icon :)

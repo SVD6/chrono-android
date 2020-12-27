@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityMainBinding
 import com.example.chrono.main.stopwatch.StopwatchFrag
-import com.example.chrono.main.timer.TimerFrag
+import com.example.chrono.main.timer.CircuitFrag
 import com.example.chrono.util.BaseActivity
 import com.google.android.material.tabs.TabLayout
 
@@ -51,7 +51,7 @@ class MainActivity : BaseActivity() {
             // Code to switch between the two fragments based on position
             return when (position) {
                 0 -> {
-                    TimerFrag()
+                    CircuitFrag()
                 }
                 else -> {
                     StopwatchFrag()

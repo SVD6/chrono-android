@@ -15,7 +15,7 @@ import com.example.chrono.databinding.FragmentTimerBinding
 import kotlin.math.roundToInt
 
 
-class TimerFrag : Fragment() {
+class CircuitFrag : Fragment() {
     private var bind: FragmentTimerBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
@@ -33,7 +33,7 @@ class TimerFrag : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_timer, container, false)
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_circuit, container, false)
 
         bind!!.startbutton.setOnClickListener {
             createTimer(10, false)
@@ -63,10 +63,10 @@ class TimerFrag : Fragment() {
             // Check if we're running on Android 5.0 or higher
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // Apply activity transition
-                startActivity(Intent(requireContext(), TimerCreate::class.java))
+                startActivity(Intent(requireContext(), CircuitCreate::class.java))
             } else {
                 // Swap without transition
-                startActivity(Intent(requireContext(), TimerCreate::class.java))
+                startActivity(Intent(requireContext(), CircuitCreate::class.java))
             }
 
         }
