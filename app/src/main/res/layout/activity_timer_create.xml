@@ -5,41 +5,225 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/large_element_padding">
+        android:layout_marginTop="@dimen/large_element_padding">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_margin="@dimen/large_element_padding"
+            android:layout_margin="@dimen/medium_element_padding"
+            android:hint="@string/name_input_hint"
+            app:startIconDrawable="@drawable/ic_timer_black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="@dimen/large_text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/sets_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_input"
+            android:layout_marginVertical="@dimen/medium_element_padding"
             android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="@dimen/huge_text" />
+                android:gravity="center"
+                android:text="Sets"
+                android:textSize="@dimen/xl_medium_text" />
 
-            <com.google.android.material.textview.MaterialTextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/xl_large_element_padding"
-                android:text="Icon"
-                android:textSize="@dimen/huge_text" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/xl_large_element_padding">
 
-<!--            <in.goodiebag.carouselpicker.CarouselPicker-->
-<!--                android:id="@+id/carousel"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="#CCC"-->
-<!--                app:items_visible="seven" />-->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:src="@drawable/ic_add"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white" />
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/minus_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:src="@drawable/ic_remove"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/set_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/_0"
+                    android:textSize="@dimen/xxl_huge_text" />
+
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/buttons"
+            android:id="@+id/work_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sets_selection"
+            android:layout_marginVertical="@dimen/medium_element_padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/sets_selection"
+                android:gravity="center"
+                android:text="Work"
+                android:textSize="@dimen/xl_medium_text" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/xl_large_element_padding">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:src="@drawable/ic_add"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/minus_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:src="@drawable/ic_remove"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/set_work_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="@string/_30"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/xxl_huge_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/set_work_time"
+                    android:paddingTop="@dimen/large_element_padding"
+                    android:text="sec"
+                    android:textSize="@dimen/medium_text" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rest_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/work_selection"
+            android:layout_marginVertical="@dimen/medium_element_padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/sets_selection"
+                android:gravity="center"
+                android:text="Rest"
+                android:textSize="@dimen/xl_medium_text" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/xl_large_element_padding">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_rest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:src="@drawable/ic_add"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/minus_rest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:src="@drawable/ic_remove"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/set_rest_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="@string/_30"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/xxl_huge_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/set_rest_time"
+                    android:paddingTop="@dimen/large_element_padding"
+                    android:text="sec"
+                    android:textSize="@dimen/medium_text" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -48,24 +232,24 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/startstopbutton"
+                android:id="@+id/discard_button"
                 android:layout_width="125dp"
                 android:layout_height="60dp"
                 android:layout_margin="@dimen/medium_element_padding"
-                android:backgroundTint="@color/resume_green"
-                android:text="Discard"
+                android:backgroundTint="@color/stop_red"
+                android:text="@string/discard"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/xl_medium_text"
                 app:cornerRadius="13dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/resetbutton"
+                android:id="@+id/save_button"
                 android:layout_width="125dp"
                 android:layout_height="60dp"
                 android:layout_margin="@dimen/medium_element_padding"
-                android:backgroundTint="@color/reset_grey"
-                android:text="Save"
+                android:backgroundTint="@color/resume_green"
+                android:text="@string/save"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/xl_medium_text"

@@ -1,5 +1,7 @@
 package com.example.chrono.main.timer
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -22,7 +24,8 @@ class TimerFrag : Fragment() {
 
     private lateinit var countdown: CountDownTimer
     private var timerState: TimerState = TimerState.INIT
-//    private lateinit var runningState: RunningState
+
+    //    private lateinit var runningState: RunningState
     private var secondsLeft: Float = 0.0f
 
     override fun onCreateView(
@@ -55,13 +58,25 @@ class TimerFrag : Fragment() {
             timerState = TimerState.RUNNING
             updateButtonUI()
         }
+
+        bind!!.newCircuit.setOnClickListener {
+            // Check if we're running on Android 5.0 or higher
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                // Apply activity transition
+                startActivity(Intent(requireContext(), TimerCreate::class.java))
+            } else {
+                // Swap without transition
+                startActivity(Intent(requireContext(), TimerCreate::class.java))
+            }
+
+        }
         return bind!!.root
     }
 
     // Create a countdown timer based on parameters
     private fun createTimer(seconds: Int, wasPaused: Boolean) {
         if (wasPaused) {
-            countdown = object: CountDownTimer((secondsLeft * 1000).toLong(), 250) {
+            countdown = object : CountDownTimer((secondsLeft * 1000).toLong(), 250) {
                 override fun onTick(p0: Long) {
                     if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                         secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()
@@ -76,7 +91,7 @@ class TimerFrag : Fragment() {
                 }
             }.start()
         } else {
-            countdown = object: CountDownTimer((seconds * 1000 + 250).toLong(), 250) {
+            countdown = object : CountDownTimer((seconds * 1000 + 250).toLong(), 250) {
                 override fun onTick(p0: Long) {
                     if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                         secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()
