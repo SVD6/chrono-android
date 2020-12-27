@@ -1,5 +1,6 @@
 package com.example.chrono.main.timer
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -27,6 +28,7 @@ class CircuitCreate : BaseActivity() {
         }
 
         bind!!.discardButton.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED)
             finish()
         }
 
@@ -69,6 +71,7 @@ class CircuitCreate : BaseActivity() {
         PreferenceManager.put(circuits, circuits.key)
 
         Log.i("prefs", "" + PreferenceManager.get("CIRCUITS"))
+        setResult(Activity.RESULT_OK)
         finish()
     }
 

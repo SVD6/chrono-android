@@ -24,9 +24,9 @@ class MainActivity : BaseActivity() {
     private var bind: ActivityMainBinding? = null // Bind variable for the activity
     private lateinit var tablay: TabLayout // The timer/stopwatch navigation tab layout
 
-    lateinit var circuitFrag: CircuitFrag
-    lateinit var circuitDashFrag: CircuitDashboardFrag
-    lateinit var stopwatchFrag: StopwatchFrag
+    private lateinit var circuitFrag: CircuitFrag
+    private lateinit var circuitDashFrag: CircuitDashboardFrag
+    private lateinit var stopwatchFrag: StopwatchFrag
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +56,9 @@ class MainActivity : BaseActivity() {
 
         // Change up some UI elements based on light/dark mode
         if (isUsingNightModeResources()) {
-            tablay!!.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_dark)
+            tablay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_dark)
         } else {
-            tablay!!.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_light)
+            tablay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_light)
         }
     }
 

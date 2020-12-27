@@ -1,5 +1,6 @@
 package com.example.chrono.main.timer
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentCircuitBinding
 import kotlin.math.roundToInt
@@ -62,9 +64,18 @@ class CircuitFrag : Fragment() {
 
         bind!!.newCircuit.setOnClickListener {
             // Apply activity transition
-            startActivity(Intent(requireContext(), CircuitCreate::class.java))
+            startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
+//            startActivity(Intent(requireContext(), CircuitCreate::class.java))
         }
+
         return bind!!.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
+            Log.i("gangshit", "gangshit")
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
