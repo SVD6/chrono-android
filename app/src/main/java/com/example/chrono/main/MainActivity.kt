@@ -69,7 +69,7 @@ class MainActivity : BaseActivity() {
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> {
-                    circuitFrag
+                    circuitDashFrag
                 }
                 else -> {
                     stopwatchFrag

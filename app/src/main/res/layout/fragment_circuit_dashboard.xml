@@ -7,13 +7,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/button"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_element_padding"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_circuit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="HELLO WORLD"
-            android:textSize="@dimen/xl_huge_text" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/medium_element_padding"
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_add"
+            app:borderWidth="0dp"
+            app:tint="@color/white" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        </RelativeLayout>
     </RelativeLayout>
 </layout>
