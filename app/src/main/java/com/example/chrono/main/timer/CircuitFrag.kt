@@ -1,7 +1,6 @@
 package com.example.chrono.main.timer
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -11,12 +10,12 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
-import com.example.chrono.databinding.FragmentTimerBinding
+import com.example.chrono.databinding.FragmentCircuitBinding
 import kotlin.math.roundToInt
 
 
 class CircuitFrag : Fragment() {
-    private var bind: FragmentTimerBinding? = null
+    private var bind: FragmentCircuitBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
 
@@ -60,15 +59,8 @@ class CircuitFrag : Fragment() {
         }
 
         bind!!.newCircuit.setOnClickListener {
-            // Check if we're running on Android 5.0 or higher
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // Apply activity transition
-                startActivity(Intent(requireContext(), CircuitCreate::class.java))
-            } else {
-                // Swap without transition
-                startActivity(Intent(requireContext(), CircuitCreate::class.java))
-            }
-
+            // Apply activity transition
+            startActivity(Intent(requireContext(), CircuitCreate::class.java))
         }
         return bind!!.root
     }

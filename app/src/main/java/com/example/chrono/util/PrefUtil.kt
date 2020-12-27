@@ -1,14 +1,44 @@
 package com.example.chrono.util
 
-class PrefUtil {
-    companion object {
+import android.content.Context
+import android.content.SharedPreferences
+import com.google.gson.GsonBuilder
+
+object PreferenceManager {
+    lateinit var preferences: SharedPreferences
+
+    private const val PREFERENCES_FILE_NAME = "saved_circuits"
+
+    fun with(application: BaseActivity) {
+        preferences = application.getSharedPreferences(
+            PREFERENCES_FILE_NAME, Context.MODE_PRIVATE
+        )
+    }
+
+    fun <T> put(`object`: T, key: String) {
+        //Convert object to JSON String.
+        val jsonString = GsonBuilder().create().toJson(`object`)
+        //Save that String in SharedPreferences
+        preferences.edit().putString(key, jsonString).apply()
+    }
+
+    inline fun <reified T> get(key: String): T? {
+        //We read JSON String which was saved.
+        val value = preferences.getString(key, null)
+        //JSON String was found which means object can be read.
+        //We convert this JSON String to model object. Parameter "c" (of
+        //type Class < T >" is used to cast.
+        return GsonBuilder().create().fromJson(value, T::class.java)
+    }
+}
+
 
 //        private const val TIMER_LENGTH_ID = "com.example.chrono.timer_length"
 //        private const val TIMER_STATE_ID = "com.example.chrono.timer_state"
 //        private const val PREVIOUS_TIMER_LENGTH_SECONDS_ID =
 //            "com.example.chrono.previous_timer_length_seconds"
 //        private const val SECONDS_REMAINING_ID = "com.example.chrono.seconds_remaining"
-//        private const val ALARM_SET_TIME_ID = "com.example.chrono.backgrounded_time"
+//         private const val ALARM_SET_TIME_ID = "com.example.chrono.backgrounded_time"
 //
 //        fun getTimerLength(context: Context): Int {
 //            // placeholder
@@ -60,5 +90,3 @@ class PrefUtil {
 //            editor.putLong(ALARM_SET_TIME_ID, time)
 //            editor.apply()
 //        }
-    }
-}

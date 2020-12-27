@@ -1,19 +1,24 @@
 package com.example.chrono.main.timer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.R
-import com.example.chrono.databinding.ActivityTimerCreateBinding
+import com.example.chrono.databinding.ActivityCircuitCreateBinding
+import com.example.chrono.util.BaseActivity
+import com.example.chrono.util.PreferenceManager
 import com.example.chrono.util.objects.CircuitObject
+import com.example.chrono.util.objects.CircuitsObject
 
-class CircuitCreate : AppCompatActivity() {
+class CircuitCreate : BaseActivity() {
 
-    var bind: ActivityTimerCreateBinding? = null
+    private var bind: ActivityCircuitCreateBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        PreferenceManager.with(this)
 
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
 
@@ -57,11 +62,22 @@ class CircuitCreate : AppCompatActivity() {
         circuit.sets = bind!!.setNum.text.toString().toInt()
         circuit.work = bind!!.setWorkTime.text.toString().toInt()
         circuit.rest = bind!!.setRestTime.text.toString().toInt()
+
+        // Get circuitsobject
+        val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+        // Add circuit to object
+        circuits!!.circuits!!.add(circuit)
+        // Save new circuitsobject to pref
+        PreferenceManager.put(circuits, circuits.key)
+
         Toast.makeText(
             this,
             "" + circuit.name + " " + circuit.sets + " " + circuit.work + " " + circuit.rest,
             Toast.LENGTH_LONG
         ).show()
+
+        Log.i("prefs", "" + PreferenceManager.get("CIRCUITS"))
+
         finish()
     }
 
@@ -86,34 +102,74 @@ class CircuitCreate : AppCompatActivity() {
     }
 
     private fun addSet() {
-        bind!!.setNum.text = (bind!!.setNum.text.toString().toInt() + 1).toString()
+        if (bind!!.setNum.text.toString() == "") {
+            bind!!.setNum.setText("1")
+        } else {
+            bind!!.setNum.setText((bind!!.setNum.text.toString().toInt() + 1).toString())
+        }
     }
 
     private fun minusSet() {
-        if (bind!!.setNum.text.toString().toInt() != 0) {
-            bind!!.setNum.text = (bind!!.setNum.text.toString().toInt() - 1).toString()
+        if (bind!!.setNum.text.toString() == "") {
+            Toast.makeText(
+                this,
+                "Can't have a negative number of sets..? " + ("\uD83E\uDD14"),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            if (bind!!.setNum.text.toString().toInt() != 0) {
+                bind!!.setNum.setText(
+                    (bind!!.setNum.text.toString().toInt() - 1).toString()
+                )
+            }
         }
     }
 
     private fun addWork() {
-        bind!!.setWorkTime.setText((bind!!.setWorkTime.text.toString().toInt() + 1).toString())
+        if (bind!!.setWorkTime.text.toString() == "") {
+            bind!!.setWorkTime.setText("1")
+        } else {
+            bind!!.setWorkTime.setText((bind!!.setWorkTime.text.toString().toInt() + 1).toString())
+        }
     }
 
     private fun minusWork() {
-        if (bind!!.setWorkTime.text.toString().toInt() != 0) {
-            bind!!.setWorkTime.setText((bind!!.setWorkTime.text.toString().toInt() - 1).toString())
+        if (bind!!.setWorkTime.text.toString() == "") {
+            Toast.makeText(
+                this,
+                "Can't have a negative time for work " + ("\uD83D\uDE2C"),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            if (bind!!.setWorkTime.text.toString().toInt() != 0) {
+                bind!!.setWorkTime.setText(
+                    (bind!!.setWorkTime.text.toString().toInt() - 1).toString()
+                )
+            }
         }
     }
 
     private fun addRest() {
-        bind!!.setRestTime.setText((bind!!.setRestTime.text.toString().toInt() + 1).toString())
-    }
-
-    private fun minusRest() {
-        if (bind!!.setRestTime.text.toString().toInt() != 0) {
-            bind!!.setRestTime.setText((bind!!.setRestTime.text.toString().toInt() - 1).toString())
+        if (bind!!.setRestTime.text.toString() == "") {
+            bind!!.setRestTime.setText("1")
+        } else {
+            bind!!.setRestTime.setText((bind!!.setRestTime.text.toString().toInt() + 1).toString())
         }
     }
 
-
+    private fun minusRest() {
+        if (bind!!.setRestTime.text.toString() == "") {
+            Toast.makeText(
+                this,
+                "Can't have a negative time for rest " + ("\uD83D\uDE2C"),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            if (bind!!.setRestTime.text.toString().toInt() != 0) {
+                bind!!.setRestTime.setText(
+                    (bind!!.setRestTime.text.toString().toInt() - 1).toString()
+                )
+            }
+        }
+    }
 }

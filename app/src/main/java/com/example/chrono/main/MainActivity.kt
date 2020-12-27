@@ -12,6 +12,7 @@ import com.example.chrono.databinding.ActivityMainBinding
 import com.example.chrono.main.stopwatch.StopwatchFrag
 import com.example.chrono.main.timer.CircuitFrag
 import com.example.chrono.util.BaseActivity
+import com.example.chrono.util.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : BaseActivity() {
@@ -23,6 +24,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        PreferenceManager.with(this)
 
         // Set the pager and tab layouts by finding them in the bound layout
         pager = bind!!.pager

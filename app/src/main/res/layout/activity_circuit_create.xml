@@ -70,13 +70,18 @@
                     app:borderWidth="0dp"
                     app:tint="@color/white" />
 
-                <com.google.android.material.textview.MaterialTextView
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/set_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:background="@null"
                     android:gravity="center"
-                    android:text="@string/_0"
+                    android:hint="@string/_5"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="@dimen/xxl_huge_text" />
 
             </RelativeLayout>
@@ -147,7 +152,7 @@
                     android:layout_toRightOf="@+id/set_work_time"
                     android:paddingTop="@dimen/large_element_padding"
                     android:text="sec"
-                    android:textSize="@dimen/medium_text" />
+                    android:textSize="@dimen/xs_medium_text" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -217,7 +222,7 @@
                     android:layout_toRightOf="@+id/set_rest_time"
                     android:paddingTop="@dimen/large_element_padding"
                     android:text="sec"
-                    android:textSize="@dimen/medium_text" />
+                    android:textSize="@dimen/xs_medium_text" />
 
             </RelativeLayout>
         </LinearLayout>

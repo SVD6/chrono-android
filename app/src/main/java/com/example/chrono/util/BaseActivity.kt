@@ -5,15 +5,24 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.example.chrono.util.objects.CircuitsObject
 
 open class BaseActivity : AppCompatActivity() {
 
+    var circuits: CircuitsObject? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        PreferenceManager.with(this)
 
+        circuits = CircuitsObject()
+        circuits = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+
+        if (circuits == null) {
+            circuits = CircuitsObject()
+            PreferenceManager.put(circuits, "CIRCUITS")
+        }
         // The code to mess around with the status bar, only works on KitKat and onwards
         // If it's after KitKat we change the color of the status bar, else we just make it invisible
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
