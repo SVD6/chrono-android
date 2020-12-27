@@ -11,20 +11,30 @@ import com.example.chrono.R
 import com.example.chrono.databinding.ActivityMainBinding
 import com.example.chrono.main.stopwatch.StopwatchFrag
 import com.example.chrono.main.timer.CircuitFrag
+import com.example.chrono.main.timer.CircuitDashboardFrag
 import com.example.chrono.util.BaseActivity
 import com.example.chrono.util.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : BaseActivity() {
 
-    private var pager: ViewPager? = null // ViewPager where the fragments sit
+    var pager: ViewPager? = null // ViewPager where the fragments sit
     private var bind: ActivityMainBinding? = null // Bind variable for the activity
     private var tablay: TabLayout? = null // The timer/stopwatch navigation tab layout
+
+    lateinit var circuitFrag: CircuitFrag
+    lateinit var circuitDashFrag: CircuitDashboardFrag
+    lateinit var stopwatchFrag: StopwatchFrag
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
         PreferenceManager.with(this)
+
+        // Initialize Frags
+        circuitFrag = CircuitFrag()
+        circuitDashFrag = CircuitDashboardFrag()
+        stopwatchFrag = StopwatchFrag()
 
         // Set the pager and tab layouts by finding them in the bound layout
         pager = bind!!.pager
@@ -53,10 +63,10 @@ class MainActivity : BaseActivity() {
             // Code to switch between the two fragments based on position
             return when (position) {
                 0 -> {
-                    CircuitFrag()
+                    circuitFrag
                 }
                 else -> {
-                    StopwatchFrag()
+                    stopwatchFrag
                 }
             }
         }

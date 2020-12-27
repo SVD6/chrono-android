@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder
 
 object PreferenceManager {
     lateinit var preferences: SharedPreferences
-
     private const val PREFERENCES_FILE_NAME = "saved_circuits"
 
     fun with(application: BaseActivity) {
@@ -16,22 +15,15 @@ object PreferenceManager {
     }
 
     fun <T> put(`object`: T, key: String) {
-        //Convert object to JSON String.
         val jsonString = GsonBuilder().create().toJson(`object`)
-        //Save that String in SharedPreferences
         preferences.edit().putString(key, jsonString).apply()
     }
 
     inline fun <reified T> get(key: String): T? {
-        //We read JSON String which was saved.
         val value = preferences.getString(key, null)
-        //JSON String was found which means object can be read.
-        //We convert this JSON String to model object. Parameter "c" (of
-        //type Class < T >" is used to cast.
         return GsonBuilder().create().fromJson(value, T::class.java)
     }
 }
-
 
 //        private const val TIMER_LENGTH_ID = "com.example.chrono.timer_length"
 //        private const val TIMER_STATE_ID = "com.example.chrono.timer_state"

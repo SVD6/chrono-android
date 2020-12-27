@@ -63,21 +63,12 @@ class CircuitCreate : BaseActivity() {
         circuit.work = bind!!.setWorkTime.text.toString().toInt()
         circuit.rest = bind!!.setRestTime.text.toString().toInt()
 
-        // Get circuitsobject
+        // Save circuit in Shared Preferences
         val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>("CIRCUITS")
-        // Add circuit to object
         circuits!!.circuits!!.add(circuit)
-        // Save new circuitsobject to pref
         PreferenceManager.put(circuits, circuits.key)
 
-        Toast.makeText(
-            this,
-            "" + circuit.name + " " + circuit.sets + " " + circuit.work + " " + circuit.rest,
-            Toast.LENGTH_LONG
-        ).show()
-
         Log.i("prefs", "" + PreferenceManager.get("CIRCUITS"))
-
         finish()
     }
 

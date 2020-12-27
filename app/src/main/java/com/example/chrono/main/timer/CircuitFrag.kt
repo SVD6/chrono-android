@@ -3,6 +3,7 @@ package com.example.chrono.main.timer
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class CircuitFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_circuit, container, false)
+        Log.i("circuitfrag", "Loaded")
 
         bind!!.startbutton.setOnClickListener {
             createTimer(10, false)
@@ -63,6 +65,11 @@ class CircuitFrag : Fragment() {
             startActivity(Intent(requireContext(), CircuitCreate::class.java))
         }
         return bind!!.root
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        Log.i("circuitfrag", "Loaded")
     }
 
     // Create a countdown timer based on parameters
