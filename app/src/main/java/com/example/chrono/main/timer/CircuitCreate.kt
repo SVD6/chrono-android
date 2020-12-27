@@ -80,7 +80,7 @@ class CircuitCreate : BaseActivity() {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (bind!!.setNum.text.toString().toInt() == 0) {
+        if (!(bind!!.setWorkTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
             Toast.makeText(this, "Number of sets must be greater than 0", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -115,6 +115,12 @@ class CircuitCreate : BaseActivity() {
                 bind!!.setNum.setText(
                     (bind!!.setNum.text.toString().toInt() - 1).toString()
                 )
+            } else {
+                Toast.makeText(
+                    this,
+                    "Can't have a negative number of sets..? " + ("\uD83E\uDD14"),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -139,6 +145,12 @@ class CircuitCreate : BaseActivity() {
                 bind!!.setWorkTime.setText(
                     (bind!!.setWorkTime.text.toString().toInt() - 1).toString()
                 )
+            } else {
+                Toast.makeText(
+                    this,
+                    "Can't have a negative time for work " + ("\uD83D\uDE2C"),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -163,6 +175,12 @@ class CircuitCreate : BaseActivity() {
                 bind!!.setRestTime.setText(
                     (bind!!.setRestTime.text.toString().toInt() - 1).toString()
                 )
+            } else {
+                Toast.makeText(
+                    this,
+                    "Can't have a negative time for rest " + ("\uD83D\uDE2C"),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

@@ -4,11 +4,13 @@
     android:id="@+id/circuit_card_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/medium_element_padding"
+    android:layout_marginTop="@dimen/tiny_element_padding"
     android:layout_marginBottom="@dimen/small_element_padding"
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="@dimen/xs_medium_element_padding"
-    app:cardElevation="@dimen/xs_small_element_padding">
+    app:cardElevation="@dimen/tiny_element_padding">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +24,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/xs_medium_element_padding"
             android:contentDescription="@string/todo"
-            android:src="@drawable/ic_jump_rope" />
+            android:src="@drawable/ic_chrono_app_icon" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/circuit_name"
@@ -39,7 +41,7 @@
             android:layout_below="@+id/circuit_name"
             android:layout_marginStart="@dimen/xl_huge_element_padding"
             android:layout_marginTop="@dimen/xs_small_element_padding"
-            android:text="@string/_0_" />
+            android:text="@string/_0" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"

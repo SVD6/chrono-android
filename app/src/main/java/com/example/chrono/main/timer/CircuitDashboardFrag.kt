@@ -52,17 +52,19 @@ class CircuitDashboardFrag : Fragment() {
 
     private fun loadData() {
         val dataSet = PreferenceManager.get<CircuitsObject>("CIRCUITS")
-        Log.i("gang", "" + dataSet)
-        if (dataSet != null) {
-            Log.i("gang", "" + dataSet.circuits.toString())
-            recyclerView.adapter = CircuitViewAdapter(dataSet.circuits!!)
+        if ((dataSet != null) and (dataSet!!.circuits!!.size > 0)) {
+            bind!!.recyclerView.visibility = View.VISIBLE
+            bind!!.emptyLayout.visibility = View.GONE
 
+            recyclerView.adapter = CircuitViewAdapter(dataSet.circuits!!)
         } else {
+            Log.i("gangshit", "gangshit")
             loadEmptyUI()
         }
     }
 
     private fun loadEmptyUI() {
-        TODO("Not yet implemented")
+        bind!!.recyclerView.visibility = View.GONE
+        bind!!.emptyLayout.visibility = View.VISIBLE
     }
 }

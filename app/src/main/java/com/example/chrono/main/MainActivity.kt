@@ -19,7 +19,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : BaseActivity() {
-
     private lateinit var pager: ViewPager2 // ViewPager where the fragments sit
     private var bind: ActivityMainBinding? = null // Bind variable for the activity
     private lateinit var tablay: TabLayout // The timer/stopwatch navigation tab layout
