@@ -109,7 +109,7 @@ class CircuitCreate : BaseActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setNum.text.toString().toInt() != 0) {
+            if (bind!!.setNum.text.toString().toInt() > 0) {
                 bind!!.setNum.setText(
                     (bind!!.setNum.text.toString().toInt() - 1).toString()
                 )
@@ -139,7 +139,7 @@ class CircuitCreate : BaseActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setWorkTime.text.toString().toInt() != 0) {
+            if (bind!!.setWorkTime.text.toString().toInt() > 0) {
                 bind!!.setWorkTime.setText(
                     (bind!!.setWorkTime.text.toString().toInt() - 1).toString()
                 )
@@ -169,7 +169,7 @@ class CircuitCreate : BaseActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setRestTime.text.toString().toInt() != 0) {
+            if (bind!!.setRestTime.text.toString().toInt() > 0) {
                 bind!!.setRestTime.setText(
                     (bind!!.setRestTime.text.toString().toInt() - 1).toString()
                 )
