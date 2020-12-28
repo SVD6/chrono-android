@@ -6,6 +6,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/new_circuit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/large_element_padding"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/small_element_padding"
+            android:text="+ Create new circuit"
+            android:textSize="@dimen/xl_large_text" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

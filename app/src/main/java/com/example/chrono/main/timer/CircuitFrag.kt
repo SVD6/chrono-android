@@ -1,7 +1,10 @@
 package com.example.chrono.main.timer
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,20 +12,21 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
-import com.example.chrono.databinding.FragmentTimerBinding
+import com.example.chrono.databinding.FragmentCircuitBinding
 import kotlin.math.roundToInt
 
 
-class TimerFrag : Fragment() {
-    private var bind: FragmentTimerBinding? = null
+class CircuitFrag : Fragment() {
+    private var bind: FragmentCircuitBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
 
-    enum class RunningState { INITIAL, WORK, REST }
+//    enum class RunningState { INITIAL, WORK, REST }
 
     private lateinit var countdown: CountDownTimer
     private var timerState: TimerState = TimerState.INIT
-    private lateinit var runningState: RunningState
+
+    //    private lateinit var runningState: RunningState
     private var secondsLeft: Float = 0.0f
 
     override fun onCreateView(
@@ -30,7 +34,8 @@ class TimerFrag : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_timer, container, false)
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_circuit, container, false)
+        Log.i("circuitfrag", "Loaded")
 
         bind!!.startbutton.setOnClickListener {
             createTimer(10, false)
@@ -55,13 +60,32 @@ class TimerFrag : Fragment() {
             timerState = TimerState.RUNNING
             updateButtonUI()
         }
+
+        bind!!.newCircuit.setOnClickListener {
+            // Apply activity transition
+            startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
+//            startActivity(Intent(requireContext(), CircuitCreate::class.java))
+        }
+
         return bind!!.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
+            Log.i("gangshit", "gangshit")
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        Log.i("circuitfrag", "Loaded")
     }
 
     // Create a countdown timer based on parameters
     private fun createTimer(seconds: Int, wasPaused: Boolean) {
         if (wasPaused) {
-            countdown = object: CountDownTimer((secondsLeft * 1000).toLong(), 250) {
+            countdown = object : CountDownTimer((secondsLeft * 1000).toLong(), 250) {
                 override fun onTick(p0: Long) {
                     if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                         secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()
@@ -76,7 +100,7 @@ class TimerFrag : Fragment() {
                 }
             }.start()
         } else {
-            countdown = object: CountDownTimer((seconds * 1000 + 250).toLong(), 250) {
+            countdown = object : CountDownTimer((seconds * 1000 + 250).toLong(), 250) {
                 override fun onTick(p0: Long) {
                     if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                         secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()

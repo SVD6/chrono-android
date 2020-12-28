@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">chrono</string>
+    <string name="app_name">Chrono</string>
+
     <string name="stop">Stop</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
@@ -8,6 +9,20 @@
     <string name="lap">Lap</string>
     <string name="playing">Playing...</string>
     <string name="stopped">Stopped...</string>
-    <string name="_0">0</string>
     <string name="chronometer">Chronometer</string>
+
+    <string name="_0">0</string>
+    <string name="_30">30</string>
+    <string name="_5">5</string>
+
+    <string name="_s">s</string>
+
+    <string name="name_input_hint">Name of Circuit</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+    <string name="todo">TODO</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="rest_">Rest:</string>
+    <string name="work_">Work:</string>
+    <string name="sets"> Sets</string>
 </resources>

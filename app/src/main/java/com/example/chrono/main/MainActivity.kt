@@ -5,73 +5,79 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityMainBinding
 import com.example.chrono.main.stopwatch.StopwatchFrag
-import com.example.chrono.main.timer.TimerFrag
+import com.example.chrono.main.timer.CircuitFrag
+import com.example.chrono.main.timer.CircuitDashboardFrag
 import com.example.chrono.util.BaseActivity
+import com.example.chrono.util.PreferenceManager
 import com.google.android.material.tabs.TabLayout
-
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : BaseActivity() {
+    private lateinit var pager: ViewPager2 // ViewPager where the fragments sit
+    private var bind: ActivityMainBinding? = null // Bind variable for the activity
+    private lateinit var tablay: TabLayout // The timer/stopwatch navigation tab layout
 
-    var pager: ViewPager? = null // ViewPager where the fragments sit
-    var bind: ActivityMainBinding? = null // Bind variable for the activity
-    private var tablay: TabLayout? = null // The timer/stopwatch navigation tab layout
+    private lateinit var circuitFrag: CircuitFrag
+    private lateinit var circuitDashFrag: CircuitDashboardFrag
+    private lateinit var stopwatchFrag: StopwatchFrag
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        PreferenceManager.with(this)
+
+        // Initialize Frags
+        circuitFrag = CircuitFrag()
+        circuitDashFrag = CircuitDashboardFrag()
+        stopwatchFrag = StopwatchFrag()
 
         // Set the pager and tab layouts by finding them in the bound layout
         pager = bind!!.pager
         tablay = bind!!.tablayout
 
         // Set the adapter of the viewpager (our custom fragment adapter below)
-        val fragmentAdapter = TabFragmentAdapter(supportFragmentManager)
-        pager!!.adapter = fragmentAdapter
+        val adapter = TabsPagerAdapter(supportFragmentManager, lifecycle)
+        pager.adapter = adapter
 
         // Tells the tablayout to follow the viewpager
-        tablay!!.setupWithViewPager(pager)
+        TabLayoutMediator(tablay, pager) { tab, position ->
+            when (position) {
+                0 -> tab.text = "Timer"
+                else -> tab.text = "Stopwatch"
+            }
+        }.attach()
 
         // Change up some UI elements based on light/dark mode
         if (isUsingNightModeResources()) {
-            tablay!!.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_dark)
+            tablay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_dark)
         } else {
-            tablay!!.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_light)
+            tablay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_light)
         }
     }
 
     // Our custom tab fragment adapter
-    private inner class TabFragmentAdapter(fm: FragmentManager) :
-        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    private inner class TabsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
+        FragmentStateAdapter(fm, lifecycle) {
 
-        override fun getItem(position: Int): Fragment {
-            // Code to switch between the two fragments based on position
+        override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> {
-                    TimerFrag()
+                    circuitDashFrag
                 }
                 else -> {
-                    StopwatchFrag()
+                    stopwatchFrag
                 }
             }
         }
 
-        override fun getCount(): Int {
+        override fun getItemCount(): Int {
             return 2
-        }
-
-        // Tablayout uses this function to get the titles of the tabs
-        override fun getPageTitle(position: Int): CharSequence {
-            return when (position) {
-                0 -> "Timer"
-                else -> {
-                    return "Stopwatch"
-                }
-            }
         }
     }
 }

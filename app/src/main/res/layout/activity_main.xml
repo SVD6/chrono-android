@@ -12,8 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="true"
-            android:paddingTop="@dimen/xl_large_element_padding"
-            android:paddingHorizontal="@dimen/medium_element_padding">
+            android:paddingHorizontal="@dimen/medium_element_padding"
+            android:paddingTop="@dimen/xl_large_element_padding">
 
             <View
                 android:id="@+id/indicator"
@@ -37,7 +37,7 @@
 
         </FrameLayout>
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

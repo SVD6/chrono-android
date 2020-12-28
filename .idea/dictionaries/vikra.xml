@@ -2,6 +2,8 @@
   <dictionary name="vikra">
     <words>
       <w>chrono</w>
+      <w>gson</w>
+      <w>jsoncircuit</w>
       <w>lapbutton</w>
       <w>opensans</w>
       <w>pausebutton</w>
@@ -9,6 +11,8 @@
       <w>resumebutton</w>
       <w>startbutton</w>
       <w>stopbutton</w>
+      <w>tablay</w>
+      <w>tablayout</w>
     </words>
   </dictionary>
 </component>

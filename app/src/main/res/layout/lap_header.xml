@@ -5,20 +5,23 @@
     android:layout_height="match_parent"
     android:padding="@dimen/huge_text"
     android:stretchColumns="1">
+
     <TableRow>
-        <TextView
-            android:text="Lap Count"
-            android:layout_gravity="center"
-            android:padding="2dp" />
-        <TextView
-            android:text="Lap Times"
-            android:layout_gravity="center"
-            android:padding="2dp" />
 
         <TextView
-            android:text="Overall Time"
             android:layout_gravity="center"
-            android:padding="2dp" />
+            android:padding="2dp"
+            android:text="Lap Count" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:text="Lap Times" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:text="Overall Time" />
     </TableRow>
 
 </TableLayout>
