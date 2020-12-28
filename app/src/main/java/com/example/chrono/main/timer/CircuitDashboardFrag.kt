@@ -1,5 +1,6 @@
 package com.example.chrono.main.timer
 
+import `in`.goodiebag.carouselpicker.CarouselPicker
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -63,5 +64,14 @@ class CircuitDashboardFrag : Fragment() {
     private fun loadEmptyUI() {
         bind!!.recyclerView.visibility = View.GONE
         bind!!.emptyLayout.visibility = View.VISIBLE
+
+        // Carousel stuff get rid of it later.
+        var imageItems: ArrayList<CarouselPicker.PickerItem> = ArrayList()
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_abs))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_arm))
+//        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_boxer))
+
+        val imageAdapter: CarouselPicker.CarouselViewAdapter = CarouselPicker.CarouselViewAdapter(context, imageItems, 0)
+        bind!!.carousel.adapter = imageAdapter
     }
 }
