@@ -3,7 +3,6 @@ package com.example.chrono.main.timer
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,6 @@ class CircuitDashboardFrag : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
-            Log.i("gangshit", "gangshit")
             loadData()
         }
     }
@@ -58,7 +56,6 @@ class CircuitDashboardFrag : Fragment() {
 
             recyclerView.adapter = CircuitViewAdapter(dataSet.circuits!!)
         } else {
-            Log.i("gangshit", "gangshit")
             loadEmptyUI()
         }
     }

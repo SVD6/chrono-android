@@ -29,9 +29,9 @@ class CircuitViewAdapter(private val data: List<CircuitObject>) :
     override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) {
         val circuit = data[position]
         holder.name.text = circuit.name.toString()
-        holder.numSets.text = circuit.sets.toString() + " "
-        holder.timeRest.text = " " + circuit.rest.toString()
-        holder.timeWork.text = " " + circuit.work.toString()
+        holder.numSets.text = circuit.sets.toString() + " Sets"
+        holder.timeRest.text = "Rest:  " + circuit.rest.toString() + "s"
+        holder.timeWork.text = "Work:  " + circuit.work.toString() + "s"
     }
 
     override fun getItemCount(): Int {

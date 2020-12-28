@@ -41,15 +41,7 @@
             android:layout_below="@+id/circuit_name"
             android:layout_marginStart="@dimen/xl_huge_element_padding"
             android:layout_marginTop="@dimen/xs_small_element_padding"
-            android:text="@string/_0" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/circuit_name"
-            android:layout_marginTop="@dimen/xs_small_element_padding"
-            android:layout_toEndOf="@+id/num_sets"
-            android:text="@string/sets" />
+            android:text="@string/placeholder" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -63,29 +55,16 @@
                 android:layout_width="@dimen/medium_element_padding"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:layout_marginHorizontal="@dimen/xs_small_element_padding"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_timer_black" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/rest_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/timer_icon"
-                android:text="@string/rest_" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/rest_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/rest_text"
-                android:text="@string/_0" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/xs_tiny_element_padding"
-                android:layout_toEndOf="@+id/rest_time"
-                android:text="@string/_s" />
+                android:layout_toEndOf="@+id/timer_icon"
+                android:text="@string/placeholder" />
 
         </RelativeLayout>
 
@@ -102,29 +81,16 @@
                 android:layout_width="@dimen/medium_element_padding"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:layout_marginHorizontal="@dimen/xs_small_element_padding"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_clock_black" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/work_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/work_icon"
-                android:text="@string/work_" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/work_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/work_text"
+                android:layout_toEndOf="@+id/work_icon"
                 android:text="@string/_0" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/xs_tiny_element_padding"
-                android:layout_toEndOf="@+id/work_time"
-                android:text="@string/_s" />
 
         </RelativeLayout>
     </RelativeLayout>

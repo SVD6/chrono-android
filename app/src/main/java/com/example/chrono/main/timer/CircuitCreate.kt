@@ -2,7 +2,6 @@ package com.example.chrono.main.timer
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
@@ -70,7 +69,6 @@ class CircuitCreate : BaseActivity() {
         circuits!!.circuits!!.add(circuit)
         PreferenceManager.put(circuits, circuits.key)
 
-        Log.i("prefs", "" + PreferenceManager.get("CIRCUITS"))
         setResult(Activity.RESULT_OK)
         finish()
     }
@@ -81,7 +79,7 @@ class CircuitCreate : BaseActivity() {
             return false
         }
         if (!(bind!!.setWorkTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
-            Toast.makeText(this, "Number of sets must be greater than 0", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Invalid Number of Sets", Toast.LENGTH_SHORT).show()
             return false
         }
         if (!(bind!!.setWorkTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
@@ -107,7 +105,7 @@ class CircuitCreate : BaseActivity() {
         if (bind!!.setNum.text.toString() == "") {
             Toast.makeText(
                 this,
-                "Can't have a negative number of sets..? " + ("\uD83E\uDD14"),
+                "Can't have no sets! " + ("\uD83E\uDD14"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
@@ -137,7 +135,7 @@ class CircuitCreate : BaseActivity() {
         if (bind!!.setWorkTime.text.toString() == "") {
             Toast.makeText(
                 this,
-                "Can't have a negative time for work " + ("\uD83D\uDE2C"),
+                "Can't have no work time! " + ("\uD83D\uDE2C"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
@@ -167,7 +165,7 @@ class CircuitCreate : BaseActivity() {
         if (bind!!.setRestTime.text.toString() == "") {
             Toast.makeText(
                 this,
-                "Can't have a negative time for rest " + ("\uD83D\uDE2C"),
+                "Can't have no rest! " + ("\uD83D\uDE2C"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
