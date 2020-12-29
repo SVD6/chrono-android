@@ -14,7 +14,7 @@ import com.example.chrono.main.stopwatch.StopwatchFrag
 import com.example.chrono.main.timer.CircuitFrag
 import com.example.chrono.main.timer.CircuitDashboardFrag
 import com.example.chrono.util.BaseActivity
-import com.example.chrono.util.PreferenceManager
+import com.example.chrono.util.objects.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

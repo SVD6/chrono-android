@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.chrono.util.objects.CircuitsObject
+import com.example.chrono.util.objects.PreferenceManager
 
 open class BaseActivity : AppCompatActivity() {
 

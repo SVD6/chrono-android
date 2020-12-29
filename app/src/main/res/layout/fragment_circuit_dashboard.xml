@@ -51,8 +51,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_margin="@dimen/xs_medium_element_padding"
-                android:background="#CCC"
-                app:items_visible="five" />
+                android:background="@color/white"
+                app:items_visible="three" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/icon_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/carousel"
+                android:gravity="center"
+                android:text="@string/placeholder"
+                android:textSize="@dimen/medium_text" />
 
         </RelativeLayout>
     </RelativeLayout>

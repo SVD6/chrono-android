@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityCircuitCreateBinding
 import com.example.chrono.util.BaseActivity
-import com.example.chrono.util.PreferenceManager
+import com.example.chrono.util.objects.PreferenceManager
 import com.example.chrono.util.objects.CircuitObject
 import com.example.chrono.util.objects.CircuitsObject
 
