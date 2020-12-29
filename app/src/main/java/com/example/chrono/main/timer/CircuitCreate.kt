@@ -185,22 +185,12 @@ class CircuitCreate : BaseActivity() {
         }
     }
 
-    /**
-     * Floor to the multiple of timeChangeVal
-     *
-     * @param  valToFloor Value that needs to be floored
-     * @return Floor of the provided input
-     */
+    // Floor to a multiple of timeChangeVal
     private fun floorVal(valToFloor: Int): Int {
         return (valToFloor / timeChangeVal) * (timeChangeVal)
     }
 
-    /**
-     * When decrementing set time, subtract to the closest multiple of timeChangeVal
-     *
-     * @param valToRound value that needs to be rounded
-     * @return time decremented to the  multiple of timeChangeVal
-     */
+    //When decrementing set time, subtract to the closest multiple of timeChangeVal
     private fun roundTimeDown(valToRound: Int): Int {
         return if (valToRound % timeChangeVal == 0) {
             valToRound - timeChangeVal
@@ -209,29 +199,18 @@ class CircuitCreate : BaseActivity() {
         }
     }
 
-    /**
-     * Change SetNum textView text
-     *
-     * @param newVal new setNum
-     */
+    //Change SetNum textView text
     private fun setSetNum(newVal: Int) {
         bind!!.setNum.setText(newVal.toString())
     }
 
-    /**
-     * Change SetRestTime textView text
-     *
-     * @param newVal new rest Time
-     */
+    //Change SetRestTime textView text
     private fun setRestTime(newTime: Int) {
         bind!!.setRestTime.setText(newTime.toString())
     }
 
-    /**
-     * Change SetWorkTime textView text
-     *
-     * @param newVal new work Time
-     */
+
+    // Change SetWorkTime textView text
     private fun setWorkTime(newTime: Int) {
         bind!!.setWorkTime.setText(newTime.toString())
     }
