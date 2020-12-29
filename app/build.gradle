@@ -51,5 +51,7 @@ dependencies {
 
     // Other
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Third Party Libraries
     implementation 'com.github.GoodieBag:CarouselPicker:v1.2'
 }

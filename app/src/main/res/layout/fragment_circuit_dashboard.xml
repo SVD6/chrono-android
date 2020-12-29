@@ -45,24 +45,6 @@
                 android:text="\uD83D\uDE31 \uD83D\uDE31 \uD83D\uDE31 \nYou don't have any created Circuits!"
                 android:textSize="@dimen/xl_medium_text" />
 
-            <in.goodiebag.carouselpicker.CarouselPicker
-                android:id="@+id/carousel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_margin="@dimen/xs_medium_element_padding"
-                android:background="@color/white"
-                app:items_visible="five" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/icon_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/carousel"
-                android:gravity="center"
-                android:text="@string/placeholder"
-                android:textSize="@dimen/medium_text" />
-
         </RelativeLayout>
     </RelativeLayout>
 </layout>

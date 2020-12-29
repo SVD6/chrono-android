@@ -11,8 +11,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityMainBinding
 import com.example.chrono.main.stopwatch.StopwatchFrag
-import com.example.chrono.main.timer.CircuitFrag
-import com.example.chrono.main.timer.CircuitDashboardFrag
+import com.example.chrono.main.circuit.CircuitFrag
+import com.example.chrono.main.circuit.CircuitDashboardFrag
 import com.example.chrono.util.BaseActivity
 import com.example.chrono.util.objects.PreferenceManager
 import com.google.android.material.tabs.TabLayout

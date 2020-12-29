@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding"
+                android:paddingTop="@dimen/xs_medium_element_padding">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Select an Icon"
+                    android:textSize="@dimen/large_text" />
+
+                <LinearLayout
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/icon_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"/>
+
+                    <in.goodiebag.carouselpicker.CarouselPicker
+                        android:id="@+id/carousel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:unselected_item_opacity="0.5"
+                        android:layout_margin="@dimen/xs_medium_element_padding"
+                        android:background="@color/white"
+                        app:items_visible="five" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/content"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/small_element_padding">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/negative_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/small_element_padding"
+                        android:text="Dismiss" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/positive_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        android:text="@string/save"
+                        android:textAllCaps="false" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

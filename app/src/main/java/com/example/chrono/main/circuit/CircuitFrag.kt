@@ -1,4 +1,4 @@
-package com.example.chrono.main.timer
+package com.example.chrono.main.circuit
 
 import android.app.Activity
 import android.content.Intent
