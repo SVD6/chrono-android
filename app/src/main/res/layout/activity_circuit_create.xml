@@ -7,31 +7,51 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/large_element_padding">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <LinearLayout
+            android:id="@+id/name_icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_element_padding"
-            android:hint="@string/name_input_hint"
-            app:startIconDrawable="@drawable/ic_timer_black">
+            android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <ImageView
+                android:id="@+id/circuit_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/medium_element_padding"
+                android:layout_marginStart="@dimen/xs_medium_element_padding"
+                android:clickable="true"
+                android:contentDescription="@string/todo"
+                android:focusable="true"
+                android:paddingTop="@dimen/xs_medium_element_padding"
+                android:src="@drawable/ic_stopwatch" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:lines="1"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textSize="@dimen/large_text" />
+                android:layout_marginVertical="@dimen/medium_element_padding"
+                android:layout_marginStart="@dimen/small_element_padding"
+                android:layout_marginEnd="@dimen/medium_element_padding"
+                android:hint="@string/name_input_hint">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/large_text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/sets_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/name_input"
+            android:layout_below="@+id/name_icon"
             android:layout_marginVertical="@dimen/medium_element_padding"
             android:orientation="vertical">
 
@@ -98,7 +118,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/sets_selection"
                 android:gravity="center"
                 android:text="Work"
                 android:textSize="@dimen/xl_medium_text" />
@@ -149,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/set_work_time"
+                    android:layout_toEndOf="@+id/set_work_time"
                     android:paddingTop="@dimen/large_element_padding"
                     android:text="sec"
                     android:textSize="@dimen/xs_medium_text" />
@@ -168,7 +187,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/sets_selection"
                 android:gravity="center"
                 android:text="Rest"
                 android:textSize="@dimen/xl_medium_text" />
@@ -219,7 +237,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/set_rest_time"
+                    android:layout_toEndOf="@+id/set_rest_time"
                     android:paddingTop="@dimen/large_element_padding"
                     android:text="sec"
                     android:textSize="@dimen/xs_medium_text" />
@@ -261,6 +279,5 @@
                 app:cornerRadius="13dp" />
 
         </LinearLayout>
-
     </RelativeLayout>
 </layout>

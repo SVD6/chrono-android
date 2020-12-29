@@ -22,38 +22,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Select an Icon"
+                    android:text="@string/select_an_icon"
                     android:textSize="@dimen/large_text" />
 
-                <LinearLayout
-                    android:id="@+id/content"
+                <in.goodiebag.carouselpicker.CarouselPicker
+                    android:id="@+id/carousel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/title"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/icon_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"/>
-
-                    <in.goodiebag.carouselpicker.CarouselPicker
-                        android:id="@+id/carousel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:unselected_item_opacity="0.5"
-                        android:layout_margin="@dimen/xs_medium_element_padding"
-                        android:background="@color/white"
-                        app:items_visible="five" />
-
-                </LinearLayout>
+                    android:layout_below="@id/title"
+                    android:layout_margin="@dimen/xs_medium_element_padding"
+                    android:background="@color/white"
+                    app:items_visible="five"
+                    app:unselected_item_opacity="0.5" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/content"
+                    android:layout_below="@id/carousel"
                     android:gravity="end"
                     android:orientation="horizontal"
                     android:padding="@dimen/small_element_padding">
@@ -65,7 +50,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:padding="@dimen/small_element_padding"
-                        android:text="Dismiss" />
+                        android:text="@string/dismiss" />
 
                     <View
                         android:id="@+id/divider"
