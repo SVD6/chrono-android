@@ -1,20 +1,27 @@
-package com.example.chrono.main.timer
+package com.example.chrono.main.circuit
 
+import `in`.goodiebag.carouselpicker.CarouselPicker
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
+import androidx.viewpager.widget.ViewPager
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityCircuitCreateBinding
 import com.example.chrono.util.BaseActivity
-import com.example.chrono.util.PreferenceManager
+import com.example.chrono.util.getDrawableByString
+import com.example.chrono.util.getIconName
+import com.example.chrono.util.objects.PreferenceManager
 import com.example.chrono.util.objects.CircuitObject
 import com.example.chrono.util.objects.CircuitsObject
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.dialog_circuit_icon.view.*
 
 class CircuitCreate : BaseActivity() {
 
     private var bind: ActivityCircuitCreateBinding? = null
+    private var selectedIcon: String = "ic_stopwatch"
 
     private val timeChangeVal: Int = 5
 
@@ -23,10 +30,6 @@ class CircuitCreate : BaseActivity() {
         PreferenceManager.with(this)
 
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
-
-        bind!!.nameInput.setStartIconOnClickListener {
-            // Select icon :)
-        }
 
         bind!!.discardButton.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
@@ -37,6 +40,10 @@ class CircuitCreate : BaseActivity() {
             if (validateInputs()) {
                 saveCircuit()
             }
+        }
+
+        bind!!.circuitIcon.setOnClickListener {
+            selectIconDialog()
         }
 
         bind!!.addSet.setOnClickListener {
@@ -65,6 +72,7 @@ class CircuitCreate : BaseActivity() {
         circuit.sets = bind!!.setNum.text.toString().toInt()
         circuit.work = bind!!.setWorkTime.text.toString().toInt()
         circuit.rest = bind!!.setRestTime.text.toString().toInt()
+        circuit.iconId = getDrawableByString(this, selectedIcon)
 
         // Save circuit in Shared Preferences
         val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>("CIRCUITS")
@@ -199,4 +207,71 @@ class CircuitCreate : BaseActivity() {
         }
     }
 
+    private fun setIcon(selectedIcon: String) {
+        // NOTE: Doesn't look great gotta fix up a bit
+        bind!!.circuitIcon.setImageResource(getDrawableByString(this, selectedIcon))
+    }
+
+    private fun selectIconDialog() {
+        val builder = MaterialAlertDialogBuilder(this).create()
+        val dialogView = layoutInflater.inflate(R.layout.dialog_circuit_icon, null)
+
+        // Setting Carousel Items
+        val imageItems: ArrayList<CarouselPicker.PickerItem> = ArrayList()
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_stopwatch))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_abs))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_arm))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_bottle))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_boxer))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_dumbbell))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_bag))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_2))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_3))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_4))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gymnast))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_jump_rope))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_mat))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_punching_ball))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_resistance))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_resistance_1))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_treadmill))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_workout))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_workout_3))
+
+        val imageAdapter: CarouselPicker.CarouselViewAdapter =
+            CarouselPicker.CarouselViewAdapter(this, imageItems, 0)
+        dialogView.carousel.adapter = imageAdapter
+
+        // Carousel Logic
+        dialogView!!.carousel.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                selectedIcon = getIconName(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+        })
+
+        // Button Logic
+        dialogView.negative_button.setOnClickListener {
+            builder.dismiss()
+        }
+
+        dialogView.positive_button.setOnClickListener {
+            setIcon(selectedIcon)
+            builder.dismiss()
+        }
+
+        // Display the Dialog
+        builder.setView(dialogView)
+        builder.show()
+    }
 }
