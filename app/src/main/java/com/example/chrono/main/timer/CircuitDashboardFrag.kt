@@ -69,18 +69,25 @@ class CircuitDashboardFrag : Fragment() {
 
         // Carousel stuff get rid of it later.
         var imageItems: ArrayList<CarouselPicker.PickerItem> = ArrayList()
-//        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_abs))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_abs))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_arm))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_bottle))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_boxer))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_dumbbell))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_bag))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_2))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_3))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_4))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gymnast))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_jump_rope))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_mat))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_punching_ball))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_resistance))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_resistance_1))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_treadmill))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_workout))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_workout_3))
 
         val imageAdapter: CarouselPicker.CarouselViewAdapter =
             CarouselPicker.CarouselViewAdapter(context, imageItems, 0)
