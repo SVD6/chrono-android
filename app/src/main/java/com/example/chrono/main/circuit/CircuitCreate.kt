@@ -23,6 +23,8 @@ class CircuitCreate : BaseActivity() {
     private var bind: ActivityCircuitCreateBinding? = null
     private var selectedIcon: String = "ic_stopwatch"
 
+    private val timeChangeVal: Int = 5
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PreferenceManager.with(this)
@@ -102,25 +104,25 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addSet() {
-        if (bind!!.setNum.text.toString() == "") {
+        val currentText = bind!!.setNum.text.toString()
+        if (currentText == "") {
             bind!!.setNum.setText("1")
         } else {
-            bind!!.setNum.setText((bind!!.setNum.text.toString().toInt() + 1).toString())
+            bind!!.setNum.setText((currentText.toInt() + 1).toString())
         }
     }
 
     private fun minusSet() {
-        if (bind!!.setNum.text.toString() == "") {
+        val currentText = bind!!.setNum.text.toString()
+        if (currentText == "") {
             Toast.makeText(
                 this,
                 "Can't have no sets! " + ("\uD83E\uDD14"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setNum.text.toString().toInt() > 0) {
-                bind!!.setNum.setText(
-                    (bind!!.setNum.text.toString().toInt() - 1).toString()
-                )
+            if (currentText.toInt() > 0) {
+                bind!!.setNum.setText(((currentText.toInt() - 1)).toString())
             } else {
                 Toast.makeText(
                     this,
@@ -132,25 +134,25 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addWork() {
-        if (bind!!.setWorkTime.text.toString() == "") {
-            bind!!.setWorkTime.setText("1")
+        val currentText = bind!!.setWorkTime.text.toString()
+        if (currentText == "") {
+            bind!!.setWorkTime.setText(timeChangeVal.toString())
         } else {
-            bind!!.setWorkTime.setText((bind!!.setWorkTime.text.toString().toInt() + 1).toString())
+            bind!!.setWorkTime.setText(floorVal(currentText.toInt() + timeChangeVal).toString())
         }
     }
 
     private fun minusWork() {
-        if (bind!!.setWorkTime.text.toString() == "") {
+        val currentText = bind!!.setWorkTime.text.toString()
+        if (currentText == "") {
             Toast.makeText(
                 this,
                 "Can't have no work time! " + ("\uD83D\uDE2C"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setWorkTime.text.toString().toInt() > 0) {
-                bind!!.setWorkTime.setText(
-                    (bind!!.setWorkTime.text.toString().toInt() - 1).toString()
-                )
+            if (currentText.toInt() > 0) {
+                bind!!.setWorkTime.setText(roundTimeDown(currentText.toInt()).toString())
             } else {
                 Toast.makeText(
                     this,
@@ -162,25 +164,25 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addRest() {
-        if (bind!!.setRestTime.text.toString() == "") {
-            bind!!.setRestTime.setText("1")
+        val currentText = bind!!.setRestTime.text.toString()
+        if (currentText == "") {
+            bind!!.setRestTime.setText(timeChangeVal.toString())
         } else {
-            bind!!.setRestTime.setText((bind!!.setRestTime.text.toString().toInt() + 1).toString())
+            bind!!.setRestTime.setText(floorVal(currentText.toInt() + timeChangeVal).toString())
         }
     }
 
     private fun minusRest() {
-        if (bind!!.setRestTime.text.toString() == "") {
+        val currentText = bind!!.setRestTime.text.toString()
+        if (currentText == "") {
             Toast.makeText(
                 this,
                 "Can't have no rest! " + ("\uD83D\uDE2C"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setRestTime.text.toString().toInt() > 0) {
-                bind!!.setRestTime.setText(
-                    (bind!!.setRestTime.text.toString().toInt() - 1).toString()
-                )
+            if (currentText.toInt() > 0) {
+                bind!!.setRestTime.setText(roundTimeDown(currentText.toInt()).toString())
             } else {
                 Toast.makeText(
                     this,
@@ -188,6 +190,20 @@ class CircuitCreate : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    // Floor to a multiple of timeChangeVal
+    private fun floorVal(valToFloor: Int): Int {
+        return (valToFloor / timeChangeVal) * (timeChangeVal)
+    }
+
+    //When decrementing set time, subtract to the closest multiple of timeChangeVal
+    private fun roundTimeDown(valToRound: Int): Int {
+        return if (valToRound % timeChangeVal == 0) {
+            valToRound - timeChangeVal
+        } else {
+            floorVal(valToRound)
         }
     }
 
