@@ -98,7 +98,6 @@ class CircuitCreate : BaseActivity() {
             dialogView.positive_button.setOnClickListener {
                 setStartIcon(selectedIcon)
                 builder.dismiss()
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
             }
 
             builder.setView(dialogView)
