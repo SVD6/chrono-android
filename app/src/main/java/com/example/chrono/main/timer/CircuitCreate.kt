@@ -96,25 +96,25 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addSet() {
-        if (bind!!.setNum.text.toString() == "") {
-            bind!!.setNum.setText("1")
+        val currentText = bind!!.setNum.text.toString()
+        if (currentText == "") {
+            setSetNum(1)
         } else {
-            bind!!.setNum.setText((bind!!.setNum.text.toString().toInt() + 1).toString())
+            setSetNum(currentText.toInt() + 1)
         }
     }
 
     private fun minusSet() {
-        if (bind!!.setNum.text.toString() == "") {
+        val currentText = bind!!.setNum.text.toString()
+        if (currentText == "") {
             Toast.makeText(
                 this,
                 "Can't have no sets! " + ("\uD83E\uDD14"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setNum.text.toString().toInt() > 0) {
-                bind!!.setNum.setText(
-                    (bind!!.setNum.text.toString().toInt() - 1).toString()
-                )
+            if (currentText.toInt() > 0) {
+                setSetNum((currentText.toInt() - 1))
             } else {
                 Toast.makeText(
                     this,
@@ -126,25 +126,25 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addWork() {
-        if (bind!!.setWorkTime.text.toString() == "") {
-            bind!!.setWorkTime.setText(timeChangeVal.toString())
+        val currentText = bind!!.setWorkTime.text.toString()
+        if (currentText == "") {
+            setWorkTime(timeChangeVal)
         } else {
-            bind!!.setWorkTime.setText(roundValue(bind!!.setWorkTime.text.toString().toInt() + timeChangeVal).toString())
+            setWorkTime(floorVal(currentText.toInt() + timeChangeVal))
         }
     }
 
     private fun minusWork() {
-        if (bind!!.setWorkTime.text.toString() == "") {
+        val currentText = bind!!.setWorkTime.text.toString()
+        if (currentText == "") {
             Toast.makeText(
                 this,
                 "Can't have no work time! " + ("\uD83D\uDE2C"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setWorkTime.text.toString().toInt() > 0) {
-                bind!!.setWorkTime.setText(
-                    roundValue(bind!!.setWorkTime.text.toString().toInt() - timeChangeVal).toString()
-                )
+            if (currentText.toInt() > 0) {
+                setWorkTime(roundTimeDown(currentText.toInt()))
             } else {
                 Toast.makeText(
                     this,
@@ -156,25 +156,25 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addRest() {
-        if (bind!!.setRestTime.text.toString() == "") {
-            bind!!.setRestTime.setText(timeChangeVal.toString())
+        val currentText = bind!!.setRestTime.text.toString()
+        if (currentText == "") {
+            setRestTime(timeChangeVal)
         } else {
-            bind!!.setRestTime.setText(roundValue(bind!!.setRestTime.text.toString().toInt() + timeChangeVal).toString())
+            setRestTime(floorVal(currentText.toInt() + timeChangeVal))
         }
     }
 
     private fun minusRest() {
-        if (bind!!.setRestTime.text.toString() == "") {
+        val currentText = bind!!.setRestTime.text.toString()
+        if (currentText == "") {
             Toast.makeText(
                 this,
                 "Can't have no rest! " + ("\uD83D\uDE2C"),
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            if (bind!!.setRestTime.text.toString().toInt() > 0) {
-                bind!!.setRestTime.setText(
-                    (roundValue(bind!!.setRestTime.text.toString().toInt() - timeChangeVal)).toString()
-                )
+            if (currentText.toInt() > 0) {
+                setRestTime(roundTimeDown(currentText.toInt()))
             } else {
                 Toast.makeText(
                     this,
@@ -185,7 +185,56 @@ class CircuitCreate : BaseActivity() {
         }
     }
 
-    private fun roundValue(valToRound: Int): Int {
-        return (valToRound / timeChangeVal) * (timeChangeVal)
+    /**
+     * Floor to the multiple of timeChangeVal
+     *
+     * @param  valToFloor Value that needs to be floored
+     * @return Floor of the provided input
+     */
+    private fun floorVal(valToFloor: Int): Int {
+        return (valToFloor / timeChangeVal) * (timeChangeVal)
     }
+
+    /**
+     * When decrementing set time, subtract to the closest multiple of timeChangeVal
+     *
+     * @param valToRound value that needs to be rounded
+     * @return time decremented to the  multiple of timeChangeVal
+     */
+    private fun roundTimeDown(valToRound: Int): Int {
+        return if (valToRound % timeChangeVal == 0) {
+            valToRound - timeChangeVal
+        } else {
+            floorVal(valToRound)
+        }
+    }
+
+    /**
+     * Change SetNum textView text
+     *
+     * @param newVal new setNum
+     */
+    private fun setSetNum(newVal: Int) {
+        bind!!.setNum.setText(newVal.toString())
+    }
+
+    /**
+     * Change SetRestTime textView text
+     *
+     * @param newVal new rest Time
+     */
+    private fun setRestTime(newTime: Int) {
+        bind!!.setRestTime.setText(newTime.toString())
+    }
+
+    /**
+     * Change SetWorkTime textView text
+     *
+     * @param newVal new work Time
+     */
+    private fun setWorkTime(newTime: Int) {
+        bind!!.setWorkTime.setText(newTime.toString())
+    }
+
+
 }
