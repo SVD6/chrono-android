@@ -16,6 +16,8 @@ class CircuitCreate : BaseActivity() {
 
     private var bind: ActivityCircuitCreateBinding? = null
 
+    private val timeChangeVal: Int = 5
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PreferenceManager.with(this)
@@ -125,9 +127,9 @@ class CircuitCreate : BaseActivity() {
 
     private fun addWork() {
         if (bind!!.setWorkTime.text.toString() == "") {
-            bind!!.setWorkTime.setText("1")
+            bind!!.setWorkTime.setText(timeChangeVal.toString())
         } else {
-            bind!!.setWorkTime.setText((bind!!.setWorkTime.text.toString().toInt() + 1).toString())
+            bind!!.setWorkTime.setText(roundValue(bind!!.setWorkTime.text.toString().toInt() + timeChangeVal).toString())
         }
     }
 
@@ -141,7 +143,7 @@ class CircuitCreate : BaseActivity() {
         } else {
             if (bind!!.setWorkTime.text.toString().toInt() > 0) {
                 bind!!.setWorkTime.setText(
-                    (bind!!.setWorkTime.text.toString().toInt() - 1).toString()
+                    roundValue(bind!!.setWorkTime.text.toString().toInt() - timeChangeVal).toString()
                 )
             } else {
                 Toast.makeText(
@@ -155,9 +157,9 @@ class CircuitCreate : BaseActivity() {
 
     private fun addRest() {
         if (bind!!.setRestTime.text.toString() == "") {
-            bind!!.setRestTime.setText("1")
+            bind!!.setRestTime.setText(timeChangeVal.toString())
         } else {
-            bind!!.setRestTime.setText((bind!!.setRestTime.text.toString().toInt() + 1).toString())
+            bind!!.setRestTime.setText(roundValue(bind!!.setRestTime.text.toString().toInt() + timeChangeVal).toString())
         }
     }
 
@@ -171,7 +173,7 @@ class CircuitCreate : BaseActivity() {
         } else {
             if (bind!!.setRestTime.text.toString().toInt() > 0) {
                 bind!!.setRestTime.setText(
-                    (bind!!.setRestTime.text.toString().toInt() - 1).toString()
+                    (roundValue(bind!!.setRestTime.text.toString().toInt() - timeChangeVal)).toString()
                 )
             } else {
                 Toast.makeText(
@@ -181,5 +183,9 @@ class CircuitCreate : BaseActivity() {
                 ).show()
             }
         }
+    }
+
+    private fun roundValue(valToRound: Int): Int {
+        return (valToRound / timeChangeVal) * (timeChangeVal)
     }
 }
