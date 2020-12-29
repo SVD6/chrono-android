@@ -1,4 +1,4 @@
-package com.example.chrono.main.timer
+package com.example.chrono.main.circuit
 
 import android.app.Activity
 import android.content.Intent
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentCircuitDashboardBinding
 import com.example.chrono.util.BaseActivity
-import com.example.chrono.util.PreferenceManager
+import com.example.chrono.util.objects.PreferenceManager
 import com.example.chrono.util.adapters.CircuitViewAdapter
 import com.example.chrono.util.objects.CircuitsObject
 
@@ -37,7 +37,6 @@ class CircuitDashboardFrag : Fragment() {
         bind!!.addCircuit.setOnClickListener {
             startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
         }
-
         return bind!!.root
     }
 

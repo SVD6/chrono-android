@@ -1,7 +1,8 @@
-package com.example.chrono.util
+package com.example.chrono.util.objects
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.chrono.util.BaseActivity
 import com.google.gson.GsonBuilder
 
 object PreferenceManager {
