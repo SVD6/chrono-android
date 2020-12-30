@@ -88,16 +88,25 @@ class CircuitCreate : BaseActivity() {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (!(bind!!.setWorkTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
-            Toast.makeText(this, "Invalid Number of Sets", Toast.LENGTH_SHORT).show()
+        if (!(bind!!.setNum.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
+            Toast.makeText(this, "Invalid Number of Sets.", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (bind!!.setNum.text.toString().toInt() > 49) {
+            Toast.makeText(this, "Number of Sets Must be Less Than 50.", Toast.LENGTH_SHORT).show()
             return false
         }
         if (!(bind!!.setWorkTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
-            Toast.makeText(this, "Invalid Rest Time", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Invalid Work Time.", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (bind!!.setWorkTime.text.toString().toInt() > 999) {
+            Toast.makeText(this, "Work Time Must be Less Than 1000.", Toast.LENGTH_SHORT).show()
             return false
         }
         if (!(bind!!.setRestTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
             Toast.makeText(this, "Invalid Rest Time", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (bind!!.setRestTime.text.toString().toInt() > 999) {
+            Toast.makeText(this, "Rest Time be Less Than 1000", Toast.LENGTH_SHORT).show()
             return false
         }
         return true
