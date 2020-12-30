@@ -17,7 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.timer.CircuitCreate" />
+
+        <activity android:name=".main.circuit.CircuitCreate" />
+
         <activity android:name=".main.MainActivity" />
     </application>
 

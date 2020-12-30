@@ -2,14 +2,13 @@ package com.example.chrono.util.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chrono.R
+import com.example.chrono.util.getDrawableByString
 import com.example.chrono.util.objects.CircuitObject
 import com.google.android.material.textview.MaterialTextView
 
@@ -21,6 +20,7 @@ class CircuitViewAdapter(private val context: Context, private val data: List<Ci
         val numSets: MaterialTextView = view.findViewById(R.id.num_sets)
         val timeRest: MaterialTextView = view.findViewById(R.id.rest_time)
         val timeWork: MaterialTextView = view.findViewById(R.id.work_time)
+        val icon: ImageView = view.findViewById(R.id.circuit_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CircuitViewHolder {
@@ -36,11 +36,7 @@ class CircuitViewAdapter(private val context: Context, private val data: List<Ci
         holder.numSets.text = circuit.sets.toString() + " Sets"
         holder.timeRest.text = "Rest:  " + circuit.rest.toString() + "s"
         holder.timeWork.text = "Work:  " + circuit.work.toString() + "s"
-
-        holder.itemView.setOnClickListener {
-            Toast.makeText(context, "Selected View: " + position, Toast.LENGTH_SHORT).show()
-            startActivity(Intent())
-        }
+        holder.icon.setImageResource(circuit.iconId!!)
     }
 
     override fun getItemCount(): Int {
