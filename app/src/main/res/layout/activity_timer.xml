@@ -6,6 +6,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/medium_element_padding"
+            android:src="@drawable/ic_close_black" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/medium_element_padding"
+            android:layout_marginVertical="@dimen/xl_large_element_padding"
+            android:textSize="@dimen/huge_text" />
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/medium_element_padding"
+            android:textSize="@dimen/large_text" />
+
+        <TextView
+            android:id="@+id/set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/state"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/medium_element_padding"
+            android:textSize="@dimen/large_text" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
