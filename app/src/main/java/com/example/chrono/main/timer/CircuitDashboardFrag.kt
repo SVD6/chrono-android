@@ -54,7 +54,7 @@ class CircuitDashboardFrag : Fragment() {
             bind!!.recyclerView.visibility = View.VISIBLE
             bind!!.emptyLayout.visibility = View.GONE
 
-            recyclerView.adapter = CircuitViewAdapter(dataSet.circuits!!)
+            recyclerView.adapter = CircuitViewAdapter(requireContext(), dataSet.circuits!!)
         } else {
             loadEmptyUI()
         }

@@ -77,11 +77,6 @@ class CircuitFrag : Fragment() {
         }
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        Log.i("circuitfrag", "Loaded")
-    }
-
     // Create a countdown timer based on parameters
     private fun createTimer(seconds: Int, wasPaused: Boolean) {
         if (wasPaused) {
