@@ -1,10 +1,10 @@
 package com.example.chrono.main.circuit
 
 import android.app.Activity
+import android.media.AsyncPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.health.TimerStat
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -32,7 +32,8 @@ class TimerActivity : AppCompatActivity() {
     private var sets: Int = 0
     private var timeRest: Int = 0
     private var timeWork: Int = 0
-//    private var
+
+    private lateinit var audioPlayer: AsyncPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,6 @@ class TimerActivity : AppCompatActivity() {
         // Initialize stuff perhaps
 
         bind!!.startbutton.setOnClickListener {
-//            createTimer(10, false)
             workout()
             timerState = TimerState.RUNNING
             updateButtonUI()
@@ -102,7 +102,6 @@ class TimerActivity : AppCompatActivity() {
                 } else {
                     isDone()
                 }
-
             }
         }.start()
     }
