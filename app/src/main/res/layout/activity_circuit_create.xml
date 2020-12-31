@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Sets"
+                android:text="@string/sets"
                 android:textSize="@dimen/xl_medium_text" />
 
             <RelativeLayout
@@ -96,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:background="@null"
+                    android:cursorVisible="false"
                     android:gravity="center"
                     android:hint="@string/_0"
                     android:inputType="number"
@@ -156,6 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:background="@null"
+                    android:cursorVisible="false"
                     android:gravity="center"
                     android:hint="@string/_0"
                     android:inputType="number"
@@ -170,7 +172,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/set_work_time"
                     android:paddingTop="@dimen/large_element_padding"
-                    android:text="sec"
+                    android:text="@string/sec"
                     android:textSize="@dimen/xs_medium_text" />
 
             </RelativeLayout>
@@ -188,7 +190,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Rest"
+                android:text="@string/rest"
                 android:textSize="@dimen/xl_medium_text" />
 
             <RelativeLayout
@@ -225,6 +227,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:background="@null"
+                    android:cursorVisible="false"
                     android:gravity="center"
                     android:hint="@string/_0"
                     android:inputType="number"
@@ -239,7 +242,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/set_rest_time"
                     android:paddingTop="@dimen/large_element_padding"
-                    android:text="sec"
+                    android:text="@string/sec"
                     android:textSize="@dimen/xs_medium_text" />
 
             </RelativeLayout>
