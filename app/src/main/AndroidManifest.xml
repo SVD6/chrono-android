@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/ic_chrono_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.circuit.TimerActivity"></activity>
+        <activity android:name=".main.circuit.CircuitTimerActivity"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

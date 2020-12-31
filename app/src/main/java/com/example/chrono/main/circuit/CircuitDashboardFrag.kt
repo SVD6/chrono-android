@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +17,7 @@ import com.example.chrono.util.objects.PreferenceManager
 import com.example.chrono.util.adapters.CircuitViewAdapter
 import com.example.chrono.util.objects.CircuitObject
 import com.example.chrono.util.objects.CircuitsObject
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
-import java.io.Serializable
 
 class CircuitDashboardFrag : Fragment() {
     private var bind: FragmentCircuitDashboardBinding? = null
@@ -60,7 +57,7 @@ class CircuitDashboardFrag : Fragment() {
     private fun circuitClicked(circuit: CircuitObject) {
 //        Toast.makeText(context, "Works" + circuit.name, Toast.LENGTH_SHORT).show()
         val jsonString = GsonBuilder().create().toJson(circuit)
-        val intent: Intent = Intent(requireContext(), TimerActivity::class.java)
+        val intent: Intent = Intent(requireContext(), CircuitTimerActivity::class.java)
         intent.putExtra("circuitObject", jsonString)
         startActivityForResult(intent, 10002)
     }

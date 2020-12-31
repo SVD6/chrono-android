@@ -9,16 +9,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.R
-import com.example.chrono.databinding.ActivityTimerBinding
+import com.example.chrono.databinding.ActivityCircuitTimerBinding
 import com.example.chrono.util.objects.CircuitObject
 import com.google.gson.GsonBuilder
 import kotlin.math.roundToInt
 
-class TimerActivity : AppCompatActivity() {
-    private var bind: ActivityTimerBinding? = null
+class CircuitTimerActivity : AppCompatActivity() {
+    private var bind: ActivityCircuitTimerBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
-
     enum class RunningState { INIT, WORK, REST }
 
     private lateinit var countdown: CountDownTimer
@@ -26,19 +25,18 @@ class TimerActivity : AppCompatActivity() {
     private lateinit var runningState: RunningState
 
     private var secondsLeft: Float = 0.0f
-
     private var currentSet: Int = 0
 
     private var sets: Int = 0
     private var timeRest: Int = 0
     private var timeWork: Int = 0
 
-    private lateinit var audioPlayer: AsyncPlayer
+//    private lateinit var audioPlayer: AsyncPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_timer)
-        bind = DataBindingUtil.setContentView(this, R.layout.activity_timer)
+        setContentView(R.layout.activity_circuit_timer)
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
         loadTimer(
             GsonBuilder().create()
