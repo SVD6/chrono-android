@@ -35,7 +35,6 @@ class CircuitFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_circuit, container, false)
-        Log.i("circuitfrag", "Loaded")
 
         bind!!.startbutton.setOnClickListener {
             createTimer(10, false)
@@ -75,11 +74,6 @@ class CircuitFrag : Fragment() {
         if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
             Log.i("gangshit", "gangshit")
         }
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        Log.i("circuitfrag", "Loaded")
     }
 
     // Create a countdown timer based on parameters

@@ -3,6 +3,7 @@ package com.example.chrono.main.circuit
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,9 @@ import com.example.chrono.databinding.FragmentCircuitDashboardBinding
 import com.example.chrono.util.BaseActivity
 import com.example.chrono.util.objects.PreferenceManager
 import com.example.chrono.util.adapters.CircuitViewAdapter
+import com.example.chrono.util.objects.CircuitObject
 import com.example.chrono.util.objects.CircuitsObject
+import com.google.gson.GsonBuilder
 
 class CircuitDashboardFrag : Fragment() {
     private var bind: FragmentCircuitDashboardBinding? = null
@@ -45,6 +48,18 @@ class CircuitDashboardFrag : Fragment() {
         if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
             loadData()
         }
+        if (requestCode == 10002 && resultCode == Activity.RESULT_OK) {
+            // Ideal spot to ask for a rating after a threshold of timers have been run
+            Log.i("result", "Success Worked")
+        }
+    }
+
+    private fun circuitClicked(circuit: CircuitObject) {
+//        Toast.makeText(context, "Works" + circuit.name, Toast.LENGTH_SHORT).show()
+        val jsonString = GsonBuilder().create().toJson(circuit)
+        val intent: Intent = Intent(requireContext(), CircuitTimerActivity::class.java)
+        intent.putExtra("circuitObject", jsonString)
+        startActivityForResult(intent, 10002)
     }
 
     private fun loadData() {
@@ -53,7 +68,9 @@ class CircuitDashboardFrag : Fragment() {
             bind!!.recyclerView.visibility = View.VISIBLE
             bind!!.emptyLayout.visibility = View.GONE
 
-            recyclerView.adapter = CircuitViewAdapter(dataSet.circuits!!)
+            recyclerView.adapter = CircuitViewAdapter(
+                dataSet.circuits!!
+            ) { circuitObject: CircuitObject -> circuitClicked(circuitObject) }
         } else {
             loadEmptyUI()
         }
