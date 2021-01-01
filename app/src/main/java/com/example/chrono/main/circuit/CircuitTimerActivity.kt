@@ -1,7 +1,6 @@
 package com.example.chrono.main.circuit
 
 import android.app.Activity
-import android.media.AsyncPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -18,6 +17,8 @@ class CircuitTimerActivity : AppCompatActivity() {
     private var bind: ActivityCircuitTimerBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
+
+    // Should only be work state and rest state, maybe an in between state? Not an initial state.
     enum class RunningState { INIT, WORK, REST }
 
     private lateinit var countdown: CountDownTimer
@@ -58,7 +59,7 @@ class CircuitTimerActivity : AppCompatActivity() {
         }
 
         bind!!.resumebutton.setOnClickListener {
-            createTimer(secondsLeft.toInt(), true)
+            startTimer(secondsLeft.toInt(), true)
             timerState = TimerState.RUNNING
             updateButtonUI()
         }
@@ -71,7 +72,7 @@ class CircuitTimerActivity : AppCompatActivity() {
         }
     }
 
-    private fun createTimer(seconds: Int, wasPaused: Boolean) {
+    private fun startTimer(seconds: Int, wasPaused: Boolean) {
         var time = seconds.toFloat() * 1000 + 250
         if (wasPaused) {
             time = secondsLeft * 1000 + 250
@@ -150,14 +151,14 @@ class CircuitTimerActivity : AppCompatActivity() {
         runningState = RunningState.WORK
         bind!!.state.text = "Workout"
         bind!!.set.text = "Set Number " + currentSet.toString()
-        createTimer(timeWork, false)
+        startTimer(timeWork, false)
     }
 
     private fun rest() {
         runningState = RunningState.REST
         bind!!.state.text = "Rest"
         bind!!.set.text = "Set Number " + currentSet.toString()
-        createTimer(timeRest, false)
+        startTimer(timeRest, false)
         currentSet -= 1
     }
 }
