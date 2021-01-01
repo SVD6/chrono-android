@@ -31,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/huge_element_padding"
-            android:text="@string/placeholder"
             android:textSize="@dimen/huge_text" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -40,8 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/circuit_name"
             android:layout_marginStart="@dimen/xl_huge_element_padding"
-            android:layout_marginTop="@dimen/xs_small_element_padding"
-            android:text="@string/placeholder" />
+            android:layout_marginTop="@dimen/xs_small_element_padding" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -63,8 +61,7 @@
                 android:id="@+id/rest_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/timer_icon"
-                android:text="@string/placeholder" />
+                android:layout_toEndOf="@+id/timer_icon" />
 
         </RelativeLayout>
 
@@ -89,8 +86,7 @@
                 android:id="@+id/work_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/work_icon"
-                android:text="@string/_0" />
+                android:layout_toEndOf="@+id/work_icon" />
 
         </RelativeLayout>
     </RelativeLayout>

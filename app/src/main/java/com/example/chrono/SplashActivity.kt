@@ -3,6 +3,7 @@ package com.example.chrono
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.databinding.ActivitySplashBinding
@@ -27,7 +28,9 @@ class SplashActivity : BaseActivity() {
         }
 
         // Set the time out delay and launch main activity afterwards
-        Handler().postDelayed(
+        Handler(
+            Looper.getMainLooper()
+        ).postDelayed(
             {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()

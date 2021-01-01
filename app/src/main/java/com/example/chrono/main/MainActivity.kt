@@ -48,7 +48,7 @@ class MainActivity : BaseActivity() {
         // Tells the tablayout to follow the viewpager
         TabLayoutMediator(tablay, pager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Timer"
+                0 -> tab.text = "Circuit"
                 else -> tab.text = "Stopwatch"
             }
         }.attach()
