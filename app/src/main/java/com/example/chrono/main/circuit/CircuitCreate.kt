@@ -23,6 +23,10 @@ class CircuitCreate : BaseActivity() {
     private var bind: ActivityCircuitCreateBinding? = null
     private var selectedIcon: String = "ic_stopwatch"
 
+    private val MAX_SETS: Int = 99
+    private val MAX_REST: Int = 995 // Actually 999
+    private val MAX_WORK: Int = 995 // Actually 999
+
     private val timeChangeVal: Int = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,7 +112,15 @@ class CircuitCreate : BaseActivity() {
         if (currentText == "") {
             bind!!.setNum.setText("1")
         } else {
-            bind!!.setNum.setText((currentText.toInt() + 1).toString())
+            if (currentText.toInt() == MAX_SETS) {
+                Toast.makeText(
+                    this,
+                    "Can't have more than 99 sets, take it easy!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                bind!!.setNum.setText((currentText.toInt() + 1).toString())
+            }
         }
     }
 
@@ -138,7 +150,15 @@ class CircuitCreate : BaseActivity() {
         if (currentText == "") {
             bind!!.setWorkTime.setText(timeChangeVal.toString())
         } else {
-            bind!!.setWorkTime.setText(floorVal(currentText.toInt() + timeChangeVal).toString())
+            if (currentText.toInt() >= MAX_WORK) {
+                Toast.makeText(
+                    this,
+                    "Can't have more than 999 seconds of workout!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                bind!!.setWorkTime.setText(floorVal(currentText.toInt() + timeChangeVal).toString())
+            }
         }
     }
 
@@ -168,7 +188,15 @@ class CircuitCreate : BaseActivity() {
         if (currentText == "") {
             bind!!.setRestTime.setText(timeChangeVal.toString())
         } else {
-            bind!!.setRestTime.setText(floorVal(currentText.toInt() + timeChangeVal).toString())
+            if (currentText.toInt() >= MAX_REST) {
+                Toast.makeText(
+                    this,
+                    "Can't have more than 999 seconds of rest!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                bind!!.setRestTime.setText(floorVal(currentText.toInt() + timeChangeVal).toString())
+            }
         }
     }
 
