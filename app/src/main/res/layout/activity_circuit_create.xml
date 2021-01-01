@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Sets"
+                android:text="@string/sets"
                 android:textSize="@dimen/xl_medium_text" />
 
             <RelativeLayout
@@ -72,9 +72,11 @@
                     android:id="@+id/add_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:layout_toEndOf="@+id/set_num"
                     android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
                     app:tint="@color/white" />
@@ -83,9 +85,11 @@
                     android:id="@+id/minus_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:layout_toStartOf="@+id/set_num"
                     android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_remove"
                     app:borderWidth="0dp"
                     app:tint="@color/white" />
@@ -96,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:background="@null"
+                    android:cursorVisible="false"
                     android:gravity="center"
                     android:hint="@string/_0"
                     android:inputType="number"
@@ -119,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Work"
+                android:text="@string/work"
                 android:textSize="@dimen/xl_medium_text" />
 
             <RelativeLayout
@@ -132,9 +137,11 @@
                     android:id="@+id/add_work"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:layout_toEndOf="@id/set_work_time"
                     android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
                     app:tint="@color/white" />
@@ -143,8 +150,9 @@
                     android:id="@+id/minus_work"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:layout_toStartOf="@+id/set_work_time"
                     android:backgroundTint="@color/colorAccent"
                     android:src="@drawable/ic_remove"
                     app:borderWidth="0dp"
@@ -156,6 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:background="@null"
+                    android:cursorVisible="false"
                     android:gravity="center"
                     android:hint="@string/_0"
                     android:inputType="number"
@@ -170,7 +179,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/set_work_time"
                     android:paddingTop="@dimen/large_element_padding"
-                    android:text="sec"
+                    android:text="@string/sec"
                     android:textSize="@dimen/xs_medium_text" />
 
             </RelativeLayout>
@@ -188,7 +197,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Rest"
+                android:text="@string/rest"
                 android:textSize="@dimen/xl_medium_text" />
 
             <RelativeLayout
@@ -201,9 +210,11 @@
                     android:id="@+id/add_rest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:layout_toEndOf="@+id/set_rest_time"
                     android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
                     app:tint="@color/white" />
@@ -212,9 +223,11 @@
                     android:id="@+id/minus_rest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:layout_toStartOf="@+id/set_rest_time"
                     android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_remove"
                     app:borderWidth="0dp"
                     app:tint="@color/white" />
@@ -225,6 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:background="@null"
+                    android:cursorVisible="false"
                     android:gravity="center"
                     android:hint="@string/_0"
                     android:inputType="number"
@@ -239,7 +253,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/set_rest_time"
                     android:paddingTop="@dimen/large_element_padding"
-                    android:text="sec"
+                    android:text="@string/sec"
                     android:textSize="@dimen/xs_medium_text" />
 
             </RelativeLayout>
