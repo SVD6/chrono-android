@@ -30,4 +30,6 @@
     <string name="sec">sec</string>
     <string name="rest">Rest</string>
     <string name="work">Work</string>
+
+    <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
 </resources>
