@@ -23,18 +23,19 @@ class CircuitTimerActivity : AppCompatActivity() {
     enum class TimerState { INIT, RUNNING, PAUSED }
 
     // Should only be work state and rest state, maybe an in between state? Not an initial state.
-    enum class RunningState { READY, INIT, WORK, REST, FINAL }
+    enum class RunningState { READY, INIT, WORK, REST }
 
     private lateinit var countdown: CountDownTimer
+    private var secondsLeft: Float = 0.0f
+
     private var timerState: TimerState = TimerState.INIT
     private var runningState: RunningState = RunningState.INIT
 
-    private var secondsLeft: Float = 0.0f
     private var currentSet: Int = 0
-
     private var sets: Int = 0
     private var timeRest: Int = 0
     private var timeWork: Int = 0
+    private var criticalSeconds: Int = 0
 
     //    private lateinit var audioPlayer: AsyncPlayer
     private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
@@ -141,8 +142,8 @@ class CircuitTimerActivity : AppCompatActivity() {
 
     private fun workout() {
         runningState = RunningState.WORK
-        updateRestUI()
         updateButtonUI()
+        updateRestUI()
         startTimer(timeWork, false)
     }
 
@@ -155,6 +156,15 @@ class CircuitTimerActivity : AppCompatActivity() {
 
     // Update UI for every tick, possibly need to do more in the future
     fun updateTimerUI() {
+        if (criticalSeconds != 0 && secondsLeft <= criticalSeconds && runningState == RunningState.WORK) {
+            bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
+            bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
+            bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
+            bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
+            bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
+//            runningState = RunningState.FINAL
+//            updateRestUI()
+        }
         bind!!.countdown.text = (secondsLeft).toInt().toString()
     }
 
@@ -230,13 +240,13 @@ class CircuitTimerActivity : AppCompatActivity() {
                 bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
             }
-            RunningState.FINAL -> {
-                bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
-                bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
-            }
+//            RunningState.FINAL -> {
+//                bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
+//                bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
+//                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
+//                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
+//                bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
+//            }
         }
     }
 
@@ -245,5 +255,11 @@ class CircuitTimerActivity : AppCompatActivity() {
         currentSet = sets
         timeRest = circuit.rest!!
         timeWork = circuit.work!!
+
+        criticalSeconds = if (timeWork > 5) {
+            5
+        } else {
+            0
+        }
     }
 }
