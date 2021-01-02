@@ -12,23 +12,19 @@ import android.view.animation.DecelerateInterpolator;
 import com.example.chrono.R;
 
 public class MyProgressBar extends View {
+    private final float mStartAngle = -90;      // Always start from top (default is: "3 o'clock on a watch.")
+    private final Paint mPaint;                 // Allocate paint outside onDraw to avoid unnecessary object creation
     private int mViewWidth;
     private int mViewHeight;
-
-    private final float mStartAngle = -90;      // Always start from top (default is: "3 o'clock on a watch.")
     private float mSweepAngle = 0;              // How long to sweep from mStartAngle
     private float mMaxSweepAngle = 360;         // Max degrees to sweep = full circle
     private int mStrokeWidth = 40;              // Width of outline
-
     private int mAnimationDuration = 5000;       // Animation duration for progress change
-
     private int mMaxProgress = 100;             // Max progress to use
     private boolean mDrawText = false;           // Set to true if progress text should be drawn
     private boolean mRoundedCorners = true;     // Set to true if rounded corners should be applied to outline ends
     private int mProgressColor = R.color.colorAccent;   // Outline color
     private int mTextColor = R.color.black;       // Progress text color
-
-    private final Paint mPaint;                 // Allocate paint outside onDraw to avoid unnecessary object creation
 
     public MyProgressBar(Context context) {
         this(context, null);

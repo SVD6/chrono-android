@@ -14,23 +14,27 @@ import java.text.DecimalFormat;
 public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
     @SuppressWarnings("unused")
     private static final String TAG = "Chronometer";
-
+    private static final int TICK_WHAT = 2;
     private long mBase;
     private boolean mVisible;
     private boolean mStarted;
     private boolean mRunning;
     private OnChronometerTickListener mOnChronometerTickListener;
-
-    private static final int TICK_WHAT = 2;
-
     private long timeElapsed;
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        public void handleMessage(@NotNull Message m) {
+            if (mRunning) {
+                updateText(SystemClock.elapsedRealtime());
+                dispatchChronometerTick();
+                sendMessageDelayed(Message.obtain(this, TICK_WHAT),
+                        10);
+            }
+        }
+    };
 
     public MyChronometer(Context context) {
         super(context);
-    }
-
-    public interface OnChronometerTickListener {
-        void onChronometerTick(MyChronometer chronometer);
     }
 
     public MyChronometer(Context context, AttributeSet attrs) {
@@ -47,23 +51,23 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
         updateText(mBase);
     }
 
+    public long getBase() {
+        return mBase;
+    }
+
     public void setBase(long base) {
         mBase = base;
         dispatchChronometerTick();
         updateText(SystemClock.elapsedRealtime());
     }
 
-    public long getBase() {
-        return mBase;
+    public OnChronometerTickListener getOnChronometerTickListener() {
+        return mOnChronometerTickListener;
     }
 
     public void setOnChronometerTickListener(
             OnChronometerTickListener listener) {
         mOnChronometerTickListener = listener;
-    }
-
-    public OnChronometerTickListener getOnChronometerTickListener() {
-        return mOnChronometerTickListener;
     }
 
     public void start() {
@@ -110,7 +114,7 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
         remaining = (remaining % (1000));
 
         int milliseconds = (((int) timeElapsed % 1000) / 100);
-        remaining =(remaining % (100));
+        remaining = (remaining % (100));
 
         int tenthmillisecond = (remaining % 10);
 
@@ -142,18 +146,6 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        public void handleMessage(@NotNull Message m) {
-            if (mRunning) {
-                updateText(SystemClock.elapsedRealtime());
-                dispatchChronometerTick();
-                sendMessageDelayed(Message.obtain(this, TICK_WHAT),
-                        10);
-            }
-        }
-    };
-
     void dispatchChronometerTick() {
         if (mOnChronometerTickListener != null) {
             mOnChronometerTickListener.onChronometerTick(this);
@@ -162,5 +154,9 @@ public class MyChronometer extends androidx.appcompat.widget.AppCompatTextView {
 
     public long getTimeElapsed() {
         return timeElapsed;
+    }
+
+    public interface OnChronometerTickListener {
+        void onChronometerTick(MyChronometer chronometer);
     }
 }
