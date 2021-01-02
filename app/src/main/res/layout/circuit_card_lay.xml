@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/circuit_card_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,7 +23,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:layout_margin="@dimen/xs_medium_element_padding"
+            android:layout_margin="@dimen/small_element_padding"
             android:contentDescription="@string/todo"
             android:src="@drawable/ic_chrono_app_icon" />
 
@@ -30,23 +31,27 @@
             android:id="@+id/circuit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/huge_element_padding"
-            android:textSize="@dimen/huge_text" />
+            android:layout_marginStart="@dimen/xss_huge_element_padding"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/medium_element_padding"
+            android:textSize="@dimen/xl_large_text"
+            tools:ignore="RtlSymmetry" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/num_sets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/circuit_name"
-            android:layout_marginStart="@dimen/xl_huge_element_padding"
-            android:layout_marginTop="@dimen/xs_small_element_padding" />
+            android:layout_marginStart="@dimen/custom_padding_1" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/num_sets"
-            android:layout_marginStart="@dimen/huge_element_padding"
-            android:layout_marginTop="@dimen/small_element_padding">
+            android:layout_marginStart="@dimen/xss_huge_element_padding"
+            android:layout_marginTop="@dimen/xs_medium_element_padding">
 
             <ImageView
                 android:id="@+id/timer_icon"
@@ -69,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/num_sets"
-            android:layout_marginTop="@dimen/small_element_padding"
+            android:layout_marginTop="@dimen/xs_medium_element_padding"
             android:layout_marginEnd="@dimen/medium_element_padding"
             android:gravity="end">
 

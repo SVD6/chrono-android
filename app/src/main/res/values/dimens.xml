@@ -28,7 +28,10 @@
     <dimen name="large_element_padding">30dp</dimen>
     <dimen name="xl_large_element_padding">45dp</dimen>
     <dimen name="xs_huge_element_padding">60dp</dimen>
+    <dimen name="xss_huge_element_padding">75dp</dimen>
     <dimen name="huge_element_padding">85dp</dimen>
     <dimen name="xl_huge_element_padding">90dp</dimen>
     <dimen name="massive_element_padding">100dp</dimen>
+
+    <dimen name="custom_padding_1">80dp</dimen>
 </resources>
