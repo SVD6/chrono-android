@@ -4,9 +4,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:paddingTop="@dimen/medium_element_padding"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/large_element_padding">
+        android:layout_marginTop="@dimen/large_element_padding"
+        android:paddingTop="@dimen/medium_element_padding">
 
         <RelativeLayout
             android:id="@+id/name_icon"
@@ -25,22 +25,19 @@
                     android:id="@+id/circuit_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:clickable="true"
                     android:contentDescription="@string/todo"
-                    android:paddingBottom="@dimen/small_element_padding"
                     android:focusable="true"
                     android:paddingTop="@dimen/xs_medium_element_padding"
+                    android:paddingBottom="@dimen/small_element_padding"
                     android:src="@drawable/ic_stopwatch" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/circuit_icon"
                     android:gravity="center"
                     android:text="Change\nIcon"
                     android:textSize="@dimen/small_text" />
-
             </LinearLayout>
 
             <EditText
@@ -51,33 +48,12 @@
                 android:layout_marginTop="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
-                android:hint="Name of Circuit"
+                android:gravity="center"
+                android:hint="@string/circuit_name"
                 android:lines="1"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textSize="@dimen/huge_text" />
-
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-            <!--                android:id="@+id/name_input"-->
-            <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginVertical="@dimen/medium_element_padding"-->
-            <!--                android:layout_marginStart="@dimen/small_element_padding"-->
-            <!--                android:layout_marginEnd="@dimen/medium_element_padding"-->
-            <!--                android:hint="@string/name_input_hint"-->
-            <!--                app:boxStrokeWidth="0dp">-->
-
-            <!--                <com.google.android.material.textfield.TextInputEditText-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:inputType="text"-->
-            <!--                    android:lines="1"-->
-            <!--                    android:maxLines="1"-->
-            <!--                    android:singleLine="true"-->
-            <!--                    android:textSize="@dimen/large_text" />-->
-
-            <!--            </com.google.android.material.textfield.TextInputLayout>-->
+                android:textSize="@dimen/xl_huge_text" />
         </RelativeLayout>
 
         <LinearLayout

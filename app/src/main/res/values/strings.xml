@@ -30,4 +30,5 @@
     <string name="work">Work</string>
     <string name="workout">Workout</string>
     <string name="get_ready">Get Ready</string>
+    <string name="circuit_name">Circuit Name</string>
 </resources>

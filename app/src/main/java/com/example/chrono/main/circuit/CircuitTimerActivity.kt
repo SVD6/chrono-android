@@ -37,7 +37,6 @@ class CircuitTimerActivity : AppCompatActivity() {
     private var timeWork: Int = 0
     private var criticalSeconds: Int = 0
 
-    //    private lateinit var audioPlayer: AsyncPlayer
     private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +56,6 @@ class CircuitTimerActivity : AppCompatActivity() {
         bind!!.startButton.setOnClickListener {
             timerState = TimerState.RUNNING
             getReady()
-            tone.startTone(ToneGenerator.TONE_DTMF_C, 550)
         }
 
         bind!!.pauseButton.setOnClickListener {
@@ -141,6 +139,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     }
 
     private fun workout() {
+        tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
         runningState = RunningState.WORK
         updateButtonUI()
         updateRestUI()
@@ -148,6 +147,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     }
 
     private fun rest() {
+        tone.startTone(ToneGenerator.TONE_DTMF_2, 500)
         runningState = RunningState.REST
         updateRestUI()
         startTimer(timeRest, false)
@@ -157,13 +157,15 @@ class CircuitTimerActivity : AppCompatActivity() {
     // Update UI for every tick, possibly need to do more in the future
     fun updateTimerUI() {
         if (criticalSeconds != 0 && secondsLeft <= criticalSeconds && runningState == RunningState.WORK) {
+
             bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
             bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
-//            runningState = RunningState.FINAL
-//            updateRestUI()
+        }
+        if (timeRest > 5 && runningState == RunningState.REST && secondsLeft <= 5) {
+            bind!!.currentState.text = getString(R.string.get_ready)
         }
         bind!!.countdown.text = (secondsLeft).toInt().toString()
     }
@@ -205,6 +207,7 @@ class CircuitTimerActivity : AppCompatActivity() {
             RunningState.INIT -> {
                 bind!!.currentSet.text = getString(R.string.empty)
                 bind!!.currentState.text = getString(R.string.work)
+
                 bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
                 bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
                 bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.black))
