@@ -46,6 +46,10 @@ class CircuitCreate : BaseActivity() {
             }
         }
 
+        bind!!.iconLayout.setOnClickListener {
+            selectIconDialog()
+        }
+
         bind!!.circuitIcon.setOnClickListener {
             selectIconDialog()
         }
@@ -72,7 +76,7 @@ class CircuitCreate : BaseActivity() {
 
     private fun saveCircuit() {
         val circuit = CircuitObject()
-        circuit.name = bind!!.nameInput.editText!!.text.toString()
+        circuit.name = bind!!.nameInput.text.toString()
         circuit.sets = bind!!.setNum.text.toString().toInt()
         circuit.work = bind!!.setWorkTime.text.toString().toInt()
         circuit.rest = bind!!.setRestTime.text.toString().toInt()
@@ -88,7 +92,7 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun validateInputs(): Boolean {
-        if (bind!!.nameInput.isEmpty() or (bind!!.nameInput.editText!!.text.toString() == "")) {
+        if ((bind!!.nameInput.text.toString() == "") or (bind!!.nameInput.text.toString() == "")) {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }
