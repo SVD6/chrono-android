@@ -25,8 +25,8 @@ class StopwatchFrag : Fragment() {
 
     private var lapCount = 0
 
-    private var lap_header_active = false
-    private var header_view: View? = null
+    //private var lap_header_active = false
+    //private var header_view: View? = null
     var lastLap = 0.toLong()
 
     override fun onCreateView(
@@ -35,7 +35,7 @@ class StopwatchFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
-        header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
+        //header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
         swatch = bind!!.chronometer
 
         swatch.base = SystemClock.elapsedRealtime() - offset
@@ -65,6 +65,7 @@ class StopwatchFrag : Fragment() {
             swatch.base = SystemClock.elapsedRealtime()
             offset = 0
             swatchState = SwatchState.INIT
+            reset()
             updateButtonUI()
         }
 
@@ -76,11 +77,11 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun lap() {
-        if (!lap_header_active) {
-            //we need to add in the lap table header
-            container.addView(header_view)
-            lap_header_active = true
-        }
+//        if (!lap_header_active) {
+//            //we need to add in the lap table header
+//            container.addView(header_view)
+//            lap_header_active = true
+//        }
 
         //track lap numbers
         lapCount += 1
@@ -99,7 +100,7 @@ class StopwatchFrag : Fragment() {
         lapView.lapNum.text = lapCount.toString()
         lapView.lapTimes.text = lapTime
         lapView.overallTime.text = overall_time
-        bind!!.container.addView(lapView)
+        bind!!.container.addView(lapView, lapCount-1)
     }
 
     private fun getTime(timeElapsed: Long): String {
@@ -154,38 +155,8 @@ class StopwatchFrag : Fragment() {
             }
         }
     }
+
+    private fun reset() {
+        bind!!.container.removeAllViews()
+    }
 }
-
-
-//    private fun reset() {
-//        chronometer!!.stop()
-//        chronometer!!.base = SystemClock.elapsedRealtime()
-//        offset = 0
-//        isPlaying = false
-//
-//        if (init_stopwatch){
-//            single_button_layout!!.visibility = View.VISIBLE
-//            multi_button_layout!!.visibility = View.GONE
-//
-//            init_stopwatch = false
-//        }
-//
-//        if (lap_header_active){
-//            container.removeView(header_view)
-//            lap_header_active = false
-//            lap_count = 0
-//            lastLap = 0.toLong()
-//            container.removeAllViews()
-//
-//        }
-//
-//        singlestartstopbutton?.setText(R.string.start)
-//        singlestartstopbutton?.setBackgroundColor(
-//            ContextCompat.getColor(requireContext(), R.color.resume_green)
-//        )
-//
-//        multissbutton?.setText(R.string.start)
-//        multissbutton?.setBackgroundColor(
-//            ContextCompat.getColor(requireContext(), R.color.resume_green)
-//        )
-//    }
