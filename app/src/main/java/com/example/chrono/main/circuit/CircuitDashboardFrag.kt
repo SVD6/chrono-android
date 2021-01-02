@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +44,22 @@ class CircuitDashboardFrag : Fragment() {
         return bind!!.root
     }
 
+    private fun loadData() {
+        val dataSet = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+        if ((dataSet != null) and (dataSet!!.circuits!!.size > 0)) {
+            bind!!.recyclerView.visibility = View.VISIBLE
+            bind!!.emptyLayout.visibility = View.GONE
+
+//            recyclerView.adapter = CircuitViewAdapter(dataSet.circuits!!) {circuitObject: CircuitObject -> circuitClicked(circuitObject) }
+            recyclerView.adapter = CircuitViewAdapter(
+                dataSet.circuits!!,
+                { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
+                { circuitObject: CircuitObject -> circuitLongClicked(circuitObject) })
+        } else {
+            loadEmptyUI()
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
@@ -61,18 +78,8 @@ class CircuitDashboardFrag : Fragment() {
         startActivityForResult(intent, 10002)
     }
 
-    private fun loadData() {
-        val dataSet = PreferenceManager.get<CircuitsObject>("CIRCUITS")
-        if ((dataSet != null) and (dataSet!!.circuits!!.size > 0)) {
-            bind!!.recyclerView.visibility = View.VISIBLE
-            bind!!.emptyLayout.visibility = View.GONE
-
-            recyclerView.adapter = CircuitViewAdapter(
-                dataSet.circuits!!
-            ) { circuitObject: CircuitObject -> circuitClicked(circuitObject) }
-        } else {
-            loadEmptyUI()
-        }
+    private fun circuitLongClicked(circuit: CircuitObject) {
+        // Roll bottom sheet
     }
 
     private fun loadEmptyUI() {
