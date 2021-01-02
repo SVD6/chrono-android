@@ -36,25 +36,25 @@ class CircuitFrag : Fragment() {
     ): View {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_circuit, container, false)
 
-        bind!!.startbutton.setOnClickListener {
+        bind!!.startButton.setOnClickListener {
             createTimer(10, false)
             timerState = TimerState.RUNNING
             updateButtonUI()
         }
 
-        bind!!.pausebutton.setOnClickListener {
+        bind!!.pauseButton.setOnClickListener {
             countdown.cancel()
             timerState = TimerState.PAUSED
             updateButtonUI()
         }
 
-        bind!!.stopbutton.setOnClickListener {
+        bind!!.stopButton.setOnClickListener {
             countdown.cancel()
             timerState = TimerState.INIT
             updateButtonUI()
         }
 
-        bind!!.resumebutton.setOnClickListener {
+        bind!!.resumeButton.setOnClickListener {
             createTimer(secondsLeft.toInt(), true)
             timerState = TimerState.RUNNING
             updateButtonUI()

@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentCircuitDashboardBinding
 import com.example.chrono.util.BaseActivity
-import com.example.chrono.util.objects.PreferenceManager
 import com.example.chrono.util.adapters.CircuitViewAdapter
 import com.example.chrono.util.objects.CircuitObject
 import com.example.chrono.util.objects.CircuitsObject
+import com.example.chrono.util.objects.PreferenceManager
 import com.google.gson.GsonBuilder
 
 class CircuitDashboardFrag : Fragment() {
@@ -55,9 +55,8 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     private fun circuitClicked(circuit: CircuitObject) {
-//        Toast.makeText(context, "Works" + circuit.name, Toast.LENGTH_SHORT).show()
         val jsonString = GsonBuilder().create().toJson(circuit)
-        val intent: Intent = Intent(requireContext(), CircuitTimerActivity::class.java)
+        val intent = Intent(requireContext(), CircuitTimerActivity::class.java)
         intent.putExtra("circuitObject", jsonString)
         startActivityForResult(intent, 10002)
     }

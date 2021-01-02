@@ -25,9 +25,9 @@ class StopwatchFrag : Fragment() {
 
     private var lapCount = 0
 
-    private var lap_header_active = false
-    private var header_view: View? = null
-    var lastLap = 0.toLong()
+    private var lapHeaderActive = false
+    private var headerView: View? = null
+    private var lastLap = 0.toLong()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,25 +35,25 @@ class StopwatchFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
-        header_view = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
+        headerView = LayoutInflater.from(requireContext()).inflate(R.layout.lap_header, null)
         swatch = bind!!.chronometer
 
         swatch.base = SystemClock.elapsedRealtime() - offset
 
-        bind!!.startbutton.setOnClickListener {
+        bind!!.startButton.setOnClickListener {
             swatch.start()
             swatchState = SwatchState.RUNNING
             updateButtonUI()
         }
 
-        bind!!.stopbutton.setOnClickListener {
+        bind!!.stopButton.setOnClickListener {
             swatch.stop()
             offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
             swatchState = SwatchState.STOPPED
             updateButtonUI()
         }
 
-        bind!!.resumebutton.setOnClickListener {
+        bind!!.resumeButton.setOnClickListener {
             swatch.base = SystemClock.elapsedRealtime() - offset
             swatch.start()
             swatchState = SwatchState.RUNNING
@@ -68,7 +68,7 @@ class StopwatchFrag : Fragment() {
             updateButtonUI()
         }
 
-        bind!!.lapbutton.setOnClickListener {
+        bind!!.lapButton.setOnClickListener {
             lap()
         }
 
@@ -76,29 +76,29 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun lap() {
-        if (!lap_header_active) {
+        if (!lapHeaderActive) {
             //we need to add in the lap table header
-            container.addView(header_view)
-            lap_header_active = true
+            container.addView(headerView)
+            lapHeaderActive = true
         }
 
         //track lap numbers
         lapCount += 1
-        var lapView = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
-        var timeNow = SystemClock.elapsedRealtime() - chronometer!!.base
+        val lapView = LayoutInflater.from(requireContext()).inflate(R.layout.lap_row, null)
+        val timeNow = SystemClock.elapsedRealtime() - chronometer!!.base
 
         // get overall time that the current lap finished at.
-        var overall_time = getTime(timeNow)
+        val overallTime = getTime(timeNow)
 
         // get lap time for current lap
-        var lapTimeDiff = timeNow - lastLap
+        val lapTimeDiff = timeNow - lastLap
         lastLap = lapTimeDiff
-        var lapTime = getTime(lapTimeDiff)
+        val lapTime = getTime(lapTimeDiff)
 
         //set text views
-        lapView.lapNum.text = lapCount.toString()
-        lapView.lapTimes.text = lapTime
-        lapView.overallTime.text = overall_time
+        lapView.lap_num.text = lapCount.toString()
+        lapView.lap_times.text = lapTime
+        lapView.overall_time.text = overallTime
         bind!!.container.addView(lapView)
     }
 
@@ -118,17 +118,17 @@ class StopwatchFrag : Fragment() {
         val milliseconds = timeElapsed % 1000 / 100
         remaining %= 100
 
-        val tenthmillisecond = remaining % 10
+        val tenthMillisecond = remaining % 10
 
         var text = ""
 
         if (hours > 0) {
-            text += df.format(hours.toLong()) + ":"
+            text += df.format(hours) + ":"
         }
 
-        text += df.format(minutes.toLong()) + ":"
-        text += df.format(seconds.toLong()) + ":"
-        text += milliseconds.toString() + tenthmillisecond.toString()
+        text += df.format(minutes) + ":"
+        text += df.format(seconds) + ":"
+        text += milliseconds.toString() + tenthMillisecond.toString()
 
         return text
     }

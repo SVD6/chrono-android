@@ -1,11 +1,11 @@
 package com.example.chrono.main.circuit
 
 import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityCircuitTimerBinding
@@ -22,8 +22,8 @@ class CircuitTimerActivity : AppCompatActivity() {
     enum class RunningState { INIT, WORK, REST }
 
     private lateinit var countdown: CountDownTimer
-    private var timerState: TimerState = TimerState.INIT
     private lateinit var runningState: RunningState
+    private var timerState: TimerState = TimerState.INIT
 
     private var secondsLeft: Float = 0.0f
     private var currentSet: Int = 0
@@ -46,19 +46,19 @@ class CircuitTimerActivity : AppCompatActivity() {
 
         // Initialize stuff perhaps
 
-        bind!!.startbutton.setOnClickListener {
+        bind!!.startButton.setOnClickListener {
             workout()
             timerState = TimerState.RUNNING
             updateButtonUI()
         }
 
-        bind!!.pausebutton.setOnClickListener {
+        bind!!.pauseButton.setOnClickListener {
             countdown.cancel()
             timerState = TimerState.PAUSED
             updateButtonUI()
         }
 
-        bind!!.resumebutton.setOnClickListener {
+        bind!!.resumeButton.setOnClickListener {
             startTimer(secondsLeft.toInt(), true)
             timerState = TimerState.RUNNING
             updateButtonUI()
@@ -150,6 +150,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     private fun workout() {
         runningState = RunningState.WORK
         bind!!.state.text = "Workout"
+
         bind!!.set.text = "Set Number " + currentSet.toString()
         startTimer(timeWork, false)
     }

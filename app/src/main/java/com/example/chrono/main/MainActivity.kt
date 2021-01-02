@@ -10,9 +10,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityMainBinding
-import com.example.chrono.main.stopwatch.StopwatchFrag
-import com.example.chrono.main.circuit.CircuitFrag
 import com.example.chrono.main.circuit.CircuitDashboardFrag
+import com.example.chrono.main.circuit.CircuitFrag
+import com.example.chrono.main.stopwatch.StopwatchFrag
 import com.example.chrono.util.BaseActivity
 import com.example.chrono.util.objects.PreferenceManager
 import com.google.android.material.tabs.TabLayout
@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class MainActivity : BaseActivity() {
     private lateinit var pager: ViewPager2 // ViewPager where the fragments sit
     private var bind: ActivityMainBinding? = null // Bind variable for the activity
-    private lateinit var tablay: TabLayout // The timer/stopwatch navigation tab layout
+    private lateinit var tabLay: TabLayout // The timer/stopwatch navigation tab layout
 
     private lateinit var circuitFrag: CircuitFrag
     private lateinit var circuitDashFrag: CircuitDashboardFrag
@@ -39,14 +39,14 @@ class MainActivity : BaseActivity() {
 
         // Set the pager and tab layouts by finding them in the bound layout
         pager = bind!!.pager
-        tablay = bind!!.tablayout
+        tabLay = bind!!.tabLayout
 
         // Set the adapter of the viewpager (our custom fragment adapter below)
         val adapter = TabsPagerAdapter(supportFragmentManager, lifecycle)
         pager.adapter = adapter
 
         // Tells the tablayout to follow the viewpager
-        TabLayoutMediator(tablay, pager) { tab, position ->
+        TabLayoutMediator(tabLay, pager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Circuit"
                 else -> tab.text = "Stopwatch"
@@ -55,9 +55,9 @@ class MainActivity : BaseActivity() {
 
         // Change up some UI elements based on light/dark mode
         if (isUsingNightModeResources()) {
-            tablay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_dark)
+            tabLay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_dark)
         } else {
-            tablay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_light)
+            tabLay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_light)
         }
     }
 
