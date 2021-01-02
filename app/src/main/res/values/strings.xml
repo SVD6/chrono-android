@@ -32,4 +32,6 @@
     <string name="work">Work</string>
 
     <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
+
+    <string name="timer_notification_channel_id">chrono_timer_default_channel</string>
 </resources>

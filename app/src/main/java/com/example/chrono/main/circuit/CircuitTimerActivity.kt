@@ -1,11 +1,17 @@
 package com.example.chrono.main.circuit
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityCircuitTimerBinding
@@ -38,6 +44,8 @@ class CircuitTimerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
+
+        createNotificationChannel()
 
         loadTimer(
             GsonBuilder().create()
@@ -82,6 +90,7 @@ class CircuitTimerActivity : AppCompatActivity() {
                 if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                     secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()
                     updateTimerUI()
+                    createNotification(secondsLeft)
                 }
             }
 
@@ -161,5 +170,37 @@ class CircuitTimerActivity : AppCompatActivity() {
         bind!!.set.text = "Set Number " + currentSet.toString()
         startTimer(timeRest, false)
         currentSet -= 1
+    }
+
+    private fun createNotification(time: Float) {
+        var builder =
+            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
+                .setSmallIcon(R.drawable.ic_notification_logo)
+                .setContentTitle("Notification test")
+                .setContentText(time.toString())
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+
+        with(NotificationManagerCompat.from(this)) {
+            //notificationId is a unique int for each notification that you must define
+            notify(2, builder.build())
+        }
+
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.timer_notification_channel_id)
+            val descriptionText = "Timer notification"
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val channel = NotificationChannel(name, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 }
