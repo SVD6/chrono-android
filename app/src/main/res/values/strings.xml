@@ -31,4 +31,6 @@
     <string name="workout">Workout</string>
     <string name="get_ready">Get Ready</string>
     <string name="circuit_name">Circuit Name</string>
+
+    <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
 </resources>
