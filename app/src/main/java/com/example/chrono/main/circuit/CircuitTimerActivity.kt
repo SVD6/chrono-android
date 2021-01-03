@@ -157,7 +157,6 @@ class CircuitTimerActivity : AppCompatActivity() {
     // Update UI for every tick, possibly need to do more in the future
     fun updateTimerUI() {
         if (criticalSeconds != 0 && secondsLeft <= criticalSeconds && runningState == RunningState.WORK) {
-
             bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
             bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
@@ -191,8 +190,8 @@ class CircuitTimerActivity : AppCompatActivity() {
                 // Just for paused we put non-button UI stuff
                 bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
                 bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.black))
+                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
+                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
                 bind!!.closeButton.setImageResource(R.drawable.ic_close_grey)
             }
         }
@@ -210,8 +209,8 @@ class CircuitTimerActivity : AppCompatActivity() {
 
                 bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
                 bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.black))
+                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
+                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
                 bind!!.closeButton.setImageResource(R.drawable.ic_close_grey)
             }
             RunningState.WORK -> {
@@ -243,13 +242,6 @@ class CircuitTimerActivity : AppCompatActivity() {
                 bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
             }
-//            RunningState.FINAL -> {
-//                bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
-//                bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
-//                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
-//                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
-//                bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
-//            }
         }
     }
 

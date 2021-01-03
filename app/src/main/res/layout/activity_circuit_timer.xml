@@ -12,11 +12,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/large_element_padding"
             android:clickable="true"
             android:focusable="true"
             android:padding="@dimen/xs_large_element_padding"
             android:src="@drawable/ic_close_grey" />
-
 
         <LinearLayout
             android:id="@+id/countdown_lay"

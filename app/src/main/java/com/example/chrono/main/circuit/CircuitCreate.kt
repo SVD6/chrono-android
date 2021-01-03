@@ -92,7 +92,7 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun validateInputs(): Boolean {
-        if ((bind!!.nameInput.text.toString() == "") or (bind!!.nameInput.text.toString() == "")) {
+        if (bind!!.nameInput.text.toString() == "") {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }
