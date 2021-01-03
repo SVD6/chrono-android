@@ -33,7 +33,7 @@
                 android:layout_marginHorizontal="@dimen/medium_element_padding"
                 android:layout_marginVertical="@dimen/medium_element_padding"
                 android:fontFamily="@font/nunito_bold"
-                android:text="@string/work"
+                android:text="@string/lets_go"
                 android:textAllCaps="true"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/xxl_huge_text"
