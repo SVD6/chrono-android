@@ -94,16 +94,20 @@ class CircuitDashboardFrag : Fragment() {
         modalSheetView.share_layout.setOnClickListener {
             Toast.makeText(
                 requireContext(),
-                "\uD83D\uDEE0\uFE0F Delete circuit coming soon!! \uD83D\uDEE0\uFE0F",
+                "\uD83D\uDEE0\uFE0F Share a circuit coming soon!! \uD83D\uDEE0\uFE0F",
                 Toast.LENGTH_SHORT
             ).show()
         }
         dialog.show()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
         val builder = MaterialAlertDialogBuilder(requireContext()).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_circuit_delete, null)
+
+        dialogView.delete_circuit_name.text =
+            "Delete " + circuitsObject?.circuits!![position].name
 
         // Button Logic
         dialogView.cancel_button.setOnClickListener {
@@ -116,7 +120,7 @@ class CircuitDashboardFrag : Fragment() {
             dialog.dismiss()
 
             // Remove from model and recyclerview
-            circuitsObject?.circuits?.remove(circuitsObject?.circuits?.get(position))
+            circuitsObject?.circuits?.remove(circuitsObject?.circuits!![position])
             recyclerView.adapter?.notifyItemRemoved(position)
             recyclerView.adapter?.notifyItemRangeChanged(position, circuitsObject?.circuits!!.size)
 

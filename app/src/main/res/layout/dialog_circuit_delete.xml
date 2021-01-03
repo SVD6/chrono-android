@@ -7,8 +7,12 @@
     android:padding="@dimen/small_element_padding">
 
     <TextView
+        android:id="@+id/delete_circuit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:maxLines="1"
         android:padding="@dimen/small_element_padding"
         android:text="Delete Circuit"
         android:textSize="@dimen/xl_large_text"
