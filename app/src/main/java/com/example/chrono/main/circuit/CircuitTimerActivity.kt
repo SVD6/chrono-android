@@ -31,6 +31,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     private var timerState: TimerState = TimerState.INIT
     private var runningState: RunningState = RunningState.INIT
 
+    private lateinit var circuit: CircuitObject
     private var currentSet: Int = 0
     private var sets: Int = 0
     private var timeRest: Int = 0
@@ -44,16 +45,15 @@ class CircuitTimerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
-        loadTimer(
-            GsonBuilder().create()
-                .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
-        )
+        circuit = GsonBuilder().create()
+            .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
 
-        // Initialize stuff perhaps
+        // Initialize stuff
         updateButtonUI()
         updateRestUI()
 
         bind!!.startButton.setOnClickListener {
+            loadTimer(circuit)
             timerState = TimerState.RUNNING
             getReady()
         }
@@ -131,7 +131,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     }
 
     private fun isDone() {
-        Toast.makeText(this, "It's done", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Circuit Complete! \uD83E\uDD73", Toast.LENGTH_SHORT).show()
         timerState = TimerState.INIT
         runningState = RunningState.INIT
         updateButtonUI()
@@ -205,7 +205,7 @@ class CircuitTimerActivity : AppCompatActivity() {
             }
             RunningState.INIT -> {
                 bind!!.currentSet.text = getString(R.string.empty)
-                bind!!.currentState.text = getString(R.string.work)
+                bind!!.currentState.text = getString(R.string.lets_go)
 
                 bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
                 bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
