@@ -18,6 +18,7 @@ import com.example.chrono.util.adapters.CircuitViewAdapter
 import com.example.chrono.util.objects.CircuitObject
 import com.example.chrono.util.objects.CircuitsObject
 import com.example.chrono.util.objects.PreferenceManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.GsonBuilder
 
 class CircuitDashboardFrag : Fragment() {
@@ -50,7 +51,6 @@ class CircuitDashboardFrag : Fragment() {
             bind!!.recyclerView.visibility = View.VISIBLE
             bind!!.emptyLayout.visibility = View.GONE
 
-//            recyclerView.adapter = CircuitViewAdapter(dataSet.circuits!!) {circuitObject: CircuitObject -> circuitClicked(circuitObject) }
             recyclerView.adapter = CircuitViewAdapter(
                 dataSet.circuits!!,
                 { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
@@ -67,7 +67,7 @@ class CircuitDashboardFrag : Fragment() {
         }
         if (requestCode == 10002 && resultCode == Activity.RESULT_OK) {
             // Ideal spot to ask for a rating after a threshold of timers have been run
-            Log.i("result", "Success Worked")
+            Log.i("circuit_activity", "Completed a circuit.")
         }
     }
 
@@ -80,6 +80,10 @@ class CircuitDashboardFrag : Fragment() {
 
     private fun circuitLongClicked(circuit: CircuitObject) {
         // Roll bottom sheet
+        val modalSheetView = layoutInflater.inflate(R.layout.fragment_dashboard_bottom_sheet, null)
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.setContentView(modalSheetView)
+        dialog.show()
     }
 
     private fun loadEmptyUI() {

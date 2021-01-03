@@ -10,6 +10,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
     </style>
 
     <!-- Theme for all the buttons. -->
@@ -29,6 +30,21 @@
         <item name="android:textSize">@dimen/xl_medium_text</item>
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Bottom Sheet Styling-->
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/large_element_padding</item>
+        <item name="cornerSizeTopLeft">@dimen/large_element_padding</item>
     </style>
 
 </resources>
