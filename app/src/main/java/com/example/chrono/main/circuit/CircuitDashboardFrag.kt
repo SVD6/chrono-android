@@ -119,7 +119,6 @@ class CircuitDashboardFrag : Fragment() {
             circuitsObject?.circuits?.remove(circuitsObject?.circuits?.get(position))
             recyclerView.adapter?.notifyItemRemoved(position)
             recyclerView.adapter?.notifyItemRangeChanged(position, circuitsObject?.circuits!!.size)
-//            recyclerView.adapter?.notifyDataSetChanged()
 
             if (recyclerView.adapter?.itemCount!! == 0) {
                 loadEmptyUI()
@@ -136,6 +135,7 @@ class CircuitDashboardFrag : Fragment() {
 
     private fun loadData() {
         circuitsObject = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+
         if (circuitsObject != null && circuitsObject?.circuits!!.size > 0) {
             bind!!.recyclerView.visibility = View.VISIBLE
             bind!!.emptyLayout.visibility = View.GONE
