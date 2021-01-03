@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -10,143 +11,143 @@
             android:id="@+id/close_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/large_element_padding"
             android:clickable="true"
             android:focusable="true"
-            android:padding="@dimen/medium_element_padding"
-            android:src="@drawable/ic_close_black" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="@dimen/medium_element_padding"
-            android:layout_marginVertical="@dimen/xl_large_element_padding"
-            android:textSize="@dimen/huge_text" />
-
-        <TextView
-            android:id="@+id/state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/medium_element_padding"
-            android:textSize="@dimen/large_text" />
-
-        <TextView
-            android:id="@+id/set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/state"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/medium_element_padding"
-            android:textSize="@dimen/large_text" />
+            android:padding="@dimen/xs_large_element_padding"
+            android:src="@drawable/ic_close_grey" />
 
         <LinearLayout
+            android:id="@+id/countdown_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/current_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="@dimen/medium_element_padding"
+                android:layout_marginVertical="@dimen/medium_element_padding"
+                android:fontFamily="@font/nunito_bold"
+                android:text="@string/work"
+                android:textAllCaps="true"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/xxl_huge_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/current_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="@dimen/medium_element_padding"
+                android:textAllCaps="true"
+                android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/nunito"
+                android:gravity="center"
+                android:text="@string/_0"
+                android:textColor="@color/black"
+                android:textSize="@dimen/enormous_text" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="100dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/init_button_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:layout_margin="@dimen/xs_medium_element_padding"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
 
-            <RelativeLayout
-                android:id="@+id/timer_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/small_element_padding"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="@dimen/medium_element_padding">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/start_button"
+                android:layout_width="125dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/medium_element_padding"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/start"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/xl_medium_text"
+                app:cornerRadius="13dp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/countdown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/opensans_regular"
-                    android:gravity="center"
-                    android:text="@string/_0"
-                    android:textSize="@dimen/xl_massive_text" />
+        <LinearLayout
+            android:id="@+id/run_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/xs_medium_element_padding"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-            </RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pause_button"
+                android:layout_width="125dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/medium_element_padding"
+                android:backgroundTint="@color/white"
+                android:letterSpacing="0"
+                android:text="@string/pause"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/xl_medium_text"
+                app:cornerRadius="13dp" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/init_button_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/xs_medium_element_padding"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
+        <LinearLayout
+            android:id="@+id/pause_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/xs_medium_element_padding"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/start_button"
-                    android:layout_width="125dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="@dimen/medium_element_padding"
-                    android:backgroundTint="@color/resume_green"
-                    android:text="@string/start"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/xl_medium_text"
-                    app:cornerRadius="13dp" />
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/resume_button"
+                android:layout_width="125dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/medium_element_padding"
+                android:backgroundTint="@color/resume_green"
+                android:letterSpacing="0"
+                android:text="@string/resume"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/xl_medium_text"
+                app:cornerRadius="13dp" />
 
-            <LinearLayout
-                android:id="@+id/run_button_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/xs_medium_element_padding"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/stop_button"
+                android:layout_width="125dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/medium_element_padding"
+                android:backgroundTint="@color/stop_red"
+                android:letterSpacing="0"
+                android:text="@string/stop"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/xl_medium_text"
+                app:cornerRadius="13dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/pause_button"
-                    android:layout_width="125dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="@dimen/medium_element_padding"
-                    android:backgroundTint="@color/lap_blue"
-                    android:text="@string/pause"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/xl_medium_text"
-                    app:cornerRadius="13dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/pause_button_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/xs_medium_element_padding"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/resume_button"
-                    android:layout_width="125dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="@dimen/medium_element_padding"
-                    android:backgroundTint="@color/resume_green"
-                    android:text="@string/resume"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/xl_medium_text"
-                    app:cornerRadius="13dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/stop_button"
-                    android:layout_width="125dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="@dimen/medium_element_padding"
-                    android:backgroundTint="@color/stop_red"
-                    android:text="@string/stop"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/xl_medium_text"
-                    app:cornerRadius="13dp" />
-
-            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 </layout>
