@@ -1,10 +1,8 @@
 package com.example.chrono.util.services
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -15,7 +13,7 @@ import com.example.chrono.main.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-class ChronoFirebaseMessagingService : FirebaseMessagingService() {
+class FirebaseCloudMessaging : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // Required to display notification if the app is open

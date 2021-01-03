@@ -4,7 +4,6 @@ import `in`.goodiebag.carouselpicker.CarouselPicker
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import com.example.chrono.R
