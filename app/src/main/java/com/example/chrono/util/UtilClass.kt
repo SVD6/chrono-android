@@ -8,7 +8,7 @@ fun getDrawableByString(context: Context, identifier: String): Int {
 
 fun getIconName(position: Int): String {
     when (position) {
-        0 -> return "ic_timer_black"
+        0 -> return "ic_stopwatch"
         1 -> return "ic_abs"
         2 -> return "ic_arm"
         3 -> return "ic_bottle"

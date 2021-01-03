@@ -1,5 +1,6 @@
 package com.example.chrono.main.circuit
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -19,11 +20,17 @@ import com.example.chrono.util.objects.CircuitObject
 import com.example.chrono.util.objects.CircuitsObject
 import com.example.chrono.util.objects.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.dialog_circuit_delete.view.*
+import kotlinx.android.synthetic.main.fragment_dashboard_bottom_sheet.view.*
 
 class CircuitDashboardFrag : Fragment() {
     private var bind: FragmentCircuitDashboardBinding? = null
     private lateinit var recyclerView: RecyclerView
+
+    private var circuitsObject: CircuitsObject? = null
+    private var selectedPosition: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,21 +52,6 @@ class CircuitDashboardFrag : Fragment() {
         return bind!!.root
     }
 
-    private fun loadData() {
-        val dataSet = PreferenceManager.get<CircuitsObject>("CIRCUITS")
-        if ((dataSet != null) and (dataSet!!.circuits!!.size > 0)) {
-            bind!!.recyclerView.visibility = View.VISIBLE
-            bind!!.emptyLayout.visibility = View.GONE
-
-            recyclerView.adapter = CircuitViewAdapter(
-                dataSet.circuits!!,
-                { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
-                { circuitObject: CircuitObject -> circuitLongClicked(circuitObject) })
-        } else {
-            loadEmptyUI()
-        }
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
@@ -78,12 +70,86 @@ class CircuitDashboardFrag : Fragment() {
         startActivityForResult(intent, 10002)
     }
 
-    private fun circuitLongClicked(circuit: CircuitObject) {
-        // Roll bottom sheet
+    @SuppressLint("InflateParams")
+    private fun circuitLongClicked(position: Int) {
+        selectedPosition = position
+
+        // Roll out the bottom sheet
         val modalSheetView = layoutInflater.inflate(R.layout.fragment_dashboard_bottom_sheet, null)
         val dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(modalSheetView)
+
+        modalSheetView.delete_layout.setOnClickListener {
+            deleteCircuit(dialog, position)
+        }
+
+        modalSheetView.edit_layout.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "\uD83D\uDEE0\uFE0F Edit circuit coming soon!! \uD83D\uDEE0\uFE0F",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        modalSheetView.share_layout.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "\uD83D\uDEE0\uFE0F Delete circuit coming soon!! \uD83D\uDEE0\uFE0F",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         dialog.show()
+    }
+
+    private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
+        val builder = MaterialAlertDialogBuilder(requireContext()).create()
+        val dialogView = layoutInflater.inflate(R.layout.dialog_circuit_delete, null)
+
+        // Button Logic
+        dialogView.cancel_button.setOnClickListener {
+            builder.dismiss()
+        }
+
+        dialogView.delete_button.setOnClickListener {
+            // Dismiss popups
+            builder.dismiss()
+            dialog.dismiss()
+
+            // Remove from model and recyclerview
+            circuitsObject?.circuits?.remove(circuitsObject?.circuits?.get(position))
+            recyclerView.adapter?.notifyItemRemoved(position)
+            recyclerView.adapter?.notifyItemRangeChanged(position, circuitsObject?.circuits!!.size)
+//            recyclerView.adapter?.notifyDataSetChanged()
+
+            if (recyclerView.adapter?.itemCount!! == 0) {
+                loadEmptyUI()
+            }
+
+            // Save updated list in local storage
+            PreferenceManager.put(circuitsObject, "CIRCUITS")
+        }
+
+        // Display the Dialog
+        builder.setView(dialogView)
+        builder.show()
+    }
+
+    private fun loadData() {
+        circuitsObject = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+        if (circuitsObject != null && circuitsObject?.circuits!!.size > 0) {
+            bind!!.recyclerView.visibility = View.VISIBLE
+            bind!!.emptyLayout.visibility = View.GONE
+
+            recyclerView.adapter = CircuitViewAdapter(
+                circuitsObject?.circuits!!,
+                { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
+                { position: Int ->
+                    circuitLongClicked(position)
+                },
+            )
+        } else {
+            loadEmptyUI()
+        }
     }
 
     private fun loadEmptyUI() {

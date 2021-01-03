@@ -13,7 +13,7 @@ import com.google.android.material.textview.MaterialTextView
 class CircuitViewAdapter(
     private val data: List<CircuitObject>,
     private val clickListener: (CircuitObject) -> Unit,
-    private val longClickListener: (CircuitObject) -> Unit
+    private val longClickListener: (Int) -> Unit
 ) :
     RecyclerView.Adapter<CircuitViewAdapter.CircuitViewHolder>() {
 
@@ -28,7 +28,8 @@ class CircuitViewAdapter(
         fun bind(
             circuit: CircuitObject,
             clickListener: (CircuitObject) -> Unit,
-            onLongClickListener: (CircuitObject) -> Unit,
+            onLongClickListener: (Int) -> Unit,
+            position: Int
         ) {
             name.text = circuit.name
             numSets.text = circuit.sets.toString() + " Sets"
@@ -37,7 +38,7 @@ class CircuitViewAdapter(
             icon.setImageResource(circuit.iconId!!)
             itemView.setOnClickListener { clickListener(circuit) }
             itemView.setOnLongClickListener {
-                onLongClickListener(circuit)
+                onLongClickListener(position)
                 true
             }
         }
@@ -52,7 +53,7 @@ class CircuitViewAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) {
         val circuit = data[position]
-        holder.bind(circuit, clickListener, longClickListener)
+        holder.bind(circuit, clickListener, longClickListener, position)
     }
 
     override fun getItemCount(): Int {
