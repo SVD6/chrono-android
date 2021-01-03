@@ -34,4 +34,29 @@
 
     <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
     <string name="lets_go">Let\'s Go!</string>
+
+    <!-- Drawable Names-->
+    <string-array name="icon_files">
+        <item>drawable/ic_stopwatch</item>
+        <item>drawable/ic_abs</item>
+        <item>drawable/ic_arm</item>
+        <item>drawable/ic_bottle</item>
+        <item>drawable/ic_boxer</item>
+        <item>drawable/ic_dumbbell</item>
+        <item>drawable/ic_gym</item>
+        <item>drawable/ic_gym_2</item>
+        <item>drawable/ic_gym_3</item>
+        <item>drawable/ic_gym_4</item>
+        <item>drawable/ic_gym_bag</item>
+        <item>drawable/ic_gymnast</item>
+        <item>drawable/ic_jump_rope</item>
+        <item>drawable/ic_mat</item>
+        <item>drawable/ic_punching_ball</item>
+        <item>drawable/ic_resistance</item>
+        <item>drawable/ic_resistance_1</item>
+        <item>drawable/ic_trampoline</item>
+        <item>drawable/ic_treadmill</item>
+        <item>drawable/ic_workout</item>
+        <item>drawable/ic_workout_3</item>
+    </string-array>
 </resources>

@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentStopwatchBinding
-import com.example.chrono.util.components.MyChronometer
+import com.example.chrono.util.components.Chronometer
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
 import kotlinx.android.synthetic.main.lap_row.view.*
 import java.text.DecimalFormat
@@ -19,7 +19,7 @@ class StopwatchFrag : Fragment() {
 
     enum class SwatchState { INIT, RUNNING, STOPPED }
 
-    private lateinit var swatch: MyChronometer
+    private lateinit var swatch: Chronometer
     private var swatchState: SwatchState = SwatchState.INIT
     private var offset: Int = 0
 

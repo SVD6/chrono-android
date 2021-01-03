@@ -1,6 +1,8 @@
 package com.example.chrono.util.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.TypedArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +15,8 @@ import com.google.android.material.textview.MaterialTextView
 class CircuitViewAdapter(
     private val data: List<CircuitObject>,
     private val clickListener: (CircuitObject) -> Unit,
-    private val longClickListener: (Int) -> Unit
+    private val longClickListener: (Int) -> Unit,
+    private val context: Context
 ) :
     RecyclerView.Adapter<CircuitViewAdapter.CircuitViewHolder>() {
 
@@ -29,13 +32,24 @@ class CircuitViewAdapter(
             circuit: CircuitObject,
             clickListener: (CircuitObject) -> Unit,
             onLongClickListener: (Int) -> Unit,
-            position: Int
+            position: Int,
+            context: Context
         ) {
             name.text = circuit.name
             numSets.text = circuit.sets.toString() + " Sets"
             timeRest.text = "Rest:  " + circuit.rest.toString() + "s"
             timeWork.text = "Work:  " + circuit.work.toString() + "s"
-            icon.setImageResource(circuit.iconId!!)
+
+            // Set Icon
+            val icons: TypedArray = context.resources.obtainTypedArray(R.array.icon_files)
+            icon.setImageResource(
+                context.resources.getIdentifier(
+                    icons.getString(circuit.iconId!!),
+                    "drawable",
+                    context.packageName
+                )
+            )
+            icons.recycle()
             itemView.setOnClickListener { clickListener(circuit) }
             itemView.setOnLongClickListener {
                 onLongClickListener(position)
@@ -53,7 +67,7 @@ class CircuitViewAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) {
         val circuit = data[position]
-        holder.bind(circuit, clickListener, longClickListener, position)
+        holder.bind(circuit, clickListener, longClickListener, position, context)
     }
 
     override fun getItemCount(): Int {
