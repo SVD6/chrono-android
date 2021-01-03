@@ -10,6 +10,7 @@ import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityCircuitTimerBinding
@@ -30,6 +31,8 @@ class CircuitTimerActivity : AppCompatActivity() {
 
     private var timerState: TimerState = TimerState.INIT
     private var runningState: RunningState = RunningState.INIT
+    private lateinit var runningState: RunningState
+    private var timerState: TimerState = TimerState.INIT
 
     private var currentSet: Int = 0
     private var sets: Int = 0

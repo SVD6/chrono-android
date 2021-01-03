@@ -7,7 +7,7 @@
     android:padding="@dimen/huge_text">
 
     <TextView
-        android:id="@+id/lapNum"
+        android:id="@+id/lap_num"
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
@@ -17,7 +17,7 @@
         app:cornerRadius="10dp" />
 
     <TextView
-        android:id="@+id/lapTimes"
+        android:id="@+id/lap_times"
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
@@ -27,7 +27,7 @@
         app:cornerRadius="10dp" />
 
     <TextView
-        android:id="@+id/overallTime"
+        android:id="@+id/overall_time"
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_gravity="center"

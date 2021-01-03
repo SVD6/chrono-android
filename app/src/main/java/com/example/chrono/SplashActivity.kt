@@ -10,9 +10,10 @@ import com.example.chrono.databinding.ActivitySplashBinding
 import com.example.chrono.main.MainActivity
 import com.example.chrono.util.BaseActivity
 
+private const val SPLASH_TIMEOUT = 3000L // Timeout delay
+
 class SplashActivity : BaseActivity() {
     private var bind: ActivitySplashBinding? = null // Bind variable for the activity
-    private val splashTimeOut = 3000L // Timeout delay
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,11 +21,11 @@ class SplashActivity : BaseActivity() {
 
         // Change the splash screen based on light/dark mode
         if (isUsingNightModeResources()) {
-            bind!!.lightmode.visibility = View.GONE
-            bind!!.darkmode.visibility = View.VISIBLE
+            bind!!.lightMode.visibility = View.GONE
+            bind!!.darkMode.visibility = View.VISIBLE
         } else {
-            bind!!.lightmode.visibility = View.VISIBLE
-            bind!!.darkmode.visibility = View.GONE
+            bind!!.lightMode.visibility = View.VISIBLE
+            bind!!.darkMode.visibility = View.GONE
         }
 
         // Set the time out delay and launch main activity afterwards
@@ -34,7 +35,7 @@ class SplashActivity : BaseActivity() {
             {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
-            }, splashTimeOut
+            }, SPLASH_TIMEOUT
         )
     }
 }
