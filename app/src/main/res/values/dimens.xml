@@ -15,10 +15,10 @@
     <dimen name="huge_text">30sp</dimen>
     <dimen name="xl_huge_text">40sp</dimen>
     <dimen name="xxl_huge_text">60sp</dimen>
+    <dimen name="xs_massive_text">70sp</dimen>
     <dimen name="massive_text">80sp</dimen>
     <dimen name="xl_massive_text">100sp</dimen>
     <dimen name="enormous_text">150sp</dimen>
-
     <!-- View padding and sizes -->
     <dimen name="xs_tiny_element_padding">1dp</dimen>
     <dimen name="tiny_element_padding">2dp</dimen>

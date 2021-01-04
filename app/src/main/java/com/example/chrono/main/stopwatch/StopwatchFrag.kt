@@ -27,7 +27,7 @@ class StopwatchFrag : Fragment() {
     private var offset: Int = 0
 
     private var lapCount = 0
-    private var lastLap = 0.toLong()
+    private var prevTime = 0.toLong()
     private lateinit var laps: ArrayList<LapObject>
 
     override fun onCreateView(
@@ -76,7 +76,6 @@ class StopwatchFrag : Fragment() {
         bind!!.lapButton.setOnClickListener {
             lap()
         }
-
         return bind!!.root
     }
 
@@ -89,15 +88,14 @@ class StopwatchFrag : Fragment() {
 
         laps = ArrayList()
         lapCount = 0
-        lastLap = 0.toLong()
+        prevTime = 0.toLong()
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
     private fun lap() {
         lapCount += 1
         val currTime = SystemClock.elapsedRealtime() - chronometer!!.base
-        val timeDiff = currTime - lastLap
-        lastLap = timeDiff
+        val timeDiff = currTime - prevTime
 
         // Create Lap Object
         val lap = LapObject()
@@ -108,6 +106,7 @@ class StopwatchFrag : Fragment() {
         laps.add(lap)
         recyclerView.adapter?.notifyItemInserted(lapCount)
         recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount - 1)
+        prevTime = currTime
     }
 
     // Update the buttons layout based on the current state of the timer

@@ -1,6 +1,5 @@
 package com.example.chrono.util.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ class LapViewAdapter(private val data: List<LapObject>) :
         private val lapTime: MaterialTextView = itemView.findViewById(R.id.lapTime)
         private val totalTime: MaterialTextView = itemView.findViewById(R.id.totalTime)
 
-        @SuppressLint("SetTextI18n")
         fun bind(lap: LapObject) {
             lapNum.text = lap.lapNum.toString()
             lapTime.text = getTime(lap.lapTime)

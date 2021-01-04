@@ -20,7 +20,6 @@
                 android:fadingEdge="vertical"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager" />
-
         </com.bosphere.fadingedgelayout.FadingEdgeLayout>
 
         <LinearLayout
@@ -41,7 +40,7 @@
                 android:gravity="center"
                 android:padding="@dimen/medium_element_padding"
                 android:text="@string/chronometer"
-                android:textSize="@dimen/massive_text" />
+                android:textSize="@dimen/xs_massive_text" />
 
             <LinearLayout
                 android:id="@+id/init_button_lay"
