@@ -41,7 +41,7 @@ class StopwatchFrag : Fragment() {
         swatch = bind!!.chronometer
         swatch.base = SystemClock.elapsedRealtime() - offset
 
-        initializeRecyclerView()
+        initialize()
 
         // Button Logic
         bind!!.startButton.setOnClickListener {
@@ -79,16 +79,18 @@ class StopwatchFrag : Fragment() {
         return bind!!.root
     }
 
-    private fun initializeRecyclerView() {
+    private fun initialize() {
         recyclerView = bind!!.recyclerView
         val manager = LinearLayoutManager(requireContext())
         manager.stackFromEnd = true
         manager.scrollToPosition(lapCount)
         recyclerView.layoutManager = manager
 
-        laps = ArrayList()
+        offset = 0
         lapCount = 0
         prevTime = 0.toLong()
+
+        laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
@@ -131,7 +133,6 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun reset() {
-        laps = ArrayList()
-        initializeRecyclerView()
+        initialize()
     }
 }
