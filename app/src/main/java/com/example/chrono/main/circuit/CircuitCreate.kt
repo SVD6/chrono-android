@@ -4,7 +4,6 @@ import `in`.goodiebag.carouselpicker.CarouselPicker
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import com.example.chrono.R
@@ -12,22 +11,21 @@ import com.example.chrono.databinding.ActivityCircuitCreateBinding
 import com.example.chrono.util.BaseActivity
 import com.example.chrono.util.getDrawableByString
 import com.example.chrono.util.getIconName
-import com.example.chrono.util.objects.PreferenceManager
 import com.example.chrono.util.objects.CircuitObject
 import com.example.chrono.util.objects.CircuitsObject
+import com.example.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.dialog_circuit_icon.view.*
+
+private const val MAX_SETS: Int = 99
+private const val MAX_REST: Int = 995 // Actually 999
+private const val MAX_WORK: Int = 995 // Actually 999
+private const val TIME_CHANGE_VALUE: Int = 5
 
 class CircuitCreate : BaseActivity() {
 
     private var bind: ActivityCircuitCreateBinding? = null
     private var selectedIcon: String = "ic_stopwatch"
-
-    private val MAX_SETS: Int = 99
-    private val MAX_REST: Int = 995 // Actually 999
-    private val MAX_WORK: Int = 995 // Actually 999
-
-    private val timeChangeVal: Int = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +42,10 @@ class CircuitCreate : BaseActivity() {
             if (validateInputs()) {
                 saveCircuit()
             }
+        }
+
+        bind!!.iconLayout.setOnClickListener {
+            selectIconDialog()
         }
 
         bind!!.circuitIcon.setOnClickListener {
@@ -72,7 +74,7 @@ class CircuitCreate : BaseActivity() {
 
     private fun saveCircuit() {
         val circuit = CircuitObject()
-        circuit.name = bind!!.nameInput.editText!!.text.toString()
+        circuit.name = bind!!.nameInput.text.toString()
         circuit.sets = bind!!.setNum.text.toString().toInt()
         circuit.work = bind!!.setWorkTime.text.toString().toInt()
         circuit.rest = bind!!.setRestTime.text.toString().toInt()
@@ -88,7 +90,7 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun validateInputs(): Boolean {
-        if (bind!!.nameInput.isEmpty() or (bind!!.nameInput.editText!!.text.toString() == "")) {
+        if (bind!!.nameInput.text.toString() == "") {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -148,7 +150,7 @@ class CircuitCreate : BaseActivity() {
     private fun addWork() {
         val currentText = bind!!.setWorkTime.text.toString()
         if (currentText == "") {
-            bind!!.setWorkTime.setText(timeChangeVal.toString())
+            bind!!.setWorkTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
             if (currentText.toInt() >= MAX_WORK) {
                 Toast.makeText(
@@ -157,7 +159,7 @@ class CircuitCreate : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                bind!!.setWorkTime.setText(floorVal(currentText.toInt() + timeChangeVal).toString())
+                bind!!.setWorkTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
         }
     }
@@ -186,7 +188,7 @@ class CircuitCreate : BaseActivity() {
     private fun addRest() {
         val currentText = bind!!.setRestTime.text.toString()
         if (currentText == "") {
-            bind!!.setRestTime.setText(timeChangeVal.toString())
+            bind!!.setRestTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
             if (currentText.toInt() >= MAX_REST) {
                 Toast.makeText(
@@ -195,7 +197,7 @@ class CircuitCreate : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                bind!!.setRestTime.setText(floorVal(currentText.toInt() + timeChangeVal).toString())
+                bind!!.setRestTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
         }
     }
@@ -223,13 +225,13 @@ class CircuitCreate : BaseActivity() {
 
     // Floor to a multiple of timeChangeVal
     private fun floorVal(valToFloor: Int): Int {
-        return (valToFloor / timeChangeVal) * (timeChangeVal)
+        return (valToFloor / TIME_CHANGE_VALUE) * (TIME_CHANGE_VALUE)
     }
 
     //When decrementing set time, subtract to the closest multiple of timeChangeVal
     private fun roundTimeDown(valToRound: Int): Int {
-        return if (valToRound % timeChangeVal == 0) {
-            valToRound - timeChangeVal
+        return if (valToRound % TIME_CHANGE_VALUE == 0) {
+            valToRound - TIME_CHANGE_VALUE
         } else {
             floorVal(valToRound)
         }
