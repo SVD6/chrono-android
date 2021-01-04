@@ -6,27 +6,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.bosphere.fadingedgelayout.FadingEdgeLayout
             android:layout_width="match_parent"
-            android:layout_height="2in"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/chrono_layout"
+            app:fel_edge="top"
+            app:fel_size_top="@dimen/huge_element_padding">
 
-            <ScrollView
-                android:layout_width="300dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center">
+                android:fadingEdge="vertical"
+                android:scrollbars="vertical"
+                app:layoutManager="LinearLayoutManager" />
 
-                <LinearLayout
-                    android:id="@+id/container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    ></LinearLayout>
-            </ScrollView>
-        </LinearLayout>
+        </com.bosphere.fadingedgelayout.FadingEdgeLayout>
 
         <LinearLayout
+            android:id="@+id/chrono_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -37,14 +35,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/huge_element_padding"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/opensans_regular"
                 android:gravity="center"
                 android:padding="@dimen/medium_element_padding"
                 android:text="@string/chronometer"
-                android:textSize="@dimen/xxl_huge_text" />
+                android:textSize="@dimen/massive_text" />
 
             <LinearLayout
                 android:id="@+id/init_button_lay"

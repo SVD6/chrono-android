@@ -1,6 +1,7 @@
 package com.example.chrono.util
 
 import android.content.Context
+import java.text.DecimalFormat
 
 fun getDrawableByString(context: Context, identifier: String): Int {
     return context.resources.getIdentifier(identifier, "drawable", context.packageName)
@@ -30,6 +31,36 @@ fun getIconName(position: Int): String {
         19 -> return "ic_workout_3"
     }
     return "-1"
+}
+
+fun getTime(timeElapsed: Long): String {
+    val df = DecimalFormat("00")
+
+    val hours = (timeElapsed / (3600 * 1000))
+    var remaining = (timeElapsed % (3600 * 1000))
+
+    val minutes = remaining / (60 * 1000)
+    remaining %= (60 * 1000)
+
+    val seconds = remaining / 1000
+    remaining %= 1000
+
+    val milliseconds = timeElapsed % 1000 / 100
+    remaining %= 100
+
+    val tenthMillisecond = remaining % 10
+
+    var text = ""
+
+    if (hours > 0) {
+        text += df.format(hours) + "."
+    }
+
+    text += df.format(minutes) + "."
+    text += df.format(seconds) + "."
+    text += milliseconds.toString() + tenthMillisecond.toString()
+
+    return text
 }
 
 //fun getIconPosition(name: String): Int {

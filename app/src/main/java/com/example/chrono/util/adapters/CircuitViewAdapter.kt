@@ -18,7 +18,7 @@ class CircuitViewAdapter(
     RecyclerView.Adapter<CircuitViewAdapter.CircuitViewHolder>() {
 
     class CircuitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: MaterialTextView = itemView.findViewById(R.id.circuit_name)
+        private val name: MaterialTextView = itemView.findViewById(R.id.circuit_name)
         private val numSets: MaterialTextView = itemView.findViewById(R.id.num_sets)
         private val timeRest: MaterialTextView = itemView.findViewById(R.id.rest_time)
         private val timeWork: MaterialTextView = itemView.findViewById(R.id.work_time)
