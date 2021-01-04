@@ -37,14 +37,13 @@ class StopwatchFrag : Fragment() {
     ): View {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
 
-        // Initialize Chronometer
+        // Initialize Everything
         swatch = bind!!.chronometer
-        swatch.base = SystemClock.elapsedRealtime() - offset
-
         initialize()
 
         // Button Logic
         bind!!.startButton.setOnClickListener {
+            swatch.base = SystemClock.elapsedRealtime()
             swatch.start()
             swatchState = SwatchState.RUNNING
             updateButtonUI()
