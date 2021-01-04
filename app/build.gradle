@@ -62,4 +62,5 @@ dependencies {
 
     // Third Party Libraries
     implementation 'com.github.GoodieBag:CarouselPicker:v1.2'
+    implementation 'com.github.bosphere.android-fadingedgelayout:fadingedgelayout:1.0.0'
 }
