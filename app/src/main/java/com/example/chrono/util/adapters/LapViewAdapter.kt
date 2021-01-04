@@ -13,9 +13,9 @@ class LapViewAdapter(private val data: List<LapObject>) :
     RecyclerView.Adapter<LapViewAdapter.LapViewHolder>() {
 
     class LapViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val lapNum: MaterialTextView = itemView.findViewById(R.id.lapNum)
-        private val lapTime: MaterialTextView = itemView.findViewById(R.id.lapTime)
-        private val totalTime: MaterialTextView = itemView.findViewById(R.id.totalTime)
+        private val lapNum: MaterialTextView = itemView.findViewById(R.id.lap_num)
+        private val lapTime: MaterialTextView = itemView.findViewById(R.id.lap_time)
+        private val totalTime: MaterialTextView = itemView.findViewById(R.id.total_time)
 
         fun bind(lap: LapObject) {
             lapNum.text = lap.lapNum.toString()
