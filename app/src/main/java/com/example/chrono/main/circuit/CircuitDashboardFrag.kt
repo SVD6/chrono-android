@@ -149,7 +149,7 @@ class CircuitDashboardFrag : Fragment() {
                 { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
                 { position: Int ->
                     circuitLongClicked(position)
-                },
+                }, requireContext()
             )
         } else {
             loadEmptyUI()

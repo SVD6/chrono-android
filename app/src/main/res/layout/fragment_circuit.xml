@@ -32,13 +32,6 @@
                 android:focusable="true"
                 android:paddingVertical="@dimen/medium_element_padding">
 
-                <!--                <com.example.chrono.util.components.MyProgressBar-->
-                <!--                    android:id="@+id/progress_bar"-->
-                <!--                    android:layout_width="360dp"-->
-                <!--                    android:layout_height="360dp"-->
-                <!--                    android:layout_centerInParent="true"-->
-                <!--                    android:clickable="true" />-->
-
                 <TextView
                     android:id="@+id/countdown"
                     android:layout_width="wrap_content"

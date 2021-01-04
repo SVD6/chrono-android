@@ -29,7 +29,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <com.example.chrono.util.components.MyChronometer
+            <com.example.chrono.util.components.Chronometer
                 android:id="@+id/chronometer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

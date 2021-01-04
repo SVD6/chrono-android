@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chrono.R
 import com.example.chrono.databinding.FragmentStopwatchBinding
 import com.example.chrono.util.adapters.LapViewAdapter
-import com.example.chrono.util.components.MyChronometer
+import com.example.chrono.util.components.Chronometer
 import com.example.chrono.util.objects.LapObject
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
 
@@ -22,7 +22,7 @@ class StopwatchFrag : Fragment() {
 
     enum class SwatchState { INIT, RUNNING, STOPPED }
 
-    private lateinit var swatch: MyChronometer
+    private lateinit var swatch: Chronometer
     private var swatchState: SwatchState = SwatchState.INIT
     private var offset: Int = 0
 
@@ -63,7 +63,7 @@ class StopwatchFrag : Fragment() {
             updateButtonUI()
         }
 
-        bind!!.resetbutton.setOnClickListener {
+        bind!!.resetButton.setOnClickListener {
             swatch.stop()
             swatch.base = SystemClock.elapsedRealtime()
             offset = 0
