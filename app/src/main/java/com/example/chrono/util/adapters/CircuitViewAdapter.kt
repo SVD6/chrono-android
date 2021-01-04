@@ -67,7 +67,7 @@ class CircuitViewAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) {
         val circuit = data[position]
-        holder.bind(circuit, clickListener, longClickListener, position, context)
+        holder.bind(circuit, clickListener, longClickListener, holder.layoutPosition, context)
     }
 
     override fun getItemCount(): Int {
