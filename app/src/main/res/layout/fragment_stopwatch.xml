@@ -14,7 +14,7 @@
             app:fel_size_top="@dimen/huge_element_padding">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fadingEdge="vertical"
@@ -121,7 +121,7 @@
                     app:cornerRadius="13dp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/resetbutton"
+                    android:id="@+id/reset_button"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"

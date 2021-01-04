@@ -102,7 +102,7 @@ class StopwatchFrag : Fragment() {
         val lap = LapObject()
         lap.lapNum = lapCount
         lap.lapTime = timeDiff
-        lap.totalTime = SystemClock.elapsedRealtime() - chronometer!!.base
+        lap.totalTime = currTime
 
         laps.add(lap)
         recyclerView.adapter?.notifyItemInserted(lapCount)
