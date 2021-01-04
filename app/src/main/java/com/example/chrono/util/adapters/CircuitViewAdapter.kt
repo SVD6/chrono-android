@@ -60,7 +60,7 @@ class CircuitViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CircuitViewHolder {
         val adapterLayout =
-            LayoutInflater.from(parent.context).inflate(R.layout.circuit_card_lay, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_circuit_card, parent, false)
         return CircuitViewHolder(adapterLayout)
     }
 
