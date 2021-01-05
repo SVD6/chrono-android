@@ -268,7 +268,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     }
 
     private fun createNotification(time: Float) {
-        var builder =
+        val builder =
             NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
                 .setSmallIcon(R.drawable.ic_notification_logo)
                 .setContentTitle("Notification test")

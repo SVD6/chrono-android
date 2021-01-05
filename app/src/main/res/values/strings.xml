@@ -31,10 +31,8 @@
     <string name="circuit_name">Circuit Name</string>
 
     <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
-<<<<<<< HEAD
 
     <string name="timer_notification_channel_id">chrono_timer_default_channel</string>
-=======
     <string name="lets_go">Let\'s Go!</string>
 
     <!-- Drawable Names-->
@@ -61,5 +59,4 @@
         <item>drawable/ic_workout</item>
         <item>drawable/ic_workout_3</item>
     </string-array>
->>>>>>> develop
 </resources>
