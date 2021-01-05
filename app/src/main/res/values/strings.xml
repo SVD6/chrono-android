@@ -1,37 +1,65 @@
 <resources>
     <string name="app_name">Chrono</string>
 
+    <string name="empty"> </string>
+
     <string name="stop">Stop</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="reset">Reset</string>
     <string name="lap">Lap</string>
-    <string name="playing">Playing...</string>
-    <string name="stopped">Stopped...</string>
     <string name="chronometer">Chronometer</string>
 
     <string name="_0">0</string>
     <string name="_30">30</string>
     <string name="_5">5</string>
 
-    <string name="_s">s</string>
-
     <string name="name_input_hint">Name of Circuit</string>
     <string name="save">Save</string>
     <string name="discard">Discard</string>
     <string name="todo">TODO</string>
     <string name="placeholder">Placeholder</string>
-    <string name="rest_">Rest:</string>
-    <string name="work_">Work:</string>
     <string name="sets"> Sets</string>
     <string name="dismiss">Dismiss</string>
     <string name="select_an_icon">Select an Icon</string>
     <string name="sec">sec</string>
     <string name="rest">Rest</string>
     <string name="work">Work</string>
+    <string name="workout">Workout</string>
+    <string name="get_ready">Get Ready</string>
+    <string name="circuit_name">Circuit Name</string>
 
     <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
+<<<<<<< HEAD
 
     <string name="timer_notification_channel_id">chrono_timer_default_channel</string>
+=======
+    <string name="lets_go">Let\'s Go!</string>
+
+    <!-- Drawable Names-->
+    <string-array name="icon_files">
+        <item>drawable/ic_stopwatch</item>
+        <item>drawable/ic_abs</item>
+        <item>drawable/ic_arm</item>
+        <item>drawable/ic_bottle</item>
+        <item>drawable/ic_boxer</item>
+        <item>drawable/ic_dumbbell</item>
+        <item>drawable/ic_gym</item>
+        <item>drawable/ic_gym_2</item>
+        <item>drawable/ic_gym_3</item>
+        <item>drawable/ic_gym_4</item>
+        <item>drawable/ic_gym_bag</item>
+        <item>drawable/ic_gymnast</item>
+        <item>drawable/ic_jump_rope</item>
+        <item>drawable/ic_mat</item>
+        <item>drawable/ic_punching_ball</item>
+        <item>drawable/ic_resistance</item>
+        <item>drawable/ic_resistance_1</item>
+        <item>drawable/ic_trampoline</item>
+        <item>drawable/ic_treadmill</item>
+        <item>drawable/ic_workout</item>
+        <item>drawable/ic_workout_3</item>
+    </string-array>
+>>>>>>> develop
 </resources>

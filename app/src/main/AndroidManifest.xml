@@ -23,7 +23,7 @@
         <activity android:name=".main.MainActivity" />
 
         <service
-            android:name=".util.services.ChronoFirebaseMessagingService"
+            android:name=".util.services.FirebaseCloudMessaging"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.chrono.R
 import com.example.chrono.databinding.ActivityMainBinding
 import com.example.chrono.main.circuit.CircuitDashboardFrag
-import com.example.chrono.main.circuit.CircuitFrag
 import com.example.chrono.main.stopwatch.StopwatchFrag
 import com.example.chrono.util.BaseActivity
 import com.example.chrono.util.objects.PreferenceManager
@@ -23,7 +22,6 @@ class MainActivity : BaseActivity() {
     private var bind: ActivityMainBinding? = null // Bind variable for the activity
     private lateinit var tabLay: TabLayout // The timer/stopwatch navigation tab layout
 
-    private lateinit var circuitFrag: CircuitFrag
     private lateinit var circuitDashFrag: CircuitDashboardFrag
     private lateinit var stopwatchFrag: StopwatchFrag
 
@@ -33,7 +31,6 @@ class MainActivity : BaseActivity() {
         PreferenceManager.with(this)
 
         // Initialize Frags
-        circuitFrag = CircuitFrag()
         circuitDashFrag = CircuitDashboardFrag()
         stopwatchFrag = StopwatchFrag()
 

@@ -13,7 +13,9 @@
     <color name="resume_green">#12A973</color>
     <color name="lap_blue">#0E4D92</color>
     <color name="reset_grey">#7B7B7B</color>
-    <color name="dark_grey">#58595F</color>
+    <color name="dark_grey">#606060</color>
     <color name="light_grey">#E7E6E6</color>
     <color name="not_light_grey">#D2D5E4</color>
+    <color name="rest_yellow">#FFBD12</color>
+    <color name="beautiful_blue">#2B3DDE</color>
 </resources>
