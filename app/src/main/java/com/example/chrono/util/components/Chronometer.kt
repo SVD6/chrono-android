@@ -8,6 +8,9 @@ import android.os.Message
 import android.os.SystemClock
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.example.chrono.R
 import java.text.DecimalFormat
 
 class Chronometer @JvmOverloads constructor(
@@ -17,10 +20,9 @@ class Chronometer @JvmOverloads constructor(
 ) : AppCompatTextView(
     context!!, attrs, defStyle
 ) {
-
     private val tickWhat = 2
     private var mBase: Long = 0
-    private var mVisible = false
+    private var mVisible = true
     private var mStarted = false
     private var mRunning = false
     private var onChronometerTickListener: OnChronometerTickListener? = null
@@ -67,13 +69,13 @@ class Chronometer @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        mVisible = false
+//        mVisible = false
         updateRunning()
     }
 
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
-        mVisible = visibility == VISIBLE
+//        mVisible = visibility == VISIBLE
         updateRunning()
     }
 
@@ -95,9 +97,12 @@ class Chronometer @JvmOverloads constructor(
             text += df.format(hours.toLong()) + ":"
         }
         text += df.format(minutes.toLong()) + ":"
-        text += df.format(seconds.toLong()) + ":"
-        text += milliseconds.toString() + tenthMillisecond.toString()
+        text += df.format(seconds.toLong())
+        createNotification(text)
+        text += ":$milliseconds"
+        text += tenthMillisecond.toString()
         setText(text)
+
     }
 
     private fun updateRunning() {
@@ -131,5 +136,23 @@ class Chronometer @JvmOverloads constructor(
 
     init {
         init()
+    }
+
+    private fun createNotification(time: String) {
+        val builder =
+            NotificationCompat.Builder(
+                context,
+                context.getString(R.string.stopwatch_notification_channel_id)
+            )
+                .setSmallIcon(R.drawable.ic_notification_logo)
+                .setContentTitle("Stopwatch")
+                .setContentText(time)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+
+        with(NotificationManagerCompat.from(context)) {
+            //notificationId is a unique int for each notification that you must define
+            notify(1, builder.build())
+        }
+
     }
 }

@@ -279,7 +279,6 @@ class CircuitTimerActivity : AppCompatActivity() {
             //notificationId is a unique int for each notification that you must define
             notify(2, builder.build())
         }
-
     }
 
     private fun createNotificationChannel() {
