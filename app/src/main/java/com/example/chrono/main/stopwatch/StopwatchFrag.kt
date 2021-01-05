@@ -29,6 +29,7 @@ class StopwatchFrag : Fragment() {
     private var lapCount = 0
     private var prevTime = 0.toLong()
     private lateinit var laps: ArrayList<LapObject>
+    private var maxLapReached = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,6 +75,7 @@ class StopwatchFrag : Fragment() {
 
         bind!!.lapButton.setOnClickListener {
             lap()
+            updateButtonUI()
         }
         return bind!!.root
     }
@@ -87,6 +89,7 @@ class StopwatchFrag : Fragment() {
 
         offset = 0
         lapCount = 0
+        maxLapReached = 0
         prevTime = 0.toLong()
 
         laps = ArrayList()
@@ -95,6 +98,11 @@ class StopwatchFrag : Fragment() {
 
     private fun lap() {
         lapCount += 1
+
+        if (lapCount >= 99){
+            maxLapReached = 1
+        }
+
         val currTime = SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
 
@@ -112,11 +120,17 @@ class StopwatchFrag : Fragment() {
 
     // Update the buttons layout based on the current state of the timer
     private fun updateButtonUI() {
+
+        if (maxLapReached == 1){
+            bind!!.lapButton.visibility = View.GONE
+        }
+
         when (swatchState) {
             SwatchState.INIT -> {
                 bind!!.initButtonLay.visibility = View.VISIBLE
                 bind!!.runButtonLay.visibility = View.GONE
                 bind!!.stopButtonLay.visibility = View.GONE
+                bind!!.lapButton.visibility = View.VISIBLE
             }
             SwatchState.RUNNING -> {
                 bind!!.initButtonLay.visibility = View.GONE
