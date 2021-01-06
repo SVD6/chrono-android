@@ -34,6 +34,21 @@
     <dimen name="huge_element_padding">85dp</dimen>
     <dimen name="xl_huge_element_padding">90dp</dimen>
     <dimen name="massive_element_padding">100dp</dimen>
+    <!-- View margin   -->
+    <dimen name="xs_tiny_element_margin">1dp</dimen>
+    <dimen name="tiny_element_margin">2dp</dimen>
+    <dimen name="xs_small_element_margin">5dp</dimen>
+    <dimen name="small_element_margin">10dp</dimen>
+    <dimen name="xs_medium_element_margin">15dp</dimen>
+    <dimen name="medium_element_margin">20dp</dimen>
+    <dimen name="xs_large_element_margin">25dp</dimen>
+    <dimen name="large_element_margin">30dp</dimen>
+    <dimen name="xl_large_element_margin">45dp</dimen>
+    <dimen name="xs_huge_element_margin">60dp</dimen>
+    <dimen name="xss_huge_element_margin">75dp</dimen>
+    <dimen name="huge_element_margin">85dp</dimen>
+    <dimen name="xl_huge_element_margin">90dp</dimen>
+    <dimen name="massive_element_margin">100dp</dimen>
 
     <dimen name="custom_padding_1">80dp</dimen>
 </resources>

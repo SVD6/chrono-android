@@ -7,6 +7,7 @@ import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
 import android.util.AttributeSet
+import android.widget.RemoteViews
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -139,6 +140,7 @@ class Chronometer @JvmOverloads constructor(
     }
 
     private fun createNotification(time: String) {
+        val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch)
         val builder =
             NotificationCompat.Builder(
                 context,
@@ -148,6 +150,9 @@ class Chronometer @JvmOverloads constructor(
                 .setContentTitle("Stopwatch")
                 .setContentText(time)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomContentView(customView)
+                .setCustomBigContentView(customView)
 
         with(NotificationManagerCompat.from(context)) {
             //notificationId is a unique int for each notification that you must define

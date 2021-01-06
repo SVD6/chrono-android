@@ -1,65 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/title_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/elapsed_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/massive_element_margin"
+        android:text="00:00:00"
+        android:textSize="@dimen/large_text" />
 
-            <ImageView
-                android:layout_width="18.2dp"
-                android:layout_height="18.2dp"
-                android:contentDescription="@string/chrono_logo"
-                android:src="@drawable/ic_notification_logo" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.Compat.Notification" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/stop_stopwatch"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:backgroundTint="#E73B3B"
+            android:padding="0dp"
+            android:text="@string/stop"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title_container"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/reset_stopwatch"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/tiny_element_margin"
+            android:backgroundTint="#7B7B7B"
+            android:padding="0dp"
+            android:text="@string/reset"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text" />
 
-            <TextView
-                android:id="@+id/elapsed_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00:00"
-                android:textAppearance="@style/TextAppearance.Compat.Notification" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/stop_stopwatch"
-                android:layout_width="92dp"
-                android:layout_height="47dp"
-                android:backgroundTint="#E73B3B"
-                android:text="@string/stop" />
-
-            <Button
-                android:id="@+id/reset_stopwatch"
-                android:layout_width="92dp"
-                android:layout_height="47dp"
-                android:layout_marginStart="5dp"
-                android:backgroundTint="#7B7B7B"
-                android:text="@string/reset" />
-
-        </LinearLayout>
+    </LinearLayout>
 
 
-    </RelativeLayout>
-</layout>
+</RelativeLayout>

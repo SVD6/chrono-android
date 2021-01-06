@@ -9,6 +9,9 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RemoteViews
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -81,6 +84,7 @@ class StopwatchFrag : Fragment() {
         }
 
         createNotificationChannel()
+        showNotification()
         return bind!!.root
     }
 
@@ -139,6 +143,25 @@ class StopwatchFrag : Fragment() {
 
     private fun reset() {
         initialize()
+    }
+
+    fun showNotification(){
+        val customView = RemoteViews(requireActivity().packageName, R.layout.notification_stopwatch)
+        val builder =
+            NotificationCompat.Builder(
+                requireContext(),
+                requireContext().getString(R.string.stopwatch_notification_channel_id)
+            )
+                .setSmallIcon(R.drawable.ic_notification_logo)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomContentView(customView)
+                .setCustomBigContentView(customView)
+
+        with(NotificationManagerCompat.from(requireContext())) {
+            //notificationId is a unique int for each notification that you must define
+            notify(1, builder.build())
+        }
     }
 
     private fun createNotificationChannel() {
