@@ -44,7 +44,6 @@ class StopwatchFrag : Fragment() {
 
         // Button Logic
         bind!!.startButton.setOnClickListener {
-            throw RuntimeException("Test Crash")
             swatch.base = SystemClock.elapsedRealtime()
             swatch.start()
             swatchState = SwatchState.RUNNING
