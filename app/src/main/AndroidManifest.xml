@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.chrono">
+    package="ca.chronofit.chrono">
 
     <application
         android:icon="@drawable/ic_chrono_app_icon"
@@ -8,7 +8,7 @@
         android:roundIcon="@drawable/ic_chrono_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.circuit.CircuitTimerActivity" />
+
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +20,8 @@
         <activity android:name=".main.circuit.CircuitCreate" />
 
         <activity android:name=".main.MainActivity" />
+
+        <activity android:name=".main.circuit.CircuitTimerActivity" />
 
         <service
             android:name=".util.services.FirebaseCloudMessaging"
@@ -37,6 +39,4 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification_logo" />
     </application>
-
-
 </manifest>
