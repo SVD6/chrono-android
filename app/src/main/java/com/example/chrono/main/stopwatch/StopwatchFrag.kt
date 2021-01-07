@@ -2,7 +2,10 @@ package com.example.chrono.main.stopwatch
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -10,10 +13,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RemoteViews
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chrono.R
@@ -37,6 +42,8 @@ class StopwatchFrag : Fragment() {
     private var prevTime = 0.toLong()
     private lateinit var laps: ArrayList<LapObject>
 
+    private lateinit var  broadcastReceiver: BroadcastReceiver
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,10 +64,7 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.stopButton.setOnClickListener {
-            swatch.stop()
-            offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
-            swatchState = SwatchState.STOPPED
-            updateButtonUI()
+            stop()
         }
 
         bind!!.resumeButton.setOnClickListener {
@@ -83,10 +87,23 @@ class StopwatchFrag : Fragment() {
             lap()
         }
 
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(contxt: Context?, intent: Intent?) {
+                when (intent?.action) {
+                    STOP -> stop()
+                }
+            }
+        }
+
+
+        requireContext().registerReceiver(broadcastReceiver, IntentFilter(STOP))
+//        val filter = IntentFilter(STOP)
+//        requireContext().registerReceiver(Receiver(),filter)
+
         createNotificationChannel()
-        showNotification()
         return bind!!.root
     }
+
 
     private fun initialize() {
         recyclerView = bind!!.recyclerView
@@ -101,6 +118,13 @@ class StopwatchFrag : Fragment() {
 
         laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
+    }
+
+    fun stop(){
+        swatch.stop()
+        offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
+        swatchState = SwatchState.STOPPED
+        updateButtonUI()
     }
 
     private fun lap() {
@@ -145,25 +169,6 @@ class StopwatchFrag : Fragment() {
         initialize()
     }
 
-    fun showNotification(){
-        val customView = RemoteViews(requireActivity().packageName, R.layout.notification_stopwatch)
-        val builder =
-            NotificationCompat.Builder(
-                requireContext(),
-                requireContext().getString(R.string.stopwatch_notification_channel_id)
-            )
-                .setSmallIcon(R.drawable.ic_notification_logo)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
-                .setCustomContentView(customView)
-                .setCustomBigContentView(customView)
-
-        with(NotificationManagerCompat.from(requireContext())) {
-            //notificationId is a unique int for each notification that you must define
-            notify(1, builder.build())
-        }
-    }
-
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -180,4 +185,11 @@ class StopwatchFrag : Fragment() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+    companion object{
+        const val STOP = "stop"
+        val RESMUE = "resume"
+        val RESET = "reset"
+    }
+
 }

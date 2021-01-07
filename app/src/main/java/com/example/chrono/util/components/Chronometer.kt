@@ -1,7 +1,9 @@
 package com.example.chrono.util.components
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -12,6 +14,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.chrono.R
+import com.example.chrono.main.stopwatch.StopwatchFrag
+import com.example.chrono.util.services.NotificationIntentService
 import java.text.DecimalFormat
 
 class Chronometer @JvmOverloads constructor(
@@ -141,6 +145,12 @@ class Chronometer @JvmOverloads constructor(
 
     private fun createNotification(time: String) {
         val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch)
+        val stopIntent = Intent(context, NotificationIntentService::class.java)
+        stopIntent.action = StopwatchFrag.STOP
+
+        customView.setOnClickPendingIntent(R.id.stop_stopwatch, PendingIntent.getService(context, 0, stopIntent, 0))
+        customView.setTextViewText(R.id.elapsed_time,time)
+
         val builder =
             NotificationCompat.Builder(
                 context,

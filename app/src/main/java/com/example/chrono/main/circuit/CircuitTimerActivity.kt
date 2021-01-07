@@ -2,6 +2,7 @@ package com.example.chrono.main.circuit
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.IntentService
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -47,7 +48,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super<AppCompatActivity>.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
