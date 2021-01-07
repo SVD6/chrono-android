@@ -5,6 +5,8 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,8 +30,8 @@ class StopwatchFrag : Fragment() {
 
     private var lapCount = 0
     private var prevTime = 0.toLong()
+    private var maxLapCount = 98
     private lateinit var laps: ArrayList<LapObject>
-    private var maxLapReached = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,8 +76,14 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.lapButton.setOnClickListener {
+            if (lapCount >= maxLapCount){
+                Toast.makeText(requireContext(),"Max Lap Reached! ", Toast.LENGTH_SHORT).show();
+
+                bind!!.lapButton.isEnabled = false
+                bind!!.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.reset_grey))
+            }
+
             lap()
-            updateButtonUI()
         }
         return bind!!.root
     }
@@ -89,8 +97,9 @@ class StopwatchFrag : Fragment() {
 
         offset = 0
         lapCount = 0
-        maxLapReached = 0
         prevTime = 0.toLong()
+
+        bind!!.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
         laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
@@ -98,10 +107,6 @@ class StopwatchFrag : Fragment() {
 
     private fun lap() {
         lapCount += 1
-
-        if (lapCount >= 99){
-            maxLapReached = 1
-        }
 
         val currTime = SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
@@ -120,17 +125,12 @@ class StopwatchFrag : Fragment() {
 
     // Update the buttons layout based on the current state of the timer
     private fun updateButtonUI() {
-
-        if (maxLapReached == 1){
-            bind!!.lapButton.visibility = View.GONE
-        }
-
         when (swatchState) {
             SwatchState.INIT -> {
+                bind!!.lapButton.isEnabled = true
                 bind!!.initButtonLay.visibility = View.VISIBLE
                 bind!!.runButtonLay.visibility = View.GONE
                 bind!!.stopButtonLay.visibility = View.GONE
-                bind!!.lapButton.visibility = View.VISIBLE
             }
             SwatchState.RUNNING -> {
                 bind!!.initButtonLay.visibility = View.GONE
