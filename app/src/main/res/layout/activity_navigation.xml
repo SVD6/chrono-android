@@ -3,16 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/large_element_padding">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:labelVisibilityMode="selected"
+            app:itemIconTint="@drawable/nav_icon_selector"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/layout_bottom_navigation" />
+
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/nav_bar" />
 
     </RelativeLayout>
 </layout>

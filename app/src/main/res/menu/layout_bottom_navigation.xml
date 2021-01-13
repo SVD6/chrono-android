@@ -2,23 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/stopwatch"
+        android:id="@+id/nav_stopwatch"
         android:enabled="true"
         android:icon="@drawable/ic_clock_black"
-        android:iconTint="@color/white"
-        android:title="Stopwatch" />
+        android:title="@string/stopwatch" />
 
     <item
-        android:id="@+id/circuit"
+        android:id="@+id/nav_circuit"
         android:enabled="true"
         android:icon="@drawable/ic_fitness_white"
-        android:iconTint="@color/colorAccent"
-        android:title="Circuits" />
+        android:title="@string/circuits" />
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/nav_settings"
         android:enabled="true"
         android:icon="@drawable/ic_settings_white"
-        android:title="Settings" />
+        android:title="@string/settings" />
 
 </menu>

@@ -18,4 +18,7 @@
     <color name="not_light_grey">#D2D5E4</color>
     <color name="rest_yellow">#FFBD12</color>
     <color name="beautiful_blue">#2B3DDE</color>
+
+    <!-- Nav Selectors -->
+    <color name="select_grey">#DFE0DF</color>
 </resources>
