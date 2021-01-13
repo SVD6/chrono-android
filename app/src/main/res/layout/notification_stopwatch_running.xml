@@ -12,6 +12,7 @@
         android:text="00:00:00"
         android:textSize="@dimen/large_text" />
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,9 +22,8 @@
         <Button
             android:id="@+id/stop_stopwatch"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:backgroundTint="#E73B3B"
-            android:padding="0dp"
             android:text="@string/stop"
             android:textColor="@color/white"
             android:textSize="@dimen/small_text" />
@@ -31,10 +31,9 @@
         <Button
             android:id="@+id/reset_stopwatch"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_marginStart="@dimen/tiny_element_margin"
             android:backgroundTint="#7B7B7B"
-            android:padding="0dp"
             android:text="@string/reset"
             android:textColor="@color/white"
             android:textSize="@dimen/small_text" />

@@ -103,11 +103,12 @@ class Chronometer @JvmOverloads constructor(
         }
         text += df.format(minutes.toLong()) + ":"
         text += df.format(seconds.toLong())
-        createNotification(text)
+        if(milliseconds % 10 == 1 ){
+            createNotification(text)
+        }
         text += ":$milliseconds"
         text += tenthMillisecond.toString()
         setText(text)
-
     }
 
     private fun updateRunning() {
@@ -144,12 +145,25 @@ class Chronometer @JvmOverloads constructor(
     }
 
     private fun createNotification(time: String) {
-        val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch)
+        val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch_running)
+
+
         val stopIntent = Intent(context, NotificationIntentService::class.java)
         stopIntent.action = StopwatchFrag.STOP
+        customView.setOnClickPendingIntent(
+            R.id.stop_stopwatch,
+            PendingIntent.getService(context, 0, stopIntent, 0)
+        )
 
-        customView.setOnClickPendingIntent(R.id.stop_stopwatch, PendingIntent.getService(context, 0, stopIntent, 0))
-        customView.setTextViewText(R.id.elapsed_time,time)
+
+        val resetIntent = Intent(context, NotificationIntentService::class.java)
+        resetIntent.action = StopwatchFrag.RESET
+        customView.setOnClickPendingIntent(
+            R.id.reset_stopwatch,
+            PendingIntent.getService(context, 1, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        )
+
+        customView.setTextViewText(R.id.elapsed_time, time)
 
         val builder =
             NotificationCompat.Builder(
@@ -162,12 +176,11 @@ class Chronometer @JvmOverloads constructor(
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
                 .setCustomContentView(customView)
-                .setCustomBigContentView(customView)
+//                .setCustomBigContentView(customView)
 
         with(NotificationManagerCompat.from(context)) {
             //notificationId is a unique int for each notification that you must define
             notify(1, builder.build())
         }
-
     }
 }

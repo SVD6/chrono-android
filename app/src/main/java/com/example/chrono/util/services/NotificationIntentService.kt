@@ -13,13 +13,24 @@ class NotificationIntentService
     override fun onHandleIntent(intent: Intent?) {
         when (intent!!.action) {
             StopwatchFrag.STOP -> {
-                val leftHandler = Handler(Looper.getMainLooper())
-                leftHandler.post(Runnable {
+                val stopHandler = Handler(Looper.getMainLooper())
+                stopHandler.post(Runnable {
                     var stopIntent = Intent()
                     stopIntent.action = intent!!.action
                     sendBroadcast(stopIntent)
                 })
 
+            }
+            StopwatchFrag.RESET -> {
+                var resetHandler = Handler(Looper.getMainLooper())
+
+                resetHandler.post(Runnable
+                {
+                    var resetIntent = Intent()
+                    resetIntent.action = intent!!.action
+                    sendBroadcast(resetIntent)
+                }
+                )
             }
             "right" -> {
                 val rightHandler = Handler(Looper.getMainLooper())

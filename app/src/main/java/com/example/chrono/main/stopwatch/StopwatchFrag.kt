@@ -12,13 +12,8 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RemoteViews
-import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chrono.R
@@ -42,7 +37,7 @@ class StopwatchFrag : Fragment() {
     private var prevTime = 0.toLong()
     private lateinit var laps: ArrayList<LapObject>
 
-    private lateinit var  broadcastReceiver: BroadcastReceiver
+    private lateinit var broadcastReceiver: BroadcastReceiver
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +59,7 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.stopButton.setOnClickListener {
-            stop()
+            stopTimer()
         }
 
         bind!!.resumeButton.setOnClickListener {
@@ -75,12 +70,7 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.resetButton.setOnClickListener {
-            swatch.stop()
-            swatch.base = SystemClock.elapsedRealtime()
-            offset = 0
-            swatchState = SwatchState.INIT
-            reset()
-            updateButtonUI()
+            resetTimer()
         }
 
         bind!!.lapButton.setOnClickListener {
@@ -90,15 +80,15 @@ class StopwatchFrag : Fragment() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(contxt: Context?, intent: Intent?) {
                 when (intent?.action) {
-                    STOP -> stop()
+                    STOP -> stopTimer()
+                    RESET -> resetTimer()
                 }
             }
         }
 
-
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(STOP))
-//        val filter = IntentFilter(STOP)
-//        requireContext().registerReceiver(Receiver(),filter)
+        requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESET))
+
 
         createNotificationChannel()
         return bind!!.root
@@ -120,10 +110,19 @@ class StopwatchFrag : Fragment() {
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
-    fun stop(){
+    fun stopTimer() {
         swatch.stop()
         offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
         swatchState = SwatchState.STOPPED
+        updateButtonUI()
+    }
+
+    fun resetTimer() {
+        swatch.stop()
+        swatch.base = SystemClock.elapsedRealtime()
+        offset = 0
+        swatchState = SwatchState.INIT
+        initialize()
         updateButtonUI()
     }
 
@@ -165,9 +164,6 @@ class StopwatchFrag : Fragment() {
         }
     }
 
-    private fun reset() {
-        initialize()
-    }
 
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -186,10 +182,10 @@ class StopwatchFrag : Fragment() {
         }
     }
 
-    companion object{
+    companion object {
         const val STOP = "stop"
         val RESMUE = "resume"
-        val RESET = "reset"
+        const val RESET = "reset"
     }
 
 }
