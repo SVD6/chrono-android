@@ -8,6 +8,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.databinding.ActivitySplashBinding
 import ca.chronofit.chrono.main.MainActivity
+import ca.chronofit.chrono.main.NavigationActivity
 import ca.chronofit.chrono.util.BaseActivity
 
 private const val SPLASH_TIMEOUT = 3000L // Timeout delay
@@ -33,7 +34,7 @@ class SplashActivity : BaseActivity() {
             Looper.getMainLooper()
         ).postDelayed(
             {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, NavigationActivity::class.java))
                 finish()
             }, SPLASH_TIMEOUT
         )

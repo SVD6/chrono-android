@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/stopwatch"
+        android:enabled="true"
+        android:icon="@drawable/ic_clock_black"
+        android:iconTint="@color/white"
+        android:title="Stopwatch" />
+
+    <item
+        android:id="@+id/circuit"
+        android:enabled="true"
+        android:icon="@drawable/ic_fitness_white"
+        android:iconTint="@color/colorAccent"
+        android:title="Circuits" />
+
+    <item
+        android:id="@+id/settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_white"
+        android:title="Settings" />
+
+</menu>
