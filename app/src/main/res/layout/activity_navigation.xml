@@ -11,7 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:itemIconSize="@dimen/large_element_padding"
             app:labelVisibilityMode="selected"
             app:menu="@menu/layout_bottom_navigation" />
 
