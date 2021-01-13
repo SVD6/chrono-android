@@ -8,7 +8,36 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:836711410960:android:1d717bcea382888477c995",
+        "mobilesdk_app_id": "1:836711410960:android:7a1d13989a2ca71077c995",
+        "android_client_info": {
+          "package_name": "ca.chronofit.chrono"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836711410960-fb5l5odvr808gvs2rlv0jtpaplee7hal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmED1nMXveEkAyv4rDPwwbUPKUYRAlIJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836711410960-fb5l5odvr808gvs2rlv0jtpaplee7hal.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836711410960:android:d4c16a61fee1adba77c995",
         "android_client_info": {
           "package_name": "com.example.chrono"
         }
