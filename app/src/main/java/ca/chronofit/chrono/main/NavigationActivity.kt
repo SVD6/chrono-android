@@ -38,6 +38,10 @@ class NavigationActivity : BaseActivity(), BottomNavigationView.OnNavigationItem
 
         bind.navBar.setOnNavigationItemSelectedListener(this)
         bind.navBar.selectedItemId = R.id.nav_circuit
+
+        // Check for an Update
+
+        // Check for App Review
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -72,6 +76,14 @@ class NavigationActivity : BaseActivity(), BottomNavigationView.OnNavigationItem
                 fragTransaction.hide(frag2).commitAllowingStateLoss()
                 return true
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (frag2.isHidden) {
+            bind.navBar.selectedItemId = R.id.nav_circuit
+        } else {
+            super.onBackPressed()
         }
     }
 }
