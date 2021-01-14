@@ -80,7 +80,7 @@ class StopwatchFrag : Fragment() {
                 Toast.makeText(
                     requireContext(),
                     "What in marathon...max laps reached! \uD83E\uDD75",
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_LONG
                 ).show()
                 bind!!.lapButton.isEnabled = false
             }
@@ -128,6 +128,7 @@ class StopwatchFrag : Fragment() {
     private fun updateButtonUI() {
         when (swatchState) {
             SwatchState.INIT -> {
+                bind!!.lapButton.isEnabled = true
                 bind!!.initButtonLay.visibility = View.VISIBLE
                 bind!!.runButtonLay.visibility = View.GONE
                 bind!!.stopButtonLay.visibility = View.GONE
