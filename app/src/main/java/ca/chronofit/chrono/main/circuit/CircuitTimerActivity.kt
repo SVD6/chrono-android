@@ -7,6 +7,8 @@ import android.media.ToneGenerator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -36,6 +38,8 @@ class CircuitTimerActivity : AppCompatActivity() {
 //        "ca-app-pub-5592526048202421/8639444717" // ACTUAL
         "ca-app-pub-3940256099942544/1033173712" // TEST
     }
+
+    private val celebrateTimeout = 2500L // Timeout delay
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -127,10 +131,10 @@ class CircuitTimerActivity : AppCompatActivity() {
                         RunningState.REST -> {
                             workout()
                         }
-                        else -> isDone()
+                        else -> celebrate()
                     }
                 } else {
-                    isDone()
+                    celebrate()
                 }
             }
         }.start()
@@ -142,6 +146,20 @@ class CircuitTimerActivity : AppCompatActivity() {
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = mInterstitialAdUnitId
         mInterstitialAd.loadAd(AdRequest.Builder().build())
+    }
+
+    private fun celebrate() {
+        // Load celebrate layout
+        bind!!.mainLayout.visibility = View.GONE
+        bind!!.celebrateLayout.visibility = View.VISIBLE
+
+        Handler(
+            Looper.getMainLooper()
+        ).postDelayed(
+            {
+                isDone()
+            }, celebrateTimeout
+        )
     }
 
     @SuppressLint("SetTextI18n")
@@ -171,11 +189,14 @@ class CircuitTimerActivity : AppCompatActivity() {
         }
 
         dialogView.cancel.setOnClickListener {
-                        if (mInterstitialAd.isLoaded) {
+            if (mInterstitialAd.isLoaded) {
                 mInterstitialAd.adListener = object : AdListener() {
                     override fun onAdClosed() {
                         super.onAdClosed()
                         builder.dismiss()
+
+                        bind!!.celebrateLayout.visibility = View.GONE
+                        bind!!.mainLayout.visibility = View.VISIBLE
 
                         timerState = TimerState.INIT
                         runningState = RunningState.INIT

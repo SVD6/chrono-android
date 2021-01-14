@@ -43,6 +43,7 @@
     <string name="circuit_complete_subtitle">Woohoo! You have completed your circuit, good job!!!</string>
     <string name="circuit_complete_confirm">Finish</string>
     <string name="circuit_complete_cancel">Restart</string>
+    <string name="circuit_complete_celebrate">Circuit Complete!</string>
 
     <!-- Drawable Names-->
     <string-array name="icon_files">
