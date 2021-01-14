@@ -5,6 +5,8 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +31,7 @@ class StopwatchFrag : Fragment() {
 
     private var lapCount = 0
     private var prevTime = 0.toLong()
+    private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
     override fun onCreateView(
@@ -74,6 +77,14 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.lapButton.setOnClickListener {
+            if (lapCount >= (maxLapCount - 1)) {
+                Toast.makeText(
+                    requireContext(),
+                    "What in marathon...max laps reached! \uD83E\uDD75",
+                    Toast.LENGTH_SHORT
+                ).show();
+                bind!!.lapButton.isEnabled = false
+            }
             lap()
         }
         return bind!!.root
@@ -90,12 +101,15 @@ class StopwatchFrag : Fragment() {
         lapCount = 0
         prevTime = 0.toLong()
 
+        bind!!.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
         laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
     private fun lap() {
         lapCount += 1
+
         val currTime = SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
 
