@@ -7,6 +7,7 @@ import android.media.ToneGenerator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -14,6 +15,9 @@ import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
 import ca.chronofit.chrono.util.objects.CircuitObject
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import com.google.gson.GsonBuilder
 import kotlin.math.roundToInt
 
@@ -24,6 +28,13 @@ class CircuitTimerActivity : AppCompatActivity() {
 
     // Should only be work state and rest state, maybe an in between state? Not an initial state.
     enum class RunningState { READY, INIT, WORK, REST }
+
+    private lateinit var mInterstitialAd: InterstitialAd
+
+    private val mInterstitialAdUnitId: String by lazy {
+//        "ca-app-pub-5592526048202421/8639444717" ACTUAL
+        "ca-app-pub-3940256099942544/1033173712" // TEST
+    }
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -55,6 +66,7 @@ class CircuitTimerActivity : AppCompatActivity() {
         bind!!.startButton.setOnClickListener {
             loadTimer(circuit)
             timerState = TimerState.RUNNING
+            loadAds()
             getReady()
         }
 
@@ -123,19 +135,40 @@ class CircuitTimerActivity : AppCompatActivity() {
         }.start()
     }
 
-    private fun getReady() {
-        runningState = RunningState.READY
-        bind!!.initButtonLayout.visibility = View.GONE
-        updateRestUI()
-        startTimer(5, false)
+    private fun loadAds() {
+        MobileAds.initialize(this)
+
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = mInterstitialAdUnitId
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
     }
 
     private fun isDone() {
+        // Show complete dialog
+
+        // Regardless of what they press -> show them an ad
+
+        // Finish -> Take them back to the dash
+
+        // Again -> Reload the Circuit and close dialog
         Toast.makeText(this, "Circuit Complete! \uD83E\uDD73", Toast.LENGTH_SHORT).show()
         timerState = TimerState.INIT
         runningState = RunningState.INIT
         updateButtonUI()
         updateRestUI()
+
+        if (mInterstitialAd.isLoaded) {
+            mInterstitialAd.show()
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.")
+        }
+    }
+
+    private fun getReady() {
+        runningState = RunningState.READY
+        bind!!.initButtonLayout.visibility = View.GONE
+        updateRestUI()
+        startTimer(5, false)
     }
 
     private fun workout() {

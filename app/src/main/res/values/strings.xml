@@ -32,6 +32,10 @@
 
     <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
     <string name="lets_go">Let\'s Go!</string>
+    <string name="delete_circuit">Delete Circuit</string>
+    <string name="delete_circuit_subtitle">Do you want to delete this circuit?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Drawable Names-->
     <string-array name="icon_files">
