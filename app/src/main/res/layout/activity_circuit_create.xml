@@ -51,6 +51,7 @@
                 android:gravity="center"
                 android:hint="@string/circuit_name"
                 android:lines="1"
+                android:maxLength="50"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textSize="@dimen/xl_huge_text" />
