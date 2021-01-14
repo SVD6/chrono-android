@@ -31,7 +31,7 @@ class StopwatchFrag : Fragment() {
 
     private var lapCount = 0
     private var prevTime = 0.toLong()
-    private var maxLapCount = 98
+    private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
     override fun onCreateView(
@@ -77,13 +77,14 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.lapButton.setOnClickListener {
-            if (lapCount >= maxLapCount){
-                Toast.makeText(requireContext(),"Max Lap Reached! ", Toast.LENGTH_SHORT).show();
-
+            if (lapCount >= (maxLapCount - 1)) {
+                Toast.makeText(
+                    requireContext(),
+                    "What in marathon...max laps reached! \uD83E\uDD75",
+                    Toast.LENGTH_SHORT
+                ).show();
                 bind!!.lapButton.isEnabled = false
-                bind!!.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.reset_grey))
             }
-
             lap()
         }
         return bind!!.root
@@ -128,7 +129,6 @@ class StopwatchFrag : Fragment() {
     private fun updateButtonUI() {
         when (swatchState) {
             SwatchState.INIT -> {
-                bind!!.lapButton.isEnabled = true
                 bind!!.initButtonLay.visibility = View.VISIBLE
                 bind!!.runButtonLay.visibility = View.GONE
                 bind!!.stopButtonLay.visibility = View.GONE
