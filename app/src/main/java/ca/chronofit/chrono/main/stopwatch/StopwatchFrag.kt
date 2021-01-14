@@ -17,7 +17,6 @@ import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
 import ca.chronofit.chrono.util.objects.LapObject
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
-import java.lang.RuntimeException
 
 class StopwatchFrag : Fragment() {
     private var bind: FragmentStopwatchBinding? = null
@@ -82,7 +81,7 @@ class StopwatchFrag : Fragment() {
                     requireContext(),
                     "What in marathon...max laps reached! \uD83E\uDD75",
                     Toast.LENGTH_SHORT
-                ).show();
+                ).show()
                 bind!!.lapButton.isEnabled = false
             }
             lap()

@@ -8,7 +8,7 @@
         android:roundIcon="@drawable/ic_chrono_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.NavigationActivity"></activity>
+        <activity android:name=".main.MainActivity"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.circuit.CircuitCreate" />
-        <activity android:name=".main.MainActivity" />
         <activity android:name=".main.circuit.CircuitTimerActivity" />
 
         <service
