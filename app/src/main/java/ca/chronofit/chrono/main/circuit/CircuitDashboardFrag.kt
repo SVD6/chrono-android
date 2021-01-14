@@ -104,12 +104,12 @@ class CircuitDashboardFrag : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
         val builder = MaterialAlertDialogBuilder(requireContext()).create()
-        val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
+        val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
 
         // Set Dialog Views
         dialogView.dialog_title.text =
             "Delete " + circuitsObject?.circuits!![position].name
-        dialogView.dialog_subtitle.text = getString(R.string.delete_circuit_subtitle)
+        dialogView.subtitle.text = getString(R.string.delete_circuit_subtitle)
         dialogView.confirm.text = getString(R.string.delete)
         dialogView.cancel.text = getString(R.string.cancel)
 

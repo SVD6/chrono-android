@@ -9,16 +9,18 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
 import ca.chronofit.chrono.util.objects.CircuitObject
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : AppCompatActivity() {
@@ -26,13 +28,12 @@ class CircuitTimerActivity : AppCompatActivity() {
 
     enum class TimerState { INIT, RUNNING, PAUSED }
 
-    // Should only be work state and rest state, maybe an in between state? Not an initial state.
     enum class RunningState { READY, INIT, WORK, REST }
 
     private lateinit var mInterstitialAd: InterstitialAd
 
     private val mInterstitialAdUnitId: String by lazy {
-//        "ca-app-pub-5592526048202421/8639444717" ACTUAL
+//        "ca-app-pub-5592526048202421/8639444717" // ACTUAL
         "ca-app-pub-3940256099942544/1033173712" // TEST
     }
 
@@ -62,11 +63,11 @@ class CircuitTimerActivity : AppCompatActivity() {
         // Initialize stuff
         updateButtonUI()
         updateRestUI()
+        loadAds()
 
         bind!!.startButton.setOnClickListener {
             loadTimer(circuit)
             timerState = TimerState.RUNNING
-            loadAds()
             getReady()
         }
 
@@ -143,25 +144,54 @@ class CircuitTimerActivity : AppCompatActivity() {
         mInterstitialAd.loadAd(AdRequest.Builder().build())
     }
 
+    @SuppressLint("SetTextI18n")
     private fun isDone() {
-        // Show complete dialog
+        val builder = MaterialAlertDialogBuilder(this).create()
+        val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
 
-        // Regardless of what they press -> show them an ad
+        // Set Dialog Views
+        dialogView.dialog_title.text = getString(R.string.circuit_complete)
+        dialogView.subtitle.text = getString(R.string.circuit_complete_subtitle)
+        dialogView.confirm.text = getString(R.string.circuit_complete_confirm)
+        dialogView.cancel.text = getString(R.string.circuit_complete_cancel)
 
-        // Finish -> Take them back to the dash
+        dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
 
-        // Again -> Reload the Circuit and close dialog
-        Toast.makeText(this, "Circuit Complete! \uD83E\uDD73", Toast.LENGTH_SHORT).show()
-        timerState = TimerState.INIT
-        runningState = RunningState.INIT
-        updateButtonUI()
-        updateRestUI()
+        // Button Logic
+        dialogView.confirm.setOnClickListener {
+            builder.dismiss()
+            setResult(Activity.RESULT_OK)
+            finish()
 
-        if (mInterstitialAd.isLoaded) {
-            mInterstitialAd.show()
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.")
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+            }
         }
+
+        dialogView.cancel.setOnClickListener {
+                        if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.adListener = object : AdListener() {
+                    override fun onAdClosed() {
+                        super.onAdClosed()
+                        builder.dismiss()
+
+                        timerState = TimerState.INIT
+                        runningState = RunningState.INIT
+                        updateButtonUI()
+                        updateRestUI()
+                    }
+                }
+                mInterstitialAd.show()
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+            }
+        }
+
+        // Display the Dialog
+        builder.setView(dialogView)
+        builder.show()
     }
 
     private fun getReady() {
