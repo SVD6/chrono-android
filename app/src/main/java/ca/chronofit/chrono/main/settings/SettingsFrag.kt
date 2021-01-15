@@ -22,7 +22,6 @@ class SettingsFrag : Fragment() {
             inflater, R.layout.fragment_settings,
             container, false
         )
-
         return bind!!.root
     }
 }
