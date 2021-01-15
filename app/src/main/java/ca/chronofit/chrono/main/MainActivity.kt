@@ -1,82 +1,89 @@
 package ca.chronofit.chrono.main
 
 import android.os.Bundle
-import androidx.core.content.ContextCompat
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityMainBinding
 import ca.chronofit.chrono.main.circuit.CircuitDashboardFrag
+import ca.chronofit.chrono.main.settings.SettingsFrag
 import ca.chronofit.chrono.main.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.BaseActivity
-import ca.chronofit.chrono.util.objects.PreferenceManager
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : BaseActivity() {
-    private lateinit var pager: ViewPager2 // ViewPager where the fragments sit
-    private var bind: ActivityMainBinding? = null // Bind variable for the activity
-    private lateinit var tabLay: TabLayout // The timer/stopwatch navigation tab layout
+class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var circuitDashFrag: CircuitDashboardFrag
-    private lateinit var stopwatchFrag: StopwatchFrag
+    private lateinit var bind: ActivityMainBinding
+
+    private lateinit var frag1: StopwatchFrag
+    private lateinit var frag2: CircuitDashboardFrag
+    private lateinit var frag3: SettingsFrag
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        PreferenceManager.with(this)
 
-        // Initialize Frags
-        circuitDashFrag = CircuitDashboardFrag()
-        stopwatchFrag = StopwatchFrag()
+        val fragTransaction = supportFragmentManager.beginTransaction()
 
-        // Set the pager and tab layouts by finding them in the bound layout
-        pager = bind!!.pager
-        tabLay = bind!!.tabLayout
+        frag1 = StopwatchFrag()
+        fragTransaction.add(R.id.content, frag1)
 
-        // Set the adapter of the viewpager (our custom fragment adapter below)
-        val adapter = TabsPagerAdapter(supportFragmentManager, lifecycle)
-        pager.adapter = adapter
+        frag2 = CircuitDashboardFrag()
+        fragTransaction.add(R.id.content, frag2)
 
-        // Tells the tablayout to follow the viewpager
-        TabLayoutMediator(tabLay, pager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "Circuit"
-                else -> tab.text = "Stopwatch"
+        frag3 = SettingsFrag()
+        fragTransaction.add(R.id.content, frag3)
+
+        fragTransaction.commitAllowingStateLoss()
+
+        bind.navBar.setOnNavigationItemSelectedListener(this)
+        bind.navBar.selectedItemId = R.id.nav_circuit
+
+        // Check for an Update
+
+        // Check for App Review
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val fragTransaction = supportFragmentManager.beginTransaction()
+
+        when (item.itemId) {
+            R.id.nav_stopwatch -> {
+                fragTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right)
+                fragTransaction.show(frag1)
+                fragTransaction.hide(frag2)
+                fragTransaction.hide(frag3).commitAllowingStateLoss()
+                return true
             }
-        }.attach()
-
-        // Change up some UI elements based on light/dark mode
-        if (isUsingNightModeResources()) {
-            tabLay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_dark)
-        } else {
-            tabLay.background = ContextCompat.getDrawable(this, R.drawable.nav_tab_light)
+            R.id.nav_circuit -> {
+                if (frag3.isVisible) {
+                    fragTransaction.setCustomAnimations(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_right
+                    )
+                } else {
+                    fragTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                }
+                fragTransaction.show(frag2)
+                fragTransaction.hide(frag1)
+                fragTransaction.hide(frag3).commitAllowingStateLoss()
+                return true
+            }
+            else -> {
+                fragTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                fragTransaction.show(frag3)
+                fragTransaction.hide(frag1)
+                fragTransaction.hide(frag2).commitAllowingStateLoss()
+                return true
+            }
         }
     }
 
-    // Our custom tab fragment adapter
-    private inner class TabsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
-        FragmentStateAdapter(fm, lifecycle) {
-
-        override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> {
-                    circuitDashFrag
-                }
-                else -> {
-                    stopwatchFrag
-                }
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return 2
+    override fun onBackPressed() {
+        if (frag2.isHidden) {
+            bind.navBar.selectedItemId = R.id.nav_circuit
+        } else {
+            super.onBackPressed()
         }
     }
 }
-
-
