@@ -7,23 +7,38 @@ import android.media.ToneGenerator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
 import ca.chronofit.chrono.util.objects.CircuitObject
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : AppCompatActivity() {
     private var bind: ActivityCircuitTimerBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
-
-    // Should only be work state and rest state, maybe an in between state? Not an initial state.
     enum class RunningState { READY, INIT, WORK, REST }
+
+    private lateinit var mInterstitialAd: InterstitialAd
+
+    private val mInterstitialAdUnitId: String by lazy {
+//        "ca-app-pub-5592526048202421/8639444717" // ACTUAL
+        "ca-app-pub-3940256099942544/1033173712" // TEST
+    }
+
+    private val celebrateTimeout = 2500L // Timeout delay
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -51,6 +66,7 @@ class CircuitTimerActivity : AppCompatActivity() {
         // Initialize stuff
         updateButtonUI()
         updateRestUI()
+        loadAds()
 
         bind!!.startButton.setOnClickListener {
             loadTimer(circuit)
@@ -114,13 +130,104 @@ class CircuitTimerActivity : AppCompatActivity() {
                         RunningState.REST -> {
                             workout()
                         }
-                        else -> isDone()
+                        else -> celebrate()
                     }
                 } else {
-                    isDone()
+                    celebrate()
                 }
             }
         }.start()
+    }
+
+    private fun loadAds() {
+        // Initialize and load up the ad for later
+        MobileAds.initialize(this)
+
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = mInterstitialAdUnitId
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+    }
+
+    private fun celebrate() {
+        // Load celebrate layout
+        bind!!.mainLayout.visibility = View.GONE
+        bind!!.celebrateLayout.visibility = View.VISIBLE
+
+        // Wait 2.5 seconds before showing the finish prompt
+        Handler(
+            Looper.getMainLooper()
+        ).postDelayed(
+            {
+                isDone()
+            }, celebrateTimeout
+        )
+    }
+
+    private fun isDone() {
+        val builder = MaterialAlertDialogBuilder(this).create()
+        val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
+
+        // Set Dialog Views
+        dialogView.dialog_title.text = getString(R.string.circuit_complete)
+        dialogView.subtitle.text = getString(R.string.circuit_complete_subtitle)
+        dialogView.confirm.text = getString(R.string.circuit_complete_confirm)
+        dialogView.cancel.text = getString(R.string.circuit_complete_cancel)
+
+        dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+
+        // User wants to return to dashboard
+        dialogView.confirm.setOnClickListener {
+            builder.dismiss()
+            setResult(Activity.RESULT_OK)
+            finish()
+
+            // Show the ad
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+            } else {
+                Log.d("AD", "The interstitial wasn't loaded yet.")
+            }
+        }
+
+        // If the user wants to run the circuit again
+        dialogView.cancel.setOnClickListener {
+            // Show the ad if it loaded
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.adListener = object : AdListener() {
+                    override fun onAdClosed() {
+                        // Reload the circuit
+                        super.onAdClosed()
+                        builder.dismiss()
+
+                        bind!!.celebrateLayout.visibility = View.GONE
+                        bind!!.mainLayout.visibility = View.VISIBLE
+
+                        timerState = TimerState.INIT
+                        runningState = RunningState.INIT
+                        updateButtonUI()
+                        updateRestUI()
+                    }
+                }
+                mInterstitialAd.show()
+            } else {
+                // Ad didn't load but restart the circuit
+                Log.d("AD", "The interstitial wasn't loaded yet.")
+                // Reload the circuit
+                builder.dismiss()
+
+                bind!!.celebrateLayout.visibility = View.GONE
+                bind!!.mainLayout.visibility = View.VISIBLE
+
+                timerState = TimerState.INIT
+                runningState = RunningState.INIT
+                updateButtonUI()
+                updateRestUI()
+            }
+        }
+
+        // Display the Dialog
+        builder.setView(dialogView)
+        builder.show()
     }
 
     private fun getReady() {
@@ -128,14 +235,6 @@ class CircuitTimerActivity : AppCompatActivity() {
         bind!!.initButtonLayout.visibility = View.GONE
         updateRestUI()
         startTimer(5, false)
-    }
-
-    private fun isDone() {
-        Toast.makeText(this, "Circuit Complete! \uD83E\uDD73", Toast.LENGTH_SHORT).show()
-        timerState = TimerState.INIT
-        runningState = RunningState.INIT
-        updateButtonUI()
-        updateRestUI()
     }
 
     private fun workout() {

@@ -22,7 +22,7 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.dialog_circuit_delete.view.*
+import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlinx.android.synthetic.main.fragment_dashboard_bottom_sheet.view.*
 
 class CircuitDashboardFrag : Fragment() {
@@ -104,17 +104,21 @@ class CircuitDashboardFrag : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
         val builder = MaterialAlertDialogBuilder(requireContext()).create()
-        val dialogView = layoutInflater.inflate(R.layout.dialog_circuit_delete, null)
+        val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
 
-        dialogView.delete_circuit_name.text =
+        // Set Dialog Views
+        dialogView.dialog_title.text =
             "Delete " + circuitsObject?.circuits!![position].name
+        dialogView.subtitle.text = getString(R.string.delete_circuit_subtitle)
+        dialogView.confirm.text = getString(R.string.delete)
+        dialogView.cancel.text = getString(R.string.cancel)
 
         // Button Logic
-        dialogView.cancel_button.setOnClickListener {
+        dialogView.cancel.setOnClickListener {
             builder.dismiss()
         }
 
-        dialogView.delete_button.setOnClickListener {
+        dialogView.confirm.setOnClickListener {
             // Dismiss popups
             builder.dismiss()
             dialog.dismiss()

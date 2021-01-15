@@ -7,22 +7,22 @@
     android:padding="@dimen/small_element_padding">
 
     <TextView
-        android:id="@+id/delete_circuit_name"
+        android:id="@+id/dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
         android:maxLines="1"
         android:padding="@dimen/small_element_padding"
-        android:text="Delete Circuit"
+        android:text="@string/delete_circuit"
         android:textSize="@dimen/xl_large_text"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/small_element_padding"
-        android:text="Do you want to delete this circuit?"
         android:textSize="@dimen/xl_medium_text" />
 
     <LinearLayout
@@ -33,27 +33,25 @@
         android:padding="@dimen/small_element_padding">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cancel_button"
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/small_element_padding"
             android:letterSpacing="0"
             android:padding="@dimen/xs_small_element_padding"
-            android:text="Cancel"
             android:textAllCaps="false"
             android:textColor="@color/dark_grey"
             android:textStyle="bold"
             app:cornerRadius="@dimen/small_element_padding" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/delete_button"
+            android:id="@+id/confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/small_element_padding"
             android:backgroundTint="@color/stop_red"
             android:letterSpacing="0"
             android:padding="@dimen/xs_small_element_padding"
-            android:text="Delete"
             android:textAllCaps="false"
             android:textStyle="bold"
             app:cornerRadius="@dimen/small_element_padding" />
