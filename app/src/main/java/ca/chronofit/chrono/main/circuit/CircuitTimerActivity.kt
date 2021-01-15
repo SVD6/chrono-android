@@ -29,7 +29,6 @@ class CircuitTimerActivity : AppCompatActivity() {
     private var bind: ActivityCircuitTimerBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
-
     enum class RunningState { READY, INIT, WORK, REST }
 
     private lateinit var mInterstitialAd: InterstitialAd
@@ -141,6 +140,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     }
 
     private fun loadAds() {
+        // Initialize and load up the ad for later
         MobileAds.initialize(this)
 
         mInterstitialAd = InterstitialAd(this)
@@ -153,6 +153,7 @@ class CircuitTimerActivity : AppCompatActivity() {
         bind!!.mainLayout.visibility = View.GONE
         bind!!.celebrateLayout.visibility = View.VISIBLE
 
+        // Wait 2.5 seconds before showing the finish prompt
         Handler(
             Looper.getMainLooper()
         ).postDelayed(
@@ -162,7 +163,6 @@ class CircuitTimerActivity : AppCompatActivity() {
         )
     }
 
-    @SuppressLint("SetTextI18n")
     private fun isDone() {
         val builder = MaterialAlertDialogBuilder(this).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
@@ -175,23 +175,27 @@ class CircuitTimerActivity : AppCompatActivity() {
 
         dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
 
-        // Button Logic
+        // User wants to return to dashboard
         dialogView.confirm.setOnClickListener {
             builder.dismiss()
             setResult(Activity.RESULT_OK)
             finish()
 
+            // Show the ad
             if (mInterstitialAd.isLoaded) {
                 mInterstitialAd.show()
             } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.")
+                Log.d("AD", "The interstitial wasn't loaded yet.")
             }
         }
 
+        // If the user wants to run the circuit again
         dialogView.cancel.setOnClickListener {
+            // Show the ad if it loaded
             if (mInterstitialAd.isLoaded) {
                 mInterstitialAd.adListener = object : AdListener() {
                     override fun onAdClosed() {
+                        // Reload the circuit
                         super.onAdClosed()
                         builder.dismiss()
 
@@ -206,7 +210,18 @@ class CircuitTimerActivity : AppCompatActivity() {
                 }
                 mInterstitialAd.show()
             } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.")
+                // Ad didn't load but restart the circuit
+                Log.d("AD", "The interstitial wasn't loaded yet.")
+                // Reload the circuit
+                builder.dismiss()
+
+                bind!!.celebrateLayout.visibility = View.GONE
+                bind!!.mainLayout.visibility = View.VISIBLE
+
+                timerState = TimerState.INIT
+                runningState = RunningState.INIT
+                updateButtonUI()
+                updateRestUI()
             }
         }
 
