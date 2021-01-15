@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_stopwatch"
+        android:enabled="true"
+        android:icon="@drawable/ic_clock_black"
+        android:title="@string/stopwatch" />
+
+    <item
+        android:id="@+id/nav_circuit"
+        android:enabled="true"
+        android:icon="@drawable/ic_fitness_white"
+        android:title="@string/circuits" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_white"
+        android:title="@string/settings" />
+
+</menu>

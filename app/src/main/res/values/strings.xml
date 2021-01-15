@@ -31,6 +31,9 @@
     <string name="circuit_name">Circuit Name</string>
     <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
     <string name="lets_go">Let\'s Go!</string>
+    <string name="settings">Settings</string>
+    <string name="circuits">Circuits</string>
+    <string name="stopwatch">Stopwatch</string>
 
     <!-- Delete Circuit Dialog-->
     <string name="delete_circuit">Delete Circuit 😢</string>

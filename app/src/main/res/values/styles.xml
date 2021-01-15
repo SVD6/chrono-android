@@ -24,14 +24,6 @@
         <item name="cornerRadius">13dp</item>
     </style>
 
-    <!-- Lowercase theme for tab text -->
-    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:fontFamily">@font/nunito_regular</item>
-        <item name="android:textSize">@dimen/xl_medium_text</item>
-        <item name="textAllCaps">false</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
-
     <!-- Dialog Styling -->
     <style name="CustomMaterialDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="dialogCornerRadius">@dimen/large_element_padding</item>
