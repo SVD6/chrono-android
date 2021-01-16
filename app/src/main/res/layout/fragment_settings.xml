@@ -5,46 +5,60 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/medium_element_padding"
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/settings_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/opensans_bold"
             android:gravity="center"
-            android:paddingTop="@dimen/large_element_padding"
+            android:padding="@dimen/medium_element_padding"
             android:text="@string/settings"
-            android:textColor="@color/black"
             android:textSize="@dimen/xl_huge_text" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/large_element_padding">
+            android:padding="@dimen/small_element_padding">
 
             <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
+                android:id="@+id/dark_mode_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/dark_mode"
-                android:textColor="@color/black"
                 android:textSize="@dimen/xl_large_text" />
 
-            <Material
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dark_mode_menu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                app:boxStrokeColor="@color/colorAccent">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/dark_mode_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/large_element_padding">
+            android:padding="@dimen/small_element_padding">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/notifications"
-                android:textColor="@color/black"
                 android:textSize="@dimen/xl_large_text" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
@@ -52,12 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:minWidth="@dimen/medium_element_padding"
-                android:minHeight="@dimen/xs_huge_element_padding"
+                android:enabled="true"
                 android:text="@string/on"
-                app:switchMinWidth="@dimen/large_element_padding"
-
-                app:switchPadding="@dimen/small_element_padding"
                 app:useMaterialThemeColors="false" />
 
         </RelativeLayout>
@@ -65,17 +75,25 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/large_element_padding">
+            android:padding="@dimen/small_element_padding">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/get_ready_time"
-                android:textColor="@color/black"
                 android:textSize="@dimen/xl_large_text" />
 
+
         </RelativeLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/version_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/small_element_padding"
+            android:text="Version Number 0.2.0" />
 
     </LinearLayout>
 </layout>

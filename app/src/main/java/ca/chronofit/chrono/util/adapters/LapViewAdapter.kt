@@ -26,7 +26,7 @@ class LapViewAdapter(private val data: List<LapObject>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LapViewHolder {
         val adapterLayout =
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_lap_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_lap_view, parent, false)
         return LapViewHolder(adapterLayout)
     }
 

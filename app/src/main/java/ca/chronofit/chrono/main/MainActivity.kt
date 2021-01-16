@@ -2,6 +2,7 @@ package ca.chronofit.chrono.main
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityMainBinding
@@ -19,9 +20,13 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private lateinit var frag2: CircuitDashboardFrag
     private lateinit var frag3: SettingsFrag
 
+    private var mLastDayNightMode: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        mLastDayNightMode = AppCompatDelegate.getDefaultNightMode()
 
         val fragTransaction = supportFragmentManager.beginTransaction()
 
@@ -50,9 +55,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         when (item.itemId) {
             R.id.nav_stopwatch -> {
                 fragTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right)
-                fragTransaction.show(frag1)
-                fragTransaction.hide(frag2)
-                fragTransaction.hide(frag3).commitAllowingStateLoss()
+                fragTransaction.hide(frag2).hide(frag3).show(frag1).commitNow()
                 return true
             }
             R.id.nav_circuit -> {
@@ -64,18 +67,21 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 } else {
                     fragTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
                 }
-                fragTransaction.show(frag2)
-                fragTransaction.hide(frag1)
-                fragTransaction.hide(frag3).commitAllowingStateLoss()
+                fragTransaction.hide(frag1).hide(frag3).show(frag2).commitNow()
                 return true
             }
             else -> {
                 fragTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-                fragTransaction.show(frag3)
-                fragTransaction.hide(frag1)
-                fragTransaction.hide(frag2).commitAllowingStateLoss()
+                fragTransaction.hide(frag1).hide(frag2).show(frag3).commitNow()
                 return true
             }
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        if (AppCompatDelegate.getDefaultNightMode() != mLastDayNightMode) {
+            recreate()
         }
     }
 

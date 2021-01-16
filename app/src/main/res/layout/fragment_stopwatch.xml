@@ -7,19 +7,19 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/page_title"
+            android:id="@+id/stopwatch_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="center"
             android:padding="@dimen/medium_element_padding"
             android:text="@string/stopwatch"
-            android:textStyle="bold"
-            android:fontFamily="@font/opensans_semibold"
-            android:textSize="@dimen/huge_text" />
+            android:textSize="@dimen/xl_huge_text" />
 
         <com.bosphere.fadingedgelayout.FadingEdgeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/page_title"
+            android:layout_below="@+id/stopwatch_header"
             android:layout_above="@+id/chrono_layout"
             app:fel_edge="top"
             app:fel_size_top="@dimen/large_element_padding">
@@ -49,7 +49,7 @@
                 android:focusable="true"
                 android:fontFamily="@font/opensans_regular"
                 android:gravity="center"
-                android:padding="@dimen/medium_element_padding"
+                android:padding="@dimen/small_element_padding"
                 android:text="@string/chronometer"
                 android:textSize="@dimen/xs_massive_text" />
 
