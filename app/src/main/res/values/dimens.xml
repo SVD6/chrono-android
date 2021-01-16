@@ -6,6 +6,7 @@
     <dimen name="xs_tiny_text">5sp</dimen>
     <dimen name="tiny_text">8sp</dimen>
     <dimen name="xs_small_text">10sp</dimen>
+    <dimen name="smaller_text">12sp</dimen>
     <dimen name="small_text">14sp</dimen>
     <dimen name="xs_medium_text">16sp</dimen>
     <dimen name="medium_text">18sp</dimen>

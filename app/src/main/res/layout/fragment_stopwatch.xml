@@ -6,12 +6,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/page_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_element_padding"
+            android:text="@string/stopwatch"
+            android:textStyle="bold"
+            android:fontFamily="@font/opensans_semibold"
+            android:textSize="@dimen/huge_text" />
+
         <com.bosphere.fadingedgelayout.FadingEdgeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/page_title"
             android:layout_above="@+id/chrono_layout"
             app:fel_edge="top"
-            app:fel_size_top="@dimen/huge_element_padding">
+            app:fel_size_top="@dimen/large_element_padding">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"

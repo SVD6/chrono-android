@@ -48,6 +48,13 @@
     <string name="circuit_complete_cancel">Restart</string>
     <string name="circuit_complete_celebrate">Circuit Complete!</string>
 
+    <string name="bad_word_warning">Don\'t use bad words!! :(</string>
+    <string name="min_char_warning">Name has to be minimum 3 characters.</string>
+    <string name="notifications">Notifications</string>
+    <string name="on">On</string>
+    <string name="get_ready_time">Get Ready Time</string>
+    <string name="dark_mode">Dark Mode</string>
+
     <!-- Drawable Names-->
     <string-array name="icon_files">
         <item>drawable/ic_stopwatch</item>

@@ -10,10 +10,72 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_bold"
             android:gravity="center"
-            android:paddingTop="@dimen/xl_large_element_padding"
-            android:text="@string/todo"
-            android:textSize="@dimen/xl_large_element_padding" />
+            android:paddingTop="@dimen/large_element_padding"
+            android:text="@string/settings"
+            android:textColor="@color/black"
+            android:textSize="@dimen/xl_huge_text" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/large_element_padding">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/dark_mode"
+                android:textColor="@color/black"
+                android:textSize="@dimen/xl_large_text" />
+
+            <Material
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/large_element_padding">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/notifications"
+                android:textColor="@color/black"
+                android:textSize="@dimen/xl_large_text" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:minWidth="@dimen/medium_element_padding"
+                android:minHeight="@dimen/xs_huge_element_padding"
+                android:text="@string/on"
+                app:switchMinWidth="@dimen/large_element_padding"
+
+                app:switchPadding="@dimen/small_element_padding"
+                app:useMaterialThemeColors="false" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/large_element_padding">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/get_ready_time"
+                android:textColor="@color/black"
+                android:textSize="@dimen/xl_large_text" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

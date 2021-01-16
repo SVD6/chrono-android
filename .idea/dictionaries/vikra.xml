@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="vikra">
     <words>
+      <w>badwords</w>
       <w>chrono</w>
       <w>chronofit</w>
       <w>gson</w>
@@ -10,6 +11,7 @@
       <w>pausebutton</w>
       <w>resetbutton</w>
       <w>resumebutton</w>
+      <w>semibold</w>
       <w>startbutton</w>
       <w>stopbutton</w>
       <w>tablay</w>
