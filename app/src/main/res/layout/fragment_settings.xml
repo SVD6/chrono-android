@@ -237,6 +237,7 @@
                     android:background="@color/grey_light_divider" />
 
                 <RelativeLayout
+                    android:id="@+id/privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/xs_medium_element_padding">
@@ -246,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="Privacy Policy"
+                        android:text="@string/privacy_policy"
                         android:textSize="@dimen/large_text" />
 
                     <ImageView

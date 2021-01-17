@@ -1,5 +1,7 @@
 package ca.chronofit.chrono.settings
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +46,13 @@ class SettingsFrag : Fragment() {
     private fun initMenus() {
         // Load Options
 
+        bind.privacyPolicy.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://chronofit.herokuapp.com/privacyPolicy")
+            )
+            startActivity(intent)
+        }
 
         // Dark Mode Switch
         bind.darkModeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -85,7 +94,7 @@ class SettingsFrag : Fragment() {
             val dialogView = View.inflate(requireContext(), R.layout.dialog_ready_time, null)
 
             // Pre select the saved option (if it's 5s then make sure 5s is already checked)
-            // For now it's default 5s
+            // For now it's default 5s -> make sure to change this once load settings is there
             // Button Logic
             dialogView.cancel.setOnClickListener {
                 builder.dismiss()

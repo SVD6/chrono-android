@@ -60,6 +60,7 @@
     <string name="audio_prompts">Audio Prompts</string>
     <string name="about">About</string>
     <string name="set">Set</string>
+    <string name="privacy_policy">Privacy Policy</string>
 
     <!-- Drawable Names-->
     <string-array name="icon_files">
