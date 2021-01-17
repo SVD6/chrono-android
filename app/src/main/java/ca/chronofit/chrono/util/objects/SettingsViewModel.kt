@@ -3,8 +3,9 @@ package ca.chronofit.chrono.util.objects
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import java.io.Serializable
 
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel : ViewModel(), Serializable {
     val darkMode: LiveData<Boolean> get() = _darkMode
     private val _darkMode = MutableLiveData<Boolean>()
 

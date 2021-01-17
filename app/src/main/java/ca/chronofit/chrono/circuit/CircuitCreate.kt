@@ -42,7 +42,7 @@ class CircuitCreate : BaseActivity() {
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 
-        var file = File("assets/$badWordFile")
+        val file = File("assets/$badWordFile")
         Log.i("file", file.toString())
 
         bind!!.discardButton.setOnClickListener {

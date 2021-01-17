@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.util.StringUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
 import ca.chronofit.chrono.util.BaseActivity
@@ -19,6 +21,7 @@ import ca.chronofit.chrono.util.adapters.CircuitViewAdapter
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
+import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
@@ -29,6 +32,9 @@ class CircuitDashboardFrag : Fragment() {
     private lateinit var bind: FragmentCircuitDashboardBinding
     private lateinit var recyclerView: RecyclerView
 
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
+
+    private var getReadyTime: Int? = null
     private var circuitsObject: CircuitsObject? = null
     private var selectedPosition: Int = 0
 
@@ -42,6 +48,10 @@ class CircuitDashboardFrag : Fragment() {
             container, false
         )
         PreferenceManager.with(activity as BaseActivity)
+
+        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { readyTime ->
+            getReadyTime = (readyTime.substring(0, readyTime.length - 1)).toInt()
+        })
 
         recyclerView = bind.recyclerView
         loadData()
@@ -67,6 +77,7 @@ class CircuitDashboardFrag : Fragment() {
         val jsonString = GsonBuilder().create().toJson(circuit)
         val intent = Intent(requireContext(), CircuitTimerActivity::class.java)
         intent.putExtra("circuitObject", jsonString)
+        intent.putExtra("readyTime", getReadyTime)
         startActivityForResult(intent, 10002)
     }
 

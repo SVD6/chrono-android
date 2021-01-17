@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.dialog_ready_time.view.*
 
 class SettingsFrag : Fragment() {
     private lateinit var bind: FragmentSettingsBinding
+
     private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     override fun onCreateView(
