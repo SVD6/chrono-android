@@ -110,11 +110,10 @@ class Chronometer @JvmOverloads constructor(
         text += df.format(seconds.toLong())
         if (lastSecond != seconds) {
             notificationTime = text
-
             lastSecond = seconds
-            if(mStarted){
+            if (mStarted) {
                 createRunningNotification(notificationTime)
-            }else{
+            } else {
                 createStoppedNotification(notificationTime)
             }
         }
@@ -195,7 +194,7 @@ class Chronometer @JvmOverloads constructor(
         }
     }
 
-    private fun createStoppedNotification(time:String) {
+    private fun createStoppedNotification(time: String) {
         val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch_stopped)
 
         val resumeIntent = Intent(context, NotificationIntentService::class.java)
@@ -226,10 +225,11 @@ class Chronometer @JvmOverloads constructor(
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
                 .setCustomContentView(customView)
 
-
-        with(NotificationManagerCompat.from(context)) {
-            //notificationId is a unique int for each notification that you must define
-            notify(1, builder.build())
+        if (showNotification) {
+            with(NotificationManagerCompat.from(context)) {
+                //notificationId is a unique int for each notification that you must define
+                notify(1, builder.build())
+            }
         }
     }
 }
