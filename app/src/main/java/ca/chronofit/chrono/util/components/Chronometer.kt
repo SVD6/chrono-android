@@ -34,6 +34,7 @@ class Chronometer @JvmOverloads constructor(
     private var timeElapsed: Long = 0
     private var showNotification = false
     private var notificationTime = "00:00"
+    private val notificationId = 12
 
     private var lastSecond = -1
 
@@ -114,7 +115,7 @@ class Chronometer @JvmOverloads constructor(
             if (mStarted) {
                 createRunningNotification(notificationTime)
             } else {
-                createStoppedNotification(notificationTime)
+                NotificationManagerCompat.from(context).cancel(notificationId) // Reset is pressed
             }
         }
         text += ":$milliseconds"
@@ -189,7 +190,7 @@ class Chronometer @JvmOverloads constructor(
         if (showNotification) {
             with(NotificationManagerCompat.from(context)) {
                 //notificationId is a unique int for each notification that you must define
-                notify(1, builder.build())
+                notify(notificationId, builder.build())
             }
         }
     }
@@ -208,7 +209,7 @@ class Chronometer @JvmOverloads constructor(
         resetIntent.action = StopwatchFrag.RESET
         customView.setOnClickPendingIntent(
             R.id.reset_stopwatch,
-            PendingIntent.getService(context, 1, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(context, notificationId, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         )
 
         customView.setTextViewText(R.id.elapsed_time, time)
@@ -228,7 +229,7 @@ class Chronometer @JvmOverloads constructor(
         if (showNotification) {
             with(NotificationManagerCompat.from(context)) {
                 //notificationId is a unique int for each notification that you must define
-                notify(1, builder.build())
+                notify(notificationId, builder.build())
             }
         }
     }
