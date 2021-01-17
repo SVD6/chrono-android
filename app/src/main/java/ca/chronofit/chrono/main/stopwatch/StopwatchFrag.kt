@@ -12,6 +12,8 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +24,6 @@ import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
 import ca.chronofit.chrono.util.objects.LapObject
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
-import java.lang.RuntimeException
 
 class StopwatchFrag : Fragment() {
     private var bind: FragmentStopwatchBinding? = null
@@ -36,6 +37,7 @@ class StopwatchFrag : Fragment() {
 
     private var lapCount = 0
     private var prevTime = 0.toLong()
+    private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
     private lateinit var broadcastReceiver: BroadcastReceiver
@@ -75,6 +77,14 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.lapButton.setOnClickListener {
+            if (lapCount >= (maxLapCount - 1)) {
+                Toast.makeText(
+                    requireContext(),
+                    "What in marathon...max laps reached! \uD83E\uDD75",
+                    Toast.LENGTH_LONG
+                ).show()
+                bind!!.lapButton.isEnabled = false
+            }
             lap()
         }
 
@@ -107,6 +117,8 @@ class StopwatchFrag : Fragment() {
         lapCount = 0
         prevTime = 0.toLong()
 
+        bind!!.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
         laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
     }
@@ -129,6 +141,7 @@ class StopwatchFrag : Fragment() {
 
     private fun lap() {
         lapCount += 1
+
         val currTime = SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
 
@@ -148,6 +161,7 @@ class StopwatchFrag : Fragment() {
     private fun updateButtonUI() {
         when (swatchState) {
             SwatchState.INIT -> {
+                bind!!.lapButton.isEnabled = true
                 bind!!.initButtonLay.visibility = View.VISIBLE
                 bind!!.runButtonLay.visibility = View.GONE
                 bind!!.stopButtonLay.visibility = View.GONE

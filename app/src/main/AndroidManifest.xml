@@ -8,7 +8,7 @@
         android:roundIcon="@drawable/ic_chrono_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".main.MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,11 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".main.circuit.CircuitCreate" />
-
-        <activity android:name=".main.MainActivity" />
-
         <activity android:name=".main.circuit.CircuitTimerActivity" />
 
         <service
@@ -34,12 +30,17 @@
             android:name=".util.services.NotificationIntentService"
             android:exported="false" />
 
-        <!--FCM Notification Defaults   -->
+        <!-- FCM Notification Defaults -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_fcm_notification_channel_id" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification_logo" />
+
+        <!-- Ads Meta Data -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5592526048202421~3334135380" />
     </application>
 </manifest>

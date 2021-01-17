@@ -2,45 +2,27 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/small_element_padding"
-        android:orientation="vertical">
+        android:paddingTop="@dimen/large_element_padding">
 
-        <FrameLayout
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="true"
-            android:paddingHorizontal="@dimen/medium_element_padding"
-            android:paddingTop="@dimen/xl_large_element_padding">
+            android:layout_alignParentBottom="true"
+            app:itemIconTint="@drawable/nav_icon_selector"
+            app:itemTextColor="@drawable/nav_text_selector"
+            app:labelVisibilityMode="selected"
+            app:menu="@menu/layout_bottom_navigation" />
 
-            <View
-                android:id="@+id/indicator"
-                android:layout_width="0dp"
-                android:layout_height="37dp" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:background="@drawable/nav_tab_dark"
-                android:textAllCaps="false"
-                app:tabGravity="fill"
-                app:tabIndicator="@drawable/nav_selected"
-                app:tabIndicatorColor="@color/colorAccent"
-                app:tabIndicatorGravity="stretch"
-                app:tabMode="fixed"
-                app:tabRippleColor="@null"
-                app:tabSelectedTextColor="#ffffff"
-                app:tabTextAppearance="@style/TabTextAppearance" />
-
-        </FrameLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
+        <FrameLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/nav_bar" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
