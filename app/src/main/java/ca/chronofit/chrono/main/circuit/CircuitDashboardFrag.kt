@@ -103,7 +103,7 @@ class CircuitDashboardFrag : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
-        val builder = MaterialAlertDialogBuilder(requireContext()).create()
+        val builder = MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
 
         // Set Dialog Views

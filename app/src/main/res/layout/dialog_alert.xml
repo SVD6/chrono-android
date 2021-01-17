@@ -41,6 +41,7 @@
             android:padding="@dimen/xs_small_element_padding"
             android:textAllCaps="false"
             android:textColor="@color/dark_grey"
+            android:textSize="@dimen/xs_medium_text"
             android:textStyle="bold"
             app:cornerRadius="@dimen/small_element_padding" />
 
@@ -53,6 +54,7 @@
             android:letterSpacing="0"
             android:padding="@dimen/xs_small_element_padding"
             android:textAllCaps="false"
+            android:textSize="@dimen/xs_medium_text"
             android:textStyle="bold"
             app:cornerRadius="@dimen/small_element_padding" />
 

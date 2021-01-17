@@ -14,5 +14,11 @@ class Chrono: Application() {
 
     companion object {
 
+        // Settings
+        var notifications: Boolean = false
+        var darkMode: Boolean = false
+        var audioPrompts: Boolean = true
+        var readytime: String = "5"
+
     }
 }
