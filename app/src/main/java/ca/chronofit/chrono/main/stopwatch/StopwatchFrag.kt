@@ -66,10 +66,7 @@ class StopwatchFrag : Fragment() {
         }
 
         bind!!.resumeButton.setOnClickListener {
-            swatch.base = SystemClock.elapsedRealtime() - offset
-            swatch.start()
-            swatchState = SwatchState.RUNNING
-            updateButtonUI()
+            resumeTimer()
         }
 
         bind!!.resetButton.setOnClickListener {
@@ -93,12 +90,16 @@ class StopwatchFrag : Fragment() {
                 when (intent?.action) {
                     STOP -> stopTimer()
                     RESET -> resetTimer()
+                    RESUME -> resumeTimer()
                 }
             }
         }
 
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(STOP))
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESET))
+        requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESUME))
+
+
 
 
         createNotificationChannel()
@@ -136,6 +137,13 @@ class StopwatchFrag : Fragment() {
         offset = 0
         swatchState = SwatchState.INIT
         initialize()
+        updateButtonUI()
+    }
+
+    fun resumeTimer() {
+        swatch.base = SystemClock.elapsedRealtime() - offset
+        swatch.start()
+        swatchState = SwatchState.RUNNING
         updateButtonUI()
     }
 
@@ -199,7 +207,7 @@ class StopwatchFrag : Fragment() {
 
     companion object {
         const val STOP = "stop"
-        val RESMUE = "resume"
+        const val RESUME = "resume"
         const val RESET = "reset"
     }
 
