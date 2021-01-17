@@ -1,23 +1,25 @@
-package ca.chronofit.chrono.main
+package ca.chronofit.chrono
 
 import android.app.NotificationManager
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityMainBinding
-import ca.chronofit.chrono.main.circuit.CircuitDashboardFrag
-import ca.chronofit.chrono.main.settings.SettingsFrag
-import ca.chronofit.chrono.main.stopwatch.StopwatchFrag
+import ca.chronofit.chrono.circuit.CircuitDashboardFrag
+import ca.chronofit.chrono.settings.SettingsFrag
+import ca.chronofit.chrono.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.BaseActivity
+import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
     private lateinit var bind: ActivityMainBinding
+
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     private lateinit var frag1: StopwatchFrag
     private lateinit var frag2: CircuitDashboardFrag
@@ -25,15 +27,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private lateinit var notificationManager: NotificationManager
 
-    private var mLastDayNightMode: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        mLastDayNightMode = AppCompatDelegate.getDefaultNightMode()
 
         val fragTransaction = supportFragmentManager.beginTransaction()
 
@@ -51,9 +49,30 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         bind.navBar.setOnNavigationItemSelectedListener(this)
         bind.navBar.selectedItemId = R.id.nav_circuit
 
+        // Observe Settings
+        observeSettings()
+
         // Check for an Update
 
         // Check for App Review
+    }
+
+    private fun observeSettings() {
+        settingsViewModel.darkMode.observe(this, { darkMode ->
+            if (darkMode) {
+                Log.i("settings", "Registered darkMode")
+            } else {
+                Log.i("settings", "Unregistered darkMode")
+            }
+        })
+
+        settingsViewModel.notifications.observe(this, { notifications ->
+            if (notifications) {
+                Log.i("settings", "Registered notifications")
+            } else {
+                Log.i("settings", "Unregistered notifications")
+            }
+        })
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -83,15 +102,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
         }
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        recreate()
     }
 
     override fun onBackPressed() {

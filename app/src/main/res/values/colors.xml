@@ -25,4 +25,13 @@
 
     <!-- Nav Selectors -->
     <color name="select_grey">#DFE0DF</color>
+
+    <!-- Dark Mode Colors -->
+    <color name="dark_mode_background">#121212</color>
+    <color name="dark_mode_dark">#222222</color>
+    <color name="dark_mode_text">#BDBDBD</color>
+    <color name="dark_mode_accent">#676767</color>
+
+    <!-- Light Mode Colors -->
+    <color name="light_mode_text">#7B7B7B</color>
 </resources>

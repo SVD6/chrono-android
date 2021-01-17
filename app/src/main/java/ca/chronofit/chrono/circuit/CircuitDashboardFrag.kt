@@ -1,4 +1,4 @@
-package ca.chronofit.chrono.main.circuit
+package ca.chronofit.chrono.circuit
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlinx.android.synthetic.main.fragment_dashboard_bottom_sheet.view.*
 
 class CircuitDashboardFrag : Fragment() {
-    private var bind: FragmentCircuitDashboardBinding? = null
+    private lateinit var bind: FragmentCircuitDashboardBinding
     private lateinit var recyclerView: RecyclerView
 
     private var circuitsObject: CircuitsObject? = null
@@ -43,13 +43,13 @@ class CircuitDashboardFrag : Fragment() {
         )
         PreferenceManager.with(activity as BaseActivity)
 
-        recyclerView = bind!!.recyclerView
+        recyclerView = bind.recyclerView
         loadData()
 
-        bind!!.addCircuit.setOnClickListener {
+        bind.addCircuit.setOnClickListener {
             startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
         }
-        return bind!!.root
+        return bind.root
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -103,7 +103,8 @@ class CircuitDashboardFrag : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
-        val builder = MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
+        val builder =
+            MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
 
         // Set Dialog Views
@@ -145,8 +146,8 @@ class CircuitDashboardFrag : Fragment() {
         circuitsObject = PreferenceManager.get<CircuitsObject>("CIRCUITS")
 
         if (circuitsObject != null && circuitsObject?.circuits!!.size > 0) {
-            bind!!.recyclerView.visibility = View.VISIBLE
-            bind!!.emptyLayout.visibility = View.GONE
+            bind.recyclerView.visibility = View.VISIBLE
+            bind.emptyLayout.visibility = View.GONE
 
             recyclerView.adapter = CircuitViewAdapter(
                 circuitsObject?.circuits!!,
@@ -161,7 +162,7 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     private fun loadEmptyUI() {
-        bind!!.recyclerView.visibility = View.GONE
-        bind!!.emptyLayout.visibility = View.VISIBLE
+        bind.recyclerView.visibility = View.GONE
+        bind.emptyLayout.visibility = View.VISIBLE
     }
 }

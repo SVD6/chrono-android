@@ -1,4 +1,4 @@
-package ca.chronofit.chrono.main.circuit
+package ca.chronofit.chrono.circuit
 
 import android.annotation.SuppressLint
 import android.app.Activity

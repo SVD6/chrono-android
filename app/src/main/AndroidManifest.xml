@@ -8,7 +8,7 @@
         android:roundIcon="@drawable/ic_chrono_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity"
+        <activity android:name=".MainActivity"
             android:configChanges="uiMode">
         </activity>
         <activity android:name=".SplashActivity">
@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.circuit.CircuitCreate" />
-        <activity android:name=".main.circuit.CircuitTimerActivity" />
+        <activity android:name="ca.chronofit.chrono.circuit.CircuitCreate" />
+        <activity android:name="ca.chronofit.chrono.circuit.CircuitTimerActivity" />
 
         <service
             android:name=".util.services.FirebaseCloudMessaging"
