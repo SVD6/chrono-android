@@ -37,6 +37,7 @@
                     android:textStyle="bold" />
 
                 <RelativeLayout
+                    android:id="@+id/dark_mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/xs_medium_element_padding">
@@ -56,6 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:enabled="false"
                         android:text="@string/off"
                         app:useMaterialThemeColors="false" />
                 </RelativeLayout>

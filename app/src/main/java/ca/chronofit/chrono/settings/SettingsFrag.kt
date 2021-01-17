@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -37,8 +38,16 @@ class SettingsFrag : Fragment() {
         PreferenceManager.with(activity as MainActivity)
 
         // Load Settings (they're either default or have been messed with a bit)
-
         initMenus()
+
+        // Dark Mode Not Ready
+        bind.darkMode.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "Dark Mode under construction \uD83D\uDEA7",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
         return bind.root
     }
