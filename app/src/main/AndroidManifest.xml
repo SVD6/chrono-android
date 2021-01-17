@@ -8,7 +8,9 @@
         android:roundIcon="@drawable/ic_chrono_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity" />
+        <activity android:name=".main.MainActivity"
+            android:configChanges="uiMode">
+        </activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

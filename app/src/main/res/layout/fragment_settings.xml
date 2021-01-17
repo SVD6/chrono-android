@@ -21,13 +21,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/small_element_padding">
+            android:paddingHorizontal="@dimen/small_element_padding">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/dark_mode_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:paddingVertical="@dimen/medium_element_padding"
                 android:text="@string/dark_mode"
                 android:textSize="@dimen/xl_large_text" />
 
@@ -52,16 +53,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/small_element_padding">
+            android:paddingHorizontal="@dimen/small_element_padding">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:paddingVertical="@dimen/medium_element_padding"
                 android:text="@string/notifications"
                 android:textSize="@dimen/xl_large_text" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/notification_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -75,15 +78,40 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/small_element_padding">
+            android:paddingHorizontal="@dimen/small_element_padding">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:paddingVertical="@dimen/medium_element_padding"
                 android:text="@string/get_ready_time"
                 android:textSize="@dimen/xl_large_text" />
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/small_element_padding">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingVertical="@dimen/medium_element_padding"
+                android:text="Audio Prompts"
+                android:textSize="@dimen/xl_large_text" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/audio_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:enabled="true"
+                android:text="@string/on"
+                app:useMaterialThemeColors="false" />
 
         </RelativeLayout>
 
@@ -92,6 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/reset_grey"
             android:padding="@dimen/small_element_padding"
             android:text="Version Number 0.2.0" />
 

@@ -1,5 +1,8 @@
 package ca.chronofit.chrono.main
 
+import android.app.NotificationManager
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
@@ -20,11 +23,15 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private lateinit var frag2: CircuitDashboardFrag
     private lateinit var frag3: SettingsFrag
 
+    private lateinit var notificationManager: NotificationManager
+
     private var mLastDayNightMode: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         mLastDayNightMode = AppCompatDelegate.getDefaultNightMode()
 
@@ -80,9 +87,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onRestart() {
         super.onRestart()
-        if (AppCompatDelegate.getDefaultNightMode() != mLastDayNightMode) {
-            recreate()
-        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        recreate()
     }
 
     override fun onBackPressed() {

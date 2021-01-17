@@ -28,7 +28,7 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/small_element_padding"
+                android:paddingTop="@dimen/xs_small_element_padding"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager">
 
