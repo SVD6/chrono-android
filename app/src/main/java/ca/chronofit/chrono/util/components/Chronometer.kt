@@ -13,8 +13,8 @@ import android.widget.RemoteViews
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.example.chrono.R
-import com.example.chrono.main.stopwatch.StopwatchFrag
+import ca.chronofit.chrono.R
+import ca.chronofit.chrono.main.stopwatch.StopwatchFrag
 import com.example.chrono.util.services.NotificationIntentService
 import java.text.DecimalFormat
 
@@ -32,6 +32,8 @@ class Chronometer @JvmOverloads constructor(
     private var mRunning = false
     private var onChronometerTickListener: OnChronometerTickListener? = null
     private var timeElapsed: Long = 0
+
+    private var lastSecond = -1
 
     var base: Long
         get() = mBase
@@ -103,8 +105,9 @@ class Chronometer @JvmOverloads constructor(
         }
         text += df.format(minutes.toLong()) + ":"
         text += df.format(seconds.toLong())
-        if(milliseconds % 10 == 1 ){
+        if(lastSecond != seconds){
             createNotification(text)
+            lastSecond = seconds
         }
         text += ":$milliseconds"
         text += tenthMillisecond.toString()
