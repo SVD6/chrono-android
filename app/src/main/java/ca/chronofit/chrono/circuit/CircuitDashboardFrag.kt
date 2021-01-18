@@ -51,20 +51,15 @@ class CircuitDashboardFrag : Fragment() {
         )
         PreferenceManager.with(activity as BaseActivity)
 
-        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { readyTime ->
-            getReadyTime = (readyTime.substring(0, readyTime.length - 1)).toInt()
-        })
-
-        settingsViewModel.audioPrompts.observe(viewLifecycleOwner, { prompts ->
-            audioPrompts = prompts
-        })
-
         recyclerView = bind.recyclerView
         loadData()
 
         bind.addCircuit.setOnClickListener {
             startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
         }
+
+        observeSettings()
+
         return bind.root
     }
 
@@ -85,6 +80,7 @@ class CircuitDashboardFrag : Fragment() {
         intent.putExtra("circuitObject", jsonString)
         intent.putExtra("readyTime", getReadyTime)
         intent.putExtra("audioPrompts", audioPrompts)
+        intent.putExtra("lastRest", lastRest)
         startActivityForResult(intent, 10002)
     }
 
@@ -158,6 +154,20 @@ class CircuitDashboardFrag : Fragment() {
         // Display the Dialog
         builder.setView(dialogView)
         builder.show()
+    }
+
+    private fun observeSettings() {
+        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { readyTime ->
+            getReadyTime = (readyTime.substring(0, readyTime.length - 1)).toInt()
+        })
+
+        settingsViewModel.audioPrompts.observe(viewLifecycleOwner, { prompts ->
+            audioPrompts = prompts
+        })
+
+        settingsViewModel.lastRest.observe(viewLifecycleOwner, { rest ->
+            lastRest = rest
+        })
     }
 
     private fun loadData() {

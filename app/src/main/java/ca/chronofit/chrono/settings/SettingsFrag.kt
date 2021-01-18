@@ -98,10 +98,11 @@ class SettingsFrag : Fragment() {
         }
 
         // Last Rest Switch
-        bind.lastRestSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+        bind.lastRestSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-
+                settingsViewModel.onLastRestChanged(true)
             } else {
+                settingsViewModel.onLastRestChanged(false)
             }
         }
 

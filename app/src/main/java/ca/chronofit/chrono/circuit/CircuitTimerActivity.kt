@@ -41,6 +41,7 @@ class CircuitTimerActivity : BaseActivity() {
     private val celebrateTimeout = 2500L // Timeout delay
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
+    private var skipLastRest: Boolean = false
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -66,6 +67,7 @@ class CircuitTimerActivity : BaseActivity() {
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
         getReadyTime = intent.getIntExtra("readyTime", 5)
         audioPrompts = intent.getBooleanExtra("audioPrompts", true)
+        skipLastRest = intent.getBooleanExtra("lastRest", false)
 
         // Initialize stuff
         updateButtonUI()
@@ -129,7 +131,11 @@ class CircuitTimerActivity : BaseActivity() {
                             workout()
                         }
                         RunningState.WORK -> {
-                            rest()
+                            if (currentSet == 1 && skipLastRest) {
+                                celebrate()
+                            } else {
+                                rest()
+                            }
                         }
                         RunningState.REST -> {
                             workout()

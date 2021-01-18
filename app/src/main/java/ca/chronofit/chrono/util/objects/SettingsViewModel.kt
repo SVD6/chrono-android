@@ -15,6 +15,9 @@ class SettingsViewModel : ViewModel(), Serializable {
     val audioPrompts: LiveData<Boolean> get() = _audioPrompts
     private val _audioPrompts = MutableLiveData<Boolean>()
 
+    val lastRest: LiveData<Boolean> get() = _lastRest
+    private val _lastRest = MutableLiveData<Boolean>()
+
     val getReadyTime: LiveData<String> get() = _getReadyTime
     private val _getReadyTime = MutableLiveData<String>()
 
@@ -28,6 +31,10 @@ class SettingsViewModel : ViewModel(), Serializable {
 
     fun onAudioPromptChanged(setting: Boolean) {
         _audioPrompts.value = setting
+    }
+
+    fun onLastRestChanged(setting: Boolean) {
+        _lastRest.value = setting
     }
 
     fun onReadyTimeChanged(setting: String) {
