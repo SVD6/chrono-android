@@ -34,6 +34,9 @@ class CircuitDashboardFrag : Fragment() {
     private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     private var getReadyTime: Int? = null
+    private var audioPrompts: Boolean? = null
+    private var lastRest: Boolean? = null
+
     private var circuitsObject: CircuitsObject? = null
     private var selectedPosition: Int = 0
 
@@ -50,6 +53,10 @@ class CircuitDashboardFrag : Fragment() {
 
         settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { readyTime ->
             getReadyTime = (readyTime.substring(0, readyTime.length - 1)).toInt()
+        })
+
+        settingsViewModel.audioPrompts.observe(viewLifecycleOwner, { prompts ->
+            audioPrompts = prompts
         })
 
         recyclerView = bind.recyclerView
@@ -77,6 +84,7 @@ class CircuitDashboardFrag : Fragment() {
         val intent = Intent(requireContext(), CircuitTimerActivity::class.java)
         intent.putExtra("circuitObject", jsonString)
         intent.putExtra("readyTime", getReadyTime)
+        intent.putExtra("audioPrompts", audioPrompts)
         startActivityForResult(intent, 10002)
     }
 

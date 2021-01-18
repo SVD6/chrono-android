@@ -97,6 +97,14 @@ class SettingsFrag : Fragment() {
             }
         }
 
+        // Last Rest Switch
+        bind.lastRestSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+
+            } else {
+            }
+        }
+
         // Get Ready Time Selector
         bind.getReadyTime.setOnClickListener {
             val builder =

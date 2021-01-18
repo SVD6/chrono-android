@@ -40,6 +40,7 @@ class CircuitTimerActivity : BaseActivity() {
 
     private val celebrateTimeout = 2500L // Timeout delay
     private var getReadyTime: Int = 5
+    private var audioPrompts: Boolean = true
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -64,6 +65,7 @@ class CircuitTimerActivity : BaseActivity() {
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
         getReadyTime = intent.getIntExtra("readyTime", 5)
+        audioPrompts = intent.getBooleanExtra("audioPrompts", true)
 
         // Initialize stuff
         updateButtonUI()
@@ -240,7 +242,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun workout() {
-        tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
+        if (audioPrompts) tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
         runningState = RunningState.WORK
         updateButtonUI()
         updateRestUI()
@@ -248,7 +250,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun rest() {
-        tone.startTone(ToneGenerator.TONE_DTMF_2, 500)
+        if (audioPrompts) tone.startTone(ToneGenerator.TONE_DTMF_2, 500)
         runningState = RunningState.REST
         updateRestUI()
         startTimer(timeRest, false)
