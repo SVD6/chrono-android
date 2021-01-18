@@ -8,7 +8,6 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 
 open class BaseActivity : AppCompatActivity() {
     private var circuits: CircuitsObject? = null
-    private var getReadyTime: Int = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
