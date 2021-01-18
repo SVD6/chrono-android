@@ -1,10 +1,9 @@
-package ca.chronofit.chrono.main.circuit
+package ca.chronofit.chrono.circuit
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.media.AudioManager
 import android.media.ToneGenerator
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -15,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
+import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.objects.CircuitObject
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
@@ -25,7 +25,7 @@ import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
 
-class CircuitTimerActivity : AppCompatActivity() {
+class CircuitTimerActivity : BaseActivity() {
     private var bind: ActivityCircuitTimerBinding? = null
 
     enum class TimerState { INIT, RUNNING, PAUSED }
@@ -39,6 +39,9 @@ class CircuitTimerActivity : AppCompatActivity() {
     }
 
     private val celebrateTimeout = 2500L // Timeout delay
+    private var getReadyTime: Int = 5
+    private var audioPrompts: Boolean = true
+    private var skipLastRest: Boolean = false
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -62,6 +65,9 @@ class CircuitTimerActivity : AppCompatActivity() {
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
+        getReadyTime = intent.getIntExtra("readyTime", 5)
+        audioPrompts = intent.getBooleanExtra("audioPrompts", true)
+        skipLastRest = intent.getBooleanExtra("lastRest", false)
 
         // Initialize stuff
         updateButtonUI()
@@ -125,7 +131,11 @@ class CircuitTimerActivity : AppCompatActivity() {
                             workout()
                         }
                         RunningState.WORK -> {
-                            rest()
+                            if (currentSet == 1 && skipLastRest) {
+                                celebrate()
+                            } else {
+                                rest()
+                            }
                         }
                         RunningState.REST -> {
                             workout()
@@ -234,11 +244,11 @@ class CircuitTimerActivity : AppCompatActivity() {
         runningState = RunningState.READY
         bind!!.initButtonLayout.visibility = View.GONE
         updateRestUI()
-        startTimer(5, false)
+        startTimer(getReadyTime, false)
     }
 
     private fun workout() {
-        tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
+        if (audioPrompts) tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
         runningState = RunningState.WORK
         updateButtonUI()
         updateRestUI()
@@ -246,7 +256,7 @@ class CircuitTimerActivity : AppCompatActivity() {
     }
 
     private fun rest() {
-        tone.startTone(ToneGenerator.TONE_DTMF_2, 500)
+        if (audioPrompts) tone.startTone(ToneGenerator.TONE_DTMF_2, 500)
         runningState = RunningState.REST
         updateRestUI()
         startTimer(timeRest, false)

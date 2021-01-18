@@ -1,5 +1,6 @@
 package ca.chronofit.chrono.util.adapters
 
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.util.getTime
 import ca.chronofit.chrono.util.objects.LapObject
+import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.textview.MaterialTextView
 
 class LapViewAdapter(private val data: List<LapObject>) :
@@ -26,7 +28,7 @@ class LapViewAdapter(private val data: List<LapObject>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LapViewHolder {
         val adapterLayout =
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_lap_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_lap_view, parent, false)
         return LapViewHolder(adapterLayout)
     }
 

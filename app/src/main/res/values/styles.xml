@@ -26,7 +26,13 @@
 
     <!-- Dialog Styling -->
     <style name="CustomMaterialDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="dialogCornerRadius">@dimen/large_element_padding</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MaterialAlertDialog.Rounded
+        </item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialAlertDialog.Rounded" parent="">
+        <item name="cornerSize">@dimen/xs_medium_element_padding</item>
     </style>
 
     <!-- Bottom Sheet Styling -->

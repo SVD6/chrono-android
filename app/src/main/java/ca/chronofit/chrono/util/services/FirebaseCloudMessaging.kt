@@ -9,7 +9,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import ca.chronofit.chrono.R
-import ca.chronofit.chrono.main.MainActivity
+import ca.chronofit.chrono.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 

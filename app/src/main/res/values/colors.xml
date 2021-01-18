@@ -12,13 +12,26 @@
     <color name="stop_red">#E73B3B</color>
     <color name="resume_green">#12A973</color>
     <color name="lap_blue">#0E4D92</color>
-    <color name="reset_grey">#7B7B7B</color>
-    <color name="dark_grey">#606060</color>
-    <color name="light_grey">#E7E6E6</color>
-    <color name="not_light_grey">#D2D5E4</color>
     <color name="rest_yellow">#FFBD12</color>
     <color name="beautiful_blue">#2B3DDE</color>
 
+
+    <color name="light_grey">#E7E6E6</color>
+    <color name="not_light_grey">#D2D5E4</color>
+    <color name="faded_text">#CCCCCC</color>
+    <color name="grey_light_divider">#DFE0DF</color>
+    <color name="reset_grey">#7B7B7B</color>
+    <color name="dark_grey">#606060</color>
+
     <!-- Nav Selectors -->
     <color name="select_grey">#DFE0DF</color>
+
+    <!-- Dark Mode Colors -->
+    <color name="dark_mode_background">#121212</color>
+    <color name="dark_mode_dark">#222222</color>
+    <color name="dark_mode_text">#BDBDBD</color>
+    <color name="dark_mode_accent">#676767</color>
+
+    <!-- Light Mode Colors -->
+    <color name="light_mode_text">#7B7B7B</color>
 </resources>
