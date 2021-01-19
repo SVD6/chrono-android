@@ -39,6 +39,7 @@ class SettingsFrag : Fragment() {
         PreferenceManager.with(activity as MainActivity)
 
         // Load Settings (they're either default or have been messed with a bit)
+        loadSettings()
         initMenus()
 
         // Dark Mode Not Ready
@@ -51,6 +52,20 @@ class SettingsFrag : Fragment() {
         }
 
         return bind.root
+    }
+
+    private fun loadSettings() {
+        if (PreferenceManager.get<Int>("readyTime") != null) {
+            getReadyTime = PreferenceManager.get<Int>("readyTime")!!
+        }
+
+        if (PreferenceManager.get<Boolean>("prompts") != null) {
+            bind.audioSwitch.isChecked = PreferenceManager.get<Boolean>("prompts")!!
+        }
+
+        if (PreferenceManager.get<Boolean>("lastRest") != null) {
+            bind.lastRestSwitch.isChecked = PreferenceManager.get<Boolean>("lastRest")!!
+        }
     }
 
     private fun initMenus() {

@@ -33,9 +33,9 @@ class CircuitDashboardFrag : Fragment() {
 
     private val settingsViewModel: SettingsViewModel by activityViewModels()
 
-    private var getReadyTime: Int? = null
-    private var audioPrompts: Boolean? = null
-    private var lastRest: Boolean? = null
+    private var getReadyTime: Int = 5
+    private var audioPrompts: Boolean = true
+    private var lastRest: Boolean = true
 
     private var circuitsObject: CircuitsObject? = null
     private var selectedPosition: Int = 0
@@ -157,6 +157,20 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     private fun observeSettings() {
+        // Retrieve Settings if they exist
+        if (PreferenceManager.get<Int>("readyTime") != null) {
+            getReadyTime = PreferenceManager.get<Int>("readyTime")!!
+        }
+
+        if (PreferenceManager.get<Boolean>("prompts") != null) {
+            audioPrompts = PreferenceManager.get<Boolean>("prompts")!!
+        }
+
+        if (PreferenceManager.get<Boolean>("lastRest") != null) {
+            lastRest = PreferenceManager.get<Boolean>("lastRest")!!
+        }
+
+        // Observe Settings
         settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { readyTime ->
             getReadyTime = (readyTime.substring(0, readyTime.length - 1)).toInt()
         })
