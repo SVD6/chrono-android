@@ -26,6 +26,8 @@ class SettingsFrag : Fragment() {
 
     private val settingsViewModel: SettingsViewModel by activityViewModels()
 
+    private var getReadyTime: Int? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,20 +59,33 @@ class SettingsFrag : Fragment() {
     private fun loadSettings() {
         if (PreferenceManager.get<Int>("readyTime") != null) {
             getReadyTime = PreferenceManager.get<Int>("readyTime")!!
+            bind.readyTimeDisplay.text = (getReadyTime.toString() + "s")
         }
 
         if (PreferenceManager.get<Boolean>("prompts") != null) {
             bind.audioSwitch.isChecked = PreferenceManager.get<Boolean>("prompts")!!
+            if (PreferenceManager.get<Boolean>("prompts")!!) {
+                bind.audioSwitch.text = getString(R.string.on)
+            } else {
+                bind.audioSwitch.text = getString(R.string.off)
+            }
         }
 
         if (PreferenceManager.get<Boolean>("lastRest") != null) {
             bind.lastRestSwitch.isChecked = PreferenceManager.get<Boolean>("lastRest")!!
         }
+
+        if (PreferenceManager.get<Boolean>("notifications") != null) {
+            bind.notificationSwitch.isChecked = PreferenceManager.get<Boolean>("notifications")!!
+            if (PreferenceManager.get<Boolean>("notifications")!!) {
+                bind.notificationSwitch.text = getString(R.string.on)
+            } else {
+                bind.notificationSwitch.text = getString(R.string.off)
+            }
+        }
     }
 
     private fun initMenus() {
-        // Load Options
-
         bind.privacyPolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
@@ -95,9 +110,11 @@ class SettingsFrag : Fragment() {
             if (isChecked) {
                 buttonView.text = getString(R.string.on)
                 settingsViewModel.onNotificationChanged(true)
+                PreferenceManager.put(true, "notifications")
             } else {
                 buttonView.text = getString(R.string.off)
                 settingsViewModel.onNotificationChanged(false)
+                PreferenceManager.put(false, "notifications")
             }
         }
 
@@ -106,9 +123,11 @@ class SettingsFrag : Fragment() {
             if (isChecked) {
                 buttonView.text = getString(R.string.on)
                 settingsViewModel.onAudioPromptChanged(true)
+                PreferenceManager.put(true, "prompts")
             } else {
                 buttonView.text = getString(R.string.off)
                 settingsViewModel.onAudioPromptChanged(false)
+                PreferenceManager.put(false, "prompts")
             }
         }
 
@@ -116,8 +135,10 @@ class SettingsFrag : Fragment() {
         bind.lastRestSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 settingsViewModel.onLastRestChanged(true)
+                PreferenceManager.put(true, "lastRest")
             } else {
                 settingsViewModel.onLastRestChanged(false)
+                PreferenceManager.put(false, "lastRest")
             }
         }
 
@@ -128,7 +149,12 @@ class SettingsFrag : Fragment() {
             val dialogView = View.inflate(requireContext(), R.layout.dialog_ready_time, null)
 
             // Pre select the saved option (if it's 5s then make sure 5s is already checked)
-            // For now it's default 5s -> make sure to change this once load settings is there
+            when (bind.readyTimeDisplay.text) {
+                "5s" -> dialogView.ready_time_select.check(R.id.radio_5s)
+                "10s" -> dialogView.ready_time_select.check(R.id.radio_10s)
+                "15s" -> dialogView.ready_time_select.check(R.id.radio_15s)
+            }
+
             // Button Logic
             dialogView.cancel.setOnClickListener {
                 builder.dismiss()
@@ -141,6 +167,10 @@ class SettingsFrag : Fragment() {
                 bind.readyTimeDisplay.text = selectedTime
                 // Add to Settings that yo new get ready time
                 settingsViewModel.onReadyTimeChanged(selectedTime.toString())
+                PreferenceManager.put(
+                    (selectedTime.toString().substring(0, selectedTime.toString().length - 1))
+                        .toInt(), "readyTime"
+                )
             }
 
             builder.setView(dialogView)
