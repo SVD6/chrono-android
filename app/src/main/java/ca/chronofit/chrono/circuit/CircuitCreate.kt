@@ -273,7 +273,8 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun selectIconDialog() {
-        val builder = MaterialAlertDialogBuilder(this).create()
+        val builder =
+            MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_circuit_icon, null)
 
         // Setting Carousel Items
