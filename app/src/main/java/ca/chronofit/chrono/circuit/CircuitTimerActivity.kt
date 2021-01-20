@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : BaseActivity() {
-    private var bind: ActivityCircuitTimerBinding? = null
+    private lateinit var bind: ActivityCircuitTimerBinding
 
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
@@ -74,26 +74,24 @@ class CircuitTimerActivity : BaseActivity() {
         updateRestUI()
         loadAds()
 
-        bind!!.startButton.setOnClickListener {
-            loadTimer(circuit)
-            timerState = TimerState.RUNNING
-            getReady()
+        bind.startButton.setOnClickListener {
+            start()
         }
 
-        bind!!.pauseButton.setOnClickListener {
-            countdown.cancel()
-            timerState = TimerState.PAUSED
-            updateButtonUI()
+        bind.pauseButton.setOnClickListener {
+            pause()
         }
 
-        bind!!.resumeButton.setOnClickListener {
-            startTimer(secondsLeft.toInt(), true)
-            timerState = TimerState.RUNNING
-            updateRestUI()
-            updateButtonUI()
+        bind.resumeButton.setOnClickListener {
+            resume()
         }
 
-        bind!!.stopButton.setOnClickListener {
+        bind.countdown.setOnClickListener {
+            if (timerState == TimerState.RUNNING && runningState != RunningState.READY) pause()
+            else if (timerState == TimerState.PAUSED) resume()
+        }
+
+        bind.stopButton.setOnClickListener {
             countdown.cancel()
             timerState = TimerState.INIT
             runningState = RunningState.INIT
@@ -101,7 +99,7 @@ class CircuitTimerActivity : BaseActivity() {
             updateRestUI()
         }
 
-        bind!!.closeButton.setOnClickListener {
+        bind.closeButton.setOnClickListener {
             // Make sure that the timer is shut down
             if (timerState != TimerState.INIT) {
                 countdown.cancel()
@@ -160,8 +158,8 @@ class CircuitTimerActivity : BaseActivity() {
 
     private fun celebrate() {
         // Load celebrate layout
-        bind!!.mainLayout.visibility = View.GONE
-        bind!!.celebrateLayout.visibility = View.VISIBLE
+        bind.mainLayout.visibility = View.GONE
+        bind.celebrateLayout.visibility = View.VISIBLE
 
         // Wait 2.5 seconds before showing the finish prompt
         Handler(
@@ -209,8 +207,8 @@ class CircuitTimerActivity : BaseActivity() {
                         super.onAdClosed()
                         builder.dismiss()
 
-                        bind!!.celebrateLayout.visibility = View.GONE
-                        bind!!.mainLayout.visibility = View.VISIBLE
+                        bind.celebrateLayout.visibility = View.GONE
+                        bind.mainLayout.visibility = View.VISIBLE
 
                         timerState = TimerState.INIT
                         runningState = RunningState.INIT
@@ -225,8 +223,8 @@ class CircuitTimerActivity : BaseActivity() {
                 // Reload the circuit
                 builder.dismiss()
 
-                bind!!.celebrateLayout.visibility = View.GONE
-                bind!!.mainLayout.visibility = View.VISIBLE
+                bind.celebrateLayout.visibility = View.GONE
+                bind.mainLayout.visibility = View.VISIBLE
 
                 timerState = TimerState.INIT
                 runningState = RunningState.INIT
@@ -242,7 +240,8 @@ class CircuitTimerActivity : BaseActivity() {
 
     private fun getReady() {
         runningState = RunningState.READY
-        bind!!.initButtonLayout.visibility = View.GONE
+        timerState = TimerState.RUNNING
+        bind.initButtonLayout.visibility = View.GONE
         updateRestUI()
         startTimer(getReadyTime, false)
     }
@@ -263,45 +262,63 @@ class CircuitTimerActivity : BaseActivity() {
         currentSet -= 1
     }
 
+    private fun pause() {
+        countdown.cancel()
+        timerState = TimerState.PAUSED
+        updateButtonUI()
+    }
+
+    private fun start() {
+        loadTimer(circuit)
+        getReady()
+    }
+
+    private fun resume() {
+        startTimer(secondsLeft.toInt(), true)
+        timerState = TimerState.RUNNING
+        updateRestUI()
+        updateButtonUI()
+    }
+
     // Update UI for every tick, possibly need to do more in the future
     fun updateTimerUI() {
         if (criticalSeconds != 0 && secondsLeft <= criticalSeconds && runningState == RunningState.WORK) {
-            bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
-            bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
-            bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
-            bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
-            bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
+            bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
+            bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
+            bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
+            bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
+            bind.closeButton.setImageResource(R.drawable.ic_close_white)
         }
         if (timeRest > 5 && runningState == RunningState.REST && secondsLeft <= 5) {
-            bind!!.currentState.text = getString(R.string.get_ready)
+            bind.currentState.text = getString(R.string.get_ready)
         }
-        bind!!.countdown.text = (secondsLeft).toInt().toString()
+        bind.countdown.text = (secondsLeft).toInt().toString()
     }
 
     private fun updateButtonUI() {
         when (timerState) {
             TimerState.INIT -> {
-                bind!!.initButtonLayout.visibility = View.VISIBLE
-                bind!!.runButtonLayout.visibility = View.GONE
-                bind!!.pauseButtonLayout.visibility = View.GONE
-                bind!!.countdown.text = "0"
+                bind.initButtonLayout.visibility = View.VISIBLE
+                bind.runButtonLayout.visibility = View.GONE
+                bind.pauseButtonLayout.visibility = View.GONE
+                bind.countdown.text = "0"
             }
             TimerState.RUNNING -> {
-                bind!!.initButtonLayout.visibility = View.GONE
-                bind!!.runButtonLayout.visibility = View.VISIBLE
-                bind!!.pauseButtonLayout.visibility = View.GONE
+                bind.initButtonLayout.visibility = View.GONE
+                bind.runButtonLayout.visibility = View.VISIBLE
+                bind.pauseButtonLayout.visibility = View.GONE
             }
             TimerState.PAUSED -> {
-                bind!!.initButtonLayout.visibility = View.GONE
-                bind!!.runButtonLayout.visibility = View.GONE
-                bind!!.pauseButtonLayout.visibility = View.VISIBLE
+                bind.initButtonLayout.visibility = View.GONE
+                bind.runButtonLayout.visibility = View.GONE
+                bind.pauseButtonLayout.visibility = View.VISIBLE
 
                 // Just for paused we put non-button UI stuff
-                bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind!!.closeButton.setImageResource(R.drawable.ic_close_grey)
+                bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
+                bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
+                bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
+                bind.closeButton.setImageResource(R.drawable.ic_close_grey)
             }
         }
     }
@@ -310,46 +327,46 @@ class CircuitTimerActivity : BaseActivity() {
     private fun updateRestUI() {
         when (runningState) {
             RunningState.READY -> {
-                bind!!.currentState.text = getString(R.string.get_ready)
+                bind.currentState.text = getString(R.string.get_ready)
             }
             RunningState.INIT -> {
-                bind!!.currentSet.text = getString(R.string.empty)
-                bind!!.currentState.text = getString(R.string.lets_go)
+                bind.currentSet.text = getString(R.string.empty)
+                bind.currentState.text = getString(R.string.lets_go)
 
-                bind!!.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind!!.closeButton.setImageResource(R.drawable.ic_close_grey)
+                bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
+                bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
+                bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
+                bind.closeButton.setImageResource(R.drawable.ic_close_grey)
             }
             RunningState.WORK -> {
-                bind!!.currentState.text = getString(R.string.workout)
-                bind!!.currentSet.text = "Set " + (sets - currentSet.toString().toInt() + 1)
+                bind.currentState.text = getString(R.string.workout)
+                bind.currentSet.text = "Set " + (sets - currentSet.toString().toInt() + 1)
 
-                bind!!.mainLayout.setBackgroundColor(
+                bind.mainLayout.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
                         R.color.beautiful_blue
                     )
                 )
-                bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
+                bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
+                bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
+                bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
+                bind.closeButton.setImageResource(R.drawable.ic_close_white)
             }
             RunningState.REST -> {
-                bind!!.currentState.text = getString(R.string.rest)
+                bind.currentState.text = getString(R.string.rest)
 
-                bind!!.mainLayout.setBackgroundColor(
+                bind.mainLayout.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
                         R.color.rest_yellow
                     )
                 )
-                bind!!.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind!!.closeButton.setImageResource(R.drawable.ic_close_white)
+                bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
+                bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
+                bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
+                bind.closeButton.setImageResource(R.drawable.ic_close_white)
             }
         }
     }
