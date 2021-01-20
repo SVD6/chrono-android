@@ -64,6 +64,7 @@
     <string name="rate_app">Rate App</string>
     <string name="get_help">Get Help</string>
     <string name="skip_last_rest">Skip Last Rest</string>
+    <string name="select_icon_subtitle">Use this icon to represent your circuit</string>
 
     <!-- Drawable Names-->
     <string-array name="icon_files">
