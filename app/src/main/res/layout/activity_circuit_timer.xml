@@ -56,16 +56,17 @@
                     android:textSize="@dimen/xl_medium_text"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/countdown"
-                    android:layout_width="wrap_content"
+                    android:clickable="true"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/nunito"
+                    android:layout_marginHorizontal="@dimen/huge_element_padding"
                     android:gravity="center"
                     android:text="@string/_0"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/enormous_text" />
+                    android:textSize="@dimen/enormous_text"
+                    android:focusable="true" />
 
                 <View
                     android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package ca.chronofit.chrono.settings
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -73,6 +74,26 @@ class SettingsFrag : Fragment() {
 
         if (PreferenceManager.get<Boolean>("lastRest") != null) {
             bind.lastRestSwitch.isChecked = PreferenceManager.get<Boolean>("lastRest")!!
+        }
+    private fun initMenus() {
+
+        bind.rateApp.setOnClickListener {
+            val packageName = requireContext().packageName
+            try {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=$packageName")
+                    )
+                )
+            } catch (e: ActivityNotFoundException) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                    )
+                )
+            }
         }
 
         if (PreferenceManager.get<Boolean>("notifications") != null) {

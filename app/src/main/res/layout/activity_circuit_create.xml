@@ -48,6 +48,7 @@
                 android:layout_marginTop="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
+                android:inputType="textCapWords"
                 android:gravity="center"
                 android:hint="@string/circuit_name"
                 android:lines="1"

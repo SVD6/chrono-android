@@ -1,5 +1,9 @@
 package ca.chronofit.chrono.stopwatch
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.LayoutInflater
@@ -34,6 +38,8 @@ class StopwatchFrag : Fragment() {
     private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
+    private lateinit var broadcastReceiver: BroadcastReceiver
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,26 +60,16 @@ class StopwatchFrag : Fragment() {
         }
 
         bind.stopButton.setOnClickListener {
-            swatch.stop()
-            offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
-            swatchState = SwatchState.STOPPED
-            updateButtonUI()
+            stopStopwatch()
         }
 
         bind.resumeButton.setOnClickListener {
-            swatch.base = SystemClock.elapsedRealtime() - offset
-            swatch.start()
-            swatchState = SwatchState.RUNNING
-            updateButtonUI()
+            resumeStopwatch()
         }
 
         bind.resetButton.setOnClickListener {
-            swatch.stop()
-            swatch.base = SystemClock.elapsedRealtime()
-            offset = 0
-            swatchState = SwatchState.INIT
-            reset()
-            updateButtonUI()
+            resetStopwatch()
+
         }
 
         bind.lapButton.setOnClickListener {
@@ -88,8 +84,24 @@ class StopwatchFrag : Fragment() {
             lap()
         }
 
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(contxt: Context?, intent: Intent?) {
+                when (intent?.action) {
+                    STOP -> stopStopwatch()
+                    RESET -> resetStopwatch()
+                    RESUME -> resumeStopwatch()
+                }
+            }
+        }
+
+        requireContext().registerReceiver(broadcastReceiver, IntentFilter(STOP))
+        requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESET))
+        requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESUME))
+
+
         return bind.root
     }
+
 
     private fun initialize() {
         recyclerView = bind.recyclerView
@@ -106,6 +118,29 @@ class StopwatchFrag : Fragment() {
 
         laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
+    }
+
+    fun stopStopwatch() {
+        swatch.stop()
+        offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
+        swatchState = SwatchState.STOPPED
+        updateButtonUI()
+    }
+
+    fun resetStopwatch() {
+        swatch.stop()
+        swatch.base = SystemClock.elapsedRealtime()
+        offset = 0
+        swatchState = SwatchState.INIT
+        initialize()
+        updateButtonUI()
+    }
+
+    fun resumeStopwatch() {
+        swatch.base = SystemClock.elapsedRealtime() - offset
+        swatch.start()
+        swatchState = SwatchState.RUNNING
+        updateButtonUI()
     }
 
     private fun lap() {
@@ -154,4 +189,9 @@ class StopwatchFrag : Fragment() {
         }
     }
 
+    companion object {
+        const val STOP = "stop"
+        const val RESUME = "resume"
+        const val RESET = "reset"
+    }
 }
