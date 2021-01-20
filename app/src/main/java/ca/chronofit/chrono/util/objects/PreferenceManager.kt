@@ -20,6 +20,10 @@ object PreferenceManager {
         preferences.edit().putString(key, jsonString).apply()
     }
 
+    fun put(value: String, key: String) {
+        preferences.edit().putString(key, value).apply()
+    }
+
     inline fun <reified T> get(key: String): T? {
         val value = preferences.getString(key, null)
         return GsonBuilder().create().fromJson(value, T::class.java)

@@ -1,4 +1,4 @@
-package ca.chronofit.chrono.main.stopwatch
+package ca.chronofit.chrono.stopwatch
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -24,9 +24,10 @@ import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
 import ca.chronofit.chrono.util.objects.LapObject
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
+import java.text.DecimalFormat
 
 class StopwatchFrag : Fragment() {
-    private var bind: FragmentStopwatchBinding? = null
+    private lateinit var bind: FragmentStopwatchBinding
     private lateinit var recyclerView: RecyclerView
 
     enum class SwatchState { INIT, RUNNING, STOPPED }
@@ -50,37 +51,38 @@ class StopwatchFrag : Fragment() {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
 
         // Initialize Everything
-        swatch = bind!!.chronometer
+        swatch = bind.chronometer
         initialize()
 
         // Button Logic
-        bind!!.startButton.setOnClickListener {
+        bind.startButton.setOnClickListener {
             swatch.base = SystemClock.elapsedRealtime()
             swatch.start()
             swatchState = SwatchState.RUNNING
             updateButtonUI()
         }
 
-        bind!!.stopButton.setOnClickListener {
+        bind.stopButton.setOnClickListener {
             stopTimer()
         }
 
-        bind!!.resumeButton.setOnClickListener {
+        bind.resumeButton.setOnClickListener {
             resumeTimer()
         }
 
-        bind!!.resetButton.setOnClickListener {
+        bind.resetButton.setOnClickListener {
             resetTimer()
+
         }
 
-        bind!!.lapButton.setOnClickListener {
+        bind.lapButton.setOnClickListener {
             if (lapCount >= (maxLapCount - 1)) {
                 Toast.makeText(
                     requireContext(),
                     "What in marathon...max laps reached! \uD83E\uDD75",
                     Toast.LENGTH_LONG
                 ).show()
-                bind!!.lapButton.isEnabled = false
+                bind.lapButton.isEnabled = false
             }
             lap()
         }
@@ -100,12 +102,12 @@ class StopwatchFrag : Fragment() {
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESUME))
 
 
-        return bind!!.root
+        return bind.root
     }
 
 
     private fun initialize() {
-        recyclerView = bind!!.recyclerView
+        recyclerView = bind.recyclerView
         val manager = LinearLayoutManager(requireContext())
         manager.stackFromEnd = true
         manager.scrollToPosition(lapCount)
@@ -115,7 +117,7 @@ class StopwatchFrag : Fragment() {
         lapCount = 0
         prevTime = 0.toLong()
 
-        bind!!.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        bind.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
         laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
@@ -152,7 +154,9 @@ class StopwatchFrag : Fragment() {
 
         // Create Lap Object
         val lap = LapObject()
-        lap.lapNum = lapCount
+        val dec = DecimalFormat("#00")
+
+        lap.lapNum = dec.format(lapCount)
         lap.lapTime = timeDiff
         lap.totalTime = currTime
 
@@ -162,35 +166,35 @@ class StopwatchFrag : Fragment() {
         prevTime = currTime
     }
 
+    private fun reset() {
+        initialize()
+    }
+
     // Update the buttons layout based on the current state of the timer
     private fun updateButtonUI() {
         when (swatchState) {
             SwatchState.INIT -> {
-                bind!!.lapButton.isEnabled = true
-                bind!!.initButtonLay.visibility = View.VISIBLE
-                bind!!.runButtonLay.visibility = View.GONE
-                bind!!.stopButtonLay.visibility = View.GONE
+                bind.lapButton.isEnabled = true
+                bind.initButtonLay.visibility = View.VISIBLE
+                bind.runButtonLay.visibility = View.GONE
+                bind.stopButtonLay.visibility = View.GONE
             }
             SwatchState.RUNNING -> {
-                bind!!.initButtonLay.visibility = View.GONE
-                bind!!.runButtonLay.visibility = View.VISIBLE
-                bind!!.stopButtonLay.visibility = View.GONE
+                bind.initButtonLay.visibility = View.GONE
+                bind.runButtonLay.visibility = View.VISIBLE
+                bind.stopButtonLay.visibility = View.GONE
             }
             SwatchState.STOPPED -> {
-                bind!!.initButtonLay.visibility = View.GONE
-                bind!!.runButtonLay.visibility = View.GONE
-                bind!!.stopButtonLay.visibility = View.VISIBLE
+                bind.initButtonLay.visibility = View.GONE
+                bind.runButtonLay.visibility = View.GONE
+                bind.stopButtonLay.visibility = View.VISIBLE
             }
         }
     }
-
-
-
 
     companion object {
         const val STOP = "stop"
         const val RESUME = "resume"
         const val RESET = "reset"
     }
-
 }

@@ -1,10 +1,15 @@
-package ca.chronofit.chrono.main.circuit
+package ca.chronofit.chrono.circuit
 
 import `in`.goodiebag.carouselpicker.CarouselPicker
 import android.app.Activity
+import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import ca.chronofit.chrono.R
@@ -14,7 +19,8 @@ import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.dialog_circuit_icon.view.*
+import kotlinx.android.synthetic.main.dialog_select_icon.view.*
+import java.io.File
 
 private const val MAX_SETS: Int = 99
 private const val MAX_REST: Int = 995 // Actually 999
@@ -27,13 +33,17 @@ class CircuitCreate : BaseActivity() {
     private var selectedIcon: Int = 0
     private lateinit var iconNames: TypedArray
 
+    private var badWordFile: String = "badwords.txt"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PreferenceManager.with(this)
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 
-        bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
+        val file = File("assets/$badWordFile")
+        Log.i("file", file.toString())
 
         bind!!.discardButton.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
@@ -46,14 +56,32 @@ class CircuitCreate : BaseActivity() {
             }
         }
 
+        bind!!.circuitName.addTextChangedListener {
+            if (bind!!.circuitName.length() <= 2) {
+                bind!!.warning.text = getString(R.string.min_char_warning)
+                bind!!.warning.visibility = View.VISIBLE
+
+                bind!!.circuitName.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stop_red))
+            } else if (profanityCheck()) {
+                bind!!.warning.text = getString(R.string.bad_word_warning)
+                bind!!.warning.visibility = View.VISIBLE
+                bind!!.circuitName.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stop_red))
+            } else {
+                bind!!.warning.visibility = View.GONE
+
+                bind!!.circuitName.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorAccent))
+            }
+        }
+
         bind!!.iconLayout.setOnClickListener {
             selectIconDialog()
         }
-
         bind!!.circuitIcon.setOnClickListener {
             selectIconDialog()
         }
-
         bind!!.addSet.setOnClickListener {
             addSet()
         }
@@ -74,9 +102,14 @@ class CircuitCreate : BaseActivity() {
         }
     }
 
+    private fun profanityCheck(): Boolean {
+
+        return false
+    }
+
     private fun saveCircuit() {
         val circuit = CircuitObject()
-        circuit.name = bind!!.nameInput.text.toString()
+        circuit.name = bind!!.circuitName.text.toString()
         circuit.sets = bind!!.setNum.text.toString().toInt()
         circuit.work = bind!!.setWorkTime.text.toString().toInt()
         circuit.rest = bind!!.setRestTime.text.toString().toInt()
@@ -92,7 +125,7 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun validateInputs(): Boolean {
-        if (bind!!.nameInput.text.toString() == "") {
+        if (bind!!.circuitName.text.toString() == "") {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -240,8 +273,9 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun selectIconDialog() {
-        val builder = MaterialAlertDialogBuilder(this).create()
-        val dialogView = layoutInflater.inflate(R.layout.dialog_circuit_icon, null)
+        val builder =
+            MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
+        val dialogView = layoutInflater.inflate(R.layout.dialog_select_icon, null)
 
         // Setting Carousel Items
         val imageItems: ArrayList<CarouselPicker.PickerItem> = ArrayList()
@@ -289,11 +323,11 @@ class CircuitCreate : BaseActivity() {
         })
 
         // Button Logic
-        dialogView.negative_button.setOnClickListener {
+        dialogView.dismiss.setOnClickListener {
             builder.dismiss()
         }
 
-        dialogView.positive_button.setOnClickListener {
+        dialogView.save.setOnClickListener {
             bind!!.circuitIcon.setImageResource(
                 resources.getIdentifier(
                     iconNames.getString(selectedIcon),

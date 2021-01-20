@@ -1,13 +1,13 @@
 package ca.chronofit.chrono
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.databinding.ActivitySplashBinding
-import ca.chronofit.chrono.main.MainActivity
 import ca.chronofit.chrono.util.BaseActivity
 
 private const val SPLASH_TIMEOUT = 3000L // Timeout delay
@@ -27,6 +27,10 @@ class SplashActivity : BaseActivity() {
             bind!!.lightMode.visibility = View.VISIBLE
             bind!!.darkMode.visibility = View.GONE
         }
+
+        val shared = getSharedPreferences("TEST", MODE_PRIVATE)
+        val editor = shared.edit()
+        editor.putString("notification", "on")
 
         // Set the time out delay and launch main activity afterwards
         Handler(

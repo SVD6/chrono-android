@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/small_element_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:padding="@dimen/small_element_padding"
+            android:text="Get Ready Time"
+            android:textSize="@dimen/xl_large_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⏳"
+            android:textSize="@dimen/xl_large_text" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/ready_time_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/huge_element_padding">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/large_element_padding"
+            android:text="5s"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/large_element_padding"
+            android:text="10s"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/large_element_padding"
+            android:text="15s"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/medium_text" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:padding="@dimen/small_element_padding">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/small_element_padding"
+            android:letterSpacing="0"
+            android:padding="@dimen/xs_small_element_padding"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/xs_medium_text"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/small_element_padding" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/small_element_padding"
+            android:backgroundTint="@color/colorAccent"
+            android:letterSpacing="0"
+            android:padding="@dimen/xs_small_element_padding"
+            android:text="@string/set"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/xs_medium_text"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/small_element_padding" />
+
+    </LinearLayout>
+
+</LinearLayout>

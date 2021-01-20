@@ -1,4 +1,4 @@
-package ca.chronofit.chrono.main.circuit
+package ca.chronofit.chrono.circuit
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
@@ -19,6 +20,7 @@ import ca.chronofit.chrono.util.adapters.CircuitViewAdapter
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
+import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
@@ -26,8 +28,14 @@ import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlinx.android.synthetic.main.fragment_dashboard_bottom_sheet.view.*
 
 class CircuitDashboardFrag : Fragment() {
-    private var bind: FragmentCircuitDashboardBinding? = null
+    private lateinit var bind: FragmentCircuitDashboardBinding
     private lateinit var recyclerView: RecyclerView
+
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
+
+    private var getReadyTime: Int? = null
+    private var audioPrompts: Boolean? = null
+    private var lastRest: Boolean? = null
 
     private var circuitsObject: CircuitsObject? = null
     private var selectedPosition: Int = 0
@@ -43,13 +51,16 @@ class CircuitDashboardFrag : Fragment() {
         )
         PreferenceManager.with(activity as BaseActivity)
 
-        recyclerView = bind!!.recyclerView
+        recyclerView = bind.recyclerView
         loadData()
 
-        bind!!.addCircuit.setOnClickListener {
+        bind.addCircuit.setOnClickListener {
             startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
         }
-        return bind!!.root
+
+        observeSettings()
+
+        return bind.root
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -67,6 +78,9 @@ class CircuitDashboardFrag : Fragment() {
         val jsonString = GsonBuilder().create().toJson(circuit)
         val intent = Intent(requireContext(), CircuitTimerActivity::class.java)
         intent.putExtra("circuitObject", jsonString)
+        intent.putExtra("readyTime", getReadyTime)
+        intent.putExtra("audioPrompts", audioPrompts)
+        intent.putExtra("lastRest", lastRest)
         startActivityForResult(intent, 10002)
     }
 
@@ -103,7 +117,8 @@ class CircuitDashboardFrag : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
-        val builder = MaterialAlertDialogBuilder(requireContext()).create()
+        val builder =
+            MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
 
         // Set Dialog Views
@@ -141,12 +156,26 @@ class CircuitDashboardFrag : Fragment() {
         builder.show()
     }
 
+    private fun observeSettings() {
+        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { readyTime ->
+            getReadyTime = (readyTime.substring(0, readyTime.length - 1)).toInt()
+        })
+
+        settingsViewModel.audioPrompts.observe(viewLifecycleOwner, { prompts ->
+            audioPrompts = prompts
+        })
+
+        settingsViewModel.lastRest.observe(viewLifecycleOwner, { rest ->
+            lastRest = rest
+        })
+    }
+
     private fun loadData() {
         circuitsObject = PreferenceManager.get<CircuitsObject>("CIRCUITS")
 
         if (circuitsObject != null && circuitsObject?.circuits!!.size > 0) {
-            bind!!.recyclerView.visibility = View.VISIBLE
-            bind!!.emptyLayout.visibility = View.GONE
+            bind.recyclerView.visibility = View.VISIBLE
+            bind.emptyLayout.visibility = View.GONE
 
             recyclerView.adapter = CircuitViewAdapter(
                 circuitsObject?.circuits!!,
@@ -161,7 +190,7 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     private fun loadEmptyUI() {
-        bind!!.recyclerView.visibility = View.GONE
-        bind!!.emptyLayout.visibility = View.VISIBLE
+        bind.recyclerView.visibility = View.GONE
+        bind.emptyLayout.visibility = View.VISIBLE
     }
 }

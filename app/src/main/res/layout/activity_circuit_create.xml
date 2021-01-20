@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/large_element_padding"
-        android:paddingTop="@dimen/medium_element_padding">
+        android:paddingTop="@dimen/small_element_padding">
 
         <RelativeLayout
             android:id="@+id/name_icon"
@@ -40,14 +40,15 @@
                     android:textSize="@dimen/small_text" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/name_input"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/circuit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/medium_element_padding"
                 android:layout_marginTop="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
+                android:inputType="textCapWords"
                 android:gravity="center"
                 android:hint="@string/circuit_name"
                 android:lines="1"
@@ -55,6 +56,16 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textSize="@dimen/xl_huge_text" />
+
+            <TextView
+                android:id="@+id/warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/circuit_name"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/stop_red"
+                android:textSize="@dimen/smaller_text"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <LinearLayout
@@ -278,10 +289,12 @@
                 android:layout_height="60dp"
                 android:layout_margin="@dimen/medium_element_padding"
                 android:backgroundTint="@color/stop_red"
+                android:letterSpacing="0"
                 android:text="@string/discard"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold"
                 app:cornerRadius="13dp" />
 
             <com.google.android.material.button.MaterialButton
@@ -290,10 +303,12 @@
                 android:layout_height="60dp"
                 android:layout_margin="@dimen/medium_element_padding"
                 android:backgroundTint="@color/resume_green"
+                android:letterSpacing="0"
                 android:text="@string/save"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold"
                 app:cornerRadius="13dp" />
 
         </LinearLayout>
