@@ -17,6 +17,7 @@ import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
 import ca.chronofit.chrono.util.objects.LapObject
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
+import java.text.DecimalFormat
 
 class StopwatchFrag : Fragment() {
     private lateinit var bind: FragmentStopwatchBinding
@@ -115,7 +116,9 @@ class StopwatchFrag : Fragment() {
 
         // Create Lap Object
         val lap = LapObject()
-        lap.lapNum = lapCount
+        val dec = DecimalFormat("#00")
+
+        lap.lapNum = dec.format(lapCount)
         lap.lapTime = timeDiff
         lap.totalTime = currTime
 
