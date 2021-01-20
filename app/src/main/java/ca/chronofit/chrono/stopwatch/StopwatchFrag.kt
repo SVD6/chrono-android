@@ -1,12 +1,9 @@
 package ca.chronofit.chrono.stopwatch
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.LayoutInflater
@@ -63,15 +60,15 @@ class StopwatchFrag : Fragment() {
         }
 
         bind.stopButton.setOnClickListener {
-            stopTimer()
+            stopStopwatch()
         }
 
         bind.resumeButton.setOnClickListener {
-            resumeTimer()
+            resumeStopwatch()
         }
 
         bind.resetButton.setOnClickListener {
-            resetTimer()
+            resetStopwatch()
 
         }
 
@@ -90,9 +87,9 @@ class StopwatchFrag : Fragment() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(contxt: Context?, intent: Intent?) {
                 when (intent?.action) {
-                    STOP -> stopTimer()
-                    RESET -> resetTimer()
-                    RESUME -> resumeTimer()
+                    STOP -> stopStopwatch()
+                    RESET -> resetStopwatch()
+                    RESUME -> resumeStopwatch()
                 }
             }
         }
@@ -123,14 +120,14 @@ class StopwatchFrag : Fragment() {
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
-    fun stopTimer() {
+    fun stopStopwatch() {
         swatch.stop()
         offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
         swatchState = SwatchState.STOPPED
         updateButtonUI()
     }
 
-    fun resetTimer() {
+    fun resetStopwatch() {
         swatch.stop()
         swatch.base = SystemClock.elapsedRealtime()
         offset = 0
@@ -139,7 +136,7 @@ class StopwatchFrag : Fragment() {
         updateButtonUI()
     }
 
-    fun resumeTimer() {
+    fun resumeStopwatch() {
         swatch.base = SystemClock.elapsedRealtime() - offset
         swatch.start()
         swatchState = SwatchState.RUNNING

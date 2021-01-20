@@ -2,22 +2,14 @@ package ca.chronofit.chrono.circuit
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.media.AudioManager
 import android.media.ToneGenerator
-<<<<<<< HEAD:app/src/main/java/ca/chronofit/chrono/main/circuit/CircuitTimerActivity.kt
-import android.os.*
-=======
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
->>>>>>> develop:app/src/main/java/ca/chronofit/chrono/circuit/CircuitTimerActivity.kt
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -72,7 +64,7 @@ class CircuitTimerActivity : BaseActivity() {
     private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super<AppCompatActivity>.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 

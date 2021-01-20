@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import ca.chronofit.chrono.R
-import ca.chronofit.chrono.main.stopwatch.StopwatchFrag
+import ca.chronofit.chrono.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.services.NotificationIntentService
 import java.text.DecimalFormat
 

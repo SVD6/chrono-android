@@ -4,7 +4,7 @@ import android.app.IntentService
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
-import ca.chronofit.chrono.main.stopwatch.StopwatchFrag
+import ca.chronofit.chrono.stopwatch.StopwatchFrag
 
 
 class NotificationIntentService
