@@ -88,10 +88,12 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/colorAccent"
+                    android:letterSpacing="0"
                     android:text="@string/start"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
             </LinearLayout>
 
@@ -116,6 +118,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
             </LinearLayout>
 
@@ -140,6 +143,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -153,6 +157,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
 
             </LinearLayout>
