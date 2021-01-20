@@ -8,7 +8,7 @@
         android:id="@+id/elapsed_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/massive_element_margin"
+        android:layout_marginEnd="@dimen/massive_element_padding"
         android:text="00:00:00"
         android:textSize="@dimen/large_text" />
 
@@ -32,7 +32,7 @@
             android:id="@+id/reset_stopwatch"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginStart="@dimen/tiny_element_margin"
+            android:layout_marginStart="@dimen/tiny_element_padding"
             android:backgroundTint="#7B7B7B"
             android:padding="0dp"
             android:text="@string/reset"

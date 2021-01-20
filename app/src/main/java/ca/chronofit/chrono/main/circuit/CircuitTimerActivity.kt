@@ -62,7 +62,6 @@ class CircuitTimerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
-        createNotificationChannel()
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
@@ -119,7 +118,7 @@ class CircuitTimerActivity : AppCompatActivity() {
                 if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                     secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()
                     updateTimerUI()
-                    createNotification(secondsLeft)
+//                    createNotification(secondsLeft)
                 }
             }
 
@@ -376,20 +375,5 @@ class CircuitTimerActivity : AppCompatActivity() {
         }
     }
 
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.timer_notification_channel_id)
-            val descriptionText = "Timer notification"
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(name, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
+
 }
