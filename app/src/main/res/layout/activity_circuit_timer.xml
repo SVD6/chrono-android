@@ -170,20 +170,6 @@
             android:background="@drawable/primary_gradient"
             android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/celebrate_close_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="@dimen/large_element_padding"
-                android:clickable="true"
-                android:contentDescription="@string/todo"
-                android:focusable="true"
-                android:padding="@dimen/xs_large_element_padding"
-                android:src="@drawable/ic_close_grey"
-                android:visibility="gone"
-                app:tint="@color/white" />
-
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"
                 android:layout_width="wrap_content"
