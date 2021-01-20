@@ -179,7 +179,8 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun isDone() {
-        val builder = MaterialAlertDialogBuilder(this).create()
+        val builder =
+            MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
 
         // Set Dialog Views
