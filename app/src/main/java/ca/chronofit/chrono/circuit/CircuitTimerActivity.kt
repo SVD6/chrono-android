@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
 import ca.chronofit.chrono.util.BaseActivity
+import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.CircuitObject
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
@@ -166,7 +167,7 @@ class CircuitTimerActivity : BaseActivity() {
         bind!!.mainLayout.visibility = View.GONE
         bind!!.celebrateLayout.visibility = View.VISIBLE
 
-//        firebaseAnalytics.logEvent("circuit_completed")
+        firebaseAnalytics.logEvent(Events.CIRCUIT_COMPLETED, null)
 
         // Wait 2.5 seconds before showing the finish prompt
         Handler(
