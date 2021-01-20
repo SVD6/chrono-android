@@ -61,6 +61,9 @@
     <string name="about">About</string>
     <string name="set">Set</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="rate_app">Rate App</string>
+    <string name="get_help">Get Help</string>
+    <string name="skip_last_rest">Skip Last Rest</string>
 
     <!-- Drawable Names-->
     <string-array name="icon_files">

@@ -168,6 +168,18 @@ class CircuitTimerActivity : BaseActivity() {
             Looper.getMainLooper()
         ).postDelayed(
             {
+                bind!!.celebrateCloseButton.visibility = View.VISIBLE
+                bind!!.celebrateCloseButton.setOnClickListener {
+                    setResult(Activity.RESULT_OK)
+                    finish()
+
+                    // Show the ad
+                    if (mInterstitialAd.isLoaded) {
+                        mInterstitialAd.show()
+                    } else {
+                        Log.d("AD", "The interstitial wasn't loaded yet.")
+                    }
+                }
                 isDone()
             }, celebrateTimeout
         )
