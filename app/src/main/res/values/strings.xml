@@ -29,7 +29,7 @@
     <string name="workout">Workout</string>
     <string name="get_ready">Get Ready</string>
     <string name="circuit_name">Circuit Name</string>
-    <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
+
     <string name="lets_go">Let\'s Go!</string>
     <string name="settings">Settings</string>
     <string name="circuits">Circuits</string>
@@ -90,4 +90,11 @@
         <item>drawable/ic_workout</item>
         <item>drawable/ic_workout_3</item>
     </string-array>
+
+<!--    Notification channel id's-->
+    <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
+    <string name="timer_notification_channel_id">chrono_timer_default_channel</string>
+    <string name="stopwatch_notification_channel_id">chrono_stopwatch_default_channel</string>
+
+    <string name="chrono_logo">Chrono Logo</string>
 </resources>

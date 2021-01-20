@@ -1,7 +1,9 @@
 package ca.chronofit.chrono
 
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -48,6 +50,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         bind.navBar.setOnNavigationItemSelectedListener(this)
         bind.navBar.selectedItemId = R.id.nav_circuit
 
+        createTimerNotificationChannel()
+        createStopwatchNotificationChannel()
         // Observe Settings
         observeSettings()
 
@@ -108,6 +112,40 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             bind.navBar.selectedItemId = R.id.nav_circuit
         } else {
             super.onBackPressed()
+        }
+    }
+
+    private fun createTimerNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.timer_notification_channel_id)
+            val descriptionText = "Timer notification"
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val channel = NotificationChannel(name, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun createStopwatchNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.stopwatch_notification_channel_id)
+            val descriptionText = "Stopwatch notification"
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val channel = NotificationChannel(name, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
     }
 }

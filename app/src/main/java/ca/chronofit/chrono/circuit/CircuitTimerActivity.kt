@@ -10,6 +10,8 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
@@ -65,6 +67,7 @@ class CircuitTimerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
+
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
@@ -122,6 +125,7 @@ class CircuitTimerActivity : BaseActivity() {
                 if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                     secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()
                     updateTimerUI()
+//                    createNotification(secondsLeft)
                 }
             }
 
@@ -392,4 +396,20 @@ class CircuitTimerActivity : BaseActivity() {
             0
         }
     }
+
+    private fun createNotification(time: Float) {
+        val builder =
+            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
+                .setSmallIcon(R.drawable.ic_notification_logo)
+                .setContentTitle("Notification test")
+                .setContentText(time.toString())
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+
+        with(NotificationManagerCompat.from(this)) {
+            //notificationId is a unique int for each notification that you must define
+            notify(2, builder.build())
+        }
+    }
+
+
 }
