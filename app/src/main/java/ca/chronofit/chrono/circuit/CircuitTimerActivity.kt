@@ -21,6 +21,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
@@ -30,6 +31,8 @@ class CircuitTimerActivity : BaseActivity() {
 
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private lateinit var mInterstitialAd: InterstitialAd
 
@@ -162,6 +165,8 @@ class CircuitTimerActivity : BaseActivity() {
         // Load celebrate layout
         bind!!.mainLayout.visibility = View.GONE
         bind!!.celebrateLayout.visibility = View.VISIBLE
+
+//        firebaseAnalytics.logEvent("circuit_completed")
 
         // Wait 2.5 seconds before showing the finish prompt
         Handler(
