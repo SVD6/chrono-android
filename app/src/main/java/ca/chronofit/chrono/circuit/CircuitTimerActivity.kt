@@ -33,8 +33,6 @@ class CircuitTimerActivity : BaseActivity() {
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-
     private lateinit var mInterstitialAd: InterstitialAd
 
     private val mInterstitialAdUnitId: String by lazy {
@@ -167,7 +165,7 @@ class CircuitTimerActivity : BaseActivity() {
         bind!!.mainLayout.visibility = View.GONE
         bind!!.celebrateLayout.visibility = View.VISIBLE
 
-        firebaseAnalytics.logEvent(Events.CIRCUIT_COMPLETED, null)
+        FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, null)
 
         // Wait 2.5 seconds before showing the finish prompt
         Handler(
