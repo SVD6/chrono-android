@@ -288,10 +288,12 @@
                 android:layout_height="60dp"
                 android:layout_margin="@dimen/medium_element_padding"
                 android:backgroundTint="@color/stop_red"
+                android:letterSpacing="0"
                 android:text="@string/discard"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold"
                 app:cornerRadius="13dp" />
 
             <com.google.android.material.button.MaterialButton
@@ -300,10 +302,12 @@
                 android:layout_height="60dp"
                 android:layout_margin="@dimen/medium_element_padding"
                 android:backgroundTint="@color/resume_green"
+                android:letterSpacing="0"
                 android:text="@string/save"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold"
                 app:cornerRadius="13dp" />
 
         </LinearLayout>
