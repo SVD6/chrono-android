@@ -19,8 +19,8 @@
         <com.bosphere.fadingedgelayout.FadingEdgeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/stopwatch_header"
             android:layout_above="@+id/chrono_layout"
+            android:layout_below="@+id/stopwatch_header"
             app:fel_edge="top"
             app:fel_size_top="@dimen/large_element_padding">
 
@@ -67,10 +67,12 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/resume_green"
+                    android:letterSpacing="0"
                     android:text="@string/start"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
             </LinearLayout>
 
@@ -89,10 +91,12 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/stop_red"
+                    android:letterSpacing="0"
                     android:text="@string/stop"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -101,10 +105,12 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/lap_blue"
+                    android:letterSpacing="0"
                     android:text="@string/lap"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp">
 
                 </com.google.android.material.button.MaterialButton>
@@ -125,10 +131,12 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/resume_green"
+                    android:letterSpacing="0"
                     android:text="@string/resume"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -137,10 +145,12 @@
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/reset_grey"
+                    android:letterSpacing="0"
                     android:text="@string/reset"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp">
 
                 </com.google.android.material.button.MaterialButton>
