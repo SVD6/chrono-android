@@ -241,6 +241,9 @@ class CircuitTimerActivity : BaseActivity() {
             }
         }
 
+        builder.setCancelable(false)
+        builder.setCanceledOnTouchOutside(false)
+
         // Display the Dialog
         builder.setView(dialogView)
         builder.show()
