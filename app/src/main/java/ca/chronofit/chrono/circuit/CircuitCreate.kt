@@ -19,7 +19,7 @@ import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.dialog_circuit_icon.view.*
+import kotlinx.android.synthetic.main.dialog_select_icon.view.*
 import java.io.File
 
 private const val MAX_SETS: Int = 99
@@ -275,7 +275,7 @@ class CircuitCreate : BaseActivity() {
     private fun selectIconDialog() {
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
-        val dialogView = layoutInflater.inflate(R.layout.dialog_circuit_icon, null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_select_icon, null)
 
         // Setting Carousel Items
         val imageItems: ArrayList<CarouselPicker.PickerItem> = ArrayList()
@@ -323,11 +323,11 @@ class CircuitCreate : BaseActivity() {
         })
 
         // Button Logic
-        dialogView.negative_button.setOnClickListener {
+        dialogView.dismiss.setOnClickListener {
             builder.dismiss()
         }
 
-        dialogView.positive_button.setOnClickListener {
+        dialogView.save.setOnClickListener {
             bind!!.circuitIcon.setImageResource(
                 resources.getIdentifier(
                     iconNames.getString(selectedIcon),
