@@ -75,6 +75,17 @@ class SettingsFrag : Fragment() {
         if (PreferenceManager.get<Boolean>("lastRest") != null) {
             bind.lastRestSwitch.isChecked = PreferenceManager.get<Boolean>("lastRest")!!
         }
+
+        if (PreferenceManager.get<Boolean>("notifications") != null) {
+            bind.notificationSwitch.isChecked = PreferenceManager.get<Boolean>("notifications")!!
+            if (PreferenceManager.get<Boolean>("notifications")!!) {
+                bind.notificationSwitch.text = getString(R.string.on)
+            } else {
+                bind.notificationSwitch.text = getString(R.string.off)
+            }
+        }
+    }
+
     private fun initMenus() {
 
         bind.rateApp.setOnClickListener {
@@ -95,18 +106,6 @@ class SettingsFrag : Fragment() {
                 )
             }
         }
-
-        if (PreferenceManager.get<Boolean>("notifications") != null) {
-            bind.notificationSwitch.isChecked = PreferenceManager.get<Boolean>("notifications")!!
-            if (PreferenceManager.get<Boolean>("notifications")!!) {
-                bind.notificationSwitch.text = getString(R.string.on)
-            } else {
-                bind.notificationSwitch.text = getString(R.string.off)
-            }
-        }
-    }
-
-    private fun initMenus() {
         bind.privacyPolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,

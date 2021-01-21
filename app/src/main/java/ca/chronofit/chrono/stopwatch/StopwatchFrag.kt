@@ -69,7 +69,6 @@ class StopwatchFrag : Fragment() {
 
         bind.resetButton.setOnClickListener {
             resetStopwatch()
-
         }
 
         bind.lapButton.setOnClickListener {
@@ -98,10 +97,8 @@ class StopwatchFrag : Fragment() {
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESET))
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESUME))
 
-
         return bind.root
     }
-
 
     private fun initialize() {
         recyclerView = bind.recyclerView
@@ -161,10 +158,6 @@ class StopwatchFrag : Fragment() {
         recyclerView.adapter?.notifyItemInserted(lapCount)
         recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount - 1)
         prevTime = currTime
-    }
-
-    private fun reset() {
-        initialize()
     }
 
     // Update the buttons layout based on the current state of the timer

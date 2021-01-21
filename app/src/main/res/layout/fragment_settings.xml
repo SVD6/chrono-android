@@ -90,7 +90,6 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:enabled="true"
-                        app:useMaterialThemeColors="false"
                         android:text="@string/off"
                         app:useMaterialThemeColors="false"
                         tools:ignore="RelativeOverlap" />
