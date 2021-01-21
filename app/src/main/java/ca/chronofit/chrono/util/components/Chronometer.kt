@@ -38,6 +38,8 @@ class Chronometer @JvmOverloads constructor(
 
     private var lastSecond = -1
 
+    private var notificationSetting = true
+
     var base: Long
         get() = mBase
         set(base) {
@@ -209,7 +211,12 @@ class Chronometer @JvmOverloads constructor(
         resetIntent.action = StopwatchFrag.RESET
         customView.setOnClickPendingIntent(
             R.id.reset_stopwatch,
-            PendingIntent.getService(context, notificationId, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(
+                context,
+                notificationId,
+                resetIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
         )
 
         customView.setTextViewText(R.id.elapsed_time, time)
@@ -232,5 +239,9 @@ class Chronometer @JvmOverloads constructor(
                 notify(notificationId, builder.build())
             }
         }
+    }
+
+    fun settingsNotification(setting: Boolean) {
+        notificationSetting = setting
     }
 }
