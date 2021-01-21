@@ -77,7 +77,9 @@ class Chronometer @JvmOverloads constructor(
     fun stop() {
         mStarted = false
         updateRunning()
-        createStoppedNotification(notificationTime)
+        if (notificationSetting) {
+            createStoppedNotification(notificationTime)
+        }
     }
 
     override fun onDetachedFromWindow() {
@@ -114,7 +116,7 @@ class Chronometer @JvmOverloads constructor(
         if (lastSecond != seconds) {
             notificationTime = text
             lastSecond = seconds
-            if (mStarted) {
+            if (mStarted && notificationSetting) {
                 createRunningNotification(notificationTime)
             } else {
                 NotificationManagerCompat.from(context).cancel(notificationId) // Reset is pressed
