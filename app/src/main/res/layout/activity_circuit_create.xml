@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,10 +34,11 @@
                     android:src="@drawable/ic_stopwatch" />
 
                 <TextView
+                    android:id="@+id/change_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Change\nIcon"
+                    android:text="@string/change_nicon"
                     android:textSize="@dimen/small_text" />
             </LinearLayout>
 
@@ -44,25 +46,27 @@
                 android:id="@+id/circuit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/medium_element_padding"
+                android:layout_marginStart="@dimen/medium_element_padding"
                 android:layout_marginTop="@dimen/small_element_padding"
+                android:layout_marginEnd="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
-                android:inputType="textCapWords"
-                android:gravity="center"
                 android:hint="@string/circuit_name"
+                android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLength="50"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textSize="@dimen/xl_huge_text" />
+                android:textSize="@dimen/huge_text" />
 
             <TextView
                 android:id="@+id/warning"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/circuit_name"
-                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="@dimen/large_element_padding"
+                android:gravity="end"
+                android:text="@string/has_to_be_between_3_and_50_characters"
                 android:textColor="@color/stop_red"
                 android:textSize="@dimen/smaller_text"
                 android:visibility="gone" />
@@ -99,7 +103,8 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/minus_set"
@@ -162,7 +167,8 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/minus_work"
@@ -171,6 +177,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_remove"
                     app:borderWidth="0dp"
                     app:tint="@color/white" />
@@ -233,7 +240,8 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/minus_rest"
