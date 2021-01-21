@@ -23,12 +23,17 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : BaseActivity() {
     private var bind: ActivityCircuitTimerBinding? = null
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
@@ -65,6 +70,8 @@ class CircuitTimerActivity : BaseActivity() {
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
+        firebaseAnalytics = Firebase.analytics
+
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
         getReadyTime = intent.getIntExtra("readyTime", 5)
@@ -79,6 +86,9 @@ class CircuitTimerActivity : BaseActivity() {
         bind!!.startButton.setOnClickListener {
             loadTimer(circuit)
             timerState = TimerState.RUNNING
+            firebaseAnalytics.logEvent(Events.CIRCUIT_STARTED) {
+                param("circuit_name", circuit.name.toString())
+            }
             getReady()
         }
 
@@ -165,8 +175,7 @@ class CircuitTimerActivity : BaseActivity() {
         bind!!.mainLayout.visibility = View.GONE
         bind!!.celebrateLayout.visibility = View.VISIBLE
 
-        FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, null)
-
+        FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
         // Wait 2.5 seconds before showing the finish prompt
         Handler(
             Looper.getMainLooper()
