@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Change\nIcon"
+                    android:text="@string/change_nicon"
                     android:textSize="@dimen/small_text" />
             </LinearLayout>
 
@@ -44,34 +45,36 @@
                 android:id="@+id/circuit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/medium_element_padding"
-                android:layout_marginTop="@dimen/small_element_padding"
+                android:layout_marginStart="@dimen/xs_medium_element_padding"
+                android:layout_marginTop="@dimen/xs_medium_element_padding"
+                android:layout_marginEnd="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
-                android:inputType="textCapWords"
-                android:gravity="center"
                 android:hint="@string/circuit_name"
+                android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLength="50"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textSize="@dimen/xl_huge_text" />
+                android:textSize="@dimen/huge_text" />
 
             <TextView
                 android:id="@+id/warning"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/circuit_name"
-                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:paddingEnd="@dimen/xs_huge_element_padding"
+                android:text="@string/circuit_name_warning"
                 android:textColor="@color/stop_red"
                 android:textSize="@dimen/smaller_text"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="RtlSymmetry" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/sets_selection"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/name_icon"
             android:layout_marginVertical="@dimen/medium_element_padding"
             android:orientation="vertical">
@@ -99,19 +102,9 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/minus_set"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:backgroundTint="@color/colorAccent"
-                    android:contentDescription="@string/todo"
-                    android:src="@drawable/ic_remove"
-                    app:borderWidth="0dp"
-                    app:tint="@color/white" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/set_num"
@@ -127,7 +120,6 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textSize="@dimen/xxl_huge_text" />
-
             </RelativeLayout>
         </LinearLayout>
 
@@ -162,7 +154,8 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/minus_work"
@@ -171,6 +164,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/ic_remove"
                     app:borderWidth="0dp"
                     app:tint="@color/white" />
@@ -198,7 +192,6 @@
                     android:paddingTop="@dimen/large_element_padding"
                     android:text="@string/sec"
                     android:textSize="@dimen/xs_medium_text" />
-
             </RelativeLayout>
         </LinearLayout>
 
@@ -233,7 +226,8 @@
                     android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add"
                     app:borderWidth="0dp"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/minus_rest"
@@ -270,7 +264,6 @@
                     android:paddingTop="@dimen/large_element_padding"
                     android:text="@string/sec"
                     android:textSize="@dimen/xs_medium_text" />
-
             </RelativeLayout>
         </LinearLayout>
 
@@ -310,7 +303,6 @@
                 android:textSize="@dimen/xl_medium_text"
                 android:textStyle="bold"
                 app:cornerRadius="13dp" />
-
         </LinearLayout>
     </RelativeLayout>
 </layout>
