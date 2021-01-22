@@ -56,23 +56,15 @@ class CircuitCreate : BaseActivity() {
                 saveCircuit()
             }
         }
-
-        bind!!.circuitName.addTextChangedListener {
-            if (bind!!.circuitName.length() <= 2) {
-                bind!!.warning.text = getString(R.string.min_char_warning)
-                bind!!.warning.visibility = View.VISIBLE
-
-                bind!!.circuitName.backgroundTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stop_red))
-            } else if (profanityCheck()) {
-                bind!!.warning.text = getString(R.string.bad_word_warning)
-                bind!!.warning.visibility = View.VISIBLE
-                bind!!.circuitName.backgroundTintList =
+      
+        bind.circuitName.addTextChangedListener {
+            if (bind.circuitName.length() >= MAX_CHARACTERS) {
+                bind.circuitNameWarning.visibility = View.VISIBLE
+                bind.circuitName.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stop_red))
             } else {
-                bind!!.warning.visibility = View.GONE
-
-                bind!!.circuitName.backgroundTintList =
+                bind.circuitNameWarning.visibility = View.GONE
+                bind.circuitName.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorAccent))
             }
         }
@@ -126,7 +118,7 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun validateInputs(): Boolean {
-        if (bind!!.circuitName.text.toString() == "") {
+        if (bind.circuitName.text.toString() == "") {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }

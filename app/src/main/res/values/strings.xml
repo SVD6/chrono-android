@@ -48,8 +48,6 @@
     <string name="circuit_complete_cancel">Restart</string>
     <string name="circuit_complete_celebrate">Circuit Complete!</string>
 
-    <string name="bad_word_warning">Don\'t use bad words!! :(</string>
-    <string name="min_char_warning">Name has to be minimum 3 characters.</string>
     <string name="notifications">Notifications</string>
     <string name="on">On</string>
     <string name="dark_mode">Dark Mode</string>
@@ -101,4 +99,6 @@
     <string name="stopwatch_notification_channel_id">chrono_stopwatch_default_channel</string>
 
     <string name="chrono_logo">Chrono Logo</string>
+    <string name="change_nicon">Change\nIcon</string>
+    <string name="max_char_warning">Maximum 50 characters.</string>
 </resources>
