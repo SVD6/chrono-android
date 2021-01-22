@@ -410,4 +410,6 @@ class CircuitTimerActivity : BaseActivity() {
             notify(2, builder.build())
         }
     }
+
+
 }

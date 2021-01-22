@@ -97,6 +97,4 @@
     <string name="stopwatch_notification_channel_id">chrono_stopwatch_default_channel</string>
 
     <string name="chrono_logo">Chrono Logo</string>
-    <string name="change_nicon">Change\nIcon</string>
-    <string name="circuit_name_warning">Maximum 50 characters</string>
 </resources>
