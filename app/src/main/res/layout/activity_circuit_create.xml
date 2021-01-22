@@ -49,24 +49,24 @@
                 android:layout_marginTop="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
-                android:gravity="center"
                 android:hint="@string/circuit_name"
                 android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLength="50"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textSize="@dimen/xl_huge_text" />
+                android:textSize="@dimen/huge_text" />
 
             <TextView
-                android:id="@+id/warning"
+                android:id="@+id/circuit_name_warning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/circuit_name"
                 android:layout_centerHorizontal="true"
+                android:text="Maximum 50 characters."
                 android:textColor="@color/stop_red"
                 android:textSize="@dimen/smaller_text"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </RelativeLayout>
 
         <ScrollView
