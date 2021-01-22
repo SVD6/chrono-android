@@ -25,6 +25,8 @@ private const val MAX_REST: Int = 995 // Actually 999
 private const val MAX_WORK: Int = 995 // Actually 999
 private const val TIME_CHANGE_VALUE: Int = 5
 
+private const val MAX_CHARACTERS: Int = 50
+
 class CircuitCreate : BaseActivity() {
 
     private lateinit var bind: ActivityCircuitCreateBinding
@@ -50,15 +52,12 @@ class CircuitCreate : BaseActivity() {
         }
 
         bind.circuitName.addTextChangedListener {
-            if (bind.circuitName.length() <= 2) {
-                bind.circuitNameWarning.text = getString(R.string.min_char_warning)
+            if (bind.circuitName.length() >= MAX_CHARACTERS) {
                 bind.circuitNameWarning.visibility = View.VISIBLE
-
                 bind.circuitName.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stop_red))
             } else {
                 bind.circuitNameWarning.visibility = View.GONE
-
                 bind.circuitName.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorAccent))
             }

@@ -45,7 +45,7 @@
                 android:id="@+id/circuit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/medium_element_padding"
+                android:layout_marginStart="@dimen/small_element_padding"
                 android:layout_marginTop="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
@@ -59,11 +59,14 @@
 
             <TextView
                 android:id="@+id/circuit_name_warning"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/circuit_name"
                 android:layout_centerHorizontal="true"
-                android:text="Maximum 50 characters."
+                android:gravity="center"
+                android:paddingStart="@dimen/tiny_element_padding"
+                android:paddingEnd="@dimen/huge_element_padding"
+                android:text="@string/max_char_warning"
                 android:textColor="@color/stop_red"
                 android:textSize="@dimen/smaller_text"
                 android:visibility="visible" />
