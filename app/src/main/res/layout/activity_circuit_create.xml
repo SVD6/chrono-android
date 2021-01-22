@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Change\nIcon"
+                    android:text="@string/change_nicon"
                     android:textSize="@dimen/small_text" />
             </LinearLayout>
 
@@ -44,290 +45,264 @@
                 android:id="@+id/circuit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/medium_element_padding"
-                android:layout_marginTop="@dimen/small_element_padding"
+                android:layout_marginStart="@dimen/xs_medium_element_padding"
+                android:layout_marginTop="@dimen/xs_medium_element_padding"
+                android:layout_marginEnd="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
-                android:gravity="center"
                 android:hint="@string/circuit_name"
                 android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLength="50"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textSize="@dimen/xl_huge_text" />
+                android:textSize="@dimen/huge_text" />
 
             <TextView
                 android:id="@+id/warning"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/circuit_name"
-                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:paddingEnd="@dimen/xs_huge_element_padding"
+                android:text="@string/circuit_name_warning"
                 android:textColor="@color/stop_red"
                 android:textSize="@dimen/smaller_text"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="RtlSymmetry" />
         </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/name_icon"
-            android:fillViewport="true"
-            android:id="@+id/circuit_details_scrollview">
+            android:layout_marginVertical="@dimen/medium_element_padding"
+            android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/circuit_details">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/sets"
+                android:textSize="@dimen/xl_medium_text" />
 
-                    <LinearLayout
-                        android:id="@+id/sets_selection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/xl_large_element_padding">
 
-                        android:layout_marginVertical="@dimen/medium_element_padding"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/sets"
-                            android:textSize="@dimen/xl_medium_text" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/xl_large_element_padding">
-
-                            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                android:id="@+id/add_set"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:backgroundTint="@color/colorAccent"
-                                android:contentDescription="@string/todo"
-                                android:src="@drawable/ic_add"
-                                app:borderWidth="0dp"
-                                app:tint="@color/white" />
-
-                            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                android:id="@+id/minus_set"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:backgroundTint="@color/colorAccent"
-                                android:contentDescription="@string/todo"
-                                android:src="@drawable/ic_remove"
-                                app:borderWidth="0dp"
-                                app:tint="@color/white" />
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/set_num"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:background="@null"
-                                android:gravity="center"
-                                android:hint="@string/_0"
-                                android:inputType="number"
-                                android:lines="1"
-                                android:maxLength="2"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                android:textSize="@dimen/xxl_huge_text" />
-
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/work_selection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/sets_selection"
-                        android:layout_marginVertical="@dimen/medium_element_padding"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/work"
-                            android:textSize="@dimen/xl_medium_text" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/xl_large_element_padding">
-
-                            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                android:id="@+id/add_work"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:backgroundTint="@color/colorAccent"
-                                android:contentDescription="@string/todo"
-                                android:src="@drawable/ic_add"
-                                app:borderWidth="0dp"
-                                app:tint="@color/white" />
-
-                            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                android:id="@+id/minus_work"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:backgroundTint="@color/colorAccent"
-                                android:src="@drawable/ic_remove"
-                                app:borderWidth="0dp"
-                                app:tint="@color/white" />
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/set_work_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:background="@null"
-                                android:gravity="center"
-                                android:hint="@string/_0"
-                                android:inputType="number"
-                                android:lines="1"
-                                android:maxLength="3"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                android:textSize="@dimen/xxl_huge_text" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@+id/set_work_time"
-                                android:paddingTop="@dimen/large_element_padding"
-                                android:text="@string/sec"
-                                android:textSize="@dimen/xs_medium_text" />
-
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/rest_selection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/work_selection"
-                        android:layout_marginVertical="@dimen/medium_element_padding"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/rest"
-                            android:textSize="@dimen/xl_medium_text" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/xl_large_element_padding">
-
-                            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                android:id="@+id/add_rest"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:backgroundTint="@color/colorAccent"
-                                android:contentDescription="@string/todo"
-                                android:src="@drawable/ic_add"
-                                app:borderWidth="0dp"
-                                app:tint="@color/white" />
-
-                            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                android:id="@+id/minus_rest"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:backgroundTint="@color/colorAccent"
-                                android:contentDescription="@string/todo"
-                                android:src="@drawable/ic_remove"
-                                app:borderWidth="0dp"
-                                app:tint="@color/white" />
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/set_rest_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:background="@null"
-                                android:gravity="center"
-                                android:hint="@string/_0"
-                                android:inputType="number"
-                                android:lines="1"
-                                android:maxLength="3"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                android:textSize="@dimen/xxl_huge_text" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@+id/set_rest_time"
-                                android:paddingTop="@dimen/large_element_padding"
-                                android:text="@string/sec"
-                                android:textSize="@dimen/xs_medium_text" />
-
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/button_panel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_margin="@dimen/xs_medium_element_padding"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/discard_button"
-                            android:layout_width="125dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="@dimen/medium_element_padding"
-                            android:backgroundTint="@color/stop_red"
-                            android:letterSpacing="0"
-                            android:text="@string/discard"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/xl_medium_text"
-                            android:textStyle="bold"
-                            app:cornerRadius="13dp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/save_button"
-                            android:layout_width="125dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="@dimen/medium_element_padding"
-                            android:backgroundTint="@color/resume_green"
-                            android:letterSpacing="0"
-                            android:text="@string/save"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/xl_medium_text"
-                            android:textStyle="bold"
-                            app:cornerRadius="13dp" />
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-        </ScrollView>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_add"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
 
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/set_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="@string/_0"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="2"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/xxl_huge_text" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/work_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sets_selection"
+            android:layout_marginVertical="@dimen/medium_element_padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/work"
+                android:textSize="@dimen/xl_medium_text" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/xl_large_element_padding">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_add"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/minus_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_remove"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/set_work_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="@string/_0"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="3"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/xxl_huge_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/set_work_time"
+                    android:paddingTop="@dimen/large_element_padding"
+                    android:text="@string/sec"
+                    android:textSize="@dimen/xs_medium_text" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rest_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/work_selection"
+            android:layout_marginVertical="@dimen/medium_element_padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rest"
+                android:textSize="@dimen/xl_medium_text" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/xl_large_element_padding">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_rest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_add"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white"
+                    tools:ignore="RelativeOverlap" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/minus_rest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_remove"
+                    app:borderWidth="0dp"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/set_rest_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="@string/_0"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="3"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/xxl_huge_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/set_rest_time"
+                    android:paddingTop="@dimen/large_element_padding"
+                    android:text="@string/sec"
+                    android:textSize="@dimen/xs_medium_text" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/button_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/xs_medium_element_padding"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/discard_button"
+                android:layout_width="125dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/medium_element_padding"
+                android:backgroundTint="@color/stop_red"
+                android:letterSpacing="0"
+                android:text="@string/discard"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold"
+                app:cornerRadius="13dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_button"
+                android:layout_width="125dp"
+                android:layout_height="60dp"
+                android:layout_margin="@dimen/medium_element_padding"
+                android:backgroundTint="@color/resume_green"
+                android:letterSpacing="0"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold"
+                app:cornerRadius="13dp" />
+        </LinearLayout>
     </RelativeLayout>
 </layout>
