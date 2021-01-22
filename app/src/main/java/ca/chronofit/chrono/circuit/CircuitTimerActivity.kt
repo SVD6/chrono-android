@@ -34,8 +34,6 @@ class CircuitTimerActivity : BaseActivity() {
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-
     private lateinit var mInterstitialAd: InterstitialAd
 
     private val mInterstitialAdUnitId: String by lazy {
@@ -47,6 +45,7 @@ class CircuitTimerActivity : BaseActivity() {
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var skipLastRest: Boolean = false
+    private var adsEnabled: Boolean? = false
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -67,7 +66,6 @@ class CircuitTimerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
-
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
@@ -200,7 +198,7 @@ class CircuitTimerActivity : BaseActivity() {
             finish()
 
             // Show the ad
-            if (mInterstitialAd.isLoaded) {
+            if (mInterstitialAd.isLoaded && adsEnabled!!) {
                 mInterstitialAd.show()
             } else {
                 Log.d("AD", "The interstitial wasn't loaded yet.")
@@ -210,7 +208,7 @@ class CircuitTimerActivity : BaseActivity() {
         // If the user wants to run the circuit again
         dialogView.cancel.setOnClickListener {
             // Show the ad if it loaded
-            if (mInterstitialAd.isLoaded) {
+            if (mInterstitialAd.isLoaded && adsEnabled!!) {
                 mInterstitialAd.adListener = object : AdListener() {
                     override fun onAdClosed() {
                         // Reload the circuit
