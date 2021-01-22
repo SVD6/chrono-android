@@ -17,6 +17,7 @@ import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.adapters.CircuitViewAdapter
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
@@ -33,9 +34,9 @@ class CircuitDashboardFrag : Fragment() {
 
     private val settingsViewModel: SettingsViewModel by activityViewModels()
 
-    private var getReadyTime: Int? = null
-    private var audioPrompts: Boolean? = null
-    private var lastRest: Boolean? = null
+    private var readyTime: Int = 5
+    private var audioPrompts: Boolean = true
+    private var lastRest: Boolean = true
 
     private var circuitsObject: CircuitsObject? = null
     private var selectedPosition: Int = 0
@@ -78,7 +79,7 @@ class CircuitDashboardFrag : Fragment() {
         val jsonString = GsonBuilder().create().toJson(circuit)
         val intent = Intent(requireContext(), CircuitTimerActivity::class.java)
         intent.putExtra("circuitObject", jsonString)
-        intent.putExtra("readyTime", getReadyTime)
+        intent.putExtra("readyTime", readyTime)
         intent.putExtra("audioPrompts", audioPrompts)
         intent.putExtra("lastRest", lastRest)
         startActivityForResult(intent, 10002)
@@ -148,7 +149,7 @@ class CircuitDashboardFrag : Fragment() {
             }
 
             // Save updated list in local storage
-            PreferenceManager.put(circuitsObject, "CIRCUITS")
+            PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
         }
 
         // Display the Dialog
@@ -157,8 +158,22 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     private fun observeSettings() {
-        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { readyTime ->
-            getReadyTime = (readyTime.substring(0, readyTime.length - 1)).toInt()
+        // Retrieve Settings if they exist
+        if (PreferenceManager.get<Int>(Constants.READY_TIME) != null) {
+            readyTime = PreferenceManager.get<Int>(Constants.READY_TIME)!!
+        }
+
+        if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS) != null) {
+            audioPrompts = PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS)!!
+        }
+
+        if (PreferenceManager.get<Boolean>(Constants.LAST_REST) != null) {
+            lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST)!!
+        }
+
+        // Observe Settings
+        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { _readyTime ->
+            readyTime = (_readyTime.substring(0, _readyTime.length - 1)).toInt()
         })
 
         settingsViewModel.audioPrompts.observe(viewLifecycleOwner, { prompts ->
@@ -171,7 +186,7 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     private fun loadData() {
-        circuitsObject = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+        circuitsObject = PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS)
 
         if (circuitsObject != null && circuitsObject?.circuits!!.size > 0) {
             bind.recyclerView.visibility = View.VISIBLE

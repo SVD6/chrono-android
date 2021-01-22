@@ -18,14 +18,14 @@
             android:lines="1"
             android:maxLines="1"
             android:padding="@dimen/small_element_padding"
-            android:text="Get Ready Time"
+            android:text="@string/get_ready_time"
             android:textSize="@dimen/xl_large_text"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="⏳"
+            android:text="@string/time_emoji"
             android:textSize="@dimen/xl_large_text" />
     </LinearLayout>
 
@@ -36,26 +36,29 @@
         android:paddingHorizontal="@dimen/huge_element_padding">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_5s"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="5s"
+            android:text="@string/_5s"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/medium_text" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_10s"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="10s"
+            android:text="@string/_10s"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/medium_text" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_15s"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="15s"
+            android:text="@string/_15s"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/medium_text" />
 

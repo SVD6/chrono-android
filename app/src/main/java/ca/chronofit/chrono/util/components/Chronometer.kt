@@ -35,8 +35,9 @@ class Chronometer @JvmOverloads constructor(
     private var showNotification = false
     private var notificationTime = "00:00"
     private val notificationId = 12
-
     private var lastSecond = -1
+
+    private var notificationEnabled: Boolean? = null
 
     var base: Long
         get() = mBase
@@ -75,7 +76,9 @@ class Chronometer @JvmOverloads constructor(
     fun stop() {
         mStarted = false
         updateRunning()
-        createStoppedNotification(notificationTime)
+        if (notificationEnabled!!) {
+            createStoppedNotification(notificationTime)
+        }
     }
 
     override fun onDetachedFromWindow() {
@@ -112,7 +115,7 @@ class Chronometer @JvmOverloads constructor(
         if (lastSecond != seconds) {
             notificationTime = text
             lastSecond = seconds
-            if (mStarted) {
+            if (mStarted && notificationEnabled!!) {
                 createRunningNotification(notificationTime)
             } else {
                 NotificationManagerCompat.from(context).cancel(notificationId) // Reset is pressed
@@ -209,7 +212,12 @@ class Chronometer @JvmOverloads constructor(
         resetIntent.action = StopwatchFrag.RESET
         customView.setOnClickPendingIntent(
             R.id.reset_stopwatch,
-            PendingIntent.getService(context, notificationId, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(
+                context,
+                notificationId,
+                resetIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
         )
 
         customView.setTextViewText(R.id.elapsed_time, time)
@@ -232,5 +240,9 @@ class Chronometer @JvmOverloads constructor(
                 notify(notificationId, builder.build())
             }
         }
+    }
+
+    fun setNotificationEnabled(setting: Boolean) {
+        notificationEnabled = setting
     }
 }
