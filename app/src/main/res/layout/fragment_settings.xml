@@ -16,6 +16,7 @@
             android:gravity="center"
             android:padding="@dimen/medium_element_padding"
             android:text="@string/settings"
+            android:textColor="@color/dark_mode_dark"
             android:textSize="@dimen/xl_huge_text" />
 
         <ScrollView
@@ -90,7 +91,6 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:enabled="true"
-                        android:text="@string/off"
                         app:useMaterialThemeColors="false"
                         tools:ignore="RelativeOverlap" />
                 </RelativeLayout>

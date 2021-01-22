@@ -29,6 +29,7 @@
                 android:id="@+id/countdown_lay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/close_button"
                 android:layout_centerInParent="true"
                 android:orientation="vertical">
 
@@ -58,15 +59,15 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/countdown"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
                     android:text="@string/_0"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/enormous_text"
-                    android:focusable="true" />
+                    android:textSize="@dimen/enormous_text" />
 
                 <View
                     android:layout_width="wrap_content"
