@@ -64,7 +64,7 @@ class CircuitTimerActivity : BaseActivity() {
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
-        showLoadingScreen()
+        // Possibly show loading screen
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
@@ -158,8 +158,6 @@ class CircuitTimerActivity : BaseActivity() {
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = mInterstitialAdUnitId
         mInterstitialAd.loadAd(AdRequest.Builder().build())
-
-        hideLoadingScreen()
     }
 
     private fun celebrate() {
