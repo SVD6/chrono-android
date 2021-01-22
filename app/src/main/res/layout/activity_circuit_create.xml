@@ -34,7 +34,6 @@
                     android:src="@drawable/ic_stopwatch" />
 
                 <TextView
-                    android:id="@+id/change_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

@@ -25,6 +25,8 @@ private const val MAX_REST: Int = 995 // Actually 999
 private const val MAX_WORK: Int = 995 // Actually 999
 private const val TIME_CHANGE_VALUE: Int = 5
 
+private const val MAX_CHARACTERS: Int = 50
+
 class CircuitCreate : BaseActivity() {
 
     private lateinit var bind: ActivityCircuitCreateBinding
@@ -50,7 +52,7 @@ class CircuitCreate : BaseActivity() {
         }
 
         bind.circuitName.addTextChangedListener {
-            if (bind.circuitName.length() >= 50) {
+            if (bind.circuitName.length() >= MAX_CHARACTERS) {
                 bind.warning.visibility = View.VISIBLE
                 bind.circuitName.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stop_red))
@@ -105,7 +107,7 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun validateInputs(): Boolean {
-        if (bind.circuitName.text.toString() == "") {
+        if (bind.circuitName.text.isEmpty()) {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }
