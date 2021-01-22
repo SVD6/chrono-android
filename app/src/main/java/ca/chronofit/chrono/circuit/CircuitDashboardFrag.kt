@@ -33,7 +33,7 @@ class CircuitDashboardFrag : Fragment() {
 
     private val settingsViewModel: SettingsViewModel by activityViewModels()
 
-    private var getReadyTime: Int = 5
+    private var readyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var lastRest: Boolean = true
 
@@ -78,7 +78,7 @@ class CircuitDashboardFrag : Fragment() {
         val jsonString = GsonBuilder().create().toJson(circuit)
         val intent = Intent(requireContext(), CircuitTimerActivity::class.java)
         intent.putExtra("circuitObject", jsonString)
-        intent.putExtra("readyTime", getReadyTime)
+        intent.putExtra("readyTime", readyTime)
         intent.putExtra("audioPrompts", audioPrompts)
         intent.putExtra("lastRest", lastRest)
         startActivityForResult(intent, 10002)
@@ -159,7 +159,7 @@ class CircuitDashboardFrag : Fragment() {
     private fun observeSettings() {
         // Retrieve Settings if they exist
         if (PreferenceManager.get<Int>("readyTime") != null) {
-            getReadyTime = PreferenceManager.get<Int>("readyTime")!!
+            readyTime = PreferenceManager.get<Int>("readyTime")!!
         }
 
         if (PreferenceManager.get<Boolean>("prompts") != null) {
@@ -171,8 +171,8 @@ class CircuitDashboardFrag : Fragment() {
         }
 
         // Observe Settings
-        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { readyTime ->
-            getReadyTime = (readyTime.substring(0, readyTime.length - 1)).toInt()
+        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { _readyTime ->
+            readyTime = (_readyTime.substring(0, _readyTime.length - 1)).toInt()
         })
 
         settingsViewModel.audioPrompts.observe(viewLifecycleOwner, { prompts ->
