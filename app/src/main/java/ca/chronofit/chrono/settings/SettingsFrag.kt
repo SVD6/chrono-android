@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentSettingsBinding
 import ca.chronofit.chrono.MainActivity
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -58,27 +59,28 @@ class SettingsFrag : Fragment() {
     }
 
     private fun loadSettings() {
-        if (PreferenceManager.get<Int>("readyTime") != null) {
-            getReadyTime = PreferenceManager.get<Int>("readyTime")!!
+        if (PreferenceManager.get<Int>(Constants.READY_TIME) != null) {
+            getReadyTime = PreferenceManager.get<Int>(Constants.READY_TIME)!!
             bind.readyTimeDisplay.text = (getReadyTime.toString() + "s")
         }
 
-        if (PreferenceManager.get<Boolean>("prompts") != null) {
-            bind.audioSwitch.isChecked = PreferenceManager.get<Boolean>("prompts")!!
-            if (PreferenceManager.get<Boolean>("prompts")!!) {
+        if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS) != null) {
+            bind.audioSwitch.isChecked = PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS)!!
+            if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS)!!) {
                 bind.audioSwitch.text = getString(R.string.on)
             } else {
                 bind.audioSwitch.text = getString(R.string.off)
             }
         }
 
-        if (PreferenceManager.get<Boolean>("lastRest") != null) {
-            bind.lastRestSwitch.isChecked = PreferenceManager.get<Boolean>("lastRest")!!
+        if (PreferenceManager.get<Boolean>(Constants.LAST_REST) != null) {
+            bind.lastRestSwitch.isChecked = PreferenceManager.get<Boolean>(Constants.LAST_REST)!!
         }
 
-        if (PreferenceManager.get<Boolean>("notifications") != null) {
-            bind.notificationSwitch.isChecked = PreferenceManager.get<Boolean>("notifications")!!
-            if (PreferenceManager.get<Boolean>("notifications")!!) {
+        if (PreferenceManager.get<Boolean>(Constants.NOTIFICATIONS) != null) {
+            bind.notificationSwitch.isChecked =
+                PreferenceManager.get<Boolean>(Constants.NOTIFICATIONS)!!
+            if (PreferenceManager.get<Boolean>(Constants.NOTIFICATIONS)!!) {
                 bind.notificationSwitch.text = getString(R.string.on)
             } else {
                 bind.notificationSwitch.text = getString(R.string.off)
@@ -130,11 +132,11 @@ class SettingsFrag : Fragment() {
             if (isChecked) {
                 buttonView.text = getString(R.string.on)
                 settingsViewModel.onNotificationChanged(true)
-                PreferenceManager.put(true, "notifications")
+                PreferenceManager.put(true, Constants.NOTIFICATIONS)
             } else {
                 buttonView.text = getString(R.string.off)
                 settingsViewModel.onNotificationChanged(false)
-                PreferenceManager.put(false, "notifications")
+                PreferenceManager.put(false, Constants.NOTIFICATIONS)
             }
         }
 
@@ -143,11 +145,11 @@ class SettingsFrag : Fragment() {
             if (isChecked) {
                 buttonView.text = getString(R.string.on)
                 settingsViewModel.onAudioPromptChanged(true)
-                PreferenceManager.put(true, "prompts")
+                PreferenceManager.put(true, Constants.AUDIO_PROMPTS)
             } else {
                 buttonView.text = getString(R.string.off)
                 settingsViewModel.onAudioPromptChanged(false)
-                PreferenceManager.put(false, "prompts")
+                PreferenceManager.put(false, Constants.AUDIO_PROMPTS)
             }
         }
 
@@ -155,10 +157,10 @@ class SettingsFrag : Fragment() {
         bind.lastRestSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 settingsViewModel.onLastRestChanged(true)
-                PreferenceManager.put(true, "lastRest")
+                PreferenceManager.put(true, Constants.LAST_REST)
             } else {
                 settingsViewModel.onLastRestChanged(false)
-                PreferenceManager.put(false, "lastRest")
+                PreferenceManager.put(false, Constants.LAST_REST)
             }
         }
 

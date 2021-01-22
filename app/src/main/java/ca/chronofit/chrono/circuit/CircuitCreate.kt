@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitCreateBinding
 import ca.chronofit.chrono.util.BaseActivity
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
@@ -116,9 +117,9 @@ class CircuitCreate : BaseActivity() {
         circuit.iconId = selectedIcon
 
         // Save circuit in Shared Preferences
-        val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+        val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS)
         circuits!!.circuits!!.add(circuit)
-        PreferenceManager.put(circuits, circuits.key)
+        PreferenceManager.put(circuits, Constants.CIRCUITS)
 
         setResult(Activity.RESULT_OK)
         finish()

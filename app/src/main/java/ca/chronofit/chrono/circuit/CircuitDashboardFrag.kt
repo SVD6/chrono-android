@@ -17,6 +17,7 @@ import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.adapters.CircuitViewAdapter
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
@@ -148,7 +149,7 @@ class CircuitDashboardFrag : Fragment() {
             }
 
             // Save updated list in local storage
-            PreferenceManager.put(circuitsObject, "CIRCUITS")
+            PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
         }
 
         // Display the Dialog
@@ -158,16 +159,16 @@ class CircuitDashboardFrag : Fragment() {
 
     private fun observeSettings() {
         // Retrieve Settings if they exist
-        if (PreferenceManager.get<Int>("readyTime") != null) {
-            readyTime = PreferenceManager.get<Int>("readyTime")!!
+        if (PreferenceManager.get<Int>(Constants.READY_TIME) != null) {
+            readyTime = PreferenceManager.get<Int>(Constants.READY_TIME)!!
         }
 
-        if (PreferenceManager.get<Boolean>("prompts") != null) {
-            audioPrompts = PreferenceManager.get<Boolean>("prompts")!!
+        if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS) != null) {
+            audioPrompts = PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS)!!
         }
 
-        if (PreferenceManager.get<Boolean>("lastRest") != null) {
-            lastRest = PreferenceManager.get<Boolean>("lastRest")!!
+        if (PreferenceManager.get<Boolean>(Constants.LAST_REST) != null) {
+            lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST)!!
         }
 
         // Observe Settings
@@ -185,7 +186,7 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     private fun loadData() {
-        circuitsObject = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+        circuitsObject = PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS)
 
         if (circuitsObject != null && circuitsObject?.circuits!!.size > 0) {
             bind.recyclerView.visibility = View.VISIBLE

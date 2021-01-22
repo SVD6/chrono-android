@@ -35,10 +35,9 @@ class Chronometer @JvmOverloads constructor(
     private var showNotification = false
     private var notificationTime = "00:00"
     private val notificationId = 12
-
     private var lastSecond = -1
 
-    private var notificationSetting = true
+    private var notificationEnabled: Boolean? = null
 
     var base: Long
         get() = mBase
@@ -77,7 +76,7 @@ class Chronometer @JvmOverloads constructor(
     fun stop() {
         mStarted = false
         updateRunning()
-        if (notificationSetting) {
+        if (notificationEnabled!!) {
             createStoppedNotification(notificationTime)
         }
     }
@@ -116,7 +115,7 @@ class Chronometer @JvmOverloads constructor(
         if (lastSecond != seconds) {
             notificationTime = text
             lastSecond = seconds
-            if (mStarted && notificationSetting) {
+            if (mStarted && notificationEnabled!!) {
                 createRunningNotification(notificationTime)
             } else {
                 NotificationManagerCompat.from(context).cancel(notificationId) // Reset is pressed
@@ -243,7 +242,7 @@ class Chronometer @JvmOverloads constructor(
         }
     }
 
-    fun settingsNotification(setting: Boolean) {
-        notificationSetting = setting
+    fun setNotificationEnabled(setting: Boolean) {
+        notificationEnabled = setting
     }
 }

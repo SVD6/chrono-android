@@ -120,7 +120,9 @@ class StopwatchFrag : Fragment() {
 
     private fun startStopwatch() {
         swatch.base = SystemClock.elapsedRealtime()
-        settingsViewModel.notifications.value?.let { swatch.settingsNotification(it) }
+
+        if (settingsViewModel.notifications.value == null) swatch.setNotificationEnabled(true)
+        else settingsViewModel.notifications.value?.let { swatch.setNotificationEnabled(it) }
         swatch.start()
         swatchState = SwatchState.RUNNING
         updateButtonUI()
