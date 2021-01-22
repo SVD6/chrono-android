@@ -132,7 +132,7 @@
                         android:gravity="end"
                         android:paddingHorizontal="@dimen/small_element_padding"
                         android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="5s"
+                        android:text="@string/_5s"
                         android:textColor="@color/faded_text"
                         android:textSize="@dimen/medium_text" />
                 </RelativeLayout>
@@ -303,7 +303,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/small_element_padding"
-                    android:text="Version 0.2.0"
+                    android:text="@string/version_number"
                     android:textColor="@color/reset_grey"
                     android:textSize="@dimen/smaller_text" />
 
