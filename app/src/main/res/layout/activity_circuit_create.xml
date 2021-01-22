@@ -46,8 +46,8 @@
                 android:id="@+id/circuit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_element_padding"
-                android:layout_marginTop="@dimen/small_element_padding"
+                android:layout_marginStart="@dimen/xs_medium_element_padding"
+                android:layout_marginTop="@dimen/xs_medium_element_padding"
                 android:layout_marginEnd="@dimen/small_element_padding"
                 android:layout_toEndOf="@+id/icon_layout"
                 android:backgroundTint="@color/colorAccent"
@@ -64,12 +64,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/circuit_name"
-                android:layout_marginEnd="@dimen/large_element_padding"
-                android:gravity="end"
-                android:text="@string/has_to_be_between_3_and_50_characters"
+                android:gravity="center"
+                android:paddingEnd="@dimen/xs_huge_element_padding"
+                android:text="@string/circuit_name_warning"
                 android:textColor="@color/stop_red"
                 android:textSize="@dimen/smaller_text"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="RtlSymmetry" />
         </RelativeLayout>
 
         <LinearLayout
@@ -132,7 +133,6 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textSize="@dimen/xxl_huge_text" />
-
             </RelativeLayout>
         </LinearLayout>
 
@@ -205,7 +205,6 @@
                     android:paddingTop="@dimen/large_element_padding"
                     android:text="@string/sec"
                     android:textSize="@dimen/xs_medium_text" />
-
             </RelativeLayout>
         </LinearLayout>
 
@@ -278,7 +277,6 @@
                     android:paddingTop="@dimen/large_element_padding"
                     android:text="@string/sec"
                     android:textSize="@dimen/xs_medium_text" />
-
             </RelativeLayout>
         </LinearLayout>
 
@@ -318,7 +316,6 @@
                 android:textSize="@dimen/xl_medium_text"
                 android:textStyle="bold"
                 app:cornerRadius="13dp" />
-
         </LinearLayout>
     </RelativeLayout>
 </layout>

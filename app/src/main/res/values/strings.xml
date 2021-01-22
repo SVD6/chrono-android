@@ -98,5 +98,5 @@
 
     <string name="chrono_logo">Chrono Logo</string>
     <string name="change_nicon">Change\nIcon</string>
-    <string name="has_to_be_between_3_and_50_characters">Has to be between 3 and 50 characters.</string>
+    <string name="circuit_name_warning">Maximum 50 characters</string>
 </resources>

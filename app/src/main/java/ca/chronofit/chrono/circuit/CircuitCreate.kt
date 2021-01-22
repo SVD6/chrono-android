@@ -50,9 +50,8 @@ class CircuitCreate : BaseActivity() {
         }
 
         bind.circuitName.addTextChangedListener {
-            if (bind.circuitName.length() <= 2 || bind.circuitName.length() >= 50) {
+            if (bind.circuitName.length() >= 50) {
                 bind.warning.visibility = View.VISIBLE
-
                 bind.circuitName.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(this, R.color.stop_red))
             } else {
