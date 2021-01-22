@@ -46,15 +46,6 @@ class SettingsFrag : Fragment() {
         loadSettings()
         initMenus()
 
-        // Dark Mode Not Ready
-        bind.darkMode.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Dark Mode under construction \uD83D\uDEA7",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
         return bind.root
     }
 
@@ -89,7 +80,6 @@ class SettingsFrag : Fragment() {
     }
 
     private fun initMenus() {
-
         bind.rateApp.setOnClickListener {
             val packageName = requireContext().packageName
             try {
@@ -116,7 +106,7 @@ class SettingsFrag : Fragment() {
             startActivity(intent)
         }
 
-        // Dark Mode Switch
+        // Dark Mode Switch DISABLED
         bind.darkModeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 buttonView.text = getString(R.string.on)
@@ -125,6 +115,23 @@ class SettingsFrag : Fragment() {
                 buttonView.text = getString(R.string.off)
                 settingsViewModel.onDarkModeChanged(false)
             }
+        }
+
+        // TEMPORARY Dark Mode Not Ready
+        bind.darkMode.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "Dark Mode under construction \uD83D\uDEA7",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        bind.darkModeTemp.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "Dark Mode under construction \uD83D\uDEA7",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         // Notification Switch

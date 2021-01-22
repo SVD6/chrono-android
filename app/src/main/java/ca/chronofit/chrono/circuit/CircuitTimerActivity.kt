@@ -10,8 +10,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
@@ -23,7 +21,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
@@ -66,6 +63,8 @@ class CircuitTimerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
+
+        showLoadingScreen()
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
@@ -159,6 +158,8 @@ class CircuitTimerActivity : BaseActivity() {
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = mInterstitialAdUnitId
         mInterstitialAd.loadAd(AdRequest.Builder().build())
+
+        hideLoadingScreen()
     }
 
     private fun celebrate() {
@@ -395,19 +396,17 @@ class CircuitTimerActivity : BaseActivity() {
         }
     }
 
-    private fun createNotification(time: Float) {
-        val builder =
-            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
-                .setSmallIcon(R.drawable.ic_notification_logo)
-                .setContentTitle("Notification test")
-                .setContentText(time.toString())
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-
-        with(NotificationManagerCompat.from(this)) {
-            //notificationId is a unique int for each notification that you must define
-            notify(2, builder.build())
-        }
-    }
-
-
+//    private fun createNotification(time: Float) {
+//        val builder =
+//            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
+//                .setSmallIcon(R.drawable.ic_notification_logo)
+//                .setContentTitle("Notification test")
+//                .setContentText(time.toString())
+//                .setPriority(NotificationCompat.PRIORITY_LOW)
+//
+//        with(NotificationManagerCompat.from(this)) {
+//            //notificationId is a unique int for each notification that you must define
+//            notify(2, builder.build())
+//        }
+//    }
 }

@@ -1,14 +1,24 @@
 package ca.chronofit.chrono.util
 
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import ca.chronofit.chrono.R
 import ca.chronofit.chrono.util.constants.Constants
+import ca.chronofit.chrono.util.helpers.isContextValid
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 
 open class BaseActivity : AppCompatActivity() {
     private var circuits: CircuitsObject? = null
+
+    private var loadingAlert: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +44,27 @@ open class BaseActivity : AppCompatActivity() {
             Configuration.UI_MODE_NIGHT_NO -> false
             Configuration.UI_MODE_NIGHT_UNDEFINED -> false
             else -> false
+        }
+    }
+
+    fun showLoadingScreen() {
+        if (isContextValid(this)) {
+            val builder = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            val mView = inflater.inflate(R.layout.layout_loading, null) as RelativeLayout
+
+            builder.setView(mView)
+            builder.setCancelable(false)
+            loadingAlert = builder.create()
+            loadingAlert!!.setCanceledOnTouchOutside(false)
+            loadingAlert!!.show()
+            loadingAlert!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+    }
+
+    fun hideLoadingScreen() {
+        if (loadingAlert != null && loadingAlert!!.isShowing) {
+            loadingAlert!!.dismiss()
         }
     }
 }
