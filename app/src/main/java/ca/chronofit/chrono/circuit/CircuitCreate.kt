@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -14,24 +15,26 @@ import androidx.viewpager.widget.ViewPager
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitCreateBinding
 import ca.chronofit.chrono.util.BaseActivity
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.dialog_select_icon.view.*
+import java.io.File
 
 private const val MAX_SETS: Int = 99
 private const val MAX_REST: Int = 995 // Actually 999
 private const val MAX_WORK: Int = 995 // Actually 999
 private const val TIME_CHANGE_VALUE: Int = 5
 
-private const val MAX_CHARACTERS: Int = 50
-
 class CircuitCreate : BaseActivity() {
 
-    private lateinit var bind: ActivityCircuitCreateBinding
+    private var bind: ActivityCircuitCreateBinding? = null
     private var selectedIcon: Int = 0
     private lateinit var iconNames: TypedArray
+
+    private var badWordFile: String = "badwords.txt"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,17 +43,20 @@ class CircuitCreate : BaseActivity() {
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 
-        bind.discardButton.setOnClickListener {
+        val file = File("assets/$badWordFile")
+        Log.i("file", file.toString())
+
+        bind!!.discardButton.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
             finish()
         }
 
-        bind.saveButton.setOnClickListener {
+        bind!!.saveButton.setOnClickListener {
             if (validateInputs()) {
                 saveCircuit()
             }
         }
-
+      
         bind.circuitName.addTextChangedListener {
             if (bind.circuitName.length() >= MAX_CHARACTERS) {
                 bind.circuitNameWarning.visibility = View.VISIBLE
@@ -63,44 +69,49 @@ class CircuitCreate : BaseActivity() {
             }
         }
 
-        bind.iconLayout.setOnClickListener {
+        bind!!.iconLayout.setOnClickListener {
             selectIconDialog()
         }
-        bind.circuitIcon.setOnClickListener {
+        bind!!.circuitIcon.setOnClickListener {
             selectIconDialog()
         }
-        bind.addSet.setOnClickListener {
+        bind!!.addSet.setOnClickListener {
             addSet()
         }
-        bind.minusSet.setOnClickListener {
+        bind!!.minusSet.setOnClickListener {
             minusSet()
         }
-        bind.addWork.setOnClickListener {
+        bind!!.addWork.setOnClickListener {
             addWork()
         }
-        bind.minusWork.setOnClickListener {
+        bind!!.minusWork.setOnClickListener {
             minusWork()
         }
-        bind.addRest.setOnClickListener {
+        bind!!.addRest.setOnClickListener {
             addRest()
         }
-        bind.minusRest.setOnClickListener {
+        bind!!.minusRest.setOnClickListener {
             minusRest()
         }
     }
 
+    private fun profanityCheck(): Boolean {
+
+        return false
+    }
+
     private fun saveCircuit() {
         val circuit = CircuitObject()
-        circuit.name = bind.circuitName.text.toString()
-        circuit.sets = bind.setNum.text.toString().toInt()
-        circuit.work = bind.setWorkTime.text.toString().toInt()
-        circuit.rest = bind.setRestTime.text.toString().toInt()
+        circuit.name = bind!!.circuitName.text.toString()
+        circuit.sets = bind!!.setNum.text.toString().toInt()
+        circuit.work = bind!!.setWorkTime.text.toString().toInt()
+        circuit.rest = bind!!.setRestTime.text.toString().toInt()
         circuit.iconId = selectedIcon
 
         // Save circuit in Shared Preferences
-        val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>("CIRCUITS")
+        val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS)
         circuits!!.circuits!!.add(circuit)
-        PreferenceManager.put(circuits, circuits.key)
+        PreferenceManager.put(circuits, Constants.CIRCUITS)
 
         setResult(Activity.RESULT_OK)
         finish()
@@ -111,15 +122,15 @@ class CircuitCreate : BaseActivity() {
             Toast.makeText(this, "Please enter a circuit name", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (!(bind.setNum.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
+        if (!(bind!!.setNum.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
             Toast.makeText(this, "Invalid Number of Sets.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (!(bind.setWorkTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
+        if (!(bind!!.setWorkTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
             Toast.makeText(this, "Invalid Work Time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (!(bind.setRestTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
+        if (!(bind!!.setRestTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
             Toast.makeText(this, "Invalid Rest Time", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -127,9 +138,9 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addSet() {
-        val currentText = bind.setNum.text.toString()
+        val currentText = bind!!.setNum.text.toString()
         if (currentText == "") {
-            bind.setNum.setText("1")
+            bind!!.setNum.setText("1")
         } else {
             if (currentText.toInt() == MAX_SETS) {
                 Toast.makeText(
@@ -138,13 +149,13 @@ class CircuitCreate : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                bind.setNum.setText((currentText.toInt() + 1).toString())
+                bind!!.setNum.setText((currentText.toInt() + 1).toString())
             }
         }
     }
 
     private fun minusSet() {
-        val currentText = bind.setNum.text.toString()
+        val currentText = bind!!.setNum.text.toString()
         if (currentText == "") {
             Toast.makeText(
                 this,
@@ -153,7 +164,7 @@ class CircuitCreate : BaseActivity() {
             ).show()
         } else {
             if (currentText.toInt() > 0) {
-                bind.setNum.setText(((currentText.toInt() - 1)).toString())
+                bind!!.setNum.setText(((currentText.toInt() - 1)).toString())
             } else {
                 Toast.makeText(
                     this,
@@ -165,9 +176,9 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addWork() {
-        val currentText = bind.setWorkTime.text.toString()
+        val currentText = bind!!.setWorkTime.text.toString()
         if (currentText == "") {
-            bind.setWorkTime.setText(TIME_CHANGE_VALUE.toString())
+            bind!!.setWorkTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
             if (currentText.toInt() >= MAX_WORK) {
                 Toast.makeText(
@@ -176,13 +187,13 @@ class CircuitCreate : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                bind.setWorkTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
+                bind!!.setWorkTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
         }
     }
 
     private fun minusWork() {
-        val currentText = bind.setWorkTime.text.toString()
+        val currentText = bind!!.setWorkTime.text.toString()
         if (currentText == "") {
             Toast.makeText(
                 this,
@@ -191,7 +202,7 @@ class CircuitCreate : BaseActivity() {
             ).show()
         } else {
             if (currentText.toInt() > 0) {
-                bind.setWorkTime.setText(roundTimeDown(currentText.toInt()).toString())
+                bind!!.setWorkTime.setText(roundTimeDown(currentText.toInt()).toString())
             } else {
                 Toast.makeText(
                     this,
@@ -203,9 +214,9 @@ class CircuitCreate : BaseActivity() {
     }
 
     private fun addRest() {
-        val currentText = bind.setRestTime.text.toString()
+        val currentText = bind!!.setRestTime.text.toString()
         if (currentText == "") {
-            bind.setRestTime.setText(TIME_CHANGE_VALUE.toString())
+            bind!!.setRestTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
             if (currentText.toInt() >= MAX_REST) {
                 Toast.makeText(
@@ -214,13 +225,13 @@ class CircuitCreate : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                bind.setRestTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
+                bind!!.setRestTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
         }
     }
 
     private fun minusRest() {
-        val currentText = bind.setRestTime.text.toString()
+        val currentText = bind!!.setRestTime.text.toString()
         if (currentText == "") {
             Toast.makeText(
                 this,
@@ -229,7 +240,7 @@ class CircuitCreate : BaseActivity() {
             ).show()
         } else {
             if (currentText.toInt() > 0) {
-                bind.setRestTime.setText(roundTimeDown(currentText.toInt()).toString())
+                bind!!.setRestTime.setText(roundTimeDown(currentText.toInt()).toString())
             } else {
                 Toast.makeText(
                     this,
@@ -310,7 +321,7 @@ class CircuitCreate : BaseActivity() {
         }
 
         dialogView.save.setOnClickListener {
-            bind.circuitIcon.setImageResource(
+            bind!!.circuitIcon.setImageResource(
                 resources.getIdentifier(
                     iconNames.getString(selectedIcon),
                     "drawable",

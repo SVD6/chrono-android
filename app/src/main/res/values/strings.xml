@@ -50,7 +50,6 @@
 
     <string name="notifications">Notifications</string>
     <string name="on">On</string>
-    <string name="get_ready_time">Get Ready Time</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="off">Off</string>
     <string name="circuit_timer">Circuit Timer</string>
@@ -59,6 +58,11 @@
     <string name="about">About</string>
     <string name="set">Set</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="get_ready_time">Get Ready Time</string>
+    <string name="time_emoji">⏳</string>
+    <string name="_5s">5s</string>
+    <string name="_10s">10s</string>
+    <string name="_15s">15s</string>
     <string name="rate_app">Rate App</string>
     <string name="get_help">Get Help</string>
     <string name="skip_last_rest">Skip Last Rest</string>
