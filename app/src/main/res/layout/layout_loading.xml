@@ -4,20 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/large_element_padding">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="lottie_loading.json"
+        app:lottie_loop="true"
+        app:lottie_speed="2.0" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_loading.json"
-            app:lottie_loop="true"
-            app:lottie_speed="2.0" />
-
-    </RelativeLayout>
 </RelativeLayout>
