@@ -101,4 +101,6 @@
     <string name="chrono_logo">Chrono Logo</string>
     <string name="change_nicon">Change\nIcon</string>
     <string name="max_char_warning">Maximum 50 characters.</string>
+    <string name="version_number">Version 0.2.0</string>
+    <string name="coming_soon">Coming Soon</string>
 </resources>

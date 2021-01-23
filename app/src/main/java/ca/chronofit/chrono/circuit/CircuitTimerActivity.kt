@@ -10,8 +10,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
@@ -23,7 +21,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
@@ -33,8 +30,6 @@ class CircuitTimerActivity : BaseActivity() {
 
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
-
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private lateinit var mInterstitialAd: InterstitialAd
 
@@ -47,6 +42,7 @@ class CircuitTimerActivity : BaseActivity() {
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var skipLastRest: Boolean = false
+    private var adsEnabled: Boolean? = false
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -68,6 +64,7 @@ class CircuitTimerActivity : BaseActivity() {
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
+        // Possibly show loading screen
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
@@ -200,7 +197,7 @@ class CircuitTimerActivity : BaseActivity() {
             finish()
 
             // Show the ad
-            if (mInterstitialAd.isLoaded) {
+            if (mInterstitialAd.isLoaded && adsEnabled!!) {
                 mInterstitialAd.show()
             } else {
                 Log.d("AD", "The interstitial wasn't loaded yet.")
@@ -210,7 +207,7 @@ class CircuitTimerActivity : BaseActivity() {
         // If the user wants to run the circuit again
         dialogView.cancel.setOnClickListener {
             // Show the ad if it loaded
-            if (mInterstitialAd.isLoaded) {
+            if (mInterstitialAd.isLoaded && adsEnabled!!) {
                 mInterstitialAd.adListener = object : AdListener() {
                     override fun onAdClosed() {
                         // Reload the circuit
@@ -397,19 +394,17 @@ class CircuitTimerActivity : BaseActivity() {
         }
     }
 
-    private fun createNotification(time: Float) {
-        val builder =
-            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
-                .setSmallIcon(R.drawable.ic_notification_logo)
-                .setContentTitle("Notification test")
-                .setContentText(time.toString())
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-
-        with(NotificationManagerCompat.from(this)) {
-            //notificationId is a unique int for each notification that you must define
-            notify(2, builder.build())
-        }
-    }
-
-
+//    private fun createNotification(time: Float) {
+//        val builder =
+//            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
+//                .setSmallIcon(R.drawable.ic_notification_logo)
+//                .setContentTitle("Notification test")
+//                .setContentText(time.toString())
+//                .setPriority(NotificationCompat.PRIORITY_LOW)
+//
+//        with(NotificationManagerCompat.from(this)) {
+//            //notificationId is a unique int for each notification that you must define
+//            notify(2, builder.build())
+//        }
+//    }
 }

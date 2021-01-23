@@ -16,6 +16,7 @@
             android:gravity="center"
             android:padding="@dimen/medium_element_padding"
             android:text="@string/settings"
+            android:textColor="@color/dark_mode_dark"
             android:textSize="@dimen/xl_huge_text" />
 
         <ScrollView
@@ -60,8 +61,23 @@
                         android:layout_centerVertical="true"
                         android:enabled="false"
                         android:text="@string/off"
+                        android:visibility="gone"
                         app:useMaterialThemeColors="false"
                         tools:ignore="RelativeOverlap" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dark_mode_temp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:backgroundTint="@color/colorAccent"
+                        android:fontFamily="@font/opensans_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/coming_soon"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/smaller_text"
+                        app:cornerRadius="@dimen/medium_element_padding" />
                 </RelativeLayout>
 
                 <View
@@ -90,7 +106,6 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:enabled="true"
-                        android:text="@string/off"
                         app:useMaterialThemeColors="false"
                         tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
@@ -132,7 +147,7 @@
                         android:gravity="end"
                         android:paddingHorizontal="@dimen/small_element_padding"
                         android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="5s"
+                        android:text="@string/_5s"
                         android:textColor="@color/faded_text"
                         android:textSize="@dimen/medium_text" />
                 </RelativeLayout>
@@ -303,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/small_element_padding"
-                    android:text="Version 0.2.0"
+                    android:text="@string/version_number"
                     android:textColor="@color/reset_grey"
                     android:textSize="@dimen/smaller_text" />
 
