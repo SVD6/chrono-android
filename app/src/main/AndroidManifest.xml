@@ -18,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ca.chronofit.chrono.circuit.CircuitCreate" />
+        <activity
+            android:name="ca.chronofit.chrono.circuit.CircuitCreate"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="ca.chronofit.chrono.circuit.CircuitTimerActivity" />
 
         <service
