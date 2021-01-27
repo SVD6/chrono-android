@@ -3,7 +3,6 @@ package ca.chronofit.chrono
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -24,8 +23,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var bind: ActivityMainBinding
 
-    private lateinit var mPrevConfig: Configuration
-
     private val settingsViewModel: SettingsViewModel by viewModels()
 
     private lateinit var frag1: StopwatchFrag
@@ -38,7 +35,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        mPrevConfig = Configuration(resources.configuration)
+        PreferenceManager.with(this)
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -69,22 +66,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         createStopwatchNotificationChannel()
 
         // Initialization stuff
-        loadSettings()
         observeSettings()
 
         // Check for an Update
 
         // Check for App Review
-    }
-
-    private fun loadSettings() {
-        // Dark Mode Stuff
-        if (PreferenceManager.get<String>(Constants.DARK_MODE_SETTING) != null) {
-            changeDarkMode(PreferenceManager.get<String>(Constants.DARK_MODE_SETTING)!!)
-        } else {
-            PreferenceManager.put(Constants.SYSTEM_DEFAULT, Constants.DARK_MODE_SETTING)
-            changeDarkMode(Constants.SYSTEM_DEFAULT)
-        }
     }
 
     private fun changeDarkMode(mode: String) {

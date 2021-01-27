@@ -53,9 +53,8 @@ class SettingsFrag : Fragment() {
                 (PreferenceManager.get<Int>(Constants.READY_TIME)!!.toString() + "s")
         }
 
-        if (PreferenceManager.get<String>(Constants.DARK_MODE_SETTING) != null) {
-            bind.darkModeDisplay.text = PreferenceManager.get<String>(Constants.DARK_MODE_SETTING)!!
-        }
+        bind.darkModeDisplay.text =
+            PreferenceManager.get(Constants.DARK_MODE_SETTING).replace("\"", "")
 
         if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS) != null) {
             bind.audioSwitch.isChecked = PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS)!!
