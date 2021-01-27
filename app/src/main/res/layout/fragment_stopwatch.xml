@@ -14,7 +14,6 @@
             android:gravity="center"
             android:padding="@dimen/medium_element_padding"
             android:text="@string/stopwatch"
-            android:textColor="@color/dark_mode_dark"
             android:textSize="@dimen/xl_huge_text" />
 
         <com.bosphere.fadingedgelayout.FadingEdgeLayout
@@ -43,6 +42,7 @@
 
             <ca.chronofit.chrono.util.components.Chronometer
                 android:id="@+id/chronometer"
+                style="@style/Widget.MaterialComponents.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -51,7 +51,6 @@
                 android:fontFamily="@font/opensans_regular"
                 android:gravity="center"
                 android:padding="@dimen/small_element_padding"
-                android:text="@string/chronometer"
                 android:textSize="@dimen/xs_massive_text" />
 
             <LinearLayout

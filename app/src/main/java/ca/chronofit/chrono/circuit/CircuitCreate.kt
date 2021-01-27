@@ -21,16 +21,9 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.dialog_select_icon.view.*
 
-private const val MAX_SETS: Int = 99
-private const val MAX_REST: Int = 995 // Actually 999
-private const val MAX_WORK: Int = 995 // Actually 999
-private const val TIME_CHANGE_VALUE: Int = 5
-
-private const val MAX_CHARACTERS: Int = 50
-
 class CircuitCreate : BaseActivity() {
-
     private lateinit var bind: ActivityCircuitCreateBinding
+
     private var selectedIcon: Int = 0
     private lateinit var iconNames: TypedArray
 
@@ -51,7 +44,7 @@ class CircuitCreate : BaseActivity() {
                 saveCircuit()
             }
         }
-      
+
         bind.circuitName.addTextChangedListener {
             if (bind.circuitName.length() >= MAX_CHARACTERS) {
                 bind.circuitNameWarning.visibility = View.VISIBLE
@@ -324,5 +317,13 @@ class CircuitCreate : BaseActivity() {
         // Display the Dialog
         builder.setView(dialogView)
         builder.show()
+    }
+
+    companion object {
+        private const val MAX_SETS: Int = 99
+        private const val MAX_WORK: Int = 995 // Actually 999
+        private const val MAX_REST: Int = 995 // Actually 999
+        private const val TIME_CHANGE_VALUE: Int = 5
+        private const val MAX_CHARACTERS: Int = 50
     }
 }
