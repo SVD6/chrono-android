@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.Toast
+import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,14 +21,13 @@ import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.cancel
 import kotlinx.android.synthetic.main.dialog_alert.view.confirm
+import kotlinx.android.synthetic.main.dialog_dark_mode.view.*
 import kotlinx.android.synthetic.main.dialog_ready_time.view.*
 
 class SettingsFrag : Fragment() {
     private lateinit var bind: FragmentSettingsBinding
 
     private val settingsViewModel: SettingsViewModel by activityViewModels()
-
-    private var getReadyTime: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +38,6 @@ class SettingsFrag : Fragment() {
             inflater, R.layout.fragment_settings,
             container, false
         )
-
         PreferenceManager.with(activity as MainActivity)
 
         // Load Settings (they're either default or have been messed with a bit)
@@ -51,8 +49,12 @@ class SettingsFrag : Fragment() {
 
     private fun loadSettings() {
         if (PreferenceManager.get<Int>(Constants.READY_TIME) != null) {
-            getReadyTime = PreferenceManager.get<Int>(Constants.READY_TIME)!!
-            bind.readyTimeDisplay.text = (getReadyTime.toString() + "s")
+            bind.readyTimeDisplay.text =
+                (PreferenceManager.get<Int>(Constants.READY_TIME)!!.toString() + "s")
+        }
+
+        if (PreferenceManager.get<String>(Constants.DARK_MODE_SETTING) != null) {
+            bind.darkModeDisplay.text = PreferenceManager.get<String>(Constants.DARK_MODE_SETTING)!!
         }
 
         if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS) != null) {
@@ -106,32 +108,8 @@ class SettingsFrag : Fragment() {
             startActivity(intent)
         }
 
-        // Dark Mode Switch DISABLED
-        bind.darkModeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                buttonView.text = getString(R.string.on)
-                settingsViewModel.onDarkModeChanged(true)
-            } else {
-                buttonView.text = getString(R.string.off)
-                settingsViewModel.onDarkModeChanged(false)
-            }
-        }
-
-        // TEMPORARY Dark Mode Not Ready
         bind.darkMode.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Dark Mode under construction \uD83D\uDEA7",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-        bind.darkModeTemp.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Dark Mode under construction \uD83D\uDEA7",
-                Toast.LENGTH_SHORT
-            ).show()
+            showDarkModePopup()
         }
 
         // Notification Switch
@@ -173,37 +151,68 @@ class SettingsFrag : Fragment() {
 
         // Get Ready Time Selector
         bind.getReadyTime.setOnClickListener {
-            val builder =
-                MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
-            val dialogView = View.inflate(requireContext(), R.layout.dialog_ready_time, null)
-
-            // Pre select the saved option (if it's 5s then make sure 5s is already checked)
-            when (bind.readyTimeDisplay.text) {
-                "5s" -> dialogView.ready_time_select.check(R.id.radio_5s)
-                "10s" -> dialogView.ready_time_select.check(R.id.radio_10s)
-                "15s" -> dialogView.ready_time_select.check(R.id.radio_15s)
-            }
-
-            // Button Logic
-            dialogView.cancel.setOnClickListener {
-                builder.dismiss()
-            }
-
-            dialogView.confirm.setOnClickListener {
-                builder.dismiss()
-                val selectedTime =
-                    (dialogView.findViewById(dialogView.ready_time_select.checkedRadioButtonId) as RadioButton).text
-                bind.readyTimeDisplay.text = selectedTime
-                // Add to Settings that yo new get ready time
-                settingsViewModel.onReadyTimeChanged(selectedTime.toString())
-                PreferenceManager.put(
-                    (selectedTime.toString().substring(0, selectedTime.toString().length - 1))
-                        .toInt(), "readyTime"
-                )
-            }
-
-            builder.setView(dialogView)
-            builder.show()
+            showReadyTimePopup()
         }
+    }
+
+    private fun showReadyTimePopup() {
+        val builder =
+            MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
+        val dialogView = View.inflate(requireContext(), R.layout.dialog_ready_time, null)
+
+        // Pre select the saved option (if it's 5s then make sure 5s is already checked)
+        when (bind.readyTimeDisplay.text) {
+            "5s" -> dialogView.ready_time_select.check(R.id.radio_5s)
+            "10s" -> dialogView.ready_time_select.check(R.id.radio_10s)
+            "15s" -> dialogView.ready_time_select.check(R.id.radio_15s)
+        }
+
+        // Button Logic
+        dialogView.cancel.setOnClickListener {
+            builder.dismiss()
+        }
+
+        dialogView.confirm.setOnClickListener {
+            builder.dismiss()
+            val selectedTime =
+                (dialogView.findViewById(dialogView.ready_time_select.checkedRadioButtonId) as RadioButton).text
+            bind.readyTimeDisplay.text = selectedTime
+
+            settingsViewModel.onReadyTimeChanged(selectedTime.toString())
+            PreferenceManager.put(
+                (selectedTime.toString().substring(0, selectedTime.toString().length - 1))
+                    .toInt(), Constants.READY_TIME
+            )
+        }
+
+        builder.setView(dialogView)
+        builder.show()
+    }
+
+    private fun showDarkModePopup() {
+        val builder =
+            MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
+        val dialogView = View.inflate(requireContext(), R.layout.dialog_dark_mode, null)
+
+        when (bind.darkModeDisplay.text) {
+            Constants.DARK_MODE -> dialogView.dark_mode_select.check(R.id.radio_on)
+            Constants.LIGHT_MODE -> dialogView.dark_mode_select.check(R.id.radio_off)
+            Constants.SYSTEM_DEFAULT -> dialogView.dark_mode_select.check(R.id.radio_system)
+        }
+
+        dialogView.cancel.visibility = View.GONE
+
+        dialogView.dark_mode_select.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
+            builder.dismiss()
+            val selectedText =
+                (dialogView.findViewById(dialogView.dark_mode_select.checkedRadioButtonId) as RadioButton).text
+            bind.darkModeDisplay.text = selectedText
+
+            PreferenceManager.put(selectedText, Constants.DARK_MODE_SETTING)
+            settingsViewModel.onDarkModeChanged(selectedText.toString())
+        }
+
+        builder.setView(dialogView)
+        builder.show()
     }
 }

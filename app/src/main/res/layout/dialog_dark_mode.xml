@@ -18,45 +18,45 @@
             android:lines="1"
             android:maxLines="1"
             android:padding="@dimen/small_element_padding"
-            android:text="@string/get_ready_time"
+            android:text="@string/dark_mode"
             android:textSize="@dimen/xl_large_text"
             android:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time_emoji"
+            android:text="@string/dark_emoji"
             android:textSize="@dimen/xl_large_text" />
     </LinearLayout>
 
     <RadioGroup
-        android:id="@+id/ready_time_select"
+        android:id="@+id/dark_mode_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radio_5s"
+            android:id="@+id/radio_on"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="@string/_5s"
+            android:text="@string/on"
             android:textSize="@dimen/medium_text" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radio_10s"
+            android:id="@+id/radio_off"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="@string/_10s"
+            android:text="@string/off"
             android:textSize="@dimen/medium_text" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radio_15s"
+            android:id="@+id/radio_system"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="@string/_15s"
+            android:text="@string/system_default"
             android:textSize="@dimen/medium_text" />
 
     </RadioGroup>
