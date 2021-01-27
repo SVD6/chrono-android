@@ -130,8 +130,6 @@
                         android:gravity="end"
                         android:paddingHorizontal="@dimen/small_element_padding"
                         android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/_5s"
-                        android:textColor="@color/faded_text"
                         android:textSize="@dimen/medium_text" />
                 </RelativeLayout>
 

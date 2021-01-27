@@ -199,8 +199,6 @@ class SettingsFrag : Fragment() {
             Constants.SYSTEM_DEFAULT -> dialogView.dark_mode_select.check(R.id.radio_system)
         }
 
-        dialogView.cancel.visibility = View.GONE
-
         dialogView.dark_mode_select.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
             builder.dismiss()
             val selectedText =
