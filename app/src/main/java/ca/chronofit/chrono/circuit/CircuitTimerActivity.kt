@@ -23,17 +23,12 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitTimerBinding
-
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
@@ -70,8 +65,6 @@ class CircuitTimerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
-
-        firebaseAnalytics = Firebase.analytics
         // Possibly show loading screen
 
         circuit = GsonBuilder().create()
@@ -85,28 +78,29 @@ class CircuitTimerActivity : BaseActivity() {
         updateRestUI()
         loadAds()
 
-        bind!!.startButton.setOnClickListener {
-            loadTimer(circuit)
-            timerState = TimerState.RUNNING
-            firebaseAnalytics.logEvent(Events.CIRCUIT_STARTED) {
-                param("circuit_name", circuit.name.toString())
-            }
-            getReady()
         bind.startButton.setOnClickListener {
+            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_STARTED, Bundle())
             start()
         }
 
         bind.pauseButton.setOnClickListener {
+            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_PAUSED, Bundle())
             pause()
         }
 
         bind.resumeButton.setOnClickListener {
+            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_RESTARTED, Bundle())
             resume()
         }
 
         bind.countdown.setOnClickListener {
-            if (timerState == TimerState.RUNNING && runningState != RunningState.READY) pause()
-            else if (timerState == TimerState.PAUSED) resume()
+            if (timerState == TimerState.RUNNING && runningState != RunningState.READY) {
+                FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_PAUSED, Bundle())
+                pause()
+            } else if (timerState == TimerState.PAUSED) {
+                FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_RESTARTED, Bundle())
+                resume()
+            }
         }
 
         bind.stopButton.setOnClickListener {
@@ -118,6 +112,7 @@ class CircuitTimerActivity : BaseActivity() {
         }
 
         bind.closeButton.setOnClickListener {
+            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_EXITED, Bundle())
             // Make sure that the timer is shut down
             if (timerState != TimerState.INIT) {
                 countdown.cancel()

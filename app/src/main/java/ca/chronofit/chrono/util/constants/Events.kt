@@ -15,6 +15,6 @@ object Events {
 
     // Stopwatch Related Events
     const val STOPWATCH_STARTED = "stopwatch_started"
-    const val STOPWATCH_PAUSED = "stopwatch_paused"
+    const val STOPWATCH_STOPPED = "stopwatch_stopped"
     const val STOPWATCH_LAPPED = "stopwatch_lapped"
 }
