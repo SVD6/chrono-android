@@ -1,13 +1,21 @@
 package ca.chronofit.chrono.util.components
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
 import android.util.AttributeSet
+import android.widget.RemoteViews
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import ca.chronofit.chrono.R
+import ca.chronofit.chrono.stopwatch.StopwatchFrag
+import ca.chronofit.chrono.util.services.NotificationIntentService
 import java.text.DecimalFormat
 
 class Chronometer @JvmOverloads constructor(
@@ -17,14 +25,19 @@ class Chronometer @JvmOverloads constructor(
 ) : AppCompatTextView(
     context!!, attrs, defStyle
 ) {
-
     private val tickWhat = 2
     private var mBase: Long = 0
-    private var mVisible = false
+    private var mVisible = true
     private var mStarted = false
     private var mRunning = false
     private var onChronometerTickListener: OnChronometerTickListener? = null
     private var timeElapsed: Long = 0
+    private var showNotification = false
+    private var notificationTime = "00:00"
+    private val notificationId = 12
+    private var lastSecond = -1
+
+    private var notificationEnabled: Boolean? = null
 
     var base: Long
         get() = mBase
@@ -63,17 +76,20 @@ class Chronometer @JvmOverloads constructor(
     fun stop() {
         mStarted = false
         updateRunning()
+        if (notificationEnabled!!) {
+            createStoppedNotification(notificationTime)
+        }
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        mVisible = false
+        showNotification = true
         updateRunning()
     }
 
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
-        mVisible = visibility == VISIBLE
+        showNotification = visibility != VISIBLE
         updateRunning()
     }
 
@@ -95,8 +111,18 @@ class Chronometer @JvmOverloads constructor(
             text += df.format(hours.toLong()) + ":"
         }
         text += df.format(minutes.toLong()) + ":"
-        text += df.format(seconds.toLong()) + ":"
-        text += milliseconds.toString() + tenthMillisecond.toString()
+        text += df.format(seconds.toLong())
+        if (lastSecond != seconds) {
+            notificationTime = text
+            lastSecond = seconds
+            if (mStarted && notificationEnabled!!) {
+                createRunningNotification(notificationTime)
+            } else {
+                NotificationManagerCompat.from(context).cancel(notificationId) // Reset is pressed
+            }
+        }
+        text += ":$milliseconds"
+        text += tenthMillisecond.toString()
         setText(text)
     }
 
@@ -131,5 +157,92 @@ class Chronometer @JvmOverloads constructor(
 
     init {
         init()
+    }
+
+    private fun createRunningNotification(time: String) {
+        val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch_running)
+
+        val stopIntent = Intent(context, NotificationIntentService::class.java)
+        stopIntent.action = StopwatchFrag.STOP
+        customView.setOnClickPendingIntent(
+            R.id.stop_stopwatch,
+            PendingIntent.getService(context, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        )
+
+        val resetIntent = Intent(context, NotificationIntentService::class.java)
+        resetIntent.action = StopwatchFrag.RESET
+        customView.setOnClickPendingIntent(
+            R.id.reset_stopwatch,
+            PendingIntent.getService(context, 1, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        )
+
+        customView.setTextViewText(R.id.elapsed_time, time)
+
+        val builder =
+            NotificationCompat.Builder(
+                context,
+                context.getString(R.string.stopwatch_notification_channel_id)
+            )
+                .setSmallIcon(R.drawable.ic_notification_logo)
+                .setContentTitle("Stopwatch")
+                .setContentText(time)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomContentView(customView)
+
+        if (showNotification) {
+            with(NotificationManagerCompat.from(context)) {
+                //notificationId is a unique int for each notification that you must define
+                notify(notificationId, builder.build())
+            }
+        }
+    }
+
+    private fun createStoppedNotification(time: String) {
+        val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch_stopped)
+
+        val resumeIntent = Intent(context, NotificationIntentService::class.java)
+        resumeIntent.action = StopwatchFrag.RESUME
+        customView.setOnClickPendingIntent(
+            R.id.resume_stopwatch,
+            PendingIntent.getService(context, 0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        )
+
+        val resetIntent = Intent(context, NotificationIntentService::class.java)
+        resetIntent.action = StopwatchFrag.RESET
+        customView.setOnClickPendingIntent(
+            R.id.reset_stopwatch,
+            PendingIntent.getService(
+                context,
+                notificationId,
+                resetIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        )
+
+        customView.setTextViewText(R.id.elapsed_time, time)
+
+        val builder =
+            NotificationCompat.Builder(
+                context,
+                context.getString(R.string.stopwatch_notification_channel_id)
+            )
+                .setSmallIcon(R.drawable.ic_notification_logo)
+                .setContentTitle("Stopwatch")
+                .setContentText(time)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomContentView(customView)
+
+        if (showNotification) {
+            with(NotificationManagerCompat.from(context)) {
+                //notificationId is a unique int for each notification that you must define
+                notify(notificationId, builder.build())
+            }
+        }
+    }
+
+    fun setNotificationEnabled(setting: Boolean) {
+        notificationEnabled = setting
     }
 }

@@ -29,7 +29,7 @@
     <string name="workout">Workout</string>
     <string name="get_ready">Get Ready</string>
     <string name="circuit_name">Circuit Name</string>
-    <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
+
     <string name="lets_go">Let\'s Go!</string>
     <string name="settings">Settings</string>
     <string name="circuits">Circuits</string>
@@ -48,11 +48,8 @@
     <string name="circuit_complete_cancel">Restart</string>
     <string name="circuit_complete_celebrate">Circuit Complete!</string>
 
-    <string name="bad_word_warning">Don\'t use bad words!! :(</string>
-    <string name="min_char_warning">Name has to be minimum 3 characters.</string>
     <string name="notifications">Notifications</string>
     <string name="on">On</string>
-    <string name="get_ready_time">Get Ready Time</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="off">Off</string>
     <string name="circuit_timer">Circuit Timer</string>
@@ -61,6 +58,15 @@
     <string name="about">About</string>
     <string name="set">Set</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="get_ready_time">Get Ready Time</string>
+    <string name="time_emoji">⏳</string>
+    <string name="dark_emoji">🕶️</string>
+    <string name="_5s">5s</string>
+    <string name="_10s">10s</string>
+    <string name="_15s">15s</string>
+    <string name="rate_app">Rate App</string>
+    <string name="get_help">Get Help</string>
+    <string name="skip_last_rest">Skip Last Rest</string>
     <string name="select_icon_subtitle">Use this icon to represent your circuit</string>
 
     <!-- Drawable Names-->
@@ -87,4 +93,16 @@
         <item>drawable/ic_workout</item>
         <item>drawable/ic_workout_3</item>
     </string-array>
+
+<!--    Notification channel id's-->
+    <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
+    <string name="timer_notification_channel_id">chrono_timer_default_channel</string>
+    <string name="stopwatch_notification_channel_id">chrono_stopwatch_default_channel</string>
+
+    <string name="chrono_logo">Chrono Logo</string>
+    <string name="change_nicon">Change\nIcon</string>
+    <string name="max_char_warning">Maximum 50 characters.</string>
+    <string name="version_number">Version 0.2.0</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="system_default">System Default</string>
 </resources>

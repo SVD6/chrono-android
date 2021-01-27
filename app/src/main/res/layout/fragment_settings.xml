@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,15 +52,15 @@
                         android:text="@string/dark_mode"
                         android:textSize="@dimen/large_text" />
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/dark_mode_switch"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/dark_mode_display"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:enabled="false"
-                        android:text="@string/off"
-                        app:useMaterialThemeColors="false" />
+                        android:gravity="end"
+                        android:paddingHorizontal="@dimen/small_element_padding"
+                        android:paddingVertical="@dimen/medium_element_padding"
+                        android:textSize="@dimen/medium_text" />
                 </RelativeLayout>
 
                 <View
@@ -88,8 +89,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:enabled="true"
-                        android:text="@string/off"
-                        app:useMaterialThemeColors="false" />
+                        app:useMaterialThemeColors="false"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
 
                 <View
@@ -129,7 +130,7 @@
                         android:gravity="end"
                         android:paddingHorizontal="@dimen/small_element_padding"
                         android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="5s"
+                        android:text="@string/_5s"
                         android:textColor="@color/faded_text"
                         android:textSize="@dimen/medium_text" />
                 </RelativeLayout>
@@ -159,9 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:checked="true"
                         android:enabled="true"
-                        android:text="@string/on"
                         app:useMaterialThemeColors="false" />
                 </RelativeLayout>
 
@@ -181,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="Skip Last Rest"
+                        android:text="@string/skip_last_rest"
                         android:textSize="@dimen/large_text" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
@@ -220,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="Get Help"
+                        android:text="@string/get_help"
                         android:textSize="@dimen/large_text" />
 
                     <ImageView
@@ -228,7 +227,40 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:contentDescription="@string/todo"
+                        android:paddingHorizontal="@dimen/tiny_element_padding"
                         android:src="@drawable/ic_help_black"
+                        app:tint="@color/reset_grey" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                    android:background="@color/grey_light_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/rate_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/Widget.MaterialComponents.TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingVertical="@dimen/medium_element_padding"
+                        android:text="@string/rate_app"
+                        android:textSize="@dimen/large_text" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_star_rate_black"
                         app:tint="@color/reset_grey" />
                 </RelativeLayout>
 
@@ -257,6 +289,8 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:contentDescription="@string/todo"
+                        android:paddingHorizontal="@dimen/tiny_element_padding"
                         android:src="@drawable/ic_lock_black"
                         app:tint="@color/reset_grey" />
                 </RelativeLayout>
@@ -267,7 +301,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/small_element_padding"
-                    android:text="Version Number 0.2.0"
+                    android:text="@string/version_number"
                     android:textColor="@color/reset_grey"
                     android:textSize="@dimen/smaller_text" />
 
