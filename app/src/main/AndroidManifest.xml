@@ -9,9 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:configChanges="uiMode" />
-        <activity android:name=".SplashActivity">
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,9 +18,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="ca.chronofit.chrono.circuit.CircuitCreate"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="ca.chronofit.chrono.circuit.CircuitTimerActivity" />
+        <activity
+            android:name="ca.chronofit.chrono.circuit.CircuitTimerActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".util.services.FirebaseCloudMessaging"

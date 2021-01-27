@@ -3,22 +3,28 @@ package ca.chronofit.chrono
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
-import ca.chronofit.chrono.databinding.ActivityMainBinding
 import ca.chronofit.chrono.circuit.CircuitDashboardFrag
+import ca.chronofit.chrono.databinding.ActivityMainBinding
 import ca.chronofit.chrono.settings.SettingsFrag
 import ca.chronofit.chrono.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.BaseActivity
+import ca.chronofit.chrono.util.constants.Constants
+import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var bind: ActivityMainBinding
+
+    private lateinit var mPrevConfig: Configuration
 
     private val settingsViewModel: SettingsViewModel by viewModels()
 
@@ -32,27 +38,38 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        mPrevConfig = Configuration(resources.configuration)
+
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        val fragTransaction = supportFragmentManager.beginTransaction()
+        if (savedInstanceState == null) {
+            val fragTransaction = supportFragmentManager.beginTransaction()
 
-        frag1 = StopwatchFrag()
-        fragTransaction.add(R.id.content, frag1)
+            frag1 = StopwatchFrag()
+            frag2 = CircuitDashboardFrag()
+            frag3 = SettingsFrag()
+            fragTransaction.add(R.id.content, frag1, "FRAG1").add(R.id.content, frag2, "FRAG2")
+                .add(R.id.content, frag3, "FRAG3")
+                .commitAllowingStateLoss()
 
-        frag2 = CircuitDashboardFrag()
-        fragTransaction.add(R.id.content, frag2)
+            bind.navBar.setOnNavigationItemSelectedListener(this)
+            bind.navBar.selectedItemId = R.id.nav_circuit
 
-        frag3 = SettingsFrag()
-        fragTransaction.add(R.id.content, frag3)
-
-        fragTransaction.commitAllowingStateLoss()
-
-        bind.navBar.setOnNavigationItemSelectedListener(this)
-        bind.navBar.selectedItemId = R.id.nav_circuit
+        } else {
+            frag2 = supportFragmentManager.getFragment(
+                savedInstanceState,
+                "FRAG2"
+            ) as CircuitDashboardFrag
+            frag1 = supportFragmentManager.getFragment(savedInstanceState, "FRAG1") as StopwatchFrag
+            frag3 = supportFragmentManager.getFragment(savedInstanceState, "FRAG3") as SettingsFrag
+            bind.navBar.setOnNavigationItemSelectedListener(this)
+        }
 
         createTimerNotificationChannel()
         createStopwatchNotificationChannel()
-        // Observe Settings
+
+        // Initialization stuff
+        loadSettings()
         observeSettings()
 
         // Check for an Update
@@ -60,13 +77,36 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Check for App Review
     }
 
+    private fun loadSettings() {
+        // Dark Mode Stuff
+        if (PreferenceManager.get<String>(Constants.DARK_MODE_SETTING) != null) {
+            changeDarkMode(PreferenceManager.get<String>(Constants.DARK_MODE_SETTING)!!)
+        } else {
+            PreferenceManager.put(Constants.SYSTEM_DEFAULT, Constants.DARK_MODE_SETTING)
+            changeDarkMode(Constants.SYSTEM_DEFAULT)
+        }
+    }
+
+    private fun changeDarkMode(mode: String) {
+        when (mode) {
+            Constants.DARK_MODE -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+            }
+            Constants.LIGHT_MODE -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                delegate.applyDayNight()
+            }
+            Constants.SYSTEM_DEFAULT -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                delegate.applyDayNight()
+            }
+        }
+    }
+
     private fun observeSettings() {
         settingsViewModel.darkMode.observe(this, { darkMode ->
-            if (darkMode) {
-                Log.i("settings", "Registered darkMode")
-            } else {
-                Log.i("settings", "Unregistered darkMode")
-            }
+            changeDarkMode(darkMode)
         })
 
         settingsViewModel.notifications.observe(this, { notifications ->
@@ -107,14 +147,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-    override fun onBackPressed() {
-        if (frag2.isHidden) {
-            bind.navBar.selectedItemId = R.id.nav_circuit
-        } else {
-            super.onBackPressed()
-        }
-    }
-
     private fun createTimerNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -146,6 +178,22 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    override fun onSaveInstanceState(state: Bundle) {
+        super.onSaveInstanceState(state)
+        Log.i("state", "saved")
+        supportFragmentManager.putFragment(state, "FRAG3", frag3)
+        supportFragmentManager.putFragment(state, "FRAG2", frag2)
+        supportFragmentManager.putFragment(state, "FRAG1", frag1)
+    }
+
+    override fun onBackPressed() {
+        if (frag2.isHidden) {
+            bind.navBar.selectedItemId = R.id.nav_circuit
+        } else {
+            super.onBackPressed()
         }
     }
 }

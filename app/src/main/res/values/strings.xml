@@ -60,6 +60,7 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="get_ready_time">Get Ready Time</string>
     <string name="time_emoji">⏳</string>
+    <string name="dark_emoji">🕶️</string>
     <string name="_5s">5s</string>
     <string name="_10s">10s</string>
     <string name="_15s">15s</string>
@@ -103,4 +104,5 @@
     <string name="max_char_warning">Maximum 50 characters.</string>
     <string name="version_number">Version 0.2.0</string>
     <string name="coming_soon">Coming Soon</string>
+    <string name="system_default">System Default</string>
 </resources>
