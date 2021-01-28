@@ -10,7 +10,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
