@@ -3,6 +3,9 @@ package ca.chronofit.chrono.util.helpers
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import java.text.DecimalFormat
 
 fun getTime(timeElapsed: Long): String {
