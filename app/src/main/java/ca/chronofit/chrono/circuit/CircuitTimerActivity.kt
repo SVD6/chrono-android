@@ -10,6 +10,8 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
@@ -187,6 +189,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun isDone() {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
@@ -288,6 +291,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun start() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         loadTimer(circuit)
         getReady()
     }
