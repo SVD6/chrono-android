@@ -15,10 +15,12 @@ import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitCreateBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
+import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.dialog_select_icon.view.*
 
 class CircuitCreate : BaseActivity() {
@@ -41,6 +43,7 @@ class CircuitCreate : BaseActivity() {
 
         bind.saveButton.setOnClickListener {
             if (validateInputs()) {
+                FirebaseAnalytics.getInstance(this).logEvent(Events.CREATE_COMPLETE, Bundle())
                 saveCircuit()
             }
         }

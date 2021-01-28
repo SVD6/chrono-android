@@ -18,12 +18,14 @@ import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.adapters.CircuitViewAdapter
 import ca.chronofit.chrono.util.constants.Constants
+import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlinx.android.synthetic.main.fragment_dashboard_bottom_sheet.view.*
@@ -56,6 +58,8 @@ class CircuitDashboardFrag : Fragment() {
         loadData()
 
         bind.addCircuit.setOnClickListener {
+            FirebaseAnalytics.getInstance(requireContext())
+                .logEvent(Events.CREATE_STARTED, Bundle())
             startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
         }
 
