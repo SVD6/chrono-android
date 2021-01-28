@@ -343,10 +343,6 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.currentSet.text = getString(R.string.empty)
                 bind.currentState.text = getString(R.string.lets_go)
 
-                bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
                 bind.closeButton.setImageResource(R.drawable.ic_close_grey)
             }
             RunningState.WORK -> {
