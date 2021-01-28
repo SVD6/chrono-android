@@ -20,8 +20,10 @@ import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentStopwatchBinding
 import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
+import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.LapObject
 import ca.chronofit.chrono.util.objects.SettingsViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_stopwatch.*
 import java.text.DecimalFormat
 
@@ -58,10 +60,14 @@ class StopwatchFrag : Fragment() {
         // Button Logic
         bind.startButton.setOnClickListener {
             startStopwatch()
+            FirebaseAnalytics.getInstance(requireContext())
+                .logEvent(Events.STOPWATCH_STARTED, Bundle())
         }
 
         bind.stopButton.setOnClickListener {
             stopStopwatch()
+            FirebaseAnalytics.getInstance(requireContext())
+                .logEvent(Events.STOPWATCH_STOPPED, Bundle())
         }
 
         bind.resumeButton.setOnClickListener {
@@ -82,6 +88,8 @@ class StopwatchFrag : Fragment() {
                 bind.lapButton.isEnabled = false
             }
             lap()
+            FirebaseAnalytics.getInstance(requireContext())
+                .logEvent(Events.STOPWATCH_LAPPED, Bundle())
         }
 
         broadcastReceiver = object : BroadcastReceiver() {
