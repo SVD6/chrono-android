@@ -98,12 +98,6 @@ class CircuitCreate : BaseActivity() {
         }
     }
 
-    private fun hideKeyboard(view: View) {
-        val inputMethodManager =
-            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
     private fun saveCircuit() {
         val circuit = CircuitObject()
         circuit.name = bind.circuitName.text.toString()
@@ -267,6 +261,12 @@ class CircuitCreate : BaseActivity() {
         } else {
             floorVal(valToRound)
         }
+    }
+
+    private fun hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun selectIconDialog() {
