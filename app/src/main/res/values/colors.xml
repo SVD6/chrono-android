@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Main Style Colors -->
     <color name="colorPrimary">#E7E6E6</color>
     <color name="colorPrimaryDark">#7A7676</color>
     <color name="colorAccent">#4F60F8</color>
+
+
+    <!-- Light Mode Colors -->
+    <color name="lightText">#414141</color>
+
+    <!-- Dark Mode Colors -->
+    <color name="darkText">#E5E5E5</color>
 
     <!-- General Colors -->
     <color name="white">#FFFFFF</color>
