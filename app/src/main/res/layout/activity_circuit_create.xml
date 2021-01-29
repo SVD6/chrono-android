@@ -34,7 +34,7 @@
                     android:paddingBottom="@dimen/small_element_padding"
                     android:src="@drawable/ic_stopwatch" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -58,7 +58,7 @@
                 android:singleLine="true"
                 android:textSize="@dimen/huge_text" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/circuit_name_warning"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                     android:layout_marginBottom="@dimen/medium_element_padding"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -155,7 +155,7 @@
                     android:layout_marginVertical="@dimen/medium_element_padding"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -208,7 +208,7 @@
                             android:singleLine="true"
                             android:textSize="@dimen/xxl_huge_text" />
 
-                        <TextView
+                        <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -228,7 +228,7 @@
                     android:layout_marginBottom="@dimen/large_element_padding"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -281,7 +281,7 @@
                             android:singleLine="true"
                             android:textSize="@dimen/xxl_huge_text" />
 
-                        <TextView
+                        <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
