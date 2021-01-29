@@ -13,6 +13,7 @@
             android:id="@+id/name_icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/xs_large_element_padding"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/large_element_padding">
 
@@ -223,7 +224,8 @@
                     android:id="@+id/rest_selection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/medium_element_padding"
+                    android:layout_marginTop="@dimen/medium_element_padding"
+                    android:layout_marginBottom="@dimen/large_element_padding"
                     android:orientation="vertical">
 
                     <TextView
