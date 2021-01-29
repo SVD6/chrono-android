@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -20,14 +19,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_share_black"
-            app:tint="@color/reset_grey" />
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_share_black" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="Share"
+            android:text="@string/share"
             android:textSize="@dimen/large_text"
             android:textStyle="bold" />
     </LinearLayout>
@@ -46,14 +45,15 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_edit_black"
-            app:tint="@color/reset_grey" />
+            android:alpha="1.0"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_edit_black" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="Edit"
+            android:text="@string/edit"
             android:textSize="@dimen/large_text"
             android:textStyle="bold" />
     </LinearLayout>
@@ -72,14 +72,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_delete"
-            app:tint="@color/stop_red" />
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_delete" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/large_element_padding"
-            android:text="Delete"
+            android:text="@string/delete"
             android:textColor="@color/stop_red"
             android:textSize="@dimen/large_text"
             android:textStyle="bold" />

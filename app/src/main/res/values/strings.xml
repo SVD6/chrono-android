@@ -106,4 +106,6 @@
     <string name="system_default">System Default</string>
     <string name="the_number_of_seconds_before_your_circuit_begins">The number of seconds before your circuit begins</string>
     <string name="enter_the_dark_side">Enter the dark side</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
 </resources>

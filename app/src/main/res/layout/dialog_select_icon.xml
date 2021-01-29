@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_element_padding"
         android:layout_marginBottom="@dimen/medium_element_padding"
-        android:background="@color/white"
         app:items_visible="five"
         app:unselected_item_opacity="0.5" />
 
