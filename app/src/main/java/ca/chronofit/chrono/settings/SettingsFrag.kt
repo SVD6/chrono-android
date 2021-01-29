@@ -80,6 +80,24 @@ class SettingsFrag : Fragment() {
         }
     }
 
+    private fun defaultSettings() {
+        // Dark Mode Setting
+        if (PreferenceManager.get(Constants.DARK_MODE_SETTING) == null) {
+
+        } else {
+
+        }
+
+
+        // Last Rest Setting
+        if (PreferenceManager.get<Boolean>(Constants.LAST_REST) == null) {
+            bind.lastRestSwitch.isChecked = true
+            PreferenceManager.put(true, Constants.LAST_REST)
+        } else {
+            bind.lastRestSwitch.isChecked = PreferenceManager.get<Boolean>(Constants.LAST_REST)!!
+        }
+    }
+
     private fun initMenus() {
         bind.rateApp.setOnClickListener {
             val packageName = requireContext().packageName

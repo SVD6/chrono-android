@@ -21,18 +21,27 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_splash)
 
-        when (PreferenceManager.get(Constants.DARK_MODE_SETTING).replace("\"", "")) {
-            Constants.DARK_MODE -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                delegate.applyDayNight()
-            }
-            Constants.LIGHT_MODE -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                delegate.applyDayNight()
-            }
-            Constants.SYSTEM_DEFAULT -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                delegate.applyDayNight()
+        val prefs = getSharedPreferences("ca.chronofit.chrono", MODE_PRIVATE)
+
+        if (prefs.getBoolean(Constants.FIRST_RUN, true)) {
+            prefs.edit().putBoolean(Constants.FIRST_RUN, false).apply()
+            PreferenceManager.put(Constants.SYSTEM_DEFAULT, Constants.DARK_MODE_SETTING)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            delegate.applyDayNight()
+        } else {
+            when (PreferenceManager.get(Constants.DARK_MODE_SETTING).replace("\"", "")) {
+                Constants.DARK_MODE -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    delegate.applyDayNight()
+                }
+                Constants.LIGHT_MODE -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    delegate.applyDayNight()
+                }
+                Constants.SYSTEM_DEFAULT -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    delegate.applyDayNight()
+                }
             }
         }
 
@@ -44,10 +53,6 @@ class SplashActivity : BaseActivity() {
             bind!!.lightMode.visibility = View.VISIBLE
             bind!!.darkMode.visibility = View.GONE
         }
-
-        val shared = getSharedPreferences("TEST", MODE_PRIVATE)
-        val editor = shared.edit()
-        editor.putString("notification", "on").apply()
 
         // Set the time out delay and launch main activity afterwards
         Handler(

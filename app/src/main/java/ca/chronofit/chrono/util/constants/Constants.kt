@@ -4,6 +4,7 @@ object Constants {
 
     // Shared Preference Values
     const val CIRCUITS: String = "CIRCUITS"
+    const val FIRST_RUN: String = "first_run"
 
     // Settings Shared Preferences
     const val READY_TIME: String = "readyTime"
