@@ -7,10 +7,10 @@ object Constants {
     const val FIRST_RUN: String = "first_run"
 
     // Settings Shared Preferences
-    const val READY_TIME: String = "ready_time"
-    const val AUDIO_PROMPTS: String = "prompts"
-    const val LAST_REST: String = "last_rest"
-    const val NOTIFICATIONS: String = "notifications"
+    const val GET_READY_SETTING: String = "ready_time"
+    const val AUDIO_SETTING: String = "prompts"
+    const val LAST_REST_SETTING: String = "last_rest"
+    const val NOTIFICATION_SETTING: String = "notifications"
     const val DARK_MODE_SETTING: String = "dark_mode"
 
     // Dark Mode
