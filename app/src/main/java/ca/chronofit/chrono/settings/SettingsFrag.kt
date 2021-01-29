@@ -20,8 +20,6 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
-import kotlinx.android.synthetic.main.dialog_alert.view.cancel
-import kotlinx.android.synthetic.main.dialog_alert.view.confirm
 import kotlinx.android.synthetic.main.dialog_dark_mode.view.*
 import kotlinx.android.synthetic.main.dialog_ready_time.view.*
 
@@ -169,29 +167,25 @@ class SettingsFrag : Fragment() {
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_ready_time, null)
 
-        // Pre select the saved option (if it's 5s then make sure 5s is already checked)
+        // Preselect a Radio Button
         when (bind.readyTimeDisplay.text) {
             "5s" -> dialogView.ready_time_select.check(R.id.radio_5s)
             "10s" -> dialogView.ready_time_select.check(R.id.radio_10s)
             "15s" -> dialogView.ready_time_select.check(R.id.radio_15s)
         }
 
-        // Button Logic
-        dialogView.cancel.setOnClickListener {
-            builder.dismiss()
-        }
-
-        dialogView.confirm.setOnClickListener {
-            builder.dismiss()
+        // Radio Listener
+        dialogView.ready_time_select.setOnCheckedChangeListener { _, _ ->
             val selectedTime =
                 (dialogView.findViewById(dialogView.ready_time_select.checkedRadioButtonId) as RadioButton).text
             bind.readyTimeDisplay.text = selectedTime
 
-            settingsViewModel.onReadyTimeChanged(selectedTime.toString())
             PreferenceManager.put(
                 (selectedTime.toString().substring(0, selectedTime.toString().length - 1))
                     .toInt(), Constants.GET_READY_SETTING
             )
+            settingsViewModel.onReadyTimeChanged(selectedTime.toString())
+            builder.dismiss()
         }
 
         builder.setView(dialogView)
@@ -203,20 +197,22 @@ class SettingsFrag : Fragment() {
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_dark_mode, null)
 
+        // Preselect a Radio Button
         when (bind.darkModeDisplay.text) {
             Constants.DARK_MODE -> dialogView.dark_mode_select.check(R.id.radio_on)
             Constants.LIGHT_MODE -> dialogView.dark_mode_select.check(R.id.radio_off)
             Constants.SYSTEM_DEFAULT -> dialogView.dark_mode_select.check(R.id.radio_system)
         }
 
+        // Radio Listener
         dialogView.dark_mode_select.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
-            builder.dismiss()
             val selectedText =
                 (dialogView.findViewById(dialogView.dark_mode_select.checkedRadioButtonId) as RadioButton).text
             bind.darkModeDisplay.text = selectedText
 
             PreferenceManager.put(selectedText, Constants.DARK_MODE_SETTING)
             settingsViewModel.onDarkModeChanged(selectedText.toString())
+            builder.dismiss()
         }
 
         builder.setView(dialogView)
