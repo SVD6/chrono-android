@@ -15,7 +15,6 @@
             android:gravity="center"
             android:padding="@dimen/medium_element_padding"
             android:text="@string/circuits"
-            android:textColor="@color/dark_mode_dark"
             android:textSize="@dimen/xl_huge_text" />
 
         <LinearLayout

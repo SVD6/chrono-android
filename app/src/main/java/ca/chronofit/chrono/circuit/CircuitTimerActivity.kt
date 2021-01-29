@@ -200,6 +200,7 @@ class CircuitTimerActivity : BaseActivity() {
         dialogView.cancel.text = getString(R.string.circuit_complete_cancel)
 
         dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+        dialogView.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
 
         // User wants to return to dashboard
         dialogView.confirm.setOnClickListener {
@@ -355,10 +356,6 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.currentSet.text = getString(R.string.empty)
                 bind.currentState.text = getString(R.string.lets_go)
 
-                bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
                 bind.closeButton.setImageResource(R.drawable.ic_close_grey)
             }
             RunningState.WORK -> {

@@ -44,13 +44,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/circuit_name"
-            android:layout_marginStart="@dimen/custom_padding_1" />
+            android:layout_marginStart="@dimen/custom_padding_1"
+            android:alpha="0.6" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/num_sets"
-            android:layout_marginStart="@dimen/xss_huge_element_padding"
+            android:layout_marginStart="@dimen/custom_padding_2"
             android:layout_marginTop="@dimen/xs_medium_element_padding">
 
             <ImageView
@@ -66,6 +67,7 @@
                 android:id="@+id/rest_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/timer_icon" />
 
         </RelativeLayout>
@@ -91,6 +93,7 @@
                 android:id="@+id/work_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/work_icon" />
 
         </RelativeLayout>

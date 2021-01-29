@@ -45,8 +45,9 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             frag1 = StopwatchFrag()
             frag2 = CircuitDashboardFrag()
             frag3 = SettingsFrag()
-            fragTransaction.add(R.id.content, frag1, "FRAG1").add(R.id.content, frag2, "FRAG2")
-                .add(R.id.content, frag3, "FRAG3")
+            fragTransaction.add(R.id.content, frag1, Constants.STOPWATCH_FRAG)
+                .add(R.id.content, frag2, Constants.CIRCUIT_FRAG)
+                .add(R.id.content, frag3, Constants.SETTINGS_FRAG)
                 .commitAllowingStateLoss()
 
             bind.navBar.setOnNavigationItemSelectedListener(this)
@@ -55,10 +56,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         } else {
             frag2 = supportFragmentManager.getFragment(
                 savedInstanceState,
-                "FRAG2"
+                Constants.CIRCUIT_FRAG
             ) as CircuitDashboardFrag
-            frag1 = supportFragmentManager.getFragment(savedInstanceState, "FRAG1") as StopwatchFrag
-            frag3 = supportFragmentManager.getFragment(savedInstanceState, "FRAG3") as SettingsFrag
+            frag1 = supportFragmentManager.getFragment(
+                savedInstanceState,
+                Constants.STOPWATCH_FRAG
+            ) as StopwatchFrag
+            frag3 = supportFragmentManager.getFragment(
+                savedInstanceState,
+                Constants.SETTINGS_FRAG
+            ) as SettingsFrag
             bind.navBar.setOnNavigationItemSelectedListener(this)
         }
 
@@ -170,9 +177,9 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onSaveInstanceState(state: Bundle) {
         super.onSaveInstanceState(state)
         Log.i("state", "saved")
-        supportFragmentManager.putFragment(state, "FRAG3", frag3)
-        supportFragmentManager.putFragment(state, "FRAG2", frag2)
-        supportFragmentManager.putFragment(state, "FRAG1", frag1)
+        supportFragmentManager.putFragment(state, Constants.STOPWATCH_FRAG, frag1)
+        supportFragmentManager.putFragment(state, Constants.CIRCUIT_FRAG, frag2)
+        supportFragmentManager.putFragment(state, Constants.SETTINGS_FRAG, frag3)
     }
 
     override fun onBackPressed() {

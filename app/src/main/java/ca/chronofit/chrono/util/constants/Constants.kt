@@ -1,6 +1,10 @@
 package ca.chronofit.chrono.util.constants
 
 object Constants {
+    // Fragment TAGS
+    const val CIRCUIT_FRAG: String = "CircuitFrag"
+    const val STOPWATCH_FRAG: String = "StopwatchFrag"
+    const val SETTINGS_FRAG: String = "SettingsFrag"
 
     // Shared Preference Values
     const val CIRCUITS: String = "CIRCUITS"
@@ -18,4 +22,6 @@ object Constants {
     const val LIGHT_MODE: String = "Off"
     const val SYSTEM_DEFAULT: String = "System Default"
 
+    // Version Number
+    const val VERSION_NUMBER: String = "Test Version 0.2.1"
 }

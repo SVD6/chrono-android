@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Main Style Colors -->
     <color name="colorPrimary">#E7E6E6</color>
     <color name="colorPrimaryDark">#7A7676</color>
     <color name="colorAccent">#4F60F8</color>
+
+    <!-- Light Mode Colors -->
+    <color name="lightText">#313131</color>
+    <color name="lightTextSecondary">#6F6F6F</color>
+
+    <!-- Dark Mode Colors -->
+    <color name="darkText">#DBDBDB</color>
+    <color name="darkTextSecondary">#AFAFAF</color>
 
     <!-- General Colors -->
     <color name="white">#FFFFFF</color>
@@ -24,13 +33,4 @@
 
     <!-- Nav Selectors -->
     <color name="select_grey">#DFE0DF</color>
-
-    <!-- Dark Mode Colors -->
-    <color name="dark_mode_background">#121212</color>
-    <color name="dark_mode_dark">#222222</color>
-    <color name="dark_mode_text">#BDBDBD</color>
-    <color name="dark_mode_accent">#676767</color>
-
-    <!-- Light Mode Colors -->
-    <color name="light_mode_text">#7B7B7B</color>
 </resources>
