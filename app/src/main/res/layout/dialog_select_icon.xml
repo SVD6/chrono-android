@@ -22,7 +22,8 @@
         android:id="@+id/subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/small_element_padding"
+        android:alpha="0.7"
+        android:paddingHorizontal="@dimen/small_element_padding"
         android:text="@string/select_icon_subtitle"
         android:textSize="@dimen/xl_medium_text" />
 

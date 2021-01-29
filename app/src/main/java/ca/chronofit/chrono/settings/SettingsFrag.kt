@@ -150,6 +150,8 @@ class SettingsFrag : Fragment() {
             )
             startActivity(intent)
         }
+
+        bind.versionNumber.text = Constants.VERSION_NUMBER
     }
 
     private fun switchLogic(setting: Boolean, switch: SwitchMaterial) {

@@ -28,6 +28,16 @@
             android:textSize="@dimen/xl_large_text" />
     </LinearLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_element_padding"
+        android:alpha="0.7"
+        android:paddingHorizontal="@dimen/small_element_padding"
+        android:text="@string/enter_the_dark_side"
+        android:textSize="@dimen/xl_medium_text" />
+
     <RadioGroup
         android:id="@+id/dark_mode_select"
         android:layout_width="wrap_content"

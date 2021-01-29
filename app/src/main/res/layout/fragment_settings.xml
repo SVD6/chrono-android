@@ -262,7 +262,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/todo"
-                        android:src="@drawable/ic_star_rate_black"
+                        android:src="@drawable/ic_star_rate"
                         app:tint="@color/reset_grey" />
                 </RelativeLayout>
 
@@ -293,7 +293,7 @@
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/todo"
                         android:paddingHorizontal="@dimen/tiny_element_padding"
-                        android:src="@drawable/ic_lock_black"
+                        android:src="@drawable/ic_lock"
                         app:tint="@color/reset_grey" />
                 </RelativeLayout>
 
@@ -301,12 +301,11 @@
                     android:id="@+id/version_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/small_element_padding"
+                    android:alpha="0.7"
                     android:gravity="center"
                     android:padding="@dimen/small_element_padding"
-                    android:text="@string/version_number"
-                    android:textColor="@color/reset_grey"
                     android:textSize="@dimen/smaller_text" />
-
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

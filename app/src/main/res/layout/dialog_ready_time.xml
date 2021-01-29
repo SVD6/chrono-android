@@ -28,6 +28,16 @@
             android:textSize="@dimen/xl_large_text" />
     </LinearLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_element_padding"
+        android:alpha="0.7"
+        android:paddingHorizontal="@dimen/small_element_padding"
+        android:text="@string/the_number_of_seconds_before_your_circuit_begins"
+        android:textSize="@dimen/xl_medium_text" />
+
     <RadioGroup
         android:id="@+id/ready_time_select"
         android:layout_width="wrap_content"

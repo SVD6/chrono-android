@@ -22,4 +22,6 @@ object Constants {
     const val LIGHT_MODE: String = "Off"
     const val SYSTEM_DEFAULT: String = "System Default"
 
+    // Version Number
+    const val VERSION_NUMBER: String = "Test Version 0.2.1"
 }
