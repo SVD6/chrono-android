@@ -91,7 +91,6 @@ class SettingsFrag : Fragment() {
     }
 
     private fun initMenus() {
-
         // Dark Mode Popup
         bind.darkMode.setOnClickListener {
             showDarkModePopup()
