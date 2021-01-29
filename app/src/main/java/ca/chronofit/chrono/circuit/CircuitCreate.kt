@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -68,9 +69,11 @@ class CircuitCreate : BaseActivity() {
         }
 
         bind.iconLayout.setOnClickListener {
+            hideKeyboard(currentFocus ?: View(this))
             selectIconDialog()
         }
         bind.circuitIcon.setOnClickListener {
+            hideKeyboard(currentFocus ?: View(this))
             selectIconDialog()
         }
         bind.addSet.setOnClickListener {
@@ -86,9 +89,11 @@ class CircuitCreate : BaseActivity() {
             minusWork()
         }
         bind.addRest.setOnClickListener {
+            hideKeyboard(currentFocus ?: View(this))
             addRest()
         }
         bind.minusRest.setOnClickListener {
+            hideKeyboard(currentFocus ?: View(this))
             minusRest()
         }
     }
@@ -256,6 +261,12 @@ class CircuitCreate : BaseActivity() {
         } else {
             floorVal(valToRound)
         }
+    }
+
+    private fun hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun selectIconDialog() {
