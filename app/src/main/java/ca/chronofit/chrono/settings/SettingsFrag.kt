@@ -19,6 +19,7 @@ import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.android.synthetic.main.dialog_alert.view.cancel
 import kotlinx.android.synthetic.main.dialog_alert.view.confirm
 import kotlinx.android.synthetic.main.dialog_dark_mode.view.*
@@ -41,46 +42,89 @@ class SettingsFrag : Fragment() {
         PreferenceManager.with(activity as MainActivity)
 
         // Load Settings (they're either default or have been messed with a bit)
-        loadSettings()
+        defaultSettings()
         initMenus()
 
         return bind.root
     }
 
-    private fun loadSettings() {
-        if (PreferenceManager.get<Int>(Constants.READY_TIME) != null) {
-            bind.readyTimeDisplay.text =
-                (PreferenceManager.get<Int>(Constants.READY_TIME)!!.toString() + "s")
-        }
-
+    private fun defaultSettings() {
+        // Dark Mode Setting
         bind.darkModeDisplay.text =
             PreferenceManager.get(Constants.DARK_MODE_SETTING).replace("\"", "")
 
-        if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS) != null) {
-            bind.audioSwitch.isChecked = PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS)!!
-            if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS)!!) {
-                bind.audioSwitch.text = getString(R.string.on)
-            } else {
-                bind.audioSwitch.text = getString(R.string.off)
-            }
+        // Notifications Setting
+        if (PreferenceManager.get<Boolean>(Constants.NOTIFICATION_SETTING) == null) {
+            switchLogic(true, bind.notificationSwitch)
+            PreferenceManager.put(true, Constants.NOTIFICATION_SETTING)
+        } else {
+            switchLogic(
+                PreferenceManager.get<Boolean>(Constants.NOTIFICATION_SETTING)!!,
+                bind.notificationSwitch
+            )
         }
 
-        if (PreferenceManager.get<Boolean>(Constants.LAST_REST) != null) {
-            bind.lastRestSwitch.isChecked = PreferenceManager.get<Boolean>(Constants.LAST_REST)!!
+        // Ready Time Setting
+        if (PreferenceManager.get<Int>(Constants.GET_READY_SETTING) == null) {
+            bind.readyTimeDisplay.text = getString(R.string._5s)
+        } else {
+            bind.readyTimeDisplay.text =
+                (PreferenceManager.get<Int>(Constants.GET_READY_SETTING)!!.toString() + "s")
         }
 
-        if (PreferenceManager.get<Boolean>(Constants.NOTIFICATIONS) != null) {
-            bind.notificationSwitch.isChecked =
-                PreferenceManager.get<Boolean>(Constants.NOTIFICATIONS)!!
-            if (PreferenceManager.get<Boolean>(Constants.NOTIFICATIONS)!!) {
-                bind.notificationSwitch.text = getString(R.string.on)
-            } else {
-                bind.notificationSwitch.text = getString(R.string.off)
-            }
+        // Last Rest Setting
+        if (PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING) == null) {
+            bind.lastRestSwitch.isChecked = true
+            PreferenceManager.put(true, Constants.LAST_REST_SETTING)
+        } else {
+            bind.lastRestSwitch.isChecked =
+                PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING)!!
+        }
+
+        // Audio Setting
+        if (PreferenceManager.get<Boolean>(Constants.AUDIO_SETTING) == null) {
+            switchLogic(true, bind.audioSwitch)
+            PreferenceManager.put(true, Constants.AUDIO_SETTING)
+        } else {
+            switchLogic(PreferenceManager.get<Boolean>(Constants.AUDIO_SETTING)!!, bind.audioSwitch)
         }
     }
 
     private fun initMenus() {
+        // Dark Mode Popup
+        bind.darkMode.setOnClickListener {
+            showDarkModePopup()
+        }
+
+        // Notification Switch
+        bind.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            switchLogic(isChecked, bind.notificationSwitch)
+            PreferenceManager.put(isChecked, Constants.NOTIFICATION_SETTING)
+        }
+
+        // Get Ready Time Popup
+        bind.getReadyTime.setOnClickListener {
+            showReadyTimePopup()
+        }
+
+        // Audio Prompt Switch
+        bind.audioSwitch.setOnCheckedChangeListener { _, isChecked ->
+            switchLogic(isChecked, bind.audioSwitch)
+            PreferenceManager.put(isChecked, Constants.AUDIO_SETTING)
+        }
+
+        // Last Rest Switch
+        bind.lastRestSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                settingsViewModel.onLastRestChanged(true)
+                PreferenceManager.put(true, Constants.LAST_REST_SETTING)
+            } else {
+                settingsViewModel.onLastRestChanged(false)
+                PreferenceManager.put(false, Constants.LAST_REST_SETTING)
+            }
+        }
+
+        // Rate App Launch
         bind.rateApp.setOnClickListener {
             val packageName = requireContext().packageName
             try {
@@ -99,6 +143,8 @@ class SettingsFrag : Fragment() {
                 )
             }
         }
+
+        // Privacy Policy Launch
         bind.privacyPolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
@@ -106,51 +152,15 @@ class SettingsFrag : Fragment() {
             )
             startActivity(intent)
         }
+    }
 
-        bind.darkMode.setOnClickListener {
-            showDarkModePopup()
-        }
-
-        // Notification Switch
-        bind.notificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                buttonView.text = getString(R.string.on)
-                settingsViewModel.onNotificationChanged(true)
-                PreferenceManager.put(true, Constants.NOTIFICATIONS)
-            } else {
-                buttonView.text = getString(R.string.off)
-                settingsViewModel.onNotificationChanged(false)
-                PreferenceManager.put(false, Constants.NOTIFICATIONS)
-            }
-        }
-
-        // Audio Prompt Switch
-        bind.audioSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                buttonView.text = getString(R.string.on)
-                settingsViewModel.onAudioPromptChanged(true)
-                PreferenceManager.put(true, Constants.AUDIO_PROMPTS)
-            } else {
-                buttonView.text = getString(R.string.off)
-                settingsViewModel.onAudioPromptChanged(false)
-                PreferenceManager.put(false, Constants.AUDIO_PROMPTS)
-            }
-        }
-
-        // Last Rest Switch
-        bind.lastRestSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                settingsViewModel.onLastRestChanged(true)
-                PreferenceManager.put(true, Constants.LAST_REST)
-            } else {
-                settingsViewModel.onLastRestChanged(false)
-                PreferenceManager.put(false, Constants.LAST_REST)
-            }
-        }
-
-        // Get Ready Time Selector
-        bind.getReadyTime.setOnClickListener {
-            showReadyTimePopup()
+    private fun switchLogic(setting: Boolean, switch: SwitchMaterial) {
+        if (setting) {
+            switch.isChecked = true
+            switch.text = getString(R.string.on)
+        } else {
+            switch.isChecked = false
+            switch.text = getString(R.string.off)
         }
     }
 
@@ -180,7 +190,7 @@ class SettingsFrag : Fragment() {
             settingsViewModel.onReadyTimeChanged(selectedTime.toString())
             PreferenceManager.put(
                 (selectedTime.toString().substring(0, selectedTime.toString().length - 1))
-                    .toInt(), Constants.READY_TIME
+                    .toInt(), Constants.GET_READY_SETTING
             )
         }
 
