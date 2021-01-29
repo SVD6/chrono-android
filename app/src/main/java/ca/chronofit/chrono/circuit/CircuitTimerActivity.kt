@@ -200,6 +200,7 @@ class CircuitTimerActivity : BaseActivity() {
         dialogView.cancel.text = getString(R.string.circuit_complete_cancel)
 
         dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+        dialogView.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
 
         // User wants to return to dashboard
         dialogView.confirm.setOnClickListener {
