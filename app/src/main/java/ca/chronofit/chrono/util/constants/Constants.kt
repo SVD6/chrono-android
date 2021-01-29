@@ -8,13 +8,14 @@ object Constants {
 
     // Shared Preference Values
     const val CIRCUITS: String = "CIRCUITS"
+    const val FIRST_RUN: String = "first_run"
 
     // Settings Shared Preferences
-    const val READY_TIME: String = "readyTime"
-    const val AUDIO_PROMPTS: String = "prompts"
-    const val LAST_REST: String = "lastRest"
-    const val NOTIFICATIONS: String = "notifications"
-    const val DARK_MODE_SETTING: String = "darkMode"
+    const val GET_READY_SETTING: String = "ready_time"
+    const val AUDIO_SETTING: String = "prompts"
+    const val LAST_REST_SETTING: String = "last_rest"
+    const val NOTIFICATION_SETTING: String = "notifications"
+    const val DARK_MODE_SETTING: String = "dark_mode"
 
     // Dark Mode
     const val DARK_MODE: String = "On"

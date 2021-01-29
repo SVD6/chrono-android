@@ -163,16 +163,16 @@ class CircuitDashboardFrag : Fragment() {
 
     private fun observeSettings() {
         // Retrieve Settings if they exist
-        if (PreferenceManager.get<Int>(Constants.READY_TIME) != null) {
-            readyTime = PreferenceManager.get<Int>(Constants.READY_TIME)!!
+        if (PreferenceManager.get<Int>(Constants.GET_READY_SETTING) != null) {
+            readyTime = PreferenceManager.get<Int>(Constants.GET_READY_SETTING)!!
         }
 
-        if (PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS) != null) {
-            audioPrompts = PreferenceManager.get<Boolean>(Constants.AUDIO_PROMPTS)!!
+        if (PreferenceManager.get<Boolean>(Constants.AUDIO_SETTING) != null) {
+            audioPrompts = PreferenceManager.get<Boolean>(Constants.AUDIO_SETTING)!!
         }
 
-        if (PreferenceManager.get<Boolean>(Constants.LAST_REST) != null) {
-            lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST)!!
+        if (PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING) != null) {
+            lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING)!!
         }
 
         // Observe Settings
