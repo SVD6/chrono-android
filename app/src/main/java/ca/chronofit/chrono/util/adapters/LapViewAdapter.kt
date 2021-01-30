@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ca.chronofit.chrono.R
+import ca.chronofit.chrono.util.helpers.formatTime
 import ca.chronofit.chrono.util.helpers.getTime
 import ca.chronofit.chrono.util.objects.LapObject
 import com.google.android.material.textview.MaterialTextView
@@ -19,8 +20,8 @@ class LapViewAdapter(private val data: List<LapObject>) :
 
         fun bind(lap: LapObject) {
             lapNum.text = lap.lapNum.toString()
-            lapTime.text = getTime(lap.lapTime)
-            totalTime.text = getTime(lap.totalTime)
+            lapTime.text = formatTime(getTime(lap.lapTime), ".")
+            totalTime.text = formatTime(getTime(lap.totalTime),".")
         }
     }
 

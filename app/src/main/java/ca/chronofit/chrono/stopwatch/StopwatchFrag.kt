@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,10 +36,9 @@ class StopwatchFrag : Fragment() {
 
     private lateinit var swatch: Chronometer
     private var swatchState: SwatchState = SwatchState.INIT
-    private var offset: Int = 0
 
     private var lapCount = 0
-    private var prevTime = 0.toLong()
+    private var prevTime = 0
     private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
@@ -116,9 +114,8 @@ class StopwatchFrag : Fragment() {
         manager.scrollToPosition(lapCount)
         recyclerView.layoutManager = manager
 
-        offset = 0
         lapCount = 0
-        prevTime = 0.toLong()
+        prevTime = 0
 
         bind.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
@@ -126,10 +123,9 @@ class StopwatchFrag : Fragment() {
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
-    private fun startStopwatch() {
-        swatch.base = SystemClock.elapsedRealtime()
 
-        if (settingsViewModel.notifications.value == null) swatch.setNotificationEnabled(true)
+    private fun startStopwatch() {
+         if (settingsViewModel.notifications.value == null) swatch.setNotificationEnabled(true)
         else settingsViewModel.notifications.value?.let { swatch.setNotificationEnabled(it) }
         swatch.start()
         swatchState = SwatchState.RUNNING
@@ -138,23 +134,19 @@ class StopwatchFrag : Fragment() {
 
     private fun stopStopwatch() {
         swatch.stop()
-        offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
         swatchState = SwatchState.STOPPED
         updateButtonUI()
     }
 
-    fun resetStopwatch() {
-        swatch.stop()
-        swatch.base = SystemClock.elapsedRealtime()
-        offset = 0
+    private fun resetStopwatch() {
+        swatch.reset()
         swatchState = SwatchState.INIT
         initialize()
         updateButtonUI()
     }
 
-    fun resumeStopwatch() {
-        swatch.base = SystemClock.elapsedRealtime() - offset
-        swatch.start()
+    private fun resumeStopwatch() {
+        swatch.resume()
         swatchState = SwatchState.RUNNING
         updateButtonUI()
     }
@@ -162,7 +154,7 @@ class StopwatchFrag : Fragment() {
     private fun lap() {
         lapCount += 1
 
-        val currTime = SystemClock.elapsedRealtime() - chronometer!!.base
+        val currTime = swatch.tenMsCounter //SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
 
         // Create Lap Object
