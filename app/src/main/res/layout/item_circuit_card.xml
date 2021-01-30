@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/medium_element_padding"
     android:layout_marginTop="@dimen/tiny_element_padding"
-    android:layout_marginBottom="@dimen/small_element_padding"
+    android:layout_marginBottom="@dimen/xs_medium_element_padding"
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="@dimen/xs_medium_element_padding"
@@ -16,8 +16,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="@dimen/xs_medium_element_padding"
         android:paddingBottom="@dimen/xs_medium_element_padding"
-        android:paddingStart="@dimen/xs_medium_element_padding">
+        tools:ignore="RtlSymmetry">
 
         <ImageView
             android:id="@+id/circuit_icon"
@@ -64,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/num_sets"
             android:layout_marginStart="@dimen/custom_padding_2"
-            android:layout_marginTop="@dimen/xs_medium_element_padding">
+            android:layout_marginTop="@dimen/medium_element_padding">
 
             <ImageView
                 android:id="@+id/timer_icon"

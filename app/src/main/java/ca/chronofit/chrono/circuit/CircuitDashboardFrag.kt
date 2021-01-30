@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
@@ -56,6 +57,8 @@ class CircuitDashboardFrag : Fragment() {
 
         recyclerView = bind.recyclerView
         loadData()
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         bind.addCircuit.setOnClickListener {
             FirebaseAnalytics.getInstance(requireContext())
@@ -94,6 +97,38 @@ class CircuitDashboardFrag : Fragment() {
         Toast.makeText(requireContext(), "Long Pressed", Toast.LENGTH_SHORT).show()
     }
 
+    private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            return makeMovementFlags(dragFlags, 0)
+        }
+
+        override fun isLongPressDragEnabled(): Boolean {
+            // We want to start dragging on long press
+            return true
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            recyclerView.adapter!!.notifyItemMoved(
+                viewHolder.adapterPosition,
+                target.adapterPosition
+            )
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            deleteCircuit(null, viewHolder.adapterPosition)
+        }
+
+    }
+
     @SuppressLint("InflateParams")
     private fun showMoreMenu(position: Int) {
         selectedPosition = position
@@ -126,7 +161,7 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
+    private fun deleteCircuit(dialog: BottomSheetDialog?, position: Int) {
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
@@ -146,7 +181,7 @@ class CircuitDashboardFrag : Fragment() {
         dialogView.confirm.setOnClickListener {
             // Dismiss popups
             builder.dismiss()
-            dialog.dismiss()
+            dialog!!.dismiss()
 
             // Remove from model and recyclerview
             circuitsObject?.circuits?.remove(circuitsObject?.circuits!![position])
