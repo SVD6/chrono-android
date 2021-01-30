@@ -1,4 +1,4 @@
-package ca.chronofit.chrono.util.notificationManager
+package ca.chronofit.chrono.util.helpers
 
 import android.app.PendingIntent
 import android.content.Context
@@ -10,7 +10,7 @@ import ca.chronofit.chrono.R
 import ca.chronofit.chrono.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.services.NotificationIntentService
 
-class StopwatchNotificationManager(private val context: Context) {
+class SwatchNotifManager(private val context: Context) {
     val notificationId = 12
     var showNotification = false
 

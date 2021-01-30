@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationManagerCompat
 import ca.chronofit.chrono.util.helpers.formatTime
 import ca.chronofit.chrono.util.helpers.getTime
-import ca.chronofit.chrono.util.notificationManager.StopwatchNotificationManager
+import ca.chronofit.chrono.util.helpers.SwatchNotifManager
 
 class Chronometer @JvmOverloads constructor(
     context: Context?,
@@ -24,7 +24,7 @@ class Chronometer @JvmOverloads constructor(
     private var running = false
     lateinit var runnable: Runnable
 
-    private val notification = StopwatchNotificationManager(context!!)
+    private val notification = SwatchNotifManager(context!!)
 
     private var prevSec = -1
 
