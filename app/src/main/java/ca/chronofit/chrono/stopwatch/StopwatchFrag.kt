@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import ca.chronofit.chrono.databinding.FragmentStopwatchBinding
 import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
 import ca.chronofit.chrono.util.objects.LapObject
-import kotlinx.android.synthetic.main.fragment_stopwatch.*
 import java.text.DecimalFormat
 
 class StopwatchFrag : Fragment() {
@@ -31,7 +29,6 @@ class StopwatchFrag : Fragment() {
 
     private lateinit var swatch: Chronometer
     private var swatchState: SwatchState = SwatchState.INIT
-    private var offset: Int = 0
 
     private var lapCount = 0
     private var prevTime = 0.toLong()
@@ -53,22 +50,21 @@ class StopwatchFrag : Fragment() {
 
         // Button Logic
         bind.startButton.setOnClickListener {
-//            swatch.base = SystemClock.elapsedRealtime()
             swatch.start()
             swatchState = SwatchState.RUNNING
             updateButtonUI()
         }
 
         bind.stopButton.setOnClickListener {
-//            stopStopwatch()
+            stopStopwatch()
         }
 
         bind.resumeButton.setOnClickListener {
-//            resumeStopwatch()
+            resumeStopwatch()
         }
 
         bind.resetButton.setOnClickListener {
-//            resetStopwatch()
+            resetStopwatch()
 
         }
 
@@ -87,9 +83,9 @@ class StopwatchFrag : Fragment() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(contxt: Context?, intent: Intent?) {
                 when (intent?.action) {
-//                    STOP -> stopStopwatch()
-//                    RESET -> resetStopwatch()
-//                    RESUME -> resumeStopwatch()
+                    STOP -> stopStopwatch()
+                    RESET -> resetStopwatch()
+                    RESUME -> resumeStopwatch()
                 }
             }
         }
@@ -97,7 +93,6 @@ class StopwatchFrag : Fragment() {
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(STOP))
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESET))
         requireContext().registerReceiver(broadcastReceiver, IntentFilter(RESUME))
-
 
         return bind.root
     }
@@ -110,7 +105,6 @@ class StopwatchFrag : Fragment() {
         manager.scrollToPosition(lapCount)
         recyclerView.layoutManager = manager
 
-        offset = 0
         lapCount = 0
         prevTime = 0.toLong()
 
@@ -120,28 +114,24 @@ class StopwatchFrag : Fragment() {
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
-//    fun stopStopwatch() {
-//        swatch.stop()
-//        offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
-//        swatchState = SwatchState.STOPPED
-//        updateButtonUI()
-//    }
+    private fun stopStopwatch() {
+        swatch.stop()
+        swatchState = SwatchState.STOPPED
+        updateButtonUI()
+    }
 
-//    fun resetStopwatch() {
-//        swatch.stop()
-//        swatch.base = SystemClock.elapsedRealtime()
-//        offset = 0
-//        swatchState = SwatchState.INIT
-//        initialize()
-//        updateButtonUI()
-//    }
-//
-//    fun resumeStopwatch() {
-//        swatch.base = SystemClock.elapsedRealtime() - offset
-//        swatch.start()
-//        swatchState = SwatchState.RUNNING
-//        updateButtonUI()
-//    }
+    private fun resetStopwatch() {
+        swatch.reset()
+        swatchState = SwatchState.INIT
+        initialize()
+        updateButtonUI()
+    }
+
+    private fun resumeStopwatch() {
+        swatch.resume()
+        swatchState = SwatchState.RUNNING
+        updateButtonUI()
+    }
 
     private fun lap() {
         lapCount += 1
@@ -163,9 +153,6 @@ class StopwatchFrag : Fragment() {
         prevTime = currTime
     }
 
-    private fun reset() {
-        initialize()
-    }
 
     // Update the buttons layout based on the current state of the timer
     private fun updateButtonUI() {
