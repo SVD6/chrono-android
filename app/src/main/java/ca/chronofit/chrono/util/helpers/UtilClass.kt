@@ -1,5 +1,7 @@
-package ca.chronofit.chrono.util
+package ca.chronofit.chrono.util.helpers
 
+import android.app.Activity
+import android.content.Context
 import java.text.DecimalFormat
 
 fun getTime(timeElapsed: Long): String {
@@ -30,4 +32,15 @@ fun getTime(timeElapsed: Long): String {
     text += milliseconds.toString() + tenthMillisecond.toString()
 
     return text
+}
+
+fun isContextValid(context: Context?): Boolean {
+    if (context == null) {
+        return false
+    }
+    if (context is Activity) {
+        val activity = context as Activity?
+        return !activity!!.isDestroyed && !activity.isFinishing
+    }
+    return true
 }

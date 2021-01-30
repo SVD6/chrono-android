@@ -15,7 +15,7 @@ class Chronometer @JvmOverloads constructor(
 ) : AppCompatTextView(
     context!!, attrs, defStyle
 ) {
-    private var tenMsCounter = 0
+    var tenMsCounter = 0
 
     private var running = false
     lateinit var runnable: Runnable
@@ -37,18 +37,20 @@ class Chronometer @JvmOverloads constructor(
     private var timeWithHours = "00:00:00"
     private var timeWithoutHours = "00:00.00"
 
-    init{
+    private var notificationEnabled: Boolean? = null
+
+    init {
         updateText(timeWithoutHours)
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        notification.showNotification = true
+        notification.showNotification = true && (notificationEnabled == true)
     }
 
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
-        notification.showNotification = visibility != VISIBLE
+        notification.showNotification = (visibility != VISIBLE) && (notificationEnabled == true)
     }
 
     private fun updateText(time: String) {
@@ -107,5 +109,9 @@ class Chronometer @JvmOverloads constructor(
         remaining %= msInMinutes
         elapsedSecs = remaining / msInSeconds
         elapsedMs = remaining % 100
+    }
+
+    fun setNotificationEnabled(setting: Boolean) {
+        notificationEnabled = setting
     }
 }

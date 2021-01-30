@@ -48,11 +48,8 @@
     <string name="circuit_complete_cancel">Restart</string>
     <string name="circuit_complete_celebrate">Circuit Complete!</string>
 
-    <string name="bad_word_warning">Don\'t use bad words!! :(</string>
-    <string name="min_char_warning">Name has to be minimum 3 characters.</string>
     <string name="notifications">Notifications</string>
     <string name="on">On</string>
-    <string name="get_ready_time">Get Ready Time</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="off">Off</string>
     <string name="circuit_timer">Circuit Timer</string>
@@ -61,6 +58,12 @@
     <string name="about">About</string>
     <string name="set">Set</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="get_ready_time">Get Ready Time</string>
+    <string name="time_emoji">⏳</string>
+    <string name="dark_emoji">🕶️</string>
+    <string name="_5s">5s</string>
+    <string name="_10s">10s</string>
+    <string name="_15s">15s</string>
     <string name="rate_app">Rate App</string>
     <string name="get_help">Get Help</string>
     <string name="skip_last_rest">Skip Last Rest</string>
@@ -97,4 +100,12 @@
     <string name="stopwatch_notification_channel_id">chrono_stopwatch_default_channel</string>
 
     <string name="chrono_logo">Chrono Logo</string>
+    <string name="change_nicon">Change\nIcon</string>
+    <string name="max_char_warning">Maximum 50 characters.</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="system_default">System Default</string>
+    <string name="the_number_of_seconds_before_your_circuit_begins">The number of seconds before your circuit begins</string>
+    <string name="enter_the_dark_side">Enter the dark side</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
 </resources>

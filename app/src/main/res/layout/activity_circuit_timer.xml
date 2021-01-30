@@ -29,10 +29,11 @@
                 android:id="@+id/countdown_lay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/close_button"
                 android:layout_centerInParent="true"
                 android:orientation="vertical">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/current_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -42,11 +43,10 @@
                     android:fontFamily="@font/nunito_bold"
                     android:text="@string/lets_go"
                     android:textAllCaps="true"
-                    android:textColor="@color/dark_grey"
                     android:textSize="@dimen/xxl_huge_text"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/current_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,15 +58,14 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/countdown"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
                     android:text="@string/_0"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/enormous_text"
-                    android:focusable="true" />
+                    android:textSize="@dimen/enormous_text" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -117,7 +116,6 @@
                     android:letterSpacing="0"
                     android:text="@string/pause"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/xl_medium_text"
                     android:textStyle="bold"
                     app:cornerRadius="13dp" />
@@ -180,7 +178,7 @@
                 app:lottie_fileName="lottie_celebrate.json"
                 app:lottie_loop="true" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

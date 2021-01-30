@@ -10,13 +10,13 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
 import ca.chronofit.chrono.util.BaseActivity
+import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.CircuitObject
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
@@ -34,8 +34,6 @@ class CircuitTimerActivity : BaseActivity() {
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-
     private lateinit var mInterstitialAd: InterstitialAd
 
     private val mInterstitialAdUnitId: String by lazy {
@@ -47,6 +45,7 @@ class CircuitTimerActivity : BaseActivity() {
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var skipLastRest: Boolean = false
+    private var adsEnabled: Boolean? = false
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -67,7 +66,7 @@ class CircuitTimerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circuit_timer)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
-
+        // Possibly show loading screen
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
@@ -81,20 +80,28 @@ class CircuitTimerActivity : BaseActivity() {
         loadAds()
 
         bind.startButton.setOnClickListener {
+            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_STARTED, Bundle())
             start()
         }
 
         bind.pauseButton.setOnClickListener {
+            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_PAUSED, Bundle())
             pause()
         }
 
         bind.resumeButton.setOnClickListener {
+            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_RESTARTED, Bundle())
             resume()
         }
 
         bind.countdown.setOnClickListener {
-            if (timerState == TimerState.RUNNING && runningState != RunningState.READY) pause()
-            else if (timerState == TimerState.PAUSED) resume()
+            if (timerState == TimerState.RUNNING && runningState != RunningState.READY) {
+                FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_PAUSED, Bundle())
+                pause()
+            } else if (timerState == TimerState.PAUSED) {
+                FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_RESTARTED, Bundle())
+                resume()
+            }
         }
 
         bind.stopButton.setOnClickListener {
@@ -106,6 +113,7 @@ class CircuitTimerActivity : BaseActivity() {
         }
 
         bind.closeButton.setOnClickListener {
+            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_EXITED, Bundle())
             // Make sure that the timer is shut down
             if (timerState != TimerState.INIT) {
                 countdown.cancel()
@@ -168,8 +176,7 @@ class CircuitTimerActivity : BaseActivity() {
         bind.mainLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
 
-//        firebaseAnalytics.logEvent("circuit_completed")
-
+        FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
         // Wait 2.5 seconds before showing the finish prompt
         Handler(
             Looper.getMainLooper()
@@ -181,6 +188,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun isDone() {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
@@ -192,6 +200,7 @@ class CircuitTimerActivity : BaseActivity() {
         dialogView.cancel.text = getString(R.string.circuit_complete_cancel)
 
         dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+        dialogView.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
 
         // User wants to return to dashboard
         dialogView.confirm.setOnClickListener {
@@ -200,7 +209,7 @@ class CircuitTimerActivity : BaseActivity() {
             finish()
 
             // Show the ad
-            if (mInterstitialAd.isLoaded) {
+            if (mInterstitialAd.isLoaded && adsEnabled!!) {
                 mInterstitialAd.show()
             } else {
                 Log.d("AD", "The interstitial wasn't loaded yet.")
@@ -210,7 +219,7 @@ class CircuitTimerActivity : BaseActivity() {
         // If the user wants to run the circuit again
         dialogView.cancel.setOnClickListener {
             // Show the ad if it loaded
-            if (mInterstitialAd.isLoaded) {
+            if (mInterstitialAd.isLoaded && adsEnabled!!) {
                 mInterstitialAd.adListener = object : AdListener() {
                     override fun onAdClosed() {
                         // Reload the circuit
@@ -282,6 +291,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun start() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         loadTimer(circuit)
         getReady()
     }
@@ -346,10 +356,6 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.currentSet.text = getString(R.string.empty)
                 bind.currentState.text = getString(R.string.lets_go)
 
-                bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
                 bind.closeButton.setImageResource(R.drawable.ic_close_grey)
             }
             RunningState.WORK -> {
@@ -397,19 +403,17 @@ class CircuitTimerActivity : BaseActivity() {
         }
     }
 
-    private fun createNotification(time: Float) {
-        val builder =
-            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
-                .setSmallIcon(R.drawable.ic_notification_logo)
-                .setContentTitle("Notification test")
-                .setContentText(time.toString())
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-
-        with(NotificationManagerCompat.from(this)) {
-            //notificationId is a unique int for each notification that you must define
-            notify(2, builder.build())
-        }
-    }
-
-
+//    private fun createNotification(time: Float) {
+//        val builder =
+//            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
+//                .setSmallIcon(R.drawable.ic_notification_logo)
+//                .setContentTitle("Notification test")
+//                .setContentText(time.toString())
+//                .setPriority(NotificationCompat.PRIORITY_LOW)
+//
+//        with(NotificationManagerCompat.from(this)) {
+//            //notificationId is a unique int for each notification that you must define
+//            notify(2, builder.build())
+//        }
+//    }
 }

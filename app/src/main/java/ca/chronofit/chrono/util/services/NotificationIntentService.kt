@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import ca.chronofit.chrono.stopwatch.StopwatchFrag
 
-
 class NotificationIntentService
     : IntentService("notificationIntentService") {
     override fun onHandleIntent(intent: Intent?) {

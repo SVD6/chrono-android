@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import java.io.Serializable
 
 class SettingsViewModel : ViewModel(), Serializable {
-    val darkMode: LiveData<Boolean> get() = _darkMode
-    private val _darkMode = MutableLiveData<Boolean>()
+    val darkMode: LiveData<String> get() = _darkMode
+    private val _darkMode = MutableLiveData<String>()
 
     val notifications: LiveData<Boolean> get() = _notifications
     private val _notifications = MutableLiveData<Boolean>()
@@ -21,7 +21,7 @@ class SettingsViewModel : ViewModel(), Serializable {
     val getReadyTime: LiveData<String> get() = _getReadyTime
     private val _getReadyTime = MutableLiveData<String>()
 
-    fun onDarkModeChanged(setting: Boolean) {
+    fun onDarkModeChanged(setting: String) {
         _darkMode.value = setting
     }
 

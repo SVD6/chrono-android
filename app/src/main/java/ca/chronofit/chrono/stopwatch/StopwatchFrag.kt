@@ -12,18 +12,25 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentStopwatchBinding
 import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
+import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.LapObject
+import ca.chronofit.chrono.util.objects.SettingsViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
+import kotlinx.android.synthetic.main.fragment_stopwatch.*
 import java.text.DecimalFormat
 
 class StopwatchFrag : Fragment() {
     private lateinit var bind: FragmentStopwatchBinding
     private lateinit var recyclerView: RecyclerView
+
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     enum class SwatchState { INIT, RUNNING, STOPPED }
 
@@ -50,13 +57,15 @@ class StopwatchFrag : Fragment() {
 
         // Button Logic
         bind.startButton.setOnClickListener {
-            swatch.start()
-            swatchState = SwatchState.RUNNING
-            updateButtonUI()
+            startStopwatch()
+            FirebaseAnalytics.getInstance(requireContext())
+                .logEvent(Events.STOPWATCH_STARTED, Bundle())
         }
 
         bind.stopButton.setOnClickListener {
             stopStopwatch()
+            FirebaseAnalytics.getInstance(requireContext())
+                .logEvent(Events.STOPWATCH_STOPPED, Bundle())
         }
 
         bind.resumeButton.setOnClickListener {
@@ -65,7 +74,6 @@ class StopwatchFrag : Fragment() {
 
         bind.resetButton.setOnClickListener {
             resetStopwatch()
-
         }
 
         bind.lapButton.setOnClickListener {
@@ -78,6 +86,8 @@ class StopwatchFrag : Fragment() {
                 bind.lapButton.isEnabled = false
             }
             lap()
+            FirebaseAnalytics.getInstance(requireContext())
+                .logEvent(Events.STOPWATCH_LAPPED, Bundle())
         }
 
         broadcastReceiver = object : BroadcastReceiver() {
@@ -97,7 +107,6 @@ class StopwatchFrag : Fragment() {
         return bind.root
     }
 
-
     private fun initialize() {
         recyclerView = bind.recyclerView
         val manager = LinearLayoutManager(requireContext())
@@ -112,6 +121,15 @@ class StopwatchFrag : Fragment() {
 
         laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
+    }
+
+
+    private fun startStopwatch() {
+         if (settingsViewModel.notifications.value == null) swatch.setNotificationEnabled(true)
+        else settingsViewModel.notifications.value?.let { swatch.setNotificationEnabled(it) }
+        swatch.start()
+        swatchState = SwatchState.RUNNING
+        updateButtonUI()
     }
 
     private fun stopStopwatch() {
@@ -136,7 +154,7 @@ class StopwatchFrag : Fragment() {
     private fun lap() {
         lapCount += 1
 
-        val currTime = 0L //SystemClock.elapsedRealtime() - chronometer!!.base
+        val currTime = swatch.tenMsCounter //SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
 
         // Create Lap Object
@@ -145,14 +163,13 @@ class StopwatchFrag : Fragment() {
 
         lap.lapNum = dec.format(lapCount)
         lap.lapTime = timeDiff
-        lap.totalTime = currTime
+        lap.totalTime = currTime.toLong()
 
         laps.add(lap)
         recyclerView.adapter?.notifyItemInserted(lapCount)
         recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount - 1)
-        prevTime = currTime
+        prevTime = currTime.toLong()
     }
-
 
     // Update the buttons layout based on the current state of the timer
     private fun updateButtonUI() {
