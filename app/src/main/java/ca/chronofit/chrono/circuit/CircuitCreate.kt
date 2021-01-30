@@ -269,13 +269,13 @@ class CircuitCreate : BaseActivity() {
 
         // Setting Carousel Items
         val imageItems: ArrayList<CarouselPicker.PickerItem> = ArrayList()
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_stopwatch))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_default_icon))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_abs))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_arm))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_bottle))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_boxer))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_heart))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_dumbbell))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_machine))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_2))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_3))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_4))

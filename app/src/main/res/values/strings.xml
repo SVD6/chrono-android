@@ -71,13 +71,13 @@
 
     <!-- Drawable Names-->
     <string-array name="icon_files">
-        <item>drawable/ic_stopwatch</item>
+        <item>drawable/ic_default_icon</item>
         <item>drawable/ic_abs</item>
         <item>drawable/ic_arm</item>
         <item>drawable/ic_bottle</item>
-        <item>drawable/ic_boxer</item>
+        <item>drawable/ic_heart</item>
         <item>drawable/ic_dumbbell</item>
-        <item>drawable/ic_gym</item>
+        <item>drawable/ic_machine</item>
         <item>drawable/ic_gym_2</item>
         <item>drawable/ic_gym_3</item>
         <item>drawable/ic_gym_4</item>
