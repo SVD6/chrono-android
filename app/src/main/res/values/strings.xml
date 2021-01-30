@@ -78,20 +78,20 @@
         <item>drawable/ic_heart</item>
         <item>drawable/ic_dumbbell</item>
         <item>drawable/ic_machine</item>
-        <item>drawable/ic_gym_2</item>
-        <item>drawable/ic_gym_3</item>
-        <item>drawable/ic_gym_4</item>
+        <item>drawable/ic_bench_press</item>
+        <item>drawable/ic_gym</item>
+        <item>drawable/ic_bike_machine</item>
         <item>drawable/ic_gym_bag</item>
         <item>drawable/ic_gymnast</item>
         <item>drawable/ic_jump_rope</item>
         <item>drawable/ic_mat</item>
-        <item>drawable/ic_punching_ball</item>
+        <item>drawable/ic_whistle</item>
         <item>drawable/ic_resistance</item>
-        <item>drawable/ic_resistance_1</item>
+        <item>drawable/ic_grippers</item>
         <item>drawable/ic_trampoline</item>
         <item>drawable/ic_treadmill</item>
         <item>drawable/ic_workout</item>
-        <item>drawable/ic_workout_3</item>
+        <item>drawable/ic_outdoor</item>
     </string-array>
 
 <!--    Notification channel id's-->
