@@ -12,8 +12,6 @@ import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 
-private const val SPLASH_TIMEOUT = 3000L // Timeout delay
-
 class SplashActivity : BaseActivity() {
     private var bind: ActivitySplashBinding? = null // Bind variable for the activity
 
@@ -63,5 +61,9 @@ class SplashActivity : BaseActivity() {
                 finish()
             }, SPLASH_TIMEOUT
         )
+    }
+
+    companion object {
+        private const val SPLASH_TIMEOUT = 3000L // Timeout delay
     }
 }
