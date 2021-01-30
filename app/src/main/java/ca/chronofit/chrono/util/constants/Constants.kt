@@ -24,4 +24,5 @@ object Constants {
 
     // Version Number
     const val VERSION_NUMBER: String = "Test Version 0.2.1"
+
 }

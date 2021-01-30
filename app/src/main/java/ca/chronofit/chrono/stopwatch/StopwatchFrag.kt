@@ -38,7 +38,7 @@ class StopwatchFrag : Fragment() {
     private var swatchState: SwatchState = SwatchState.INIT
 
     private var lapCount = 0
-    private var prevTime = 0.toLong()
+    private var prevTime = 0
     private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
@@ -115,7 +115,7 @@ class StopwatchFrag : Fragment() {
         recyclerView.layoutManager = manager
 
         lapCount = 0
-        prevTime = 0.toLong()
+        prevTime = 0
 
         bind.lapButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
@@ -163,12 +163,12 @@ class StopwatchFrag : Fragment() {
 
         lap.lapNum = dec.format(lapCount)
         lap.lapTime = timeDiff
-        lap.totalTime = currTime.toLong()
+        lap.totalTime = currTime
 
         laps.add(lap)
         recyclerView.adapter?.notifyItemInserted(lapCount)
         recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount - 1)
-        prevTime = currTime.toLong()
+        prevTime = currTime
     }
 
     // Update the buttons layout based on the current state of the timer

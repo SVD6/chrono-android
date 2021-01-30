@@ -6,6 +6,8 @@ import android.os.Looper
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationManagerCompat
+import ca.chronofit.chrono.util.helpers.formatTime
+import ca.chronofit.chrono.util.helpers.getTime
 import ca.chronofit.chrono.util.notificationManager.StopwatchNotificationManager
 
 class Chronometer @JvmOverloads constructor(
@@ -17,30 +19,22 @@ class Chronometer @JvmOverloads constructor(
 ) {
     var tenMsCounter = 0
 
+    private val swPeriod = 10.toLong() // sw period in milliseconds
+
     private var running = false
     lateinit var runnable: Runnable
 
-    private val msInSeconds = 100
-    private val msInHours = 3600 * msInSeconds
-    private val msInMinutes = 60 * msInSeconds
-
     private val notification = StopwatchNotificationManager(context!!)
-
-    private var elapsedHrs = 0
-    private var elapsedMins = 0
-    private var elapsedSecs = 0
-    private var elapsedMs = 0
 
     private var prevSec = -1
 
-    private val template = "%02d:%02d%s%02d"
-    private var timeWithHours = "00:00:00"
-    private var timeWithoutHours = "00:00.00"
+    private var defaultTime = "00:00.00"
 
     private var notificationEnabled: Boolean? = null
+    private var notificationTime = ""
 
     init {
-        updateText(timeWithoutHours)
+        updateText(defaultTime)
     }
 
     override fun onDetachedFromWindow() {
@@ -64,18 +58,17 @@ class Chronometer @JvmOverloads constructor(
 
             // Runnable calls itself every 10 ms
             runnable = Runnable {
-                calculateElapsedTime()
-                timeWithHours = template.format(elapsedHrs, elapsedMins, ":", elapsedSecs)
-                timeWithoutHours = template.format(elapsedMins, elapsedSecs, ".", elapsedMs)
-                val time = if (elapsedHrs == 0) timeWithoutHours else timeWithHours
+                val elapsed = getTime(tenMsCounter)
+                val time = formatTime(elapsed, ":")
+                notificationTime = time.dropLast(3)
                 updateText(time)
                 if (running) {
-                    if (prevSec != elapsedSecs) {
-                        notification.createRunningNotification(timeWithHours)
-                        prevSec = elapsedSecs
+                    if (prevSec != elapsed.seconds) {
+                        notification.createRunningNotification(notificationTime)
+                        prevSec = elapsed.seconds
                     }
                     tenMsCounter++
-                    handler.postDelayed(runnable, 10)
+                    handler.postDelayed(runnable, swPeriod)
                 }
             }
             handler.post(runnable)
@@ -84,7 +77,7 @@ class Chronometer @JvmOverloads constructor(
 
     fun stop() {
         running = false
-        notification.createStoppedNotification(timeWithHours)
+        notification.createStoppedNotification(notificationTime)
     }
 
     fun resume() {
@@ -95,23 +88,16 @@ class Chronometer @JvmOverloads constructor(
         running = false
         tenMsCounter = 0
         prevSec = -1
-        timeWithHours = "00:00:00"
-        timeWithoutHours = "00:00.00"
-        updateText(timeWithoutHours)
+        updateText(defaultTime)
         NotificationManagerCompat.from(context).cancel(notification.notificationId)
-    }
-
-    private fun calculateElapsedTime() {
-        var remaining = tenMsCounter
-        elapsedHrs = remaining / msInHours
-        remaining %= msInHours
-        elapsedMins = remaining / msInMinutes
-        remaining %= msInMinutes
-        elapsedSecs = remaining / msInSeconds
-        elapsedMs = remaining % 100
     }
 
     fun setNotificationEnabled(setting: Boolean) {
         notificationEnabled = setting
+    }
+    companion object{
+        const val MS_IN_SECONDS = 100
+        const val MS_IN_HOURS = 3600 * MS_IN_SECONDS
+        const val MS_IN_MINUTES = 60 * MS_IN_SECONDS
     }
 }
