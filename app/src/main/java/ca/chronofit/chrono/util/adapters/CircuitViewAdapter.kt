@@ -15,7 +15,6 @@ import com.google.android.material.textview.MaterialTextView
 class CircuitViewAdapter(
     private val data: List<CircuitObject>,
     private val clickListener: (CircuitObject) -> Unit,
-    private val longClickListener: (Int) -> Unit,
     private val menuClickListener: (Int) -> Unit,
     private val context: Context
 ) :
@@ -33,7 +32,6 @@ class CircuitViewAdapter(
         fun bind(
             circuit: CircuitObject,
             clickListener: (CircuitObject) -> Unit,
-            onLongClickListener: (Int) -> Unit,
             onMenuClickListener: (Int) -> Unit,
             position: Int,
             context: Context
@@ -54,10 +52,6 @@ class CircuitViewAdapter(
             )
             icons.recycle()
             itemView.setOnClickListener { clickListener(circuit) }
-            itemView.setOnLongClickListener {
-                onLongClickListener(position)
-                true
-            }
             more.setOnClickListener { onMenuClickListener(position) }
         }
     }
@@ -74,7 +68,6 @@ class CircuitViewAdapter(
         holder.bind(
             circuit,
             clickListener,
-            longClickListener,
             menuClickListener,
             holder.layoutPosition,
             context

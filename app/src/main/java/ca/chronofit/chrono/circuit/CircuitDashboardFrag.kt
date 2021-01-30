@@ -92,11 +92,6 @@ class CircuitDashboardFrag : Fragment() {
         startActivityForResult(intent, 10002)
     }
 
-    @SuppressLint("InflateParams")
-    private fun circuitLongClicked(position: Int) {
-        Toast.makeText(requireContext(), "Long Pressed", Toast.LENGTH_SHORT).show()
-    }
-
     private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
         override fun getMovementFlags(
             recyclerView: RecyclerView,
@@ -107,7 +102,6 @@ class CircuitDashboardFrag : Fragment() {
         }
 
         override fun isLongPressDragEnabled(): Boolean {
-            // We want to start dragging on long press
             return true
         }
 
@@ -116,10 +110,7 @@ class CircuitDashboardFrag : Fragment() {
             viewHolder: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder
         ): Boolean {
-            recyclerView.adapter!!.notifyItemMoved(
-                viewHolder.adapterPosition,
-                target.adapterPosition
-            )
+            itemMoved(viewHolder.adapterPosition, target.adapterPosition)
             return true
         }
 
@@ -127,6 +118,18 @@ class CircuitDashboardFrag : Fragment() {
             deleteCircuit(null, viewHolder.adapterPosition)
         }
 
+    }
+
+    private fun itemMoved(current: Int, target: Int) {
+        recyclerView.adapter!!.notifyItemMoved(current, target)
+
+        // Update Model
+        val circuit = circuitsObject!!.circuits!![current]
+        circuitsObject!!.circuits!!.removeAt(current)
+        circuitsObject!!.circuits!!.add(target, circuit)
+
+        // Save updated list in local storage
+        PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
     }
 
     @SuppressLint("InflateParams")
@@ -239,9 +242,6 @@ class CircuitDashboardFrag : Fragment() {
             recyclerView.adapter = CircuitViewAdapter(
                 circuitsObject?.circuits!!,
                 { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
-                { position: Int ->
-                    circuitLongClicked(position)
-                },
                 { position: Int -> showMoreMenu(position) }, requireContext()
             )
         } else {
