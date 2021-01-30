@@ -91,6 +91,11 @@ class CircuitDashboardFrag : Fragment() {
 
     @SuppressLint("InflateParams")
     private fun circuitLongClicked(position: Int) {
+        Toast.makeText(requireContext(), "Long Pressed", Toast.LENGTH_SHORT).show()
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showMoreMenu(position: Int) {
         selectedPosition = position
 
         // Roll out the bottom sheet
@@ -201,7 +206,8 @@ class CircuitDashboardFrag : Fragment() {
                 { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
                 { position: Int ->
                     circuitLongClicked(position)
-                }, requireContext()
+                },
+                { position: Int -> showMoreMenu(position) }, requireContext()
             )
         } else {
             loadEmptyUI()

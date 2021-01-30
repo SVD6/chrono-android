@@ -16,6 +16,7 @@ class CircuitViewAdapter(
     private val data: List<CircuitObject>,
     private val clickListener: (CircuitObject) -> Unit,
     private val longClickListener: (Int) -> Unit,
+    private val menuClickListener: (Int) -> Unit,
     private val context: Context
 ) :
     RecyclerView.Adapter<CircuitViewAdapter.CircuitViewHolder>() {
@@ -26,12 +27,14 @@ class CircuitViewAdapter(
         private val timeRest: MaterialTextView = itemView.findViewById(R.id.rest_time)
         private val timeWork: MaterialTextView = itemView.findViewById(R.id.work_time)
         private val icon: ImageView = itemView.findViewById(R.id.circuit_icon)
+        private val more: ImageView = itemView.findViewById(R.id.more_menu)
 
         @SuppressLint("SetTextI18n")
         fun bind(
             circuit: CircuitObject,
             clickListener: (CircuitObject) -> Unit,
             onLongClickListener: (Int) -> Unit,
+            onMenuClickListener: (Int) -> Unit,
             position: Int,
             context: Context
         ) {
@@ -55,6 +58,7 @@ class CircuitViewAdapter(
                 onLongClickListener(position)
                 true
             }
+            more.setOnClickListener { onMenuClickListener(position) }
         }
     }
 
@@ -67,7 +71,14 @@ class CircuitViewAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) {
         val circuit = data[position]
-        holder.bind(circuit, clickListener, longClickListener, holder.layoutPosition, context)
+        holder.bind(
+            circuit,
+            clickListener,
+            longClickListener,
+            menuClickListener,
+            holder.layoutPosition,
+            context
+        )
     }
 
     override fun getItemCount(): Int {
