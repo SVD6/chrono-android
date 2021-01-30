@@ -53,22 +53,22 @@ class StopwatchFrag : Fragment() {
 
         // Button Logic
         bind.startButton.setOnClickListener {
-            swatch.base = SystemClock.elapsedRealtime()
+//            swatch.base = SystemClock.elapsedRealtime()
             swatch.start()
             swatchState = SwatchState.RUNNING
             updateButtonUI()
         }
 
         bind.stopButton.setOnClickListener {
-            stopStopwatch()
+//            stopStopwatch()
         }
 
         bind.resumeButton.setOnClickListener {
-            resumeStopwatch()
+//            resumeStopwatch()
         }
 
         bind.resetButton.setOnClickListener {
-            resetStopwatch()
+//            resetStopwatch()
 
         }
 
@@ -87,9 +87,9 @@ class StopwatchFrag : Fragment() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(contxt: Context?, intent: Intent?) {
                 when (intent?.action) {
-                    STOP -> stopStopwatch()
-                    RESET -> resetStopwatch()
-                    RESUME -> resumeStopwatch()
+//                    STOP -> stopStopwatch()
+//                    RESET -> resetStopwatch()
+//                    RESUME -> resumeStopwatch()
                 }
             }
         }
@@ -120,33 +120,33 @@ class StopwatchFrag : Fragment() {
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
-    fun stopStopwatch() {
-        swatch.stop()
-        offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
-        swatchState = SwatchState.STOPPED
-        updateButtonUI()
-    }
+//    fun stopStopwatch() {
+//        swatch.stop()
+//        offset = (SystemClock.elapsedRealtime() - chronometer!!.base).toInt()
+//        swatchState = SwatchState.STOPPED
+//        updateButtonUI()
+//    }
 
-    fun resetStopwatch() {
-        swatch.stop()
-        swatch.base = SystemClock.elapsedRealtime()
-        offset = 0
-        swatchState = SwatchState.INIT
-        initialize()
-        updateButtonUI()
-    }
-
-    fun resumeStopwatch() {
-        swatch.base = SystemClock.elapsedRealtime() - offset
-        swatch.start()
-        swatchState = SwatchState.RUNNING
-        updateButtonUI()
-    }
+//    fun resetStopwatch() {
+//        swatch.stop()
+//        swatch.base = SystemClock.elapsedRealtime()
+//        offset = 0
+//        swatchState = SwatchState.INIT
+//        initialize()
+//        updateButtonUI()
+//    }
+//
+//    fun resumeStopwatch() {
+//        swatch.base = SystemClock.elapsedRealtime() - offset
+//        swatch.start()
+//        swatchState = SwatchState.RUNNING
+//        updateButtonUI()
+//    }
 
     private fun lap() {
         lapCount += 1
 
-        val currTime = SystemClock.elapsedRealtime() - chronometer!!.base
+        val currTime = 0L //SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
 
         // Create Lap Object
