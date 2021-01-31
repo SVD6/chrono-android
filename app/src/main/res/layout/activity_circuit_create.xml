@@ -32,7 +32,7 @@
                     android:focusable="true"
                     android:paddingTop="@dimen/xs_medium_element_padding"
                     android:paddingBottom="@dimen/small_element_padding"
-                    android:src="@drawable/ic_stopwatch" />
+                    android:src="@drawable/ic_default_icon" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"

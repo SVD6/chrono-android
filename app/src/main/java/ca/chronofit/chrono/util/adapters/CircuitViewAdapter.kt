@@ -41,7 +41,7 @@ class CircuitViewAdapter(
             timeRest.text = "Rest:  " + circuit.rest.toString() + "s"
             timeWork.text = "Work:  " + circuit.work.toString() + "s"
 
-            // Set Icon
+            // Set Circuit Icon
             val icons: TypedArray = context.resources.obtainTypedArray(R.array.icon_files)
             icon.setImageResource(
                 context.resources.getIdentifier(
