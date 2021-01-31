@@ -40,6 +40,7 @@ class SwatchNotifManager(private val context: Context) {
             .setContentText(time)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setContentIntent(openAppPendingIntent)
+            .setShowWhen(false)
 
         // addAction requires an icon to support older devices, but isn't actually shown in newer ones
         if (running) {
