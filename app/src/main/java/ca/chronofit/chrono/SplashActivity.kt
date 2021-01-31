@@ -13,7 +13,7 @@ import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 
 class SplashActivity : BaseActivity() {
-    private var bind: ActivitySplashBinding? = null // Bind variable for the activity
+    private lateinit var bind: ActivitySplashBinding // Bind variable for the activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +45,11 @@ class SplashActivity : BaseActivity() {
 
         // Change the splash screen based on light/dark mode
         if (isUsingNightModeResources()) {
-            bind!!.lightMode.visibility = View.GONE
-            bind!!.darkMode.visibility = View.VISIBLE
+            bind.lightMode.visibility = View.GONE
+            bind.darkMode.visibility = View.VISIBLE
         } else {
-            bind!!.lightMode.visibility = View.VISIBLE
-            bind!!.darkMode.visibility = View.GONE
+            bind.lightMode.visibility = View.VISIBLE
+            bind.darkMode.visibility = View.GONE
         }
 
         // Set the time out delay and launch main activity afterwards
