@@ -42,7 +42,6 @@
 
             <ca.chronofit.chrono.util.components.Chronometer
                 android:id="@+id/chronometer"
-                style="@style/Widget.MaterialComponents.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
