@@ -3,7 +3,6 @@ package ca.chronofit.chrono.util.helpers
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import ca.chronofit.chrono.R
@@ -15,81 +14,74 @@ class SwatchNotifManager(private val context: Context) {
     var showNotification = false
 
 
-    fun createRunningNotification(time: String) {
-        val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch_running)
+    fun createRunningNotification(time: String, running: Boolean) {
 
         val stopIntent = Intent(context, NotificationIntentService::class.java)
         stopIntent.action = StopwatchFrag.STOP
-        customView.setOnClickPendingIntent(
-            R.id.stop_stopwatch,
-            PendingIntent.getService(context, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        )
+
+        val openAppIntent = context.packageManager
+            .getLaunchIntentForPackage(context.packageName)!!
+            .setPackage(null)
+            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+        val openAppPendingIntent = PendingIntent.getActivity(context, 3, openAppIntent, 0)
 
         val resetIntent = Intent(context, NotificationIntentService::class.java)
         resetIntent.action = StopwatchFrag.RESET
-        customView.setOnClickPendingIntent(
-            R.id.reset_stopwatch,
-            PendingIntent.getService(context, 1, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        )
-
-        customView.setTextViewText(R.id.elapsed_time, time)
-
-        val builder =
-            NotificationCompat.Builder(
-                context,
-                context.getString(R.string.stopwatch_notification_channel_id)
-            )
-                .setSmallIcon(R.drawable.ic_notification_logo)
-                .setContentTitle("Stopwatch")
-                .setContentText(time)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
-                .setCustomContentView(customView)
-
-        if (showNotification) {
-            with(NotificationManagerCompat.from(context)) {
-                //notificationId is a unique int for each notification that you must define
-                notify(notificationId, builder.build())
-            }
-        }
-    }
-
-    fun createStoppedNotification(time: String) {
-        val customView = RemoteViews(context.packageName, R.layout.notification_stopwatch_stopped)
 
         val resumeIntent = Intent(context, NotificationIntentService::class.java)
         resumeIntent.action = StopwatchFrag.RESUME
-        customView.setOnClickPendingIntent(
-            R.id.resume_stopwatch,
-            PendingIntent.getService(context, 0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        )
 
-        val resetIntent = Intent(context, NotificationIntentService::class.java)
-        resetIntent.action = StopwatchFrag.RESET
-        customView.setOnClickPendingIntent(
-            R.id.reset_stopwatch,
+        val builder = NotificationCompat.Builder(
+            context,
+            context.getString(R.string.stopwatch_notification_channel_id)
+        )
+            .setSmallIcon(R.drawable.ic_notification_logo)
+            .setContentTitle("Stopwatch")
+            .setContentText(time)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setContentIntent(openAppPendingIntent)
+
+        // addAction requires an icon to support older devices, but isn't actually shown in newer ones
+        if (running) {
+            builder.addAction(
+                R.drawable.ic_pause,
+                "STOP",
+                PendingIntent.getService(
+                    context,
+                    0,
+                    stopIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
+            builder.setOngoing(true)
+        } else {
+            builder.addAction(
+                R.drawable.ic_resume_arrow,
+                "RESUME",
+                PendingIntent.getService(
+                    context,
+                    0,
+                    resumeIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
+            builder.setStyle(
+                NotificationCompat.BigTextStyle().setSummaryText("Paused")
+            )
+            builder.setOngoing(false)
+        }
+
+        builder.addAction(
+            R.drawable.ic_stop,
+            "RESET",
             PendingIntent.getService(
                 context,
-                notificationId,
+                1,
                 resetIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
         )
 
-        customView.setTextViewText(R.id.elapsed_time, time)
-
-        val builder =
-            NotificationCompat.Builder(
-                context,
-                context.getString(R.string.stopwatch_notification_channel_id)
-            )
-                .setSmallIcon(R.drawable.ic_notification_logo)
-                .setContentTitle("Stopwatch")
-                .setContentText(time)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
-                .setCustomContentView(customView)
-
         if (showNotification) {
             with(NotificationManagerCompat.from(context)) {
                 //notificationId is a unique int for each notification that you must define
@@ -97,4 +89,5 @@ class SwatchNotifManager(private val context: Context) {
             }
         }
     }
+
 }

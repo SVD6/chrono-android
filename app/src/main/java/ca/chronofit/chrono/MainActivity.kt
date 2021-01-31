@@ -80,6 +80,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Check for App Review
     }
 
+
     private fun changeDarkMode(mode: String) {
         when (mode) {
             Constants.DARK_MODE -> {
