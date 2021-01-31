@@ -36,7 +36,7 @@ class SwatchNotifManager(private val context: Context) {
             context.getString(R.string.stopwatch_notification_channel_id)
         )
             .setSmallIcon(R.drawable.ic_notification_logo)
-            .setContentTitle("Stopwatch")
+            .setContentTitle("stopwatch")
             .setContentText(time)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setContentIntent(openAppPendingIntent)
@@ -46,7 +46,7 @@ class SwatchNotifManager(private val context: Context) {
         if (running) {
             builder.addAction(
                 R.drawable.ic_pause,
-                "STOP",
+                "stop",
                 PendingIntent.getService(
                     context,
                     0,
@@ -58,7 +58,7 @@ class SwatchNotifManager(private val context: Context) {
         } else {
             builder.addAction(
                 R.drawable.ic_resume_arrow,
-                "RESUME",
+                "resume",
                 PendingIntent.getService(
                     context,
                     0,
@@ -67,14 +67,14 @@ class SwatchNotifManager(private val context: Context) {
                 )
             )
             builder.setStyle(
-                NotificationCompat.BigTextStyle().setSummaryText("Paused")
+                NotificationCompat.BigTextStyle().setSummaryText("paused")
             )
             builder.setOngoing(false)
         }
 
         builder.addAction(
             R.drawable.ic_stop,
-            "RESET",
+            "reset",
             PendingIntent.getService(
                 context,
                 1,
