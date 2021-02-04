@@ -37,7 +37,12 @@ class CircuitViewAdapter(
             context: Context
         ) {
             name.text = circuit.name
-            numSets.text = circuit.sets.toString() + " Sets"
+
+            if (circuit.sets == 1)
+                numSets.text = circuit.sets.toString() + "Set"
+            else
+                numSets.text = circuit.sets.toString() + " Sets"
+
             timeRest.text = "Rest:  " + circuit.rest.toString() + "s"
             timeWork.text = "Work:  " + circuit.work.toString() + "s"
 
