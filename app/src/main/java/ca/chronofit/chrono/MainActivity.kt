@@ -19,11 +19,18 @@ import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var bind: ActivityMainBinding
 
     private val settingsViewModel: SettingsViewModel by viewModels()
+
+    private lateinit var remoteConfig: FirebaseRemoteConfig
 
     private lateinit var frag1: StopwatchFrag
     private lateinit var frag2: CircuitDashboardFrag
@@ -36,6 +43,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         PreferenceManager.with(this)
+
+        initRemoteConfig()
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -188,5 +197,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun initRemoteConfig() {
+        FirebaseApp.initializeApp(this)
+        remoteConfig = Firebase.remoteConfig
+
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
     }
 }
