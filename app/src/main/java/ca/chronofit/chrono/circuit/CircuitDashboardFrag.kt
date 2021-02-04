@@ -60,7 +60,10 @@ class CircuitDashboardFrag : Fragment() {
         bind.addCircuit.setOnClickListener {
             FirebaseAnalytics.getInstance(requireContext())
                 .logEvent(Events.CREATE_STARTED, Bundle())
-            startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
+            startActivityForResult(
+                Intent(requireContext(), CircuitCreateActivity::class.java),
+                10001
+            )
         }
 
         observeSettings()
@@ -108,6 +111,13 @@ class CircuitDashboardFrag : Fragment() {
                 "\uD83D\uDEE0\uFE0F Edit circuit coming soon!! \uD83D\uDEE0\uFE0F",
                 Toast.LENGTH_SHORT
             ).show()
+
+            val intent = Intent(requireContext(), CircuitCreateActivity::class.java)
+            intent.putExtra("isEdit", true)
+            intent.putExtra(
+                "circuit",
+                GsonBuilder().create().toJson(circuitsObject!!.circuits!![position])
+            )
         }
 
         modalSheetView.share_layout.setOnClickListener {

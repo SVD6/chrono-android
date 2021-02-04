@@ -24,7 +24,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.dialog_select_icon.view.*
 
-class CircuitCreate : BaseActivity() {
+class CircuitCreateActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitCreateBinding
 
     private var selectedIcon: Int = 0
