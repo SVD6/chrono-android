@@ -50,7 +50,7 @@
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/todo"
             android:padding="@dimen/xs_medium_element_padding"
-            android:src="@drawable/ic_more_vert" />
+            android:src="@drawable/ic_more" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/num_sets"
