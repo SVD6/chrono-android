@@ -39,7 +39,7 @@ class CircuitViewAdapter(
             name.text = circuit.name
 
             if (circuit.sets == 1)
-                numSets.text = circuit.sets.toString() + "Set"
+                numSets.text = circuit.sets.toString() + " Set"
             else
                 numSets.text = circuit.sets.toString() + " Sets"
 
