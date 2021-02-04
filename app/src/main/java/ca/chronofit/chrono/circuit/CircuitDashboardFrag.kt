@@ -97,8 +97,7 @@ class CircuitDashboardFrag : Fragment() {
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder
         ): Int {
-            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-            return makeMovementFlags(dragFlags, 0)
+            return makeMovementFlags((ItemTouchHelper.UP or ItemTouchHelper.DOWN), 0)
         }
 
         override fun isLongPressDragEnabled(): Boolean {
@@ -118,6 +117,12 @@ class CircuitDashboardFrag : Fragment() {
             deleteCircuit(null, viewHolder.adapterPosition)
         }
 
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
+                recyclerView.adapter!!.notifyDataSetChanged()
+            }
+            super.onSelectedChanged(viewHolder, actionState)
+        }
     }
 
     private fun itemMoved(current: Int, target: Int) {
@@ -165,6 +170,7 @@ class CircuitDashboardFrag : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog?, position: Int) {
+        Log.i("arrange", position.toString())
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
