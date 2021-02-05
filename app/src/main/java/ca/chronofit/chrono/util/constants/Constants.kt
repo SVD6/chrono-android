@@ -24,5 +24,10 @@ object Constants {
 
     // Version Number
     const val VERSION_NUMBER: String = "Test Version 0.2.1"
+    const val VERSION_NUM: String = "0.2.0"
+
+    // Remote Config Keys
+    const val CONFIG_MIN_VERSION: String = "min_version_of_app"
+    const val CONFIG_LATEST_VERSION: String = "latest_version_of_app"
 
 }

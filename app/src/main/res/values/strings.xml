@@ -118,4 +118,7 @@
     <string name="enter_the_dark_side">Enter the dark side</string>
     <string name="edit">Edit</string>
     <string name="share">Share</string>
+    <string name="update_available_title">Update Available 📲</string>
+    <string name="update_available_subtitle">You are on an older version of Chrono. Please update your app for the latest features and bug fixes.</string>
+    <string name="update">Update</string>
 </resources>

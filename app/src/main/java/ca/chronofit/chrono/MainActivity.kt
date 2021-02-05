@@ -2,13 +2,19 @@ package ca.chronofit.chrono
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.circuit.CircuitDashboardFrag
 import ca.chronofit.chrono.databinding.ActivityMainBinding
@@ -19,11 +25,12 @@ import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import kotlinx.android.synthetic.main.dialog_alert.view.*
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var bind: ActivityMainBinding
@@ -85,6 +92,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         observeSettings()
 
         // Check for an Update
+        checkForUpdate()
 
         // Check for App Review
     }
@@ -183,6 +191,100 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
+    private fun checkForUpdate() {
+        val appVersion = getAppVersion(this)
+        val currentVersion = remoteConfig.getString(Constants.CONFIG_LATEST_VERSION)
+
+        if (currentVersion.isNotEmpty() && appVersion.isNotEmpty() && checkVersionUpdateAvailable(
+                getAppVersionNumOnly(currentVersion),
+                getAppVersionNumOnly(appVersion)
+            )
+        ) {
+            showUpdateDialog()
+        } else {
+            Log.d("MainActivity", "App up to date.")
+        }
+    }
+
+    private fun getAppVersion(context: Context): String {
+        var appVersion: String? = ""
+        try {
+            appVersion = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            Log.e("MainActivity", e.message!!)
+        }
+        return appVersion ?: ""
+    }
+
+    private fun getAppVersionNumOnly(result: String): String {
+        return result.replace(".", "")
+    }
+
+    private fun checkVersionUpdateAvailable(currVersion: String, appVersion: String): Boolean {
+        // Might have to add more to this later if minVersion is actually needed
+        return (currVersion.toInt() > appVersion.toInt())
+    }
+
+    private fun showUpdateDialog() {
+        val builder =
+            MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
+        val dialogView = View.inflate(this, R.layout.dialog_alert, null)
+
+        // Set the Views
+        dialogView.dialog_title.text = getString(R.string.update_available_title)
+        dialogView.dialog_subtitle.text = getString(R.string.update_available_subtitle)
+        dialogView.confirm.text = getString(R.string.update)
+        dialogView.cancel.visibility = View.GONE
+        dialogView.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
+        dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+
+        // Button Logic
+        dialogView.confirm.setOnClickListener {
+            try {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=$packageName")
+                    )
+                )
+            } catch (e: ActivityNotFoundException) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                    )
+                )
+            }
+        }
+
+        // For now the dialog is dismissible but before launch we should have it fixed.
+
+        // Display the Dialog
+        builder.setView(dialogView)
+        builder.show()
+    }
+
+    private fun initRemoteConfig() {
+        // Configure Remote Config
+        remoteConfig = Firebase.remoteConfig
+
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+
+        // Activate Remote Config
+        remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                val updated = task.result
+                Log.d("remote_config", "Config params updated: $updated")
+            } else {
+                Log.d("remote_config", "Fetch and activate failed.")
+            }
+        }
+    }
+
     override fun onSaveInstanceState(state: Bundle) {
         super.onSaveInstanceState(state)
         Log.i("state", "saved")
@@ -197,16 +299,5 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         } else {
             super.onBackPressed()
         }
-    }
-
-    private fun initRemoteConfig() {
-        FirebaseApp.initializeApp(this)
-        remoteConfig = Firebase.remoteConfig
-
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 3600
-        }
-        remoteConfig.setConfigSettingsAsync(configSettings)
-        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
     }
 }

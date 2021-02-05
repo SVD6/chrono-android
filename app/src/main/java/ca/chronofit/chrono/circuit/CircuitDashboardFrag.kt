@@ -129,7 +129,7 @@ class CircuitDashboardFrag : Fragment() {
         // Set Dialog Views
         dialogView.dialog_title.text =
             "Delete " + circuitsObject?.circuits!![position].name
-        dialogView.subtitle.text = getString(R.string.delete_circuit_subtitle)
+        dialogView.dialog_subtitle.text = getString(R.string.delete_circuit_subtitle)
         dialogView.confirm.text = getString(R.string.delete)
         dialogView.cancel.text = getString(R.string.cancel)
 
