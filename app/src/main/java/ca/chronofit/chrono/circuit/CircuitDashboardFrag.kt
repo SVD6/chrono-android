@@ -65,7 +65,7 @@ class CircuitDashboardFrag : Fragment() {
                 .logEvent(Events.CREATE_STARTED, Bundle())
             startActivityForResult(
                 Intent(requireContext(), CircuitCreateActivity::class.java),
-                10001
+                Constants.DASH_TO_CREATE
             )
         }
 
@@ -78,18 +78,18 @@ class CircuitDashboardFrag : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                10001 -> {
+                Constants.DASH_TO_CREATE -> {
                     // Circuit Added
                     loadData()
                     Toast.makeText(requireContext(), "Circuit added and saved!", Toast.LENGTH_SHORT)
                         .show()
                 }
-                10002 -> {
+                Constants.DASH_TO_TIMER -> {
                     // Circuit Completed (Circuit Timer)
                     // Ideal spot to ask for a rating after a threshold of timers have been run
                     Log.i("CircuitDashboardFrag", "Completed a circuit.")
                 }
-                10003 -> {
+                Constants.DASH_TO_EDIT -> {
                     // Circuit Edited
                     loadData()
                     Toast.makeText(
@@ -109,7 +109,7 @@ class CircuitDashboardFrag : Fragment() {
         intent.putExtra("readyTime", readyTime)
         intent.putExtra("audioPrompts", audioPrompts)
         intent.putExtra("lastRest", lastRest)
-        startActivityForResult(intent, 10002)
+        startActivityForResult(intent, Constants.DASH_TO_TIMER)
     }
 
     private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
@@ -175,7 +175,7 @@ class CircuitDashboardFrag : Fragment() {
             intent.putExtra("isEdit", true)
             intent.putExtra("circuitPosition", position)
             dialog.dismiss()
-            startActivityForResult(intent, 10003)
+            startActivityForResult(intent, Constants.DASH_TO_EDIT)
         }
 
         modalSheetView.share_layout.setOnClickListener {
