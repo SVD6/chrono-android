@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
@@ -56,6 +57,8 @@ class CircuitDashboardFrag : Fragment() {
 
         recyclerView = bind.recyclerView
         loadData()
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         bind.addCircuit.setOnClickListener {
             FirebaseAnalytics.getInstance(requireContext())
@@ -89,8 +92,53 @@ class CircuitDashboardFrag : Fragment() {
         startActivityForResult(intent, 10002)
     }
 
+    private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            return makeMovementFlags((ItemTouchHelper.UP or ItemTouchHelper.DOWN), 0)
+        }
+
+        override fun isLongPressDragEnabled(): Boolean {
+            return true
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            itemMoved(viewHolder.adapterPosition, target.adapterPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            deleteCircuit(null, viewHolder.adapterPosition)
+        }
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
+                recyclerView.adapter!!.notifyDataSetChanged()
+            }
+            super.onSelectedChanged(viewHolder, actionState)
+        }
+    }
+
+    private fun itemMoved(current: Int, target: Int) {
+        recyclerView.adapter!!.notifyItemMoved(current, target)
+
+        // Update Model
+        val circuit = circuitsObject!!.circuits!![current]
+        circuitsObject!!.circuits!!.removeAt(current)
+        circuitsObject!!.circuits!!.add(target, circuit)
+
+        // Save updated list in local storage
+        PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
+    }
+
     @SuppressLint("InflateParams")
-    private fun circuitLongClicked(position: Int) {
+    private fun showMoreMenu(position: Int) {
         selectedPosition = position
 
         // Roll out the bottom sheet
@@ -121,7 +169,8 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
+    private fun deleteCircuit(dialog: BottomSheetDialog?, position: Int) {
+        Log.i("arrange", position.toString())
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
@@ -141,7 +190,7 @@ class CircuitDashboardFrag : Fragment() {
         dialogView.confirm.setOnClickListener {
             // Dismiss popups
             builder.dismiss()
-            dialog.dismiss()
+            dialog!!.dismiss()
 
             // Remove from model and recyclerview
             circuitsObject?.circuits?.remove(circuitsObject?.circuits!![position])
@@ -199,9 +248,7 @@ class CircuitDashboardFrag : Fragment() {
             recyclerView.adapter = CircuitViewAdapter(
                 circuitsObject?.circuits!!,
                 { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
-                { position: Int ->
-                    circuitLongClicked(position)
-                }, requireContext()
+                { position: Int -> showMoreMenu(position) }, requireContext()
             )
         } else {
             loadEmptyUI()

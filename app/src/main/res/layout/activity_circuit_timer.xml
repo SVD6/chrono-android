@@ -22,8 +22,8 @@
                 android:clickable="true"
                 android:contentDescription="@string/todo"
                 android:focusable="true"
-                android:padding="@dimen/xs_large_element_padding"
-                android:src="@drawable/ic_close_grey" />
+                android:padding="@dimen/small_element_padding"
+                android:src="@drawable/ic_close" />
 
             <LinearLayout
                 android:id="@+id/countdown_lay"
