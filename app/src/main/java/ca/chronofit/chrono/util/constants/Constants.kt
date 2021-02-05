@@ -17,7 +17,7 @@ object Constants {
     const val NOTIFICATION_SETTING: String = "notifications"
     const val DARK_MODE_SETTING: String = "dark_mode"
 
-    // Dark Mode
+    // Dark Mode Options
     const val DARK_MODE: String = "On"
     const val LIGHT_MODE: String = "Off"
     const val SYSTEM_DEFAULT: String = "System Default"

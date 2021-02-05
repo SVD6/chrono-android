@@ -76,12 +76,29 @@ class CircuitDashboardFrag : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
-            loadData()
-        }
-        if (requestCode == 10002 && resultCode == Activity.RESULT_OK) {
-            // Ideal spot to ask for a rating after a threshold of timers have been run
-            Log.i("circuit_activity", "Completed a circuit.")
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                10001 -> {
+                    // Circuit Added
+                    loadData()
+                    Toast.makeText(requireContext(), "Circuit added and saved!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                10002 -> {
+                    // Circuit Completed (Circuit Timer)
+                    // Ideal spot to ask for a rating after a threshold of timers have been run
+                    Log.i("CircuitDashboardFrag", "Completed a circuit.")
+                }
+                10003 -> {
+                    // Circuit Edited
+                    loadData()
+                    Toast.makeText(
+                        requireContext(),
+                        "Circuit edited and saved!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
@@ -154,18 +171,11 @@ class CircuitDashboardFrag : Fragment() {
         }
 
         modalSheetView.edit_layout.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "\uD83D\uDEE0\uFE0F Edit circuit coming soon!! \uD83D\uDEE0\uFE0F",
-                Toast.LENGTH_SHORT
-            ).show()
-
             val intent = Intent(requireContext(), CircuitCreateActivity::class.java)
             intent.putExtra("isEdit", true)
-            intent.putExtra(
-                "circuit",
-                GsonBuilder().create().toJson(circuitsObject!!.circuits!![position])
-            )
+            intent.putExtra("circuitPosition", position)
+            dialog.dismiss()
+            startActivityForResult(intent, 10003)
         }
 
         modalSheetView.share_layout.setOnClickListener {

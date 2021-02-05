@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/num_sets"
             android:layout_marginTop="@dimen/medium_element_padding"
-            android:layout_marginEnd="@dimen/large_element_padding"
+            android:layout_marginEnd="@dimen/xl_large_element_padding"
             android:gravity="end">
 
             <ImageView

@@ -28,12 +28,20 @@ class CircuitCreateActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitCreateBinding
 
     private var selectedIcon: Int = 0
+    private var isEdit: Boolean = false
+    private var editPosition: Int = -1
     private lateinit var iconNames: TypedArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PreferenceManager.with(this)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
+
+        if (intent.getBooleanExtra("isEdit", false)) {
+            isEdit = true
+            editPosition = intent.getIntExtra("circuitPosition", -1)
+            loadCircuitInfo(editPosition)
+        }
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 
@@ -91,6 +99,34 @@ class CircuitCreateActivity : BaseActivity() {
         }
     }
 
+    private fun loadCircuitInfo(position: Int) {
+        if (position != -1) {
+            val circuit =
+                (PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS))!!.circuits!![position]
+            bind.circuitName.setText(circuit.name)
+            bind.setNum.setText(circuit.sets.toString())
+            bind.setWorkTime.setText(circuit.work.toString())
+            bind.setRestTime.setText(circuit.rest.toString())
+
+            // Set Circuit Icon
+            val icons: TypedArray = resources.obtainTypedArray(R.array.icon_files)
+            bind.circuitIcon.setImageResource(
+                resources.getIdentifier(
+                    icons.getString(circuit.iconId!!),
+                    "drawable",
+                    packageName
+                )
+            )
+            icons.recycle()
+        } else {
+            Toast.makeText(
+                this,
+                "Error loading selected circuit, please try again.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun saveCircuit() {
         val circuit = CircuitObject()
         circuit.name = bind.circuitName.text.toString()
@@ -101,9 +137,20 @@ class CircuitCreateActivity : BaseActivity() {
 
         // Save circuit in Shared Preferences
         val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS)
-        circuits!!.circuits!!.add(circuit)
-        PreferenceManager.put(circuits, Constants.CIRCUITS)
 
+        // Check if the user is editing a circuit
+        if (isEdit) {
+            if (editPosition != -1) {
+                circuits!!.circuits!![editPosition] = circuit
+            } else {
+                setResult(Activity.RESULT_CANCELED)
+                Toast.makeText(this, "Error editing and saving circuit.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        } else {
+            circuits!!.circuits!!.add(circuit)
+        }
+        PreferenceManager.put(circuits, Constants.CIRCUITS)
         setResult(Activity.RESULT_OK)
         finish()
     }
