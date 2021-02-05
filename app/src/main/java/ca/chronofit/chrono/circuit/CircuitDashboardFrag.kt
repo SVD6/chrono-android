@@ -81,14 +81,7 @@ class CircuitDashboardFrag : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-<<<<<<< Updated upstream
-        if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
-            loadData()
-        }
-        if (requestCode == 10002 && resultCode == Activity.RESULT_OK) {
-            // Ideal spot to ask for a rating after a threshold of timers have been run
-            Log.i("circuit_activity", "Completed a circuit.")
-=======
+
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 Constants.DASH_TO_CREATE -> {
@@ -113,7 +106,6 @@ class CircuitDashboardFrag : Fragment() {
                     ).show()
                 }
             }
->>>>>>> Stashed changes
         }
     }
 

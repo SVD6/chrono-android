@@ -18,16 +18,12 @@ object Constants {
     const val NOTIFICATION_SETTING: String = "notifications"
     const val DARK_MODE_SETTING: String = "dark_mode"
 
-<<<<<<< Updated upstream
-    // Dark Mode
-=======
     // Activity Request Codes
     const val DASH_TO_CREATE: Int = 10001
     const val DASH_TO_TIMER: Int = 10002
     const val DASH_TO_EDIT: Int = 10003
 
     // Dark Mode Options
->>>>>>> Stashed changes
     const val DARK_MODE: String = "On"
     const val LIGHT_MODE: String = "Off"
     const val SYSTEM_DEFAULT: String = "System Default"
