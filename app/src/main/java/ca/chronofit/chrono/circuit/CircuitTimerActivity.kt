@@ -16,8 +16,10 @@ import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
 import ca.chronofit.chrono.util.BaseActivity
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.CircuitObject
+import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -189,6 +191,13 @@ class CircuitTimerActivity : BaseActivity() {
 
     private fun isDone() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        if (PreferenceManager.get<Int>(Constants.NUM_COMPLETE) != null) {
+            val increment = (PreferenceManager.get<Int>(Constants.NUM_COMPLETE)!! + 1)
+            PreferenceManager.put(increment, Constants.NUM_COMPLETE)
+        } else {
+            PreferenceManager.put(1, Constants.NUM_COMPLETE)
+        }
+
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
         val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)

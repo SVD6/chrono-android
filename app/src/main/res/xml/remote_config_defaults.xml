@@ -4,4 +4,8 @@
         <key>latest_version_of_app</key>
         <value>0.2.0</value>
     </entry>
+    <entry>
+        <key>app_review_threshold</key>
+        <value>10</value>
+    </entry>
 </defaultsMap>

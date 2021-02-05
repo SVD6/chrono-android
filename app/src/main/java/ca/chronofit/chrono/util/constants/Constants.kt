@@ -9,6 +9,7 @@ object Constants {
     // Shared Preference Values
     const val CIRCUITS: String = "CIRCUITS"
     const val FIRST_RUN: String = "first_run"
+    const val NUM_COMPLETE: String = "num_complete"
 
     // Settings Shared Preferences
     const val GET_READY_SETTING: String = "ready_time"
@@ -17,17 +18,25 @@ object Constants {
     const val NOTIFICATION_SETTING: String = "notifications"
     const val DARK_MODE_SETTING: String = "dark_mode"
 
+<<<<<<< Updated upstream
     // Dark Mode
+=======
+    // Activity Request Codes
+    const val DASH_TO_CREATE: Int = 10001
+    const val DASH_TO_TIMER: Int = 10002
+    const val DASH_TO_EDIT: Int = 10003
+
+    // Dark Mode Options
+>>>>>>> Stashed changes
     const val DARK_MODE: String = "On"
     const val LIGHT_MODE: String = "Off"
     const val SYSTEM_DEFAULT: String = "System Default"
 
     // Version Number
     const val VERSION_NUMBER: String = "Test Version 0.2.1"
-    const val VERSION_NUM: String = "0.2.0"
 
     // Remote Config Keys
-    const val CONFIG_MIN_VERSION: String = "min_version_of_app"
+    const val CONFIG_REVIEW_THRESHOLD: String = "app_review_threshold"
     const val CONFIG_LATEST_VERSION: String = "latest_version_of_app"
 
 }

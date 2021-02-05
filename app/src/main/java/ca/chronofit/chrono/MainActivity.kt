@@ -93,8 +93,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         // Check for an Update
         checkForUpdate()
-
-        // Check for App Review
     }
 
     private fun changeDarkMode(mode: String) {
