@@ -213,6 +213,7 @@
                     android:textStyle="bold" />
 
                 <RelativeLayout
+                    android:id="@+id/get_help"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/xs_medium_element_padding">
