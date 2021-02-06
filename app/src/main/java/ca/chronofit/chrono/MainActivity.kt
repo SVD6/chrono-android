@@ -283,6 +283,27 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         builder.show()
     }
 
+    private fun initRemoteConfig() {
+        // Configure Remote Config
+        remoteConfig = Firebase.remoteConfig
+
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 0
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+
+        // Activate Remote Config
+        remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                val updated = task.result
+                Log.d("remote_config", "Config params updated: $updated")
+            } else {
+                Log.d("remote_config", "Fetch and activate failed.")
+            }
+        }
+    }
+
     override fun onSaveInstanceState(state: Bundle) {
         super.onSaveInstanceState(state)
         Log.i("state", "saved")
