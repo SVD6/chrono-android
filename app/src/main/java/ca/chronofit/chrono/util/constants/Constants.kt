@@ -1,6 +1,9 @@
 package ca.chronofit.chrono.util.constants
 
 object Constants {
+    // Other
+    const val SUPPORT_EMAIL: String = "support@chronofit.ca"
+
     // Fragment TAGS
     const val CIRCUIT_FRAG: String = "CircuitFrag"
     const val STOPWATCH_FRAG: String = "StopwatchFrag"

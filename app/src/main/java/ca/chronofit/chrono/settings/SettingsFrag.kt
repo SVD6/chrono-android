@@ -4,17 +4,19 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentSettingsBinding
-import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
@@ -22,6 +24,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.android.synthetic.main.dialog_dark_mode.view.*
 import kotlinx.android.synthetic.main.dialog_ready_time.view.*
+import java.lang.Exception
 
 class SettingsFrag : Fragment() {
     private lateinit var bind: FragmentSettingsBinding
@@ -119,6 +122,22 @@ class SettingsFrag : Fragment() {
             } else {
                 settingsViewModel.onLastRestChanged(false)
                 PreferenceManager.put(false, Constants.LAST_REST_SETTING)
+            }
+        }
+
+        // Get Help Launch
+        bind.getHelp.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                val emailArray = arrayOf("support@chronofit.ca")
+                putExtra(Intent.EXTRA_EMAIL, emailArray)
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.help_email_subject))
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.help_email_body))
+            }
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Log.d("SettingsFrag", e.message.toString())
             }
         }
 

@@ -71,7 +71,10 @@ class CircuitDashboardFrag : Fragment() {
         bind.addCircuit.setOnClickListener {
             FirebaseAnalytics.getInstance(requireContext())
                 .logEvent(Events.CREATE_STARTED, Bundle())
-            startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
+            startActivityForResult(
+                Intent(requireContext(), CircuitCreateActivity::class.java),
+                Constants.DASH_TO_CREATE
+            )
         }
 
         observeSettings()
@@ -81,7 +84,6 @@ class CircuitDashboardFrag : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 Constants.DASH_TO_CREATE -> {
@@ -144,7 +146,7 @@ class CircuitDashboardFrag : Fragment() {
         intent.putExtra("readyTime", readyTime)
         intent.putExtra("audioPrompts", audioPrompts)
         intent.putExtra("lastRest", lastRest)
-        startActivityForResult(intent, 10002)
+        startActivityForResult(intent, Constants.DASH_TO_TIMER)
     }
 
     private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
@@ -206,11 +208,11 @@ class CircuitDashboardFrag : Fragment() {
         }
 
         modalSheetView.edit_layout.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "\uD83D\uDEE0\uFE0F Edit circuit coming soon!! \uD83D\uDEE0\uFE0F",
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(requireContext(), CircuitCreateActivity::class.java)
+            intent.putExtra("isEdit", true)
+            intent.putExtra("circuitPosition", position)
+            dialog.dismiss()
+            startActivityForResult(intent, Constants.DASH_TO_EDIT)
         }
 
         modalSheetView.share_layout.setOnClickListener {
