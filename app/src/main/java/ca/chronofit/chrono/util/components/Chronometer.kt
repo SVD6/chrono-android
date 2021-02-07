@@ -10,7 +10,6 @@ import androidx.core.app.NotificationManagerCompat
 import ca.chronofit.chrono.util.helpers.SwatchNotifManager
 import ca.chronofit.chrono.util.helpers.formatTime
 import ca.chronofit.chrono.util.helpers.getTime
-
 class Chronometer @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet?,
@@ -51,7 +50,7 @@ class Chronometer @JvmOverloads constructor(
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
         notification.showNotification = (visibility != VISIBLE) && (notificationEnabled == true)
-        if (!notification.showNotification) {
+        if(visibility == VISIBLE){
             NotificationManagerCompat.from(context).cancel(notification.notificationId)
         }
     }
@@ -70,13 +69,12 @@ class Chronometer @JvmOverloads constructor(
             runnable = Runnable {
                 if (running) {
                     elapsedTime = SystemClock.elapsedRealtime() - startedTime - delayTime
-
                     val elapsedTime = getTime(elapsedTime)
                     val time = formatTime(elapsedTime, ":")
                     notificationTime = time.dropLast(3)
                     updateText(time)
                     if (prevSec != elapsedTime.seconds) {
-                        notification.createRunningNotification(notificationTime)
+                        notification.createRunningNotification(notificationTime, true)
                         prevSec = elapsedTime.seconds
                     }
                 }
@@ -90,7 +88,7 @@ class Chronometer @JvmOverloads constructor(
     fun stop() {
         stopTime = SystemClock.elapsedRealtime()
         running = false
-        notification.createStoppedNotification(notificationTime)
+        notification.createRunningNotification(notificationTime, false)
     }
 
     fun resume() {
