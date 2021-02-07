@@ -1,7 +1,9 @@
 package ca.chronofit.chrono.settings
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -91,6 +92,7 @@ class SettingsFrag : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initMenus() {
         // Dark Mode Popup
         bind.darkMode.setOnClickListener {
@@ -100,6 +102,7 @@ class SettingsFrag : Fragment() {
         // Notification Switch
         bind.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
             switchLogic(isChecked, bind.notificationSwitch)
+            settingsViewModel.onNotificationChanged(isChecked)
             PreferenceManager.put(isChecked, Constants.NOTIFICATION_SETTING)
         }
 
@@ -111,6 +114,7 @@ class SettingsFrag : Fragment() {
         // Audio Prompt Switch
         bind.audioSwitch.setOnCheckedChangeListener { _, isChecked ->
             switchLogic(isChecked, bind.audioSwitch)
+            settingsViewModel.onAudioPromptChanged(isChecked)
             PreferenceManager.put(isChecked, Constants.AUDIO_SETTING)
         }
 
@@ -170,7 +174,15 @@ class SettingsFrag : Fragment() {
             startActivity(intent)
         }
 
-        bind.versionNumber.text = Constants.VERSION_NUMBER
+        try {
+            bind.versionNumber.text = "Version " + requireContext().packageManager.getPackageInfo(
+                requireContext().packageName,
+                0
+            ).versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            Log.e("MainActivity", e.message!!)
+            bind.versionNumber.text = Constants.VERSION_NUMBER
+        }
     }
 
     private fun switchLogic(setting: Boolean, switch: SwitchMaterial) {
@@ -208,7 +220,6 @@ class SettingsFrag : Fragment() {
             settingsViewModel.onReadyTimeChanged(selectedTime.toString())
             builder.dismiss()
         }
-
         builder.setView(dialogView)
         builder.show()
     }
@@ -235,7 +246,6 @@ class SettingsFrag : Fragment() {
             settingsViewModel.onDarkModeChanged(selectedText.toString())
             builder.dismiss()
         }
-
         builder.setView(dialogView)
         builder.show()
     }

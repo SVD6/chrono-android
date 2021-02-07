@@ -7,7 +7,7 @@ import android.os.SystemClock
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationManagerCompat
-import ca.chronofit.chrono.util.helpers.SwatchNotifManager
+import ca.chronofit.chrono.util.helpers.SwatchNotificationManager
 import ca.chronofit.chrono.util.helpers.formatTime
 import ca.chronofit.chrono.util.helpers.getTime
 
@@ -18,7 +18,7 @@ class Chronometer @JvmOverloads constructor(
 ) : AppCompatTextView(
     context!!, attrs, defStyle
 ) {
-    private val notification = SwatchNotifManager(context!!)
+    private val notification = SwatchNotificationManager(context!!)
     private var notificationEnabled: Boolean? = null
     private var notificationTime = ""
 

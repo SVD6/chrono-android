@@ -104,10 +104,7 @@
         <item>drawable/ic_bottle</item>
     </string-array>
 
-    <!--    Notification channel id's-->
-    <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
-    <string name="timer_notification_channel_id">chrono_timer_default_channel</string>
-    <string name="stopwatch_notification_channel_id">chrono_stopwatch_default_channel</string>
+    <string name="default_fcm_notification_channel_id">Chrono Default</string>
 
     <string name="chrono_logo">Chrono Logo</string>
     <string name="change_nicon">Change\nIcon</string>

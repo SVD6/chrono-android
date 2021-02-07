@@ -30,9 +30,9 @@ fun formatTime(time: TimeObject, separator: String): String {
     if (time.hours > 0) {
         text += df.format(time.hours) + separator
     }
+
     text += df.format(time.minutes) + separator
     text += df.format(time.seconds) + "."
     text += time.milliseconds.toString() + time.tenMilliseconds.toString()
-
     return text
 }

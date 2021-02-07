@@ -1,7 +1,6 @@
 package ca.chronofit.chrono.util.constants
 
 object Events {
-
     // Circuit Create Related Events
     const val CREATE_STARTED = "circuit_create"
     const val CREATE_COMPLETE = "circuit_added"

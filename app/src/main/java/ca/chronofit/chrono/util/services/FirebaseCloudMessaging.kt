@@ -47,7 +47,6 @@ class FirebaseCloudMessaging : FirebaseMessagingService() {
             )
             notificationManager.createNotificationChannel(channel)
         }
-
         notificationManager.notify(0, notificationBuilder.build())
     }
 
@@ -55,5 +54,4 @@ class FirebaseCloudMessaging : FirebaseMessagingService() {
         Log.d("FCM Messaging Service", "Refreshed token: $newToken")
         super.onNewToken(newToken)
     }
-
 }

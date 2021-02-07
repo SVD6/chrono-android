@@ -85,8 +85,15 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             bind.navBar.setOnNavigationItemSelectedListener(this)
         }
 
-        createTimerNotificationChannel()
-        createStopwatchNotificationChannel()
+        // Create Notification Channels
+        createNotificationChannel(
+            Constants.CIRCUIT_NOTIFICATION_CHANNEL,
+            "Notifications from your circuit timers."
+        )
+        createNotificationChannel(
+            Constants.SWATCH_NOTIFICATION_CHANNEL,
+            "Notifications from your stopwatch."
+        )
 
         // Initialization stuff
         observeSettings()
@@ -116,14 +123,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun observeSettings() {
         settingsViewModel.darkMode.observe(this, { darkMode ->
             changeDarkMode(darkMode)
-        })
-
-        settingsViewModel.notifications.observe(this, { notifications ->
-            if (notifications) {
-                Log.i("settings", "Registered notifications")
-            } else {
-                Log.i("settings", "Unregistered notifications")
-            }
         })
     }
 
@@ -156,37 +155,15 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-    private fun createTimerNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
+    private fun createNotificationChannel(name: String, descriptionText: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.timer_notification_channel_id)
-            val descriptionText = "Timer notification"
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(name, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
-    private fun createStopwatchNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.stopwatch_notification_channel_id)
-            val descriptionText = "Stopwatch notification"
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(name, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+            val channel =
+                NotificationChannel(name, name, NotificationManager.IMPORTANCE_DEFAULT).apply {
+                    description = descriptionText
+                }
+            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
+                channel
+            )
         }
     }
 
@@ -276,7 +253,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 )
             }
         }
-
         // For now the dialog is dismissible but before launch we should have it fixed.
 
         // Display the Dialog

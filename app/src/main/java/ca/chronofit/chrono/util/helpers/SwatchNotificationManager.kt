@@ -7,15 +7,14 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.stopwatch.StopwatchFrag
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.services.NotificationIntentService
 
-class SwatchNotifManager(private val context: Context) {
+class SwatchNotificationManager(private val context: Context) {
     val notificationId = 12
     var showNotification = false
 
-
     fun createRunningNotification(time: String, isRunning: Boolean) {
-
         val stopIntent = Intent(context, NotificationIntentService::class.java)
         stopIntent.action = StopwatchFrag.STOP
 
@@ -33,7 +32,7 @@ class SwatchNotifManager(private val context: Context) {
 
         val builder = NotificationCompat.Builder(
             context,
-            context.getString(R.string.stopwatch_notification_channel_id)
+            Constants.SWATCH_NOTIFICATION_CHANNEL
         )
             .setSmallIcon(R.drawable.ic_notification_logo)
             .setContentTitle("stopwatch")
@@ -90,5 +89,4 @@ class SwatchNotifManager(private val context: Context) {
             }
         }
     }
-
 }
