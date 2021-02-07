@@ -15,7 +15,7 @@ import com.google.android.material.textview.MaterialTextView
 class CircuitViewAdapter(
     private val data: List<CircuitObject>,
     private val clickListener: (CircuitObject) -> Unit,
-    private val longClickListener: (Int) -> Unit,
+    private val menuClickListener: (Int) -> Unit,
     private val context: Context
 ) :
     RecyclerView.Adapter<CircuitViewAdapter.CircuitViewHolder>() {
@@ -26,21 +26,27 @@ class CircuitViewAdapter(
         private val timeRest: MaterialTextView = itemView.findViewById(R.id.rest_time)
         private val timeWork: MaterialTextView = itemView.findViewById(R.id.work_time)
         private val icon: ImageView = itemView.findViewById(R.id.circuit_icon)
+        private val more: ImageView = itemView.findViewById(R.id.more_menu)
 
         @SuppressLint("SetTextI18n")
         fun bind(
             circuit: CircuitObject,
             clickListener: (CircuitObject) -> Unit,
-            onLongClickListener: (Int) -> Unit,
+            onMenuClickListener: (Int) -> Unit,
             position: Int,
             context: Context
         ) {
             name.text = circuit.name
-            numSets.text = circuit.sets.toString() + " Sets"
+
+            if (circuit.sets == 1)
+                numSets.text = circuit.sets.toString() + " Set"
+            else
+                numSets.text = circuit.sets.toString() + " Sets"
+
             timeRest.text = "Rest:  " + circuit.rest.toString() + "s"
             timeWork.text = "Work:  " + circuit.work.toString() + "s"
 
-            // Set Icon
+            // Set Circuit Icon
             val icons: TypedArray = context.resources.obtainTypedArray(R.array.icon_files)
             icon.setImageResource(
                 context.resources.getIdentifier(
@@ -51,10 +57,7 @@ class CircuitViewAdapter(
             )
             icons.recycle()
             itemView.setOnClickListener { clickListener(circuit) }
-            itemView.setOnLongClickListener {
-                onLongClickListener(position)
-                true
-            }
+            more.setOnClickListener { onMenuClickListener(position) }
         }
     }
 
@@ -67,7 +70,13 @@ class CircuitViewAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) {
         val circuit = data[position]
-        holder.bind(circuit, clickListener, longClickListener, holder.layoutPosition, context)
+        holder.bind(
+            circuit,
+            clickListener,
+            menuClickListener,
+            holder.layoutPosition,
+            context
+        )
     }
 
     override fun getItemCount(): Int {

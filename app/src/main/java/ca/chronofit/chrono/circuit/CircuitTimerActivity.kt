@@ -195,7 +195,7 @@ class CircuitTimerActivity : BaseActivity() {
 
         // Set Dialog Views
         dialogView.dialog_title.text = getString(R.string.circuit_complete)
-        dialogView.subtitle.text = getString(R.string.circuit_complete_subtitle)
+        dialogView.dialog_subtitle.text = getString(R.string.circuit_complete_subtitle)
         dialogView.confirm.text = getString(R.string.circuit_complete_confirm)
         dialogView.cancel.text = getString(R.string.circuit_complete_cancel)
 

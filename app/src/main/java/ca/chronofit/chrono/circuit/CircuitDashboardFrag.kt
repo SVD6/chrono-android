@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
@@ -56,11 +57,16 @@ class CircuitDashboardFrag : Fragment() {
 
         recyclerView = bind.recyclerView
         loadData()
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         bind.addCircuit.setOnClickListener {
             FirebaseAnalytics.getInstance(requireContext())
                 .logEvent(Events.CREATE_STARTED, Bundle())
-            startActivityForResult(Intent(requireContext(), CircuitCreate::class.java), 10001)
+            startActivityForResult(
+                Intent(requireContext(), CircuitCreateActivity::class.java),
+                Constants.DASH_TO_CREATE
+            )
         }
 
         observeSettings()
@@ -70,12 +76,29 @@ class CircuitDashboardFrag : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 10001 && resultCode == Activity.RESULT_OK) {
-            loadData()
-        }
-        if (requestCode == 10002 && resultCode == Activity.RESULT_OK) {
-            // Ideal spot to ask for a rating after a threshold of timers have been run
-            Log.i("circuit_activity", "Completed a circuit.")
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                Constants.DASH_TO_CREATE -> {
+                    // Circuit Added
+                    loadData()
+                    Toast.makeText(requireContext(), "Circuit added and saved!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                Constants.DASH_TO_TIMER -> {
+                    // Circuit Completed (Circuit Timer)
+                    // Ideal spot to ask for a rating after a threshold of timers have been run
+                    Log.i("CircuitDashboardFrag", "Completed a circuit.")
+                }
+                Constants.DASH_TO_EDIT -> {
+                    // Circuit Edited
+                    loadData()
+                    Toast.makeText(
+                        requireContext(),
+                        "Circuit edited and saved!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
@@ -86,11 +109,56 @@ class CircuitDashboardFrag : Fragment() {
         intent.putExtra("readyTime", readyTime)
         intent.putExtra("audioPrompts", audioPrompts)
         intent.putExtra("lastRest", lastRest)
-        startActivityForResult(intent, 10002)
+        startActivityForResult(intent, Constants.DASH_TO_TIMER)
+    }
+
+    private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            return makeMovementFlags((ItemTouchHelper.UP or ItemTouchHelper.DOWN), 0)
+        }
+
+        override fun isLongPressDragEnabled(): Boolean {
+            return true
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            itemMoved(viewHolder.adapterPosition, target.adapterPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            deleteCircuit(null, viewHolder.adapterPosition)
+        }
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
+                recyclerView.adapter!!.notifyDataSetChanged()
+            }
+            super.onSelectedChanged(viewHolder, actionState)
+        }
+    }
+
+    private fun itemMoved(current: Int, target: Int) {
+        recyclerView.adapter!!.notifyItemMoved(current, target)
+
+        // Update Model
+        val circuit = circuitsObject!!.circuits!![current]
+        circuitsObject!!.circuits!!.removeAt(current)
+        circuitsObject!!.circuits!!.add(target, circuit)
+
+        // Save updated list in local storage
+        PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
     }
 
     @SuppressLint("InflateParams")
-    private fun circuitLongClicked(position: Int) {
+    private fun showMoreMenu(position: Int) {
         selectedPosition = position
 
         // Roll out the bottom sheet
@@ -103,11 +171,11 @@ class CircuitDashboardFrag : Fragment() {
         }
 
         modalSheetView.edit_layout.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "\uD83D\uDEE0\uFE0F Edit circuit coming soon!! \uD83D\uDEE0\uFE0F",
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(requireContext(), CircuitCreateActivity::class.java)
+            intent.putExtra("isEdit", true)
+            intent.putExtra("circuitPosition", position)
+            dialog.dismiss()
+            startActivityForResult(intent, Constants.DASH_TO_EDIT)
         }
 
         modalSheetView.share_layout.setOnClickListener {
@@ -121,7 +189,8 @@ class CircuitDashboardFrag : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun deleteCircuit(dialog: BottomSheetDialog, position: Int) {
+    private fun deleteCircuit(dialog: BottomSheetDialog?, position: Int) {
+        Log.i("arrange", position.toString())
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
@@ -129,7 +198,7 @@ class CircuitDashboardFrag : Fragment() {
         // Set Dialog Views
         dialogView.dialog_title.text =
             "Delete " + circuitsObject?.circuits!![position].name
-        dialogView.subtitle.text = getString(R.string.delete_circuit_subtitle)
+        dialogView.dialog_subtitle.text = getString(R.string.delete_circuit_subtitle)
         dialogView.confirm.text = getString(R.string.delete)
         dialogView.cancel.text = getString(R.string.cancel)
 
@@ -141,7 +210,7 @@ class CircuitDashboardFrag : Fragment() {
         dialogView.confirm.setOnClickListener {
             // Dismiss popups
             builder.dismiss()
-            dialog.dismiss()
+            dialog!!.dismiss()
 
             // Remove from model and recyclerview
             circuitsObject?.circuits?.remove(circuitsObject?.circuits!![position])
@@ -199,9 +268,7 @@ class CircuitDashboardFrag : Fragment() {
             recyclerView.adapter = CircuitViewAdapter(
                 circuitsObject?.circuits!!,
                 { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
-                { position: Int ->
-                    circuitLongClicked(position)
-                }, requireContext()
+                { position: Int -> showMoreMenu(position) }, requireContext()
             )
         } else {
             loadEmptyUI()

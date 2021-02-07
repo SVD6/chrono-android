@@ -67,9 +67,9 @@
             android:padding="@dimen/xs_small_element_padding"
             android:text="@string/save"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textSize="@dimen/xs_medium_text"
             android:textStyle="bold"
             app:cornerRadius="@dimen/small_element_padding" />
-
     </LinearLayout>
 </LinearLayout>

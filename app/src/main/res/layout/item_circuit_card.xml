@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/medium_element_padding"
     android:layout_marginTop="@dimen/tiny_element_padding"
-    android:layout_marginBottom="@dimen/small_element_padding"
+    android:layout_marginBottom="@dimen/xs_medium_element_padding"
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="@dimen/xs_medium_element_padding"
@@ -16,7 +16,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/xs_medium_element_padding">
+        android:paddingStart="@dimen/xs_medium_element_padding"
+        android:paddingBottom="@dimen/xs_medium_element_padding"
+        tools:ignore="RtlSymmetry">
 
         <ImageView
             android:id="@+id/circuit_icon"
@@ -31,13 +33,24 @@
             android:id="@+id/circuit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/xss_huge_element_padding"
+            android:layout_marginStart="@dimen/custom_padding_3"
+            android:layout_marginTop="@dimen/xs_medium_element_padding"
+            android:layout_toStartOf="@+id/more_menu"
             android:ellipsize="end"
             android:lines="1"
             android:maxLines="1"
             android:paddingEnd="@dimen/medium_element_padding"
-            android:textSize="@dimen/xl_large_text"
+            android:textSize="@dimen/large_text"
             tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/more_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/todo"
+            android:padding="@dimen/xs_medium_element_padding"
+            android:src="@drawable/ic_more" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/num_sets"
@@ -52,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/num_sets"
             android:layout_marginStart="@dimen/custom_padding_2"
-            android:layout_marginTop="@dimen/xs_medium_element_padding">
+            android:layout_marginTop="@dimen/medium_element_padding">
 
             <ImageView
                 android:id="@+id/timer_icon"
@@ -76,8 +89,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/num_sets"
-            android:layout_marginTop="@dimen/xs_medium_element_padding"
-            android:layout_marginEnd="@dimen/medium_element_padding"
+            android:layout_marginTop="@dimen/medium_element_padding"
+            android:layout_marginEnd="@dimen/xl_large_element_padding"
             android:gravity="end">
 
             <ImageView
@@ -87,7 +100,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginHorizontal="@dimen/xs_small_element_padding"
                 android:contentDescription="@string/todo"
-                android:src="@drawable/ic_clock_black" />
+                android:src="@drawable/ic_clock" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/work_time"

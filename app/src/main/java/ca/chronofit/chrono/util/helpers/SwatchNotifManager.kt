@@ -14,7 +14,7 @@ class SwatchNotifManager(private val context: Context) {
     var showNotification = false
 
 
-    fun createRunningNotification(time: String, running: Boolean) {
+    fun createRunningNotification(time: String, isRunning: Boolean) {
 
         val stopIntent = Intent(context, NotificationIntentService::class.java)
         stopIntent.action = StopwatchFrag.STOP
@@ -43,7 +43,7 @@ class SwatchNotifManager(private val context: Context) {
             .setShowWhen(false)
 
         // addAction requires an icon to support older devices, but isn't actually shown in newer ones
-        if (running) {
+        if (isRunning) {
             builder.addAction(
                 R.drawable.ic_pause,
                 "stop",

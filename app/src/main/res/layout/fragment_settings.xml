@@ -41,6 +41,8 @@
                     android:id="@+id/dark_mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:paddingHorizontal="@dimen/xs_medium_element_padding">
 
                     <com.google.android.material.textview.MaterialTextView
@@ -211,6 +213,7 @@
                     android:textStyle="bold" />
 
                 <RelativeLayout
+                    android:id="@+id/get_help"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/xs_medium_element_padding">
@@ -231,7 +234,7 @@
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/todo"
                         android:paddingHorizontal="@dimen/tiny_element_padding"
-                        android:src="@drawable/ic_help_black"
+                        android:src="@drawable/ic_help"
                         app:tint="@color/reset_grey" />
                 </RelativeLayout>
 

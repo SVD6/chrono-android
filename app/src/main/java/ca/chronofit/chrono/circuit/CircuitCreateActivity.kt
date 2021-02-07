@@ -24,16 +24,24 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.dialog_select_icon.view.*
 
-class CircuitCreate : BaseActivity() {
+class CircuitCreateActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitCreateBinding
 
     private var selectedIcon: Int = 0
+    private var isEdit: Boolean = false
+    private var editPosition: Int = -1
     private lateinit var iconNames: TypedArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PreferenceManager.with(this)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
+
+        if (intent.getBooleanExtra("isEdit", false)) {
+            isEdit = true
+            editPosition = intent.getIntExtra("circuitPosition", -1)
+            loadCircuitInfo(editPosition)
+        }
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 
@@ -91,6 +99,34 @@ class CircuitCreate : BaseActivity() {
         }
     }
 
+    private fun loadCircuitInfo(position: Int) {
+        if (position != -1) {
+            val circuit =
+                (PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS))!!.circuits!![position]
+            bind.circuitName.setText(circuit.name)
+            bind.setNum.setText(circuit.sets.toString())
+            bind.setWorkTime.setText(circuit.work.toString())
+            bind.setRestTime.setText(circuit.rest.toString())
+
+            // Set Circuit Icon
+            val icons: TypedArray = resources.obtainTypedArray(R.array.icon_files)
+            bind.circuitIcon.setImageResource(
+                resources.getIdentifier(
+                    icons.getString(circuit.iconId!!),
+                    "drawable",
+                    packageName
+                )
+            )
+            icons.recycle()
+        } else {
+            Toast.makeText(
+                this,
+                "Error loading selected circuit, please try again.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun saveCircuit() {
         val circuit = CircuitObject()
         circuit.name = bind.circuitName.text.toString()
@@ -101,9 +137,20 @@ class CircuitCreate : BaseActivity() {
 
         // Save circuit in Shared Preferences
         val circuits: CircuitsObject? = PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS)
-        circuits!!.circuits!!.add(circuit)
-        PreferenceManager.put(circuits, Constants.CIRCUITS)
 
+        // Check if the user is editing a circuit
+        if (isEdit) {
+            if (editPosition != -1) {
+                circuits!!.circuits!![editPosition] = circuit
+            } else {
+                setResult(Activity.RESULT_CANCELED)
+                Toast.makeText(this, "Error editing and saving circuit.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        } else {
+            circuits!!.circuits!!.add(circuit)
+        }
+        PreferenceManager.put(circuits, Constants.CIRCUITS)
         setResult(Activity.RESULT_OK)
         finish()
     }
@@ -269,27 +316,37 @@ class CircuitCreate : BaseActivity() {
 
         // Setting Carousel Items
         val imageItems: ArrayList<CarouselPicker.PickerItem> = ArrayList()
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_stopwatch))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_abs))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_default_icon))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_arm))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_bottle))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_boxer))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_dumbbell))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_2))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_3))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_4))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_bag))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gymnast))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_jump_rope))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_mat))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_punching_ball))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_resistance))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_resistance_1))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_trampoline))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_treadmill))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_heart))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_star))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_home))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_smartphone))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_smartphone_2))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_smartwatch))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_laptop))
         imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_workout))
-        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_workout_3))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_dumbbell))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_sets))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_kettlebell))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_plates))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_abs))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_jump_rope))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_shoes))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_whistle))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gymnast))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_mat))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_resistance))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_grippers))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_trampoline))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_outdoor))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym_bag))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_gym))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_bike_machine))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_bench_press))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_treadmill))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_machine))
+        imageItems.add(CarouselPicker.DrawableItem(R.drawable.ic_bottle))
 
         val imageAdapter: CarouselPicker.CarouselViewAdapter =
             CarouselPicker.CarouselViewAdapter(this, imageItems, 0)
@@ -327,7 +384,6 @@ class CircuitCreate : BaseActivity() {
             )
             builder.dismiss()
         }
-
         // Display the Dialog
         builder.setView(dialogView)
         builder.show()

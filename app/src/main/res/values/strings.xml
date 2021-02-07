@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Chrono</string>
+    <string name="app_name">ChronoDev</string>
 
     <string name="empty"> </string>
 
@@ -71,30 +71,40 @@
 
     <!-- Drawable Names-->
     <string-array name="icon_files">
-        <item>drawable/ic_stopwatch</item>
-        <item>drawable/ic_abs</item>
+        <item>drawable/ic_default_icon</item>
         <item>drawable/ic_arm</item>
-        <item>drawable/ic_bottle</item>
-        <item>drawable/ic_boxer</item>
-        <item>drawable/ic_dumbbell</item>
-        <item>drawable/ic_gym</item>
-        <item>drawable/ic_gym_2</item>
-        <item>drawable/ic_gym_3</item>
-        <item>drawable/ic_gym_4</item>
-        <item>drawable/ic_gym_bag</item>
-        <item>drawable/ic_gymnast</item>
-        <item>drawable/ic_jump_rope</item>
-        <item>drawable/ic_mat</item>
-        <item>drawable/ic_punching_ball</item>
-        <item>drawable/ic_resistance</item>
-        <item>drawable/ic_resistance_1</item>
-        <item>drawable/ic_trampoline</item>
-        <item>drawable/ic_treadmill</item>
+        <item>drawable/ic_heart</item>
+        <item>drawable/ic_star</item>
+        <item>drawable/ic_home</item>
+        <item>drawable/ic_smartphone</item>
+        <item>drawable/ic_smartphone_2</item>
+        <item>drawable/ic_smartwatch</item>
+        <item>drawable/ic_laptop</item>
         <item>drawable/ic_workout</item>
-        <item>drawable/ic_workout_3</item>
+        <item>drawable/ic_dumbbell</item>
+        <item>drawable/ic_sets</item>
+        <item>drawable/ic_kettlebell</item>
+        <item>drawable/ic_plates</item>
+        <item>drawable/ic_abs</item>
+        <item>drawable/ic_jump_rope</item>
+        <item>drawable/ic_shoes</item>
+        <item>drawable/ic_whistle</item>
+        <item>drawable/ic_gymnast</item>
+        <item>drawable/ic_mat</item>
+        <item>drawable/ic_resistance</item>
+        <item>drawable/ic_grippers</item>
+        <item>drawable/ic_trampoline</item>
+        <item>drawable/ic_outdoor</item>
+        <item>drawable/ic_gym_bag</item>
+        <item>drawable/ic_gym</item>
+        <item>drawable/ic_bike_machine</item>
+        <item>drawable/ic_bench_press</item>
+        <item>drawable/ic_treadmill</item>
+        <item>drawable/ic_machine</item>
+        <item>drawable/ic_bottle</item>
     </string-array>
 
-<!--    Notification channel id's-->
+    <!--    Notification channel id's-->
     <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
     <string name="timer_notification_channel_id">chrono_timer_default_channel</string>
     <string name="stopwatch_notification_channel_id">chrono_stopwatch_default_channel</string>
@@ -108,4 +118,9 @@
     <string name="enter_the_dark_side">Enter the dark side</string>
     <string name="edit">Edit</string>
     <string name="share">Share</string>
+    <string name="update_available_title">Update Available 📲</string>
+    <string name="update_available_subtitle">You are on an older version of Chrono. Please update your app for the latest features and bug fixes.</string>
+    <string name="update">Update</string>
+    <string name="help_email_subject">Chrono Support Ticket</string>
+    <string name="help_email_body">Please let us know what you need help with. Feel free to include screenshots:</string>
 </resources>

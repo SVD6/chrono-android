@@ -19,7 +19,7 @@
         android:textStyle="bold" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/subtitle"
+        android:id="@+id/dialog_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.7"
@@ -56,6 +56,7 @@
             android:letterSpacing="0"
             android:padding="@dimen/xs_small_element_padding"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textSize="@dimen/xs_medium_text"
             android:textStyle="bold"
             app:cornerRadius="@dimen/small_element_padding" />
