@@ -26,7 +26,11 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlinx.android.synthetic.main.fragment_dashboard_bottom_sheet.view.*
@@ -36,6 +40,8 @@ class CircuitDashboardFrag : Fragment() {
     private lateinit var recyclerView: RecyclerView
 
     private val settingsViewModel: SettingsViewModel by activityViewModels()
+
+    private lateinit var remoteConfig: FirebaseRemoteConfig
 
     private var readyTime: Int = 5
     private var audioPrompts: Boolean = true
@@ -54,6 +60,8 @@ class CircuitDashboardFrag : Fragment() {
             container, false
         )
         PreferenceManager.with(activity as BaseActivity)
+
+        remoteConfig = Firebase.remoteConfig
 
         recyclerView = bind.recyclerView
         loadData()
@@ -87,6 +95,7 @@ class CircuitDashboardFrag : Fragment() {
                 Constants.DASH_TO_TIMER -> {
                     // Circuit Completed (Circuit Timer)
                     // Ideal spot to ask for a rating after a threshold of timers have been run
+                    checkForReview()
                     Log.i("CircuitDashboardFrag", "Completed a circuit.")
                 }
                 Constants.DASH_TO_EDIT -> {
@@ -97,6 +106,34 @@ class CircuitDashboardFrag : Fragment() {
                         "Circuit edited and saved!",
                         Toast.LENGTH_SHORT
                     ).show()
+                }
+            }
+        }
+    }
+
+    @Suppress("NAME_SHADOWING")
+    private fun checkForReview() {
+        if ((PreferenceManager.get<Int>(Constants.NUM_COMPLETE) != null) && (PreferenceManager.get<Int>(
+                Constants.NUM_COMPLETE
+            )!! >= remoteConfig.getString(Constants.CONFIG_REVIEW_THRESHOLD).toInt())
+        ) {
+            val manager = ReviewManagerFactory.create(requireContext())
+            val request = manager.requestReviewFlow()
+            request.addOnCompleteListener { request ->
+                if (request.isSuccessful) {
+                    val reviewInfo = request.result
+                    val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
+                    flow.addOnCompleteListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Thank you for the review. Your feedback is appreciated!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        FirebaseAnalytics.getInstance(requireContext())
+                            .logEvent(Events.USER_REVIEWED, Bundle())
+                    }
+                } else {
+                    Log.d("CircuitDashFrag", "Problem launching review flow")
                 }
             }
         }

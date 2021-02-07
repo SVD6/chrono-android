@@ -17,4 +17,7 @@ object Events {
     const val STOPWATCH_STARTED = "stopwatch_started"
     const val STOPWATCH_STOPPED = "stopwatch_stopped"
     const val STOPWATCH_LAPPED = "stopwatch_lapped"
+
+    // Other
+    const val USER_REVIEWED = "user_reviewed"
 }

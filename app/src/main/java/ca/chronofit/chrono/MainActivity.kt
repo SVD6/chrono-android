@@ -93,8 +93,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         // Check for an Update
         checkForUpdate()
-
-        // Check for App Review
     }
 
 
@@ -192,6 +190,27 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
+    private fun initRemoteConfig() {
+        // Configure Remote Config
+        remoteConfig = Firebase.remoteConfig
+
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 0
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+
+        // Activate Remote Config
+        remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                val updated = task.result
+                Log.d("remote_config", "Config params updated: $updated")
+            } else {
+                Log.d("remote_config", "Fetch and activate failed.")
+            }
+        }
+    }
+
     private fun checkForUpdate() {
         val appVersion = getAppVersion(this)
         val currentVersion = remoteConfig.getString(Constants.CONFIG_LATEST_VERSION)
@@ -263,27 +282,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Display the Dialog
         builder.setView(dialogView)
         builder.show()
-    }
-
-    private fun initRemoteConfig() {
-        // Configure Remote Config
-        remoteConfig = Firebase.remoteConfig
-
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 0
-        }
-        remoteConfig.setConfigSettingsAsync(configSettings)
-        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
-
-        // Activate Remote Config
-        remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                val updated = task.result
-                Log.d("remote_config", "Config params updated: $updated")
-            } else {
-                Log.d("remote_config", "Fetch and activate failed.")
-            }
-        }
     }
 
     override fun onSaveInstanceState(state: Bundle) {
