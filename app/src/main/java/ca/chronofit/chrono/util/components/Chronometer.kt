@@ -3,12 +3,13 @@ package ca.chronofit.chrono.util.components
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationManagerCompat
+import ca.chronofit.chrono.util.helpers.SwatchNotifManager
 import ca.chronofit.chrono.util.helpers.formatTime
 import ca.chronofit.chrono.util.helpers.getTime
-import ca.chronofit.chrono.util.helpers.SwatchNotifManager
 
 class Chronometer @JvmOverloads constructor(
     context: Context?,
@@ -17,7 +18,6 @@ class Chronometer @JvmOverloads constructor(
 ) : AppCompatTextView(
     context!!, attrs, defStyle
 ) {
-    var tenMsCounter = 0
 
     private val swPeriod = 10.toLong() // sw period in milliseconds
 
@@ -26,12 +26,18 @@ class Chronometer @JvmOverloads constructor(
 
     private val notification = SwatchNotifManager(context!!)
 
-    private var prevSec = -1
+    private var prevSec = -1L
 
     private var defaultTime = "00:00.00"
 
     private var notificationEnabled: Boolean? = null
     private var notificationTime = ""
+
+    var startedTime = 0L
+    var stopTime = 0L
+    var elapsedTime = 0L
+    var delayTime = 0L
+
 
     init {
         updateText(defaultTime)
@@ -45,6 +51,9 @@ class Chronometer @JvmOverloads constructor(
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
         notification.showNotification = (visibility != VISIBLE) && (notificationEnabled == true)
+        if (!notification.showNotification) {
+            NotificationManagerCompat.from(context).cancel(notification.notificationId)
+        }
     }
 
     private fun updateText(time: String) {
@@ -54,39 +63,47 @@ class Chronometer @JvmOverloads constructor(
     fun start() {
         if (!running) {
             running = true
+            startedTime = SystemClock.elapsedRealtime()
             val handler = Handler(Looper.getMainLooper())
 
             // Runnable calls itself every 10 ms
             runnable = Runnable {
-                val elapsed = getTime(tenMsCounter)
-                val time = formatTime(elapsed, ":")
-                notificationTime = time.dropLast(3)
-                updateText(time)
                 if (running) {
-                    if (prevSec != elapsed.seconds) {
+                    elapsedTime = SystemClock.elapsedRealtime() - startedTime - delayTime
+
+                    val elapsedTime = getTime(elapsedTime)
+                    val time = formatTime(elapsedTime, ":")
+                    notificationTime = time.dropLast(3)
+                    updateText(time)
+                    if (prevSec != elapsedTime.seconds) {
                         notification.createRunningNotification(notificationTime)
-                        prevSec = elapsed.seconds
+                        prevSec = elapsedTime.seconds
                     }
-                    tenMsCounter++
-                    handler.postDelayed(runnable, swPeriod)
                 }
+                handler.postDelayed(runnable, swPeriod)
             }
             handler.post(runnable)
         }
     }
 
+
     fun stop() {
+        stopTime = SystemClock.elapsedRealtime()
         running = false
         notification.createStoppedNotification(notificationTime)
     }
 
     fun resume() {
-        start()
+        delayTime = SystemClock.elapsedRealtime() - stopTime
+        running = true
     }
 
     fun reset() {
         running = false
-        tenMsCounter = 0
+        startedTime = 0
+        elapsedTime = 0
+        stopTime = 0
+        delayTime = 0
         prevSec = -1
         updateText(defaultTime)
         NotificationManagerCompat.from(context).cancel(notification.notificationId)
@@ -95,9 +112,5 @@ class Chronometer @JvmOverloads constructor(
     fun setNotificationEnabled(setting: Boolean) {
         notificationEnabled = setting
     }
-    companion object{
-        const val MS_IN_SECONDS = 100
-        const val MS_IN_HOURS = 3600 * MS_IN_SECONDS
-        const val MS_IN_MINUTES = 60 * MS_IN_SECONDS
-    }
+
 }

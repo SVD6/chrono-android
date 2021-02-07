@@ -23,7 +23,6 @@ import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.LapObject
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.fragment_stopwatch.*
 import java.text.DecimalFormat
 
 class StopwatchFrag : Fragment() {
@@ -38,7 +37,7 @@ class StopwatchFrag : Fragment() {
     private var swatchState: SwatchState = SwatchState.INIT
 
     private var lapCount = 0
-    private var prevTime = 0
+    private var prevTime = 0L
     private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
@@ -154,7 +153,7 @@ class StopwatchFrag : Fragment() {
     private fun lap() {
         lapCount += 1
 
-        val currTime = swatch.tenMsCounter //SystemClock.elapsedRealtime() - chronometer!!.base
+        val currTime = swatch.elapsedTime //SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
 
         // Create Lap Object
