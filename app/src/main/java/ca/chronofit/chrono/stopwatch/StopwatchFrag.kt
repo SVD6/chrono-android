@@ -38,7 +38,7 @@ class StopwatchFrag : Fragment() {
     private var swatchState: SwatchState = SwatchState.INIT
 
     private var lapCount = 0
-    private var prevTime = 0
+    private var prevTime = 0L
     private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
@@ -162,13 +162,13 @@ class StopwatchFrag : Fragment() {
         val dec = DecimalFormat("#00")
 
         lap.lapNum = dec.format(lapCount)
-        lap.lapTime = timeDiff.toLong()
-        lap.totalTime = currTime.toLong()
+        lap.lapTime = timeDiff
+        lap.totalTime = currTime
 
         laps.add(lap)
         recyclerView.adapter?.notifyItemInserted(lapCount)
         recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount - 1)
-        prevTime = currTime.toInt()
+        prevTime = currTime
     }
 
     // Update the buttons layout based on the current state of the timer

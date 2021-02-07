@@ -2,30 +2,27 @@ package ca.chronofit.chrono.util.helpers
 
 import android.app.Activity
 import android.content.Context
-import ca.chronofit.chrono.util.components.Chronometer.Companion.MS_IN_HOURS
-import ca.chronofit.chrono.util.components.Chronometer.Companion.MS_IN_MINUTES
-import ca.chronofit.chrono.util.components.Chronometer.Companion.MS_IN_SECONDS
 import ca.chronofit.chrono.util.objects.TimeObject
 import java.text.DecimalFormat
 
 fun getTime(timeElapsed: Long): TimeObject {
-
-
-    var remaining = timeElapsed
-
-    val elapsedHrs = remaining / MS_IN_HOURS
-    remaining %= MS_IN_HOURS
-    val elapsedMins = remaining / MS_IN_MINUTES
-    remaining %= MS_IN_MINUTES
-    val elapsedSecs = remaining / MS_IN_SECONDS
-    val elapsedMs = remaining % 100
+    val elapsedHrs = (timeElapsed / (3600 * 1000))
+    var remaining = (timeElapsed % (3600 * 1000))
+    val elapsedMins = remaining / (60 * 1000)
+    remaining %= (60 * 1000)
+    val elapsedSecs = remaining / 1000
+    remaining %= 1000
+    val elapsedMs = (timeElapsed.toInt() % 1000 / 100).toLong()
+    remaining %= 100
+    val elapsedTenMs = remaining % 10
 
     var timeObject = TimeObject()
 
-    timeObject.hours = elapsedHrs.toInt()
-    timeObject.minutes = elapsedMins.toInt()
-    timeObject.seconds = elapsedSecs.toInt()
-    timeObject.milliseconds = elapsedMs.toInt()
+    timeObject.hours = elapsedHrs
+    timeObject.minutes = elapsedMins
+    timeObject.seconds = elapsedSecs
+    timeObject.milliseconds = elapsedMs
+    timeObject.tenMilliseconds = elapsedTenMs
 
     return timeObject
 }
@@ -36,10 +33,9 @@ fun formatTime(time: TimeObject, separator: String): String {
     if (time.hours > 0) {
         text += df.format(time.hours) + separator
     }
-
     text += df.format(time.minutes) + separator
-    text += df.format(time.seconds) + "." // milliseconds will always be separated by a period
-    text += df.format(time.milliseconds)
+    text += df.format(time.seconds) + "."
+    text += time.milliseconds.toString() + time.tenMilliseconds.toString()
 
     return text
 }
