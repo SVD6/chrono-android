@@ -411,18 +411,4 @@ class CircuitTimerActivity : BaseActivity() {
             0
         }
     }
-
-//    private fun createNotification(time: Float) {
-//        val builder =
-//            NotificationCompat.Builder(this, getString(R.string.timer_notification_channel_id))
-//                .setSmallIcon(R.drawable.ic_notification_logo)
-//                .setContentTitle("Notification test")
-//                .setContentText(time.toString())
-//                .setPriority(NotificationCompat.PRIORITY_LOW)
-//
-//        with(NotificationManagerCompat.from(this)) {
-//            //notificationId is a unique int for each notification that you must define
-//            notify(2, builder.build())
-//        }
-//    }
 }
