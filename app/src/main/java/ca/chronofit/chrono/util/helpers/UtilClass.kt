@@ -8,7 +8,7 @@ import ca.chronofit.chrono.util.components.Chronometer.Companion.MS_IN_SECONDS
 import ca.chronofit.chrono.util.objects.TimeObject
 import java.text.DecimalFormat
 
-fun getTime(timeElapsed: Int): TimeObject {
+fun getTime(timeElapsed: Long): TimeObject {
 
 
     var remaining = timeElapsed
@@ -22,10 +22,10 @@ fun getTime(timeElapsed: Int): TimeObject {
 
     var timeObject = TimeObject()
 
-    timeObject.hours = elapsedHrs
-    timeObject.minutes = elapsedMins
-    timeObject.seconds = elapsedSecs
-    timeObject.milliseconds = elapsedMs
+    timeObject.hours = elapsedHrs.toInt()
+    timeObject.minutes = elapsedMins.toInt()
+    timeObject.seconds = elapsedSecs.toInt()
+    timeObject.milliseconds = elapsedMs.toInt()
 
     return timeObject
 }
