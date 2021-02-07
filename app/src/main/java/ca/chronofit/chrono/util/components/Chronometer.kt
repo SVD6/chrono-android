@@ -35,8 +35,8 @@ class Chronometer @JvmOverloads constructor(
 
     var startedTime = 0L
     var stopTime = 0L
-    var elapsed = 0L
-    var delay = 0L
+    var elapsedTime = 0L
+    var delayTime = 0L
 
 
     init {
@@ -69,15 +69,16 @@ class Chronometer @JvmOverloads constructor(
             // Runnable calls itself every 10 ms
             runnable = Runnable {
                 if (running) {
-                    elapsed = SystemClock.elapsedRealtime() - startedTime - delay
-                }
-                val elapsedTime = getTime(elapsed)
-                val time = formatTime(elapsedTime, ":")
-                notificationTime = time.dropLast(3)
-                updateText(time)
-                if (running && (prevSec != elapsedTime.seconds)) {
-                    notification.createRunningNotification(notificationTime)
-                    prevSec = elapsedTime.seconds
+                    elapsedTime = SystemClock.elapsedRealtime() - startedTime - delayTime
+
+                    val elapsedTime = getTime(elapsedTime)
+                    val time = formatTime(elapsedTime, ":")
+                    notificationTime = time.dropLast(3)
+                    updateText(time)
+                    if (prevSec != elapsedTime.seconds) {
+                        notification.createRunningNotification(notificationTime)
+                        prevSec = elapsedTime.seconds
+                    }
                 }
                 handler.postDelayed(runnable, swPeriod)
             }
@@ -93,14 +94,16 @@ class Chronometer @JvmOverloads constructor(
     }
 
     fun resume() {
-        delay = SystemClock.elapsedRealtime() - stopTime
+        delayTime = SystemClock.elapsedRealtime() - stopTime
         running = true
     }
 
     fun reset() {
         running = false
-        elapsed = 0
+        startedTime = 0
+        elapsedTime = 0
         stopTime = 0
+        delayTime = 0
         prevSec = -1
         updateText(defaultTime)
         NotificationManagerCompat.from(context).cancel(notification.notificationId)
