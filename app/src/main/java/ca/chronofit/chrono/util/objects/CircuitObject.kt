@@ -10,4 +10,8 @@ class CircuitObject {
     override fun toString(): String {
         return "Circuit [name: ${this.name}, sets: ${this.sets}, work: ${this.work}, rest: ${this.rest}]"
     }
+
+    fun shareString(): String {
+        return "Check out my Chrono Circuit: $name\nSets: $sets\nWork: $work sec\nRest: $rest sec"
+    }
 }
