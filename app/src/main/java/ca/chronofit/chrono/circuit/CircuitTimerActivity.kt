@@ -9,12 +9,14 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
+import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
@@ -27,7 +29,6 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : BaseActivity() {
@@ -200,19 +201,19 @@ class CircuitTimerActivity : BaseActivity() {
 
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
-        val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
+        val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(this))
 
         // Set Dialog Views
-        dialogView.dialog_title.text = getString(R.string.circuit_complete)
-        dialogView.dialog_subtitle.text = getString(R.string.circuit_complete_subtitle)
-        dialogView.confirm.text = getString(R.string.circuit_complete_confirm)
-        dialogView.cancel.text = getString(R.string.circuit_complete_cancel)
+        dialogBinding.dialogTitle.text = getString(R.string.circuit_complete)
+        dialogBinding.dialogSubtitle.text = getString(R.string.circuit_complete_subtitle)
+        dialogBinding.confirm.text = getString(R.string.circuit_complete_confirm)
+        dialogBinding.cancel.text = getString(R.string.circuit_complete_cancel)
 
-        dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
-        dialogView.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
+        dialogBinding.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+        dialogBinding.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
 
         // User wants to return to dashboard
-        dialogView.confirm.setOnClickListener {
+        dialogBinding.confirm.setOnClickListener {
             builder.dismiss()
             setResult(Activity.RESULT_OK)
             finish()
@@ -226,7 +227,7 @@ class CircuitTimerActivity : BaseActivity() {
         }
 
         // If the user wants to run the circuit again
-        dialogView.cancel.setOnClickListener {
+        dialogBinding.cancel.setOnClickListener {
             // Show the ad if it loaded
             if (mInterstitialAd.isLoaded && adsEnabled!!) {
                 mInterstitialAd.adListener = object : AdListener() {
@@ -265,7 +266,7 @@ class CircuitTimerActivity : BaseActivity() {
         builder.setCanceledOnTouchOutside(false)
 
         // Display the Dialog
-        builder.setView(dialogView)
+        builder.setView(dialogBinding.root)
         builder.show()
     }
 
