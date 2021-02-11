@@ -18,13 +18,13 @@ import androidx.fragment.app.activityViewModels
 import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.DialogDarkModeBinding
+import ca.chronofit.chrono.databinding.DialogReadyTimeBinding
 import ca.chronofit.chrono.databinding.FragmentSettingsBinding
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
-import kotlinx.android.synthetic.main.dialog_ready_time.view.*
 import java.lang.Exception
 
 class SettingsFrag : Fragment() {
@@ -198,19 +198,19 @@ class SettingsFrag : Fragment() {
     private fun showReadyTimeDialog() {
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
-        val dialogView = View.inflate(requireContext(), R.layout.dialog_ready_time, null)
+        val dialogBinding = DialogReadyTimeBinding.inflate(LayoutInflater.from(requireContext()))
 
         // Preselect a Radio Button
         when (bind.readyTimeDisplay.text) {
-            "5s" -> dialogView.ready_time_select.check(R.id.radio_5s)
-            "10s" -> dialogView.ready_time_select.check(R.id.radio_10s)
-            "15s" -> dialogView.ready_time_select.check(R.id.radio_15s)
+            "5s" -> dialogBinding.readyTimeSelect.check(R.id.radio_5s)
+            "10s" -> dialogBinding.readyTimeSelect.check(R.id.radio_10s)
+            "15s" -> dialogBinding.readyTimeSelect.check(R.id.radio_15s)
         }
 
         // Radio Listener
-        dialogView.ready_time_select.setOnCheckedChangeListener { _, _ ->
+        dialogBinding.readyTimeSelect.setOnCheckedChangeListener { _, _ ->
             val selectedTime =
-                (dialogView.findViewById(dialogView.ready_time_select.checkedRadioButtonId) as RadioButton).text
+                (requireView().findViewById(dialogBinding.readyTimeSelect.checkedRadioButtonId) as RadioButton).text
             bind.readyTimeDisplay.text = selectedTime
 
             PreferenceManager.put(
@@ -220,7 +220,7 @@ class SettingsFrag : Fragment() {
             settingsViewModel.onReadyTimeChanged(selectedTime.toString())
             builder.dismiss()
         }
-        builder.setView(dialogView)
+        builder.setView(dialogBinding.root)
         builder.show()
     }
 
