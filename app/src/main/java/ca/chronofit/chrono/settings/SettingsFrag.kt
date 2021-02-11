@@ -207,16 +207,16 @@ class SettingsFrag : Fragment() {
         }
 
         // Radio Listener
-        dialogBinding.readyTimeSelect.setOnCheckedChangeListener { _, _ ->
-            val selectedTime =
-                (requireView().findViewById(dialogBinding.readyTimeSelect.checkedRadioButtonId) as RadioButton).text
-            bind.readyTimeDisplay.text = selectedTime
+        dialogBinding.readyTimeSelect.setOnCheckedChangeListener { group, checkedId ->
+            builder.dismiss()
+            val radioButton = group.findViewById<RadioButton>(checkedId)
+            bind.readyTimeDisplay.text = radioButton.text
 
             PreferenceManager.put(
-                (selectedTime.toString().substring(0, selectedTime.toString().length - 1))
+                (radioButton.text.toString().substring(0, radioButton.text.toString().length - 1))
                     .toInt(), Constants.GET_READY_SETTING
             )
-            settingsViewModel.onReadyTimeChanged(selectedTime.toString())
+            settingsViewModel.onReadyTimeChanged(radioButton.text.toString())
             builder.dismiss()
         }
         builder.setView(dialogBinding.root)
