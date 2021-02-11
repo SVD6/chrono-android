@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -237,15 +236,17 @@ class SettingsFrag : Fragment() {
         }
 
         // Radio Listener
-        dialogBinding.darkModeSelect.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
-            val selectedText =
-                (requireView().findViewById(dialogBinding.darkModeSelect.checkedRadioButtonId) as RadioButton).text
-            bind.darkModeDisplay.text = selectedText
-
-            PreferenceManager.put(selectedText, Constants.DARK_MODE_SETTING)
-            settingsViewModel.onDarkModeChanged(selectedText.toString())
+        dialogBinding.darkModeSelect.setOnCheckedChangeListener { group, checkedId ->
             builder.dismiss()
+            val radioButton = group.findViewById<RadioButton>(checkedId)
+            bind.darkModeDisplay.text = radioButton.text
+
+            // Change Dark Mode Setting
+            PreferenceManager.put(radioButton.text, Constants.DARK_MODE_SETTING)
+            settingsViewModel.onDarkModeChanged(radioButton.text.toString())
         }
+
+        // Show Dialog
         builder.setView(dialogBinding.root)
         builder.show()
     }
