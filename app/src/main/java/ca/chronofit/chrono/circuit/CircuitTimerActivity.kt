@@ -2,14 +2,14 @@ package ca.chronofit.chrono.circuit
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityOptions
 import android.media.AudioManager
 import android.media.ToneGenerator
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
+import android.os.*
+import android.transition.Fade
 import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -54,9 +54,13 @@ class CircuitTimerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_circuit_timer)
+        // Set Animations
+        with(window) {
+            requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+            enterTransition = Fade()
+            exitTransition = Fade()
+        }
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
-        // Possibly show loading screen
 
         circuit = GsonBuilder().create()
             .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
@@ -200,14 +204,8 @@ class CircuitTimerActivity : BaseActivity() {
         dialogBinding.cancel.setOnClickListener {
             // Reload the circuit
             builder.dismiss()
-
-            bind.celebrateLayout.visibility = View.GONE
-            bind.mainLayout.visibility = View.VISIBLE
-
-            timerState = TimerState.INIT
-            runningState = RunningState.INIT
-            updateButtonUI()
-            updateRestUI()
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            finish()
         }
 
         builder.setCancelable(false)
@@ -288,6 +286,8 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.initButtonLayout.visibility = View.GONE
                 bind.runButtonLayout.visibility = View.VISIBLE
                 bind.pauseButtonLayout.visibility = View.GONE
+
+                bind.pauseButton.setTextColor(ContextCompat.getColor(this, R.color.lightText))
             }
             TimerState.PAUSED -> {
                 bind.initButtonLayout.visibility = View.GONE
@@ -295,11 +295,22 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.pauseButtonLayout.visibility = View.VISIBLE
 
                 // Just for paused we put non-button UI stuff
-                bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.black))
-                bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.dark_grey))
-                bind.closeButton.setImageResource(R.drawable.ic_close_grey)
+                if (isUsingNightModeResources()) {
+                    bind.mainLayout.setBackgroundColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.darkBackground
+                        )
+                    )
+                    bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.darkText))
+                    bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.darkText))
+                    bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.darkText))
+                } else {
+                    bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                    bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.lightText))
+                    bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.lightText))
+                    bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.lightText))
+                }
             }
         }
     }
@@ -314,7 +325,11 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.currentSet.text = getString(R.string.empty)
                 bind.currentState.text = getString(R.string.lets_go)
 
-                bind.closeButton.setImageResource(R.drawable.ic_close_grey)
+                if (isUsingNightModeResources()) {
+                    bind.closeButton.setImageResource(R.drawable.ic_close_white)
+                } else {
+                    bind.closeButton.setImageResource(R.drawable.ic_close_grey)
+                }
             }
             RunningState.WORK -> {
                 bind.currentState.text = getString(R.string.workout)
