@@ -133,39 +133,6 @@ class CircuitDashboardFrag : Fragment() {
         startActivityForResult(intent, Constants.DASH_TO_TIMER)
     }
 
-    private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
-        override fun getMovementFlags(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder
-        ): Int {
-            return makeMovementFlags((ItemTouchHelper.UP or ItemTouchHelper.DOWN), 0)
-        }
-
-        override fun isLongPressDragEnabled(): Boolean {
-            return true
-        }
-
-        override fun onMove(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean {
-            itemMoved(viewHolder.adapterPosition, target.adapterPosition)
-            return true
-        }
-
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            deleteCircuit(null, viewHolder.adapterPosition)
-        }
-
-        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-            if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
-                recyclerView.adapter!!.notifyDataSetChanged()
-            }
-            super.onSelectedChanged(viewHolder, actionState)
-        }
-    }
-
     private fun itemMoved(current: Int, target: Int) {
         recyclerView.adapter!!.notifyItemMoved(current, target)
 
@@ -178,8 +145,36 @@ class CircuitDashboardFrag : Fragment() {
         PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
     }
 
+    private fun observeSettings() {
+        // Retrieve Settings if they exist
+        if (PreferenceManager.get<Int>(Constants.GET_READY_SETTING) != null) {
+            readyTime = PreferenceManager.get<Int>(Constants.GET_READY_SETTING)!!
+        }
+
+        if (PreferenceManager.get<Boolean>(Constants.AUDIO_SETTING) != null) {
+            audioPrompts = PreferenceManager.get<Boolean>(Constants.AUDIO_SETTING)!!
+        }
+
+        if (PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING) != null) {
+            lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING)!!
+        }
+
+        // Observe Settings
+        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { _readyTime ->
+            readyTime = (_readyTime.substring(0, _readyTime.length - 1)).toInt()
+        })
+
+        settingsViewModel.audioPrompts.observe(viewLifecycleOwner, { prompts ->
+            audioPrompts = prompts
+        })
+
+        settingsViewModel.lastRest.observe(viewLifecycleOwner, { rest ->
+            lastRest = rest
+        })
+    }
+
     @SuppressLint("InflateParams")
-    private fun showMoreMenu(position: Int) {
+    private fun showBottomSheet(position: Int) {
         selectedPosition = position
 
         // Roll out the bottom sheet as a dialog
@@ -259,34 +254,6 @@ class CircuitDashboardFrag : Fragment() {
         builder.show()
     }
 
-    private fun observeSettings() {
-        // Retrieve Settings if they exist
-        if (PreferenceManager.get<Int>(Constants.GET_READY_SETTING) != null) {
-            readyTime = PreferenceManager.get<Int>(Constants.GET_READY_SETTING)!!
-        }
-
-        if (PreferenceManager.get<Boolean>(Constants.AUDIO_SETTING) != null) {
-            audioPrompts = PreferenceManager.get<Boolean>(Constants.AUDIO_SETTING)!!
-        }
-
-        if (PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING) != null) {
-            lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING)!!
-        }
-
-        // Observe Settings
-        settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { _readyTime ->
-            readyTime = (_readyTime.substring(0, _readyTime.length - 1)).toInt()
-        })
-
-        settingsViewModel.audioPrompts.observe(viewLifecycleOwner, { prompts ->
-            audioPrompts = prompts
-        })
-
-        settingsViewModel.lastRest.observe(viewLifecycleOwner, { rest ->
-            lastRest = rest
-        })
-    }
-
     @Suppress("NAME_SHADOWING")
     private fun showReviewDialog() {
         val builder =
@@ -347,13 +314,45 @@ class CircuitDashboardFrag : Fragment() {
                 }
             }
         }
-
         dialogBinding.cancel.setOnClickListener { builder.dismiss() }
         // For now the dialog is dismissible but before launch we should have it fixed.
 
         // Display the Dialog
         builder.setView(dialogBinding.root)
         builder.show()
+    }
+
+    private val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            return makeMovementFlags((ItemTouchHelper.UP or ItemTouchHelper.DOWN), 0)
+        }
+
+        override fun isLongPressDragEnabled(): Boolean {
+            return true
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            itemMoved(viewHolder.adapterPosition, target.adapterPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            deleteCircuit(null, viewHolder.adapterPosition)
+        }
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
+                recyclerView.adapter!!.notifyDataSetChanged()
+            }
+            super.onSelectedChanged(viewHolder, actionState)
+        }
     }
 
     private fun loadData() {
@@ -366,7 +365,7 @@ class CircuitDashboardFrag : Fragment() {
             recyclerView.adapter = CircuitViewAdapter(
                 circuitsObject?.circuits!!,
                 { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
-                { position: Int -> showMoreMenu(position) }, requireContext()
+                { position: Int -> showBottomSheet(position) }, requireContext()
             )
         } else {
             loadEmptyUI()
