@@ -141,7 +141,7 @@ class CircuitCreateActivity : BaseActivity() {
             selectedIcon = circuit.iconId!!
             bind.circuitIcon.setImageResource(
                 resources.getIdentifier(
-                    icons.getString(circuit.iconId!!),
+                    icons.getString(selectedIcon),
                     "drawable",
                     packageName
                 )
