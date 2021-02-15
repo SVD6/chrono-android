@@ -137,15 +137,16 @@ class CircuitCreateActivity : BaseActivity() {
             bind.setRestTime.setText(circuit.rest.toString())
 
             // Set Circuit Icon
+            val icons = resources.obtainTypedArray(R.array.icon_files)
             selectedIcon = circuit.iconId!!
             bind.circuitIcon.setImageResource(
                 resources.getIdentifier(
-                    iconNames.getString(circuit.iconId!!),
+                    icons.getString(circuit.iconId!!),
                     "drawable",
                     packageName
                 )
             )
-            iconNames.recycle()
+            icons.recycle()
         } else {
             Toast.makeText(
                 this,
@@ -217,6 +218,8 @@ class CircuitCreateActivity : BaseActivity() {
         val imageAdapter: CarouselPicker.CarouselViewAdapter =
             CarouselPicker.CarouselViewAdapter(this, imageItems, 0)
         dialogBinding.carousel.adapter = imageAdapter
+
+        dialogBinding.carousel.currentItem = selectedIcon
 
         // Carousel Logic
         dialogBinding.carousel.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
