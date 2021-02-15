@@ -217,11 +217,15 @@ class CircuitDashboardFrag : Fragment() {
         }
 
         fragBinding.shareLayout.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "\uD83D\uDEE0\uFE0F Share a circuit coming soon!! \uD83D\uDEE0\uFE0F",
-                Toast.LENGTH_SHORT
-            ).show()
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    circuitsObject!!.circuits?.get(position)!!.shareString()
+                )
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(sendIntent, null))
         }
 
         // Show Bottom Sheet
