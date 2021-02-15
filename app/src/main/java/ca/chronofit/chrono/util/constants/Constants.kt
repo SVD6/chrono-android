@@ -38,4 +38,7 @@ object Constants {
     const val CONFIG_MIN_VERSION: String = "min_version_of_app"
     const val CONFIG_LATEST_VERSION: String = "latest_version_of_app"
 
+    // Notification Id
+    const val SWATCH_NOTIFICATION_ID: Int = 2416638
+    const val TIMER_NOTIFICATION_ID: Int = 341032
 }

@@ -1,5 +1,6 @@
 package ca.chronofit.chrono
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ActivityNotFoundException
@@ -12,8 +13,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.circuit.CircuitDashboardFrag
@@ -97,7 +100,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Check for App Review
     }
 
-
     private fun changeDarkMode(mode: String) {
         when (mode) {
             Constants.DARK_MODE -> {
@@ -162,11 +164,12 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.timer_notification_channel_id)
+            val channelId = getString(R.string.timer_notification_channel_id)
+            val name = getString(R.string.timer_notification_channel_name)
             val descriptionText = "Timer notification"
             val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(name, name, importance).apply {
-                description = descriptionText
+            val channel = NotificationChannel(channelId, name, importance).apply {
+                description = "Default Timer Notification Channel"
             }
             // Register the channel with the system
             val notificationManager: NotificationManager =
@@ -179,11 +182,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.stopwatch_notification_channel_id)
-            val descriptionText = "Stopwatch notification"
+            val channelId = getString(R.string.stopwatch_notification_channel_id)
+            val name = getString(R.string.stopwatch_notification_channel_name)
             val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(name, name, importance).apply {
-                description = descriptionText
+            val channel = NotificationChannel(channelId, name, importance).apply {
+                description = "Default Stopwatch Notification Channel"
             }
             // Register the channel with the system
             val notificationManager: NotificationManager =
