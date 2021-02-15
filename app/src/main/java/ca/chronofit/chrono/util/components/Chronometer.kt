@@ -8,9 +8,10 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationManagerCompat
 import ca.chronofit.chrono.util.constants.Constants
-import ca.chronofit.chrono.util.helpers.SwatchNotifManager
+import ca.chronofit.chrono.util.helpers.SwatchNotificationManager
 import ca.chronofit.chrono.util.helpers.formatTime
 import ca.chronofit.chrono.util.helpers.getTime
+
 class Chronometer @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet?,
@@ -18,26 +19,21 @@ class Chronometer @JvmOverloads constructor(
 ) : AppCompatTextView(
     context!!, attrs, defStyle
 ) {
-
-    private val swPeriod = 10.toLong() // sw period in milliseconds
-
-    private var running = false
-    lateinit var runnable: Runnable
-
-    private val notification = SwatchNotifManager(context!!)
-
-    private var prevSec = -1L
-
-    private var defaultTime = "00:00.00"
-
+    private val notification = SwatchNotificationManager(context!!)
     private var notificationEnabled: Boolean? = null
     private var notificationTime = ""
 
-    var startedTime = 0L
-    var stopTime = 0L
-    var elapsedTime = 0L
-    var delayTime = 0L
+    private val swPeriod = 10.toLong() // sw period in milliseconds
+    private var prevSec = -1L
+    private var defaultTime = "00:00.00"
 
+    private var running = false
+    private lateinit var runnable: Runnable
+
+    private var startedTime = 0L
+    private var stopTime = 0L
+    var elapsedTime = 0L
+    private var delayTime = 0L
 
     init {
         updateText(defaultTime)

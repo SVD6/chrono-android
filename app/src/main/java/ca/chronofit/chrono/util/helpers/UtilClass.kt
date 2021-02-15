@@ -1,7 +1,5 @@
 package ca.chronofit.chrono.util.helpers
 
-import android.app.Activity
-import android.content.Context
 import ca.chronofit.chrono.util.objects.TimeObject
 import java.text.DecimalFormat
 
@@ -16,8 +14,7 @@ fun getTime(timeElapsed: Long): TimeObject {
     remaining %= 100
     val elapsedTenMs = remaining % 10
 
-    var timeObject = TimeObject()
-
+    val timeObject = TimeObject()
     timeObject.hours = elapsedHrs
     timeObject.minutes = elapsedMins
     timeObject.seconds = elapsedSecs
@@ -33,20 +30,9 @@ fun formatTime(time: TimeObject, separator: String): String {
     if (time.hours > 0) {
         text += df.format(time.hours) + separator
     }
+
     text += df.format(time.minutes) + separator
     text += df.format(time.seconds) + "."
     text += time.milliseconds.toString() + time.tenMilliseconds.toString()
-
     return text
-}
-
-fun isContextValid(context: Context?): Boolean {
-    if (context == null) {
-        return false
-    }
-    if (context is Activity) {
-        val activity = context as Activity?
-        return !activity!!.isDestroyed && !activity.isFinishing
-    }
-    return true
 }

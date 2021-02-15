@@ -1,6 +1,5 @@
 package ca.chronofit.chrono
 
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ActivityNotFoundException
@@ -11,16 +10,16 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.circuit.CircuitDashboardFrag
 import ca.chronofit.chrono.databinding.ActivityMainBinding
+import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.settings.SettingsFrag
 import ca.chronofit.chrono.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.BaseActivity
@@ -33,7 +32,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import kotlinx.android.synthetic.main.dialog_alert.view.*
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var bind: ActivityMainBinding
@@ -88,16 +86,23 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             bind.navBar.setOnNavigationItemSelectedListener(this)
         }
 
-        createTimerNotificationChannel()
-        createStopwatchNotificationChannel()
+        // Create Notification Channels
+        createNotificationChannel(
+            getString(R.string.stopwatch_notification_channel_id),
+            getString(R.string.stopwatch_notification_channel_name),
+            "Notifications from your circuit timers."
+        )
+        createNotificationChannel(
+            getString(R.string.timer_notification_channel_id),
+            getString(R.string.timer_notification_channel_name),
+            "Notifications from your stopwatch."
+        )
 
         // Initialization stuff
         observeSettings()
 
         // Check for an Update
         checkForUpdate()
-
-        // Check for App Review
     }
 
     private fun changeDarkMode(mode: String) {
@@ -120,14 +125,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun observeSettings() {
         settingsViewModel.darkMode.observe(this, { darkMode ->
             changeDarkMode(darkMode)
-        })
-
-        settingsViewModel.notifications.observe(this, { notifications ->
-            if (notifications) {
-                Log.i("settings", "Registered notifications")
-            } else {
-                Log.i("settings", "Unregistered notifications")
-            }
         })
     }
 
@@ -160,16 +157,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-    private fun createTimerNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
+    private fun createNotificationChannel(id: String, name: String, descriptionText: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = getString(R.string.timer_notification_channel_id)
-            val name = getString(R.string.timer_notification_channel_name)
-            val descriptionText = "Timer notification"
             val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(channelId, name, importance).apply {
-                description = "Default Timer Notification Channel"
+            val channel = NotificationChannel(id, name, importance).apply {
+                description = descriptionText
             }
             // Register the channel with the system
             val notificationManager: NotificationManager =
@@ -178,20 +170,25 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-    private fun createStopwatchNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = getString(R.string.stopwatch_notification_channel_id)
-            val name = getString(R.string.stopwatch_notification_channel_name)
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(channelId, name, importance).apply {
-                description = "Default Stopwatch Notification Channel"
+
+    private fun initRemoteConfig() {
+        // Configure Remote Config
+        remoteConfig = Firebase.remoteConfig
+
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 0
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+
+        // Activate Remote Config
+        remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                val updated = task.result
+                Log.d("remote_config", "Config params updated: $updated")
+            } else {
+                Log.d("remote_config", "Fetch and activate failed.")
             }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
         }
     }
 
@@ -232,18 +229,18 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun showUpdateDialog() {
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
-        val dialogView = View.inflate(this, R.layout.dialog_alert, null)
+        val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(this))
 
         // Set the Views
-        dialogView.dialog_title.text = getString(R.string.update_available_title)
-        dialogView.dialog_subtitle.text = getString(R.string.update_available_subtitle)
-        dialogView.confirm.text = getString(R.string.update)
-        dialogView.cancel.visibility = View.GONE
-        dialogView.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
-        dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+        dialogBinding.dialogTitle.text = getString(R.string.update_available_title)
+        dialogBinding.dialogSubtitle.text = getString(R.string.update_available_subtitle)
+        dialogBinding.confirm.text = getString(R.string.update)
+        dialogBinding.cancel.visibility = View.GONE
+        dialogBinding.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
+        dialogBinding.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
 
         // Button Logic
-        dialogView.confirm.setOnClickListener {
+        dialogBinding.confirm.setOnClickListener {
             try {
                 startActivity(
                     Intent(
@@ -260,33 +257,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 )
             }
         }
-
         // For now the dialog is dismissible but before launch we should have it fixed.
 
         // Display the Dialog
-        builder.setView(dialogView)
+        builder.setView(dialogBinding.root)
         builder.show()
-    }
-
-    private fun initRemoteConfig() {
-        // Configure Remote Config
-        remoteConfig = Firebase.remoteConfig
-
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 0
-        }
-        remoteConfig.setConfigSettingsAsync(configSettings)
-        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
-
-        // Activate Remote Config
-        remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                val updated = task.result
-                Log.d("remote_config", "Config params updated: $updated")
-            } else {
-                Log.d("remote_config", "Fetch and activate failed.")
-            }
-        }
     }
 
     override fun onSaveInstanceState(state: Bundle) {

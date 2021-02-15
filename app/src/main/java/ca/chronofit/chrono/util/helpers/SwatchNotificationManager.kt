@@ -11,12 +11,10 @@ import ca.chronofit.chrono.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.services.NotificationIntentService
 
-class SwatchNotifManager(private val context: Context) {
+class SwatchNotificationManager(private val context: Context) {
     var showNotification = false
 
-
     fun createRunningNotification(time: String, isRunning: Boolean) {
-
         val stopIntent = Intent(context, NotificationIntentService::class.java)
         stopIntent.action = StopwatchFrag.STOP
 
@@ -92,5 +90,4 @@ class SwatchNotifManager(private val context: Context) {
             }
         }
     }
-
 }

@@ -1,9 +1,6 @@
 package ca.chronofit.chrono.util.constants
 
 object Constants {
-    // Other
-    const val SUPPORT_EMAIL: String = "support@chronofit.ca"
-
     // Fragment TAGS
     const val CIRCUIT_FRAG: String = "CircuitFrag"
     const val STOPWATCH_FRAG: String = "StopwatchFrag"
@@ -12,6 +9,7 @@ object Constants {
     // Shared Preference Values
     const val CIRCUITS: String = "CIRCUITS"
     const val FIRST_RUN: String = "first_run"
+    const val NUM_COMPLETE: String = "num_complete"
 
     // Settings Shared Preferences
     const val GET_READY_SETTING: String = "ready_time"
@@ -32,10 +30,9 @@ object Constants {
 
     // Version Number
     const val VERSION_NUMBER: String = "Test Version 0.2.1"
-    const val VERSION_NUM: String = "0.2.0"
 
     // Remote Config Keys
-    const val CONFIG_MIN_VERSION: String = "min_version_of_app"
+    const val CONFIG_REVIEW_THRESHOLD: String = "app_review_threshold"
     const val CONFIG_LATEST_VERSION: String = "latest_version_of_app"
 
     // Notification Id

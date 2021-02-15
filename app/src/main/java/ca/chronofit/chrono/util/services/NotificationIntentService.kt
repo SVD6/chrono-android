@@ -9,14 +9,13 @@ import ca.chronofit.chrono.stopwatch.StopwatchFrag
 class NotificationIntentService
     : IntentService("notificationIntentService") {
     override fun onHandleIntent(intent: Intent?) {
-        if (intent!!.action == StopwatchFrag.STOP || intent!!.action == StopwatchFrag.RESUME || intent!!.action == StopwatchFrag.RESET){
+        if (intent!!.action == StopwatchFrag.STOP || intent.action == StopwatchFrag.RESUME || intent.action == StopwatchFrag.RESET) {
             val stopHandler = Handler(Looper.getMainLooper())
-            stopHandler.post(Runnable {
-                var stopIntent = Intent()
-                stopIntent.action = intent!!.action
+            stopHandler.post {
+                val stopIntent = Intent()
+                stopIntent.action = intent.action
                 sendBroadcast(stopIntent)
-            })
+            }
         }
-
     }
 }

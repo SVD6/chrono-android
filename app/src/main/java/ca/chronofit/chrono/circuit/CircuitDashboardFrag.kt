@@ -15,7 +15,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ca.chronofit.chrono.R
+import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
+import ca.chronofit.chrono.databinding.FragmentDashboardBottomSheetBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.adapters.CircuitViewAdapter
 import ca.chronofit.chrono.util.constants.Constants
@@ -26,16 +28,20 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.dialog_alert.view.*
-import kotlinx.android.synthetic.main.fragment_dashboard_bottom_sheet.view.*
 
 class CircuitDashboardFrag : Fragment() {
     private lateinit var bind: FragmentCircuitDashboardBinding
     private lateinit var recyclerView: RecyclerView
 
     private val settingsViewModel: SettingsViewModel by activityViewModels()
+
+    private lateinit var remoteConfig: FirebaseRemoteConfig
 
     private var readyTime: Int = 5
     private var audioPrompts: Boolean = true
@@ -54,6 +60,8 @@ class CircuitDashboardFrag : Fragment() {
             container, false
         )
         PreferenceManager.with(activity as BaseActivity)
+
+        remoteConfig = Firebase.remoteConfig
 
         recyclerView = bind.recyclerView
         loadData()
@@ -87,6 +95,7 @@ class CircuitDashboardFrag : Fragment() {
                 Constants.DASH_TO_TIMER -> {
                     // Circuit Completed (Circuit Timer)
                     // Ideal spot to ask for a rating after a threshold of timers have been run
+                    checkForReview()
                     Log.i("CircuitDashboardFrag", "Completed a circuit.")
                 }
                 Constants.DASH_TO_EDIT -> {
@@ -97,6 +106,34 @@ class CircuitDashboardFrag : Fragment() {
                         "Circuit edited and saved!",
                         Toast.LENGTH_SHORT
                     ).show()
+                }
+            }
+        }
+    }
+
+    @Suppress("NAME_SHADOWING")
+    private fun checkForReview() {
+        if ((PreferenceManager.get<Int>(Constants.NUM_COMPLETE) != null) && (PreferenceManager.get<Int>(
+                Constants.NUM_COMPLETE
+            )!! >= remoteConfig.getString(Constants.CONFIG_REVIEW_THRESHOLD).toInt())
+        ) {
+            val manager = ReviewManagerFactory.create(requireContext())
+            val request = manager.requestReviewFlow()
+            request.addOnCompleteListener { request ->
+                if (request.isSuccessful) {
+                    val reviewInfo = request.result
+                    val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
+                    flow.addOnCompleteListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Thank you for the review. Your feedback is appreciated!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        FirebaseAnalytics.getInstance(requireContext())
+                            .logEvent(Events.USER_REVIEWED, Bundle())
+                    }
+                } else {
+                    Log.d("CircuitDashFrag", "Problem launching review flow")
                 }
             }
         }
@@ -161,31 +198,39 @@ class CircuitDashboardFrag : Fragment() {
     private fun showMoreMenu(position: Int) {
         selectedPosition = position
 
-        // Roll out the bottom sheet
-        val modalSheetView = layoutInflater.inflate(R.layout.fragment_dashboard_bottom_sheet, null)
-        val dialog = BottomSheetDialog(requireContext())
-        dialog.setContentView(modalSheetView)
+        // Roll out the bottom sheet as a dialog
+        val bottomSheetFrag = BottomSheetDialog(requireContext())
+        val fragBinding =
+            FragmentDashboardBottomSheetBinding.inflate(LayoutInflater.from(requireContext()))
 
-        modalSheetView.delete_layout.setOnClickListener {
-            deleteCircuit(dialog, position)
+        // Layout logic
+        fragBinding.deleteLayout.setOnClickListener {
+            deleteCircuit(bottomSheetFrag, position)
         }
 
-        modalSheetView.edit_layout.setOnClickListener {
+        fragBinding.editLayout.setOnClickListener {
             val intent = Intent(requireContext(), CircuitCreateActivity::class.java)
             intent.putExtra("isEdit", true)
             intent.putExtra("circuitPosition", position)
-            dialog.dismiss()
+            bottomSheetFrag.dismiss()
             startActivityForResult(intent, Constants.DASH_TO_EDIT)
         }
 
-        modalSheetView.share_layout.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "\uD83D\uDEE0\uFE0F Share a circuit coming soon!! \uD83D\uDEE0\uFE0F",
-                Toast.LENGTH_SHORT
-            ).show()
+        fragBinding.shareLayout.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    circuitsObject!!.circuits?.get(position)!!.shareString()
+                )
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(sendIntent, null))
         }
-        dialog.show()
+
+        // Show Bottom Sheet
+        bottomSheetFrag.setContentView(fragBinding.root)
+        bottomSheetFrag.show()
     }
 
     @SuppressLint("SetTextI18n")
@@ -193,21 +238,21 @@ class CircuitDashboardFrag : Fragment() {
         Log.i("arrange", position.toString())
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
-        val dialogView = View.inflate(requireContext(), R.layout.dialog_alert, null)
+        val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(requireContext()))
 
         // Set Dialog Views
-        dialogView.dialog_title.text =
+        dialogBinding.dialogTitle.text =
             "Delete " + circuitsObject?.circuits!![position].name
-        dialogView.dialog_subtitle.text = getString(R.string.delete_circuit_subtitle)
-        dialogView.confirm.text = getString(R.string.delete)
-        dialogView.cancel.text = getString(R.string.cancel)
+        dialogBinding.dialogSubtitle.text = getString(R.string.delete_circuit_subtitle)
+        dialogBinding.confirm.text = getString(R.string.delete)
+        dialogBinding.cancel.text = getString(R.string.cancel)
 
         // Button Logic
-        dialogView.cancel.setOnClickListener {
+        dialogBinding.cancel.setOnClickListener {
             builder.dismiss()
         }
 
-        dialogView.confirm.setOnClickListener {
+        dialogBinding.confirm.setOnClickListener {
             // Dismiss popups
             builder.dismiss()
             dialog!!.dismiss()
@@ -226,7 +271,7 @@ class CircuitDashboardFrag : Fragment() {
         }
 
         // Display the Dialog
-        builder.setView(dialogView)
+        builder.setView(dialogBinding.root)
         builder.show()
     }
 

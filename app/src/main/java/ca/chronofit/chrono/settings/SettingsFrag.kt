@@ -1,7 +1,9 @@
 package ca.chronofit.chrono.settings
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,21 +11,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
+import ca.chronofit.chrono.databinding.DialogDarkModeBinding
+import ca.chronofit.chrono.databinding.DialogReadyTimeBinding
 import ca.chronofit.chrono.databinding.FragmentSettingsBinding
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
-import kotlinx.android.synthetic.main.dialog_dark_mode.view.*
-import kotlinx.android.synthetic.main.dialog_ready_time.view.*
 import java.lang.Exception
 
 class SettingsFrag : Fragment() {
@@ -91,26 +91,29 @@ class SettingsFrag : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initMenus() {
         // Dark Mode Popup
         bind.darkMode.setOnClickListener {
-            showDarkModePopup()
+            showDarkModeDialog()
         }
 
         // Notification Switch
         bind.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
             switchLogic(isChecked, bind.notificationSwitch)
+            settingsViewModel.onNotificationChanged(isChecked)
             PreferenceManager.put(isChecked, Constants.NOTIFICATION_SETTING)
         }
 
         // Get Ready Time Popup
         bind.getReadyTime.setOnClickListener {
-            showReadyTimePopup()
+            showReadyTimeDialog()
         }
 
         // Audio Prompt Switch
         bind.audioSwitch.setOnCheckedChangeListener { _, isChecked ->
             switchLogic(isChecked, bind.audioSwitch)
+            settingsViewModel.onAudioPromptChanged(isChecked)
             PreferenceManager.put(isChecked, Constants.AUDIO_SETTING)
         }
 
@@ -170,7 +173,15 @@ class SettingsFrag : Fragment() {
             startActivity(intent)
         }
 
-        bind.versionNumber.text = Constants.VERSION_NUMBER
+        try {
+            bind.versionNumber.text = "Version " + requireContext().packageManager.getPackageInfo(
+                requireContext().packageName,
+                0
+            ).versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            Log.e("MainActivity", e.message!!)
+            bind.versionNumber.text = Constants.VERSION_NUMBER
+        }
     }
 
     private fun switchLogic(setting: Boolean, switch: SwitchMaterial) {
@@ -183,60 +194,60 @@ class SettingsFrag : Fragment() {
         }
     }
 
-    private fun showReadyTimePopup() {
+    private fun showReadyTimeDialog() {
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
-        val dialogView = View.inflate(requireContext(), R.layout.dialog_ready_time, null)
+        val dialogBinding = DialogReadyTimeBinding.inflate(LayoutInflater.from(requireContext()))
 
         // Preselect a Radio Button
         when (bind.readyTimeDisplay.text) {
-            "5s" -> dialogView.ready_time_select.check(R.id.radio_5s)
-            "10s" -> dialogView.ready_time_select.check(R.id.radio_10s)
-            "15s" -> dialogView.ready_time_select.check(R.id.radio_15s)
+            "5s" -> dialogBinding.readyTimeSelect.check(R.id.radio_5s)
+            "10s" -> dialogBinding.readyTimeSelect.check(R.id.radio_10s)
+            "15s" -> dialogBinding.readyTimeSelect.check(R.id.radio_15s)
         }
 
         // Radio Listener
-        dialogView.ready_time_select.setOnCheckedChangeListener { _, _ ->
-            val selectedTime =
-                (dialogView.findViewById(dialogView.ready_time_select.checkedRadioButtonId) as RadioButton).text
-            bind.readyTimeDisplay.text = selectedTime
+        dialogBinding.readyTimeSelect.setOnCheckedChangeListener { group, checkedId ->
+            builder.dismiss()
+            val radioButton = group.findViewById<RadioButton>(checkedId)
+            bind.readyTimeDisplay.text = radioButton.text
 
             PreferenceManager.put(
-                (selectedTime.toString().substring(0, selectedTime.toString().length - 1))
+                (radioButton.text.toString().substring(0, radioButton.text.toString().length - 1))
                     .toInt(), Constants.GET_READY_SETTING
             )
-            settingsViewModel.onReadyTimeChanged(selectedTime.toString())
+            settingsViewModel.onReadyTimeChanged(radioButton.text.toString())
             builder.dismiss()
         }
-
-        builder.setView(dialogView)
+        builder.setView(dialogBinding.root)
         builder.show()
     }
 
-    private fun showDarkModePopup() {
+    private fun showDarkModeDialog() {
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
-        val dialogView = View.inflate(requireContext(), R.layout.dialog_dark_mode, null)
+        val dialogBinding = DialogDarkModeBinding.inflate(LayoutInflater.from(requireContext()))
 
         // Preselect a Radio Button
         when (bind.darkModeDisplay.text) {
-            Constants.DARK_MODE -> dialogView.dark_mode_select.check(R.id.radio_on)
-            Constants.LIGHT_MODE -> dialogView.dark_mode_select.check(R.id.radio_off)
-            Constants.SYSTEM_DEFAULT -> dialogView.dark_mode_select.check(R.id.radio_system)
+            Constants.DARK_MODE -> dialogBinding.darkModeSelect.check(R.id.radio_on)
+            Constants.LIGHT_MODE -> dialogBinding.darkModeSelect.check(R.id.radio_off)
+            Constants.SYSTEM_DEFAULT -> dialogBinding.darkModeSelect.check(R.id.radio_system)
         }
 
         // Radio Listener
-        dialogView.dark_mode_select.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
-            val selectedText =
-                (dialogView.findViewById(dialogView.dark_mode_select.checkedRadioButtonId) as RadioButton).text
-            bind.darkModeDisplay.text = selectedText
-
-            PreferenceManager.put(selectedText, Constants.DARK_MODE_SETTING)
-            settingsViewModel.onDarkModeChanged(selectedText.toString())
+        dialogBinding.darkModeSelect.setOnCheckedChangeListener { group, checkedId ->
             builder.dismiss()
+            val radioButton = group.findViewById<RadioButton>(checkedId)
+            bind.darkModeDisplay.text = radioButton.text
+
+            // Change Dark Mode Setting
+            PreferenceManager.put(radioButton.text, Constants.DARK_MODE_SETTING)
+            settingsViewModel.onDarkModeChanged(radioButton.text.toString())
         }
 
-        builder.setView(dialogView)
+        // Show Dialog
+        builder.setView(dialogBinding.root)
         builder.show()
     }
 }

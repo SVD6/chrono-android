@@ -53,7 +53,6 @@ class StopwatchFrag : Fragment() {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
 
         // Initialize Everything
-        swatch = bind.chronometer
         initialize()
 
         // Button Logic
@@ -110,6 +109,8 @@ class StopwatchFrag : Fragment() {
 
     private fun initialize() {
         recyclerView = bind.recyclerView
+        swatch = bind.chronometer
+
         val manager = LinearLayoutManager(requireContext())
         manager.stackFromEnd = true
         manager.scrollToPosition(lapCount)
@@ -126,7 +127,7 @@ class StopwatchFrag : Fragment() {
 
 
     private fun startStopwatch() {
-         if (settingsViewModel.notifications.value == null) swatch.setNotificationEnabled(true)
+        if (settingsViewModel.notifications.value == null) swatch.setNotificationEnabled(true)
         else settingsViewModel.notifications.value?.let { swatch.setNotificationEnabled(it) }
         swatch.start()
         swatchState = SwatchState.RUNNING
