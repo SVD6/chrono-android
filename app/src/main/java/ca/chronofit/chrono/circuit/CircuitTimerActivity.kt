@@ -126,7 +126,6 @@ class CircuitTimerActivity : BaseActivity() {
                 if ((p0.toFloat().roundToInt() / 1000.0f) != secondsLeft) {
                     secondsLeft = (p0.toFloat() / 1000.0f).roundToInt().toFloat()
                     updateTimerUI()
-//                    createNotification(secondsLeft)
                 }
             }
 
