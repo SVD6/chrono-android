@@ -48,6 +48,12 @@
     <string name="circuit_complete_cancel">Restart</string>
     <string name="circuit_complete_celebrate">Circuit Complete!</string>
 
+    <!-- Review App Dialog-->
+    <string name="review_app">Rate our App ☺</string>
+    <string name="review_app_subtitle">Your feedback helps improve Chrono. Please consider leaving us a review!</string>
+    <string name="review_app_confirm">Review</string>
+    <string name="review_app_cancel">Dismiss</string>
+
     <string name="notifications">Notifications</string>
     <string name="on">On</string>
     <string name="dark_mode">Dark Mode</string>

@@ -2,13 +2,16 @@ package ca.chronofit.chrono.circuit
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -94,7 +97,6 @@ class CircuitDashboardFrag : Fragment() {
                 }
                 Constants.DASH_TO_TIMER -> {
                     // Circuit Completed (Circuit Timer)
-                    // Ideal spot to ask for a rating after a threshold of timers have been run
                     checkForReview()
                     Log.i("CircuitDashboardFrag", "Completed a circuit.")
                 }
@@ -111,31 +113,13 @@ class CircuitDashboardFrag : Fragment() {
         }
     }
 
-    @Suppress("NAME_SHADOWING")
     private fun checkForReview() {
         if ((PreferenceManager.get<Int>(Constants.NUM_COMPLETE) != null) && (PreferenceManager.get<Int>(
                 Constants.NUM_COMPLETE
-            )!! >= remoteConfig.getString(Constants.CONFIG_REVIEW_THRESHOLD).toInt())
+            )!! >= remoteConfig.getString(Constants.CONFIG_REVIEW_THRESHOLD)
+                .toInt() && !(PreferenceManager.get<Boolean>(Constants.REVIEW_PROMPT)!!))
         ) {
-            val manager = ReviewManagerFactory.create(requireContext())
-            val request = manager.requestReviewFlow()
-            request.addOnCompleteListener { request ->
-                if (request.isSuccessful) {
-                    val reviewInfo = request.result
-                    val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
-                    flow.addOnCompleteListener {
-                        Toast.makeText(
-                            requireContext(),
-                            "Thank you for the review. Your feedback is appreciated!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        FirebaseAnalytics.getInstance(requireContext())
-                            .logEvent(Events.USER_REVIEWED, Bundle())
-                    }
-                } else {
-                    Log.d("CircuitDashFrag", "Problem launching review flow")
-                }
-            }
+            showReviewDialog()
         }
     }
 
@@ -301,6 +285,75 @@ class CircuitDashboardFrag : Fragment() {
         settingsViewModel.lastRest.observe(viewLifecycleOwner, { rest ->
             lastRest = rest
         })
+    }
+
+    @Suppress("NAME_SHADOWING")
+    private fun showReviewDialog() {
+        val builder =
+            MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
+        val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(requireContext()))
+
+        // Set the Views
+        dialogBinding.dialogTitle.text = getString(R.string.review_app)
+        dialogBinding.dialogSubtitle.text = getString(R.string.review_app_subtitle)
+        dialogBinding.confirm.text = getString(R.string.review_app_confirm)
+        dialogBinding.cancel.text = getString(R.string.review_app_cancel)
+
+        dialogBinding.confirm.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        dialogBinding.confirm.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.colorAccent
+            )
+        )
+
+        PreferenceManager.put(true, Constants.REVIEW_PROMPT)
+
+        // Button Logic
+        dialogBinding.confirm.setOnClickListener {
+            val manager = ReviewManagerFactory.create(requireContext())
+            val request = manager.requestReviewFlow()
+            request.addOnCompleteListener { request ->
+                if (request.isSuccessful) {
+                    val reviewInfo = request.result
+                    val flow = manager.launchReviewFlow(requireActivity(), reviewInfo)
+                    flow.addOnCompleteListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Thank you for the review. Your feedback is appreciated!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        FirebaseAnalytics.getInstance(requireContext())
+                            .logEvent(Events.USER_REVIEWED, Bundle())
+                    }
+                } else {
+                    Log.d("CircuitDashFrag", "Problem launching review flow")
+                    val packageName = requireContext().packageName
+                    try {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=$packageName")
+                            )
+                        )
+                    } catch (e: ActivityNotFoundException) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                            )
+                        )
+                    }
+                }
+            }
+        }
+
+        dialogBinding.cancel.setOnClickListener { builder.dismiss() }
+        // For now the dialog is dismissible but before launch we should have it fixed.
+
+        // Display the Dialog
+        builder.setView(dialogBinding.root)
+        builder.show()
     }
 
     private fun loadData() {
