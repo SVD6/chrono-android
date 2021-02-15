@@ -19,7 +19,7 @@ class LapViewAdapter(private val data: List<LapObject>) :
         private val totalTime: MaterialTextView = itemView.findViewById(R.id.total_time)
 
         fun bind(lap: LapObject) {
-            lapNum.text = lap.lapNum.toString()
+            lapNum.text = lap.lapNum
             lapTime.text = formatTime(getTime(lap.lapTime), ".")
             totalTime.text = formatTime(getTime(lap.totalTime),".")
         }
