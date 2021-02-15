@@ -137,6 +137,7 @@ class CircuitCreateActivity : BaseActivity() {
             bind.setRestTime.setText(circuit.rest.toString())
 
             // Set Circuit Icon
+            selectedIcon = circuit.iconId!!
             bind.circuitIcon.setImageResource(
                 resources.getIdentifier(
                     iconNames.getString(circuit.iconId!!),
