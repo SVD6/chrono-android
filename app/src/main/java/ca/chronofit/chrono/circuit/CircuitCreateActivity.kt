@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitCreateBinding
+import ca.chronofit.chrono.databinding.DialogSelectIconBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
@@ -22,7 +24,6 @@ import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.dialog_select_icon.view.*
 
 class CircuitCreateActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitCreateBinding
@@ -312,7 +313,7 @@ class CircuitCreateActivity : BaseActivity() {
     private fun selectIconDialog() {
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
-        val dialogView = layoutInflater.inflate(R.layout.dialog_select_icon, null)
+        val dialogBinding = DialogSelectIconBinding.inflate(LayoutInflater.from(this))
 
         // Setting Carousel Items
         val imageItems: ArrayList<CarouselPicker.PickerItem> = ArrayList()
@@ -350,10 +351,10 @@ class CircuitCreateActivity : BaseActivity() {
 
         val imageAdapter: CarouselPicker.CarouselViewAdapter =
             CarouselPicker.CarouselViewAdapter(this, imageItems, 0)
-        dialogView.carousel.adapter = imageAdapter
+        dialogBinding.carousel.adapter = imageAdapter
 
         // Carousel Logic
-        dialogView!!.carousel.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        dialogBinding.carousel.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -370,11 +371,11 @@ class CircuitCreateActivity : BaseActivity() {
         })
 
         // Button Logic
-        dialogView.dismiss.setOnClickListener {
+        dialogBinding.dismiss.setOnClickListener {
             builder.dismiss()
         }
 
-        dialogView.save.setOnClickListener {
+        dialogBinding.save.setOnClickListener {
             bind.circuitIcon.setImageResource(
                 resources.getIdentifier(
                     iconNames.getString(selectedIcon),
@@ -385,7 +386,7 @@ class CircuitCreateActivity : BaseActivity() {
             builder.dismiss()
         }
         // Display the Dialog
-        builder.setView(dialogView)
+        builder.setView(dialogBinding.root)
         builder.show()
     }
 

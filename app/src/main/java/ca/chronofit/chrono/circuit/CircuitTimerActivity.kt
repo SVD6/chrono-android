@@ -8,26 +8,22 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitTimerBinding
+import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.dialog_alert.view.*
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : BaseActivity() {
@@ -36,18 +32,10 @@ class CircuitTimerActivity : BaseActivity() {
     enum class TimerState { INIT, RUNNING, PAUSED }
     enum class RunningState { READY, INIT, WORK, REST }
 
-    private lateinit var mInterstitialAd: InterstitialAd
-
-    private val mInterstitialAdUnitId: String by lazy {
-//        "ca-app-pub-5592526048202421/8639444717" // ACTUAL
-        "ca-app-pub-3940256099942544/1033173712" // TEST
-    }
-
     private val celebrateTimeout = 2500L // Timeout delay
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var skipLastRest: Boolean = false
-    private var adsEnabled: Boolean? = false
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -79,7 +67,6 @@ class CircuitTimerActivity : BaseActivity() {
         // Initialize stuff
         updateButtonUI()
         updateRestUI()
-        loadAds()
 
         bind.startButton.setOnClickListener {
             FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_STARTED, Bundle())
@@ -164,15 +151,6 @@ class CircuitTimerActivity : BaseActivity() {
         }.start()
     }
 
-    private fun loadAds() {
-        // Initialize and load up the ad for later
-        MobileAds.initialize(this)
-
-        mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = mInterstitialAdUnitId
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
-    }
-
     private fun celebrate() {
         // Load celebrate layout
         bind.mainLayout.visibility = View.GONE
@@ -200,72 +178,43 @@ class CircuitTimerActivity : BaseActivity() {
 
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
-        val dialogView = layoutInflater.inflate(R.layout.dialog_alert, null)
+        val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(this))
 
         // Set Dialog Views
-        dialogView.dialog_title.text = getString(R.string.circuit_complete)
-        dialogView.dialog_subtitle.text = getString(R.string.circuit_complete_subtitle)
-        dialogView.confirm.text = getString(R.string.circuit_complete_confirm)
-        dialogView.cancel.text = getString(R.string.circuit_complete_cancel)
+        dialogBinding.dialogTitle.text = getString(R.string.circuit_complete)
+        dialogBinding.dialogSubtitle.text = getString(R.string.circuit_complete_subtitle)
+        dialogBinding.confirm.text = getString(R.string.circuit_complete_confirm)
+        dialogBinding.cancel.text = getString(R.string.circuit_complete_cancel)
 
-        dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
-        dialogView.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
+        dialogBinding.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+        dialogBinding.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
 
         // User wants to return to dashboard
-        dialogView.confirm.setOnClickListener {
+        dialogBinding.confirm.setOnClickListener {
             builder.dismiss()
             setResult(Activity.RESULT_OK)
             finish()
-
-            // Show the ad
-            if (mInterstitialAd.isLoaded && adsEnabled!!) {
-                mInterstitialAd.show()
-            } else {
-                Log.d("AD", "The interstitial wasn't loaded yet.")
-            }
         }
 
         // If the user wants to run the circuit again
-        dialogView.cancel.setOnClickListener {
-            // Show the ad if it loaded
-            if (mInterstitialAd.isLoaded && adsEnabled!!) {
-                mInterstitialAd.adListener = object : AdListener() {
-                    override fun onAdClosed() {
-                        // Reload the circuit
-                        super.onAdClosed()
-                        builder.dismiss()
+        dialogBinding.cancel.setOnClickListener {
+            // Reload the circuit
+            builder.dismiss()
 
-                        bind.celebrateLayout.visibility = View.GONE
-                        bind.mainLayout.visibility = View.VISIBLE
+            bind.celebrateLayout.visibility = View.GONE
+            bind.mainLayout.visibility = View.VISIBLE
 
-                        timerState = TimerState.INIT
-                        runningState = RunningState.INIT
-                        updateButtonUI()
-                        updateRestUI()
-                    }
-                }
-                mInterstitialAd.show()
-            } else {
-                // Ad didn't load but restart the circuit
-                Log.d("AD", "The interstitial wasn't loaded yet.")
-                // Reload the circuit
-                builder.dismiss()
-
-                bind.celebrateLayout.visibility = View.GONE
-                bind.mainLayout.visibility = View.VISIBLE
-
-                timerState = TimerState.INIT
-                runningState = RunningState.INIT
-                updateButtonUI()
-                updateRestUI()
-            }
+            timerState = TimerState.INIT
+            runningState = RunningState.INIT
+            updateButtonUI()
+            updateRestUI()
         }
 
         builder.setCancelable(false)
         builder.setCanceledOnTouchOutside(false)
 
         // Display the Dialog
-        builder.setView(dialogView)
+        builder.setView(dialogBinding.root)
         builder.show()
     }
 

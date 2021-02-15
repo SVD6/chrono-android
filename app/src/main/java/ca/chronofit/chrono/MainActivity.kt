@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -18,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.circuit.CircuitDashboardFrag
 import ca.chronofit.chrono.databinding.ActivityMainBinding
+import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.settings.SettingsFrag
 import ca.chronofit.chrono.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.BaseActivity
@@ -30,7 +32,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import kotlinx.android.synthetic.main.dialog_alert.view.*
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var bind: ActivityMainBinding
@@ -225,18 +226,18 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun showUpdateDialog() {
         val builder =
             MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog).create()
-        val dialogView = View.inflate(this, R.layout.dialog_alert, null)
+        val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(this))
 
         // Set the Views
-        dialogView.dialog_title.text = getString(R.string.update_available_title)
-        dialogView.dialog_subtitle.text = getString(R.string.update_available_subtitle)
-        dialogView.confirm.text = getString(R.string.update)
-        dialogView.cancel.visibility = View.GONE
-        dialogView.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
-        dialogView.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+        dialogBinding.dialogTitle.text = getString(R.string.update_available_title)
+        dialogBinding.dialogSubtitle.text = getString(R.string.update_available_subtitle)
+        dialogBinding.confirm.text = getString(R.string.update)
+        dialogBinding.cancel.visibility = View.GONE
+        dialogBinding.confirm.setTextColor(ContextCompat.getColor(this, R.color.white))
+        dialogBinding.confirm.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
 
         // Button Logic
-        dialogView.confirm.setOnClickListener {
+        dialogBinding.confirm.setOnClickListener {
             try {
                 startActivity(
                     Intent(
@@ -256,7 +257,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // For now the dialog is dismissible but before launch we should have it fixed.
 
         // Display the Dialog
-        builder.setView(dialogView)
+        builder.setView(dialogBinding.root)
         builder.show()
     }
 
