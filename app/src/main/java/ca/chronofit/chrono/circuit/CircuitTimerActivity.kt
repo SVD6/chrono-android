@@ -285,8 +285,6 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.initButtonLayout.visibility = View.GONE
                 bind.runButtonLayout.visibility = View.VISIBLE
                 bind.pauseButtonLayout.visibility = View.GONE
-
-                bind.pauseButton.setTextColor(ContextCompat.getColor(this, R.color.lightText))
             }
             TimerState.PAUSED -> {
                 bind.initButtonLayout.visibility = View.GONE
