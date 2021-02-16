@@ -133,7 +133,7 @@ class CircuitTimerActivity : BaseActivity() {
         soundMap = HashMap()
 
         // Fill Map with Sounds
-        soundMap[Constants.SOUND_LONG_WHISTLE] = soundPool.load(this, R.raw.whistle, 1)
+        soundMap[Constants.SOUND_LONG_WHISTLE] = soundPool.load(this, R.raw.long_whistle, 1)
     }
 
     private fun playSound(sound: Int) {
