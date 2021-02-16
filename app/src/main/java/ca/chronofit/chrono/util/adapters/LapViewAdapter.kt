@@ -20,7 +20,7 @@ class LapViewAdapter(private val data: List<LapObject>) :
 
         fun bind(lap: LapObject, position: Int) {
             if (position == 0) {
-                lapNum.text = lap.lapNum
+                lapNum.text = ""
                 lapTime.text = ""
                 totalTime.text = ""
             } else {

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,7 +19,6 @@ import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentStopwatchBinding
 import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
-import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.LapObject
 import ca.chronofit.chrono.util.objects.SettingsViewModel
@@ -156,13 +154,10 @@ class StopwatchFrag : Fragment() {
     private fun lap() {
         if (lapCount == 0) {
             laps.add(LapObject())
-            recyclerView.adapter?.notifyItemInserted(lapCount++)
-            recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount - 1)
-        } else {
-            lapCount += 1
         }
+        lapCount++
 
-        val currTime = swatch.elapsedTime //SystemClock.elapsedRealtime() - chronometer!!.base
+        val currTime = swatch.elapsedTime
         val timeDiff = currTime - prevTime
 
         // Create Lap Object
