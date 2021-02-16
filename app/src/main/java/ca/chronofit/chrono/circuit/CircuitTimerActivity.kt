@@ -3,7 +3,6 @@ package ca.chronofit.chrono.circuit
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
-import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
@@ -134,11 +133,10 @@ class CircuitTimerActivity : BaseActivity() {
         soundMap = HashMap()
 
         // Fill Map with Sounds
-        soundMap[Constants.SOUND_START_WHISTLE] = soundPool.load(this, R.raw.whistle, 1)
+        soundMap[Constants.SOUND_LONG_WHISTLE] = soundPool.load(this, R.raw.whistle, 1)
     }
 
     private fun playSound(sound: Int) {
-        val audioManager = this.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         if (soundMap[sound] == null) {
             Toast.makeText(this, "Error playing sound.", Toast.LENGTH_SHORT).show()
         } else {
@@ -254,8 +252,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun workout() {
-//        if (audioPrompts) tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
-        if (audioPrompts) playSound(Constants.SOUND_START_WHISTLE)
+        if (audioPrompts) playSound(Constants.SOUND_LONG_WHISTLE)
         runningState = RunningState.WORK
         updateButtonUI()
         updateRestUI()

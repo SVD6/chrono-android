@@ -29,8 +29,8 @@ object Constants {
     const val SYSTEM_DEFAULT: String = "System Default"
 
     // Sound Pool IDs
-    const val SOUND_START_WHISTLE: Int = 10
-    const val SOUND_REST: Int = 11
+    const val SOUND_SHORT_WHISTLE: Int = 10
+    const val SOUND_LONG_WHISTLE: Int = 11
     const val SOUND_COMPLETE: Int = 12
 
     // Version Number
