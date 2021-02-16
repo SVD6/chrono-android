@@ -3,6 +3,7 @@ package ca.chronofit.chrono.circuit
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
+import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
@@ -13,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.R
@@ -53,6 +55,7 @@ class CircuitTimerActivity : BaseActivity() {
     private var criticalSeconds: Int = 0
 
     private lateinit var soundPool: SoundPool
+    private lateinit var soundMap: HashMap<Int, Int>
     private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,11 +79,7 @@ class CircuitTimerActivity : BaseActivity() {
         updateRestUI()
 
         // Initialize SoundPool
-        val audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_ALARM)
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-            .build()
-        soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(1).build()
+        initSounds()
 
         bind.startButton.setOnClickListener {
             FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_STARTED, Bundle())
@@ -123,6 +122,27 @@ class CircuitTimerActivity : BaseActivity() {
             }
             setResult(Activity.RESULT_CANCELED)
             finish()
+        }
+    }
+
+    private fun initSounds() {
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
+        soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(1).build()
+        soundMap = HashMap()
+
+        // Fill Map with Sounds
+        soundMap[Constants.SOUND_START_WHISTLE] = soundPool.load(this, R.raw.whistle, 1)
+    }
+
+    private fun playSound(sound: Int) {
+        val audioManager = this.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        if (soundMap[sound] == null) {
+            Toast.makeText(this, "Error playing sound.", Toast.LENGTH_SHORT).show()
+        } else {
+            soundPool.play(soundMap[sound]!!, 1f, 1f, 0, 0, 1f)
         }
     }
 
@@ -234,7 +254,8 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun workout() {
-        if (audioPrompts) tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
+//        if (audioPrompts) tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
+        if (audioPrompts) playSound(Constants.SOUND_START_WHISTLE)
         runningState = RunningState.WORK
         updateButtonUI()
         updateRestUI()

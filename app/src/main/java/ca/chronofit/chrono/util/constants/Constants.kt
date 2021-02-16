@@ -28,6 +28,11 @@ object Constants {
     const val LIGHT_MODE: String = "Off"
     const val SYSTEM_DEFAULT: String = "System Default"
 
+    // Sound Pool IDs
+    const val SOUND_START_WHISTLE: Int = 10
+    const val SOUND_REST: Int = 11
+    const val SOUND_COMPLETE: Int = 12
+
     // Version Number
     const val VERSION_NUMBER: String = "Test Version 0.2.1"
 
