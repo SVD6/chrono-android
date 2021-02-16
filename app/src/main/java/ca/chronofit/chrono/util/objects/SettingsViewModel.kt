@@ -12,14 +12,17 @@ class SettingsViewModel : ViewModel(), Serializable {
     val notifications: LiveData<Boolean> get() = _notifications
     private val _notifications = MutableLiveData<Boolean>()
 
-    val audioPrompts: LiveData<Boolean> get() = _audioPrompts
-    private val _audioPrompts = MutableLiveData<Boolean>()
+    val getReadyTime: LiveData<String> get() = _getReadyTime
+    private val _getReadyTime = MutableLiveData<String>()
 
     val lastRest: LiveData<Boolean> get() = _lastRest
     private val _lastRest = MutableLiveData<Boolean>()
 
-    val getReadyTime: LiveData<String> get() = _getReadyTime
-    private val _getReadyTime = MutableLiveData<String>()
+    val audioPrompts: LiveData<Boolean> get() = _audioPrompts
+    private val _audioPrompts = MutableLiveData<Boolean>()
+
+    val soundEffect: LiveData<Int> get() = _soundEffect
+    private val _soundEffect = MutableLiveData<Int>()
 
     fun onDarkModeChanged(setting: String) {
         _darkMode.value = setting
@@ -29,15 +32,19 @@ class SettingsViewModel : ViewModel(), Serializable {
         _notifications.value = setting
     }
 
-    fun onAudioPromptChanged(setting: Boolean) {
-        _audioPrompts.value = setting
+    fun onReadyTimeChanged(setting: String) {
+        _getReadyTime.value = setting
     }
 
     fun onLastRestChanged(setting: Boolean) {
         _lastRest.value = setting
     }
 
-    fun onReadyTimeChanged(setting: String) {
-        _getReadyTime.value = setting
+    fun onAudioPromptChanged(setting: Boolean) {
+        _audioPrompts.value = setting
+    }
+
+    fun onSoundEffectChanged(setting: Int) {
+        _soundEffect.value = setting
     }
 }

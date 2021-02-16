@@ -12,11 +12,12 @@ object Constants {
     const val NUM_COMPLETE: String = "num_complete"
 
     // Settings Shared Preferences
-    const val GET_READY_SETTING: String = "ready_time"
-    const val AUDIO_SETTING: String = "prompts"
-    const val LAST_REST_SETTING: String = "last_rest"
-    const val NOTIFICATION_SETTING: String = "notifications"
     const val DARK_MODE_SETTING: String = "dark_mode"
+    const val NOTIFICATION_SETTING: String = "notifications"
+    const val GET_READY_SETTING: String = "ready_time"
+    const val LAST_REST_SETTING: String = "last_rest"
+    const val AUDIO_SETTING: String = "prompts"
+    const val SOUND_EFFECT_SETTING: String = "sound_effect"
 
     // Activity Request Codes
     const val DASH_TO_CREATE: Int = 10001

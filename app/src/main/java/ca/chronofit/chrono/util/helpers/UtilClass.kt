@@ -1,5 +1,6 @@
 package ca.chronofit.chrono.util.helpers
 
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.TimeObject
 import java.text.DecimalFormat
 
@@ -35,4 +36,20 @@ fun formatTime(time: TimeObject, separator: String): String {
     text += df.format(time.seconds) + "."
     text += time.milliseconds.toString() + time.tenMilliseconds.toString()
     return text
+}
+
+fun getSoundName(id: Int): String {
+    return when (id) {
+        Constants.SOUND_SHORT_WHISTLE -> "Short Whistle"
+        Constants.SOUND_LONG_WHISTLE -> "Long Whistle"
+        else -> ""
+    }
+}
+
+fun getSoundId(name: String): Int {
+    return when (name) {
+        "Short Whistle" -> Constants.SOUND_SHORT_WHISTLE
+        "Long Whistle" -> Constants.SOUND_LONG_WHISTLE
+        else -> -1
+    }
 }
