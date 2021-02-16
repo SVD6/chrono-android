@@ -3,7 +3,9 @@ package ca.chronofit.chrono.circuit
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
+import android.media.AudioAttributes
 import android.media.AudioManager
+import android.media.SoundPool
 import android.media.ToneGenerator
 import android.os.*
 import android.transition.Fade
@@ -50,6 +52,7 @@ class CircuitTimerActivity : BaseActivity() {
     private var timeWork: Int = 0
     private var criticalSeconds: Int = 0
 
+    private lateinit var soundPool: SoundPool
     private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,9 +71,16 @@ class CircuitTimerActivity : BaseActivity() {
         audioPrompts = intent.getBooleanExtra("audioPrompts", true)
         skipLastRest = intent.getBooleanExtra("lastRest", false)
 
-        // Initialize stuff
+        // Initialize View
         updateButtonUI()
         updateRestUI()
+
+        // Initialize SoundPool
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
+        soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(1).build()
 
         bind.startButton.setOnClickListener {
             FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_STARTED, Bundle())
