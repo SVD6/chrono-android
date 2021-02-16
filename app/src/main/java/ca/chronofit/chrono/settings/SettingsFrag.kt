@@ -24,8 +24,6 @@ import ca.chronofit.chrono.databinding.DialogReadyTimeBinding
 import ca.chronofit.chrono.databinding.DialogSoundEffectBinding
 import ca.chronofit.chrono.databinding.FragmentSettingsBinding
 import ca.chronofit.chrono.util.constants.Constants
-import ca.chronofit.chrono.util.helpers.getSoundId
-import ca.chronofit.chrono.util.helpers.getSoundName
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -38,7 +36,7 @@ class SettingsFrag : Fragment() {
     private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     private lateinit var soundPool: SoundPool
-    private lateinit var soundMap: HashMap<Int, Int>
+    private lateinit var soundMap: HashMap<String, Int>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -102,11 +100,11 @@ class SettingsFrag : Fragment() {
 
         // Sound Effect Setting
         if (PreferenceManager.get<String>(Constants.SOUND_EFFECT_SETTING) == null) {
-            bind.soundEffectDisplay.text = getString(R.string.long_whistle)
+            bind.soundEffectDisplay.text = Constants.SOUND_LONG_WHISTLE
             PreferenceManager.put(Constants.SOUND_LONG_WHISTLE, Constants.SOUND_EFFECT_SETTING)
         } else {
             bind.soundEffectDisplay.text =
-                getSoundName(PreferenceManager.get<Int>(Constants.SOUND_EFFECT_SETTING)!!)
+                PreferenceManager.get<String>(Constants.SOUND_EFFECT_SETTING)
         }
     }
 
@@ -233,7 +231,7 @@ class SettingsFrag : Fragment() {
             soundPool.load(requireContext(), R.raw.short_whistle, 1)
     }
 
-    private fun playSound(sound: Int) {
+    private fun playSound(sound: String) {
         if (soundMap[sound] == null) {
             Toast.makeText(requireContext(), "Error playing sound.", Toast.LENGTH_SHORT).show()
         } else {
@@ -311,22 +309,18 @@ class SettingsFrag : Fragment() {
         // Radio Listener
         dialogBinding.soundEffectSelect.setOnCheckedChangeListener { group, checkedId ->
             val radioButton = group.findViewById<RadioButton>(checkedId)
-            when (radioButton.text) {
-                getString(R.string.long_whistle) -> playSound(Constants.SOUND_LONG_WHISTLE)
-                getString(R.string.short_whistle) -> playSound(Constants.SOUND_SHORT_WHISTLE)
-            }
+            playSound(radioButton.text.toString())
         }
 
         // Button Logic
         dialogBinding.save.setOnClickListener {
-            bind.soundEffectDisplay.text =
+            val selectedSound =
                 dialogBinding.soundEffectSelect.findViewById<RadioButton>(dialogBinding.soundEffectSelect.checkedRadioButtonId).text.toString()
+            bind.soundEffectDisplay.text = selectedSound
 
             // Save in Preferences/ViewModel
-            val soundId =
-                getSoundId(dialogBinding.soundEffectSelect.findViewById<RadioButton>(dialogBinding.soundEffectSelect.checkedRadioButtonId).text.toString())
-            PreferenceManager.put(soundId, Constants.SOUND_EFFECT_SETTING)
-            settingsViewModel.onSoundEffectChanged(soundId)
+            PreferenceManager.put(selectedSound, Constants.SOUND_EFFECT_SETTING)
+            settingsViewModel.onSoundEffectChanged(selectedSound)
 
             builder.dismiss()
         }

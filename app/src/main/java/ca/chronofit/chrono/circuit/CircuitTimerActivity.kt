@@ -39,6 +39,7 @@ class CircuitTimerActivity : BaseActivity() {
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var skipLastRest: Boolean = false
+    private var soundEffect: String = Constants.SOUND_LONG_WHISTLE
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -67,11 +68,8 @@ class CircuitTimerActivity : BaseActivity() {
         }
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
-        circuit = GsonBuilder().create()
-            .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
-        getReadyTime = intent.getIntExtra("readyTime", 5)
-        audioPrompts = intent.getBooleanExtra("audioPrompts", true)
-        skipLastRest = intent.getBooleanExtra("lastRest", false)
+        // Load Data
+        initData()
 
         // Initialize View
         updateButtonUI()
@@ -124,16 +122,24 @@ class CircuitTimerActivity : BaseActivity() {
         }
     }
 
+    private fun initData() {
+        circuit = GsonBuilder().create()
+            .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
+        getReadyTime = intent.getIntExtra("readyTime", 5)
+        audioPrompts = intent.getBooleanExtra("audioPrompts", true)
+        skipLastRest = intent.getBooleanExtra("lastRest", false)
+        soundEffect = intent.getStringExtra("soundEffect")!!
+    }
+
     private fun initSounds() {
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_ALARM)
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
             .build()
         soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(1).build()
-        soundMap = HashMap()
 
         // Fill Map with Sounds
-        soundMap[Constants.SOUND_LONG_WHISTLE] = soundPool.load(this, R.raw.long_whistle, 1)
+//        soundPool.load(this)
     }
 
     private fun playSound(sound: Int) {
@@ -252,7 +258,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun workout() {
-        if (audioPrompts) playSound(Constants.SOUND_LONG_WHISTLE)
+//        if (audioPrompts) playSound(Constants.SOUND_LONG_WHISTLE)
         runningState = RunningState.WORK
         updateButtonUI()
         updateRestUI()

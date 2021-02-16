@@ -21,8 +21,8 @@ class SettingsViewModel : ViewModel(), Serializable {
     val audioPrompts: LiveData<Boolean> get() = _audioPrompts
     private val _audioPrompts = MutableLiveData<Boolean>()
 
-    val soundEffect: LiveData<Int> get() = _soundEffect
-    private val _soundEffect = MutableLiveData<Int>()
+    val soundEffect: LiveData<String> get() = _soundEffect
+    private val _soundEffect = MutableLiveData<String>()
 
     fun onDarkModeChanged(setting: String) {
         _darkMode.value = setting
@@ -44,7 +44,7 @@ class SettingsViewModel : ViewModel(), Serializable {
         _audioPrompts.value = setting
     }
 
-    fun onSoundEffectChanged(setting: Int) {
+    fun onSoundEffectChanged(setting: String) {
         _soundEffect.value = setting
     }
 }

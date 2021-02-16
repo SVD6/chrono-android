@@ -46,6 +46,7 @@ class CircuitDashboardFrag : Fragment() {
     private var readyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var lastRest: Boolean = true
+    private var soundEffect: String = Constants.SOUND_LONG_WHISTLE
 
     private var circuitsObject: CircuitsObject? = null
     private var selectedPosition: Int = 0
@@ -146,6 +147,7 @@ class CircuitDashboardFrag : Fragment() {
         intent.putExtra("readyTime", readyTime)
         intent.putExtra("audioPrompts", audioPrompts)
         intent.putExtra("lastRest", lastRest)
+        intent.putExtra("soundEffect", soundEffect)
         startActivityForResult(intent, Constants.DASH_TO_TIMER)
     }
 
@@ -289,6 +291,8 @@ class CircuitDashboardFrag : Fragment() {
             lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING)!!
         }
 
+        soundEffect = PreferenceManager.get(Constants.DARK_MODE_SETTING).replace("\"", "")
+
         // Observe Settings
         settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { _readyTime ->
             readyTime = (_readyTime.substring(0, _readyTime.length - 1)).toInt()
@@ -300,6 +304,10 @@ class CircuitDashboardFrag : Fragment() {
 
         settingsViewModel.lastRest.observe(viewLifecycleOwner, { rest ->
             lastRest = rest
+        })
+
+        settingsViewModel.soundEffect.observe(viewLifecycleOwner, { effect ->
+            soundEffect = effect
         })
     }
 
