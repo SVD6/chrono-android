@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getColor
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.stopwatch.StopwatchFrag
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.services.NotificationIntentService
 
 class SwatchNotificationManager(private val context: Context) {
-    val notificationId = 12
     var showNotification = false
 
     fun createRunningNotification(time: String, isRunning: Boolean) {
@@ -32,20 +32,23 @@ class SwatchNotificationManager(private val context: Context) {
 
         val builder = NotificationCompat.Builder(
             context,
-            Constants.SWATCH_NOTIFICATION_CHANNEL
+            context.getString(R.string.stopwatch_notification_channel_id)
         )
             .setSmallIcon(R.drawable.ic_notification_logo)
-            .setContentTitle("stopwatch")
+            .setContentTitle("Stopwatch")
             .setContentText(time)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setContentIntent(openAppPendingIntent)
             .setShowWhen(false)
+            .setColorized(true)
+            .setColor(getColor(context,R.color.colorAccent))
+            .setSound(null)
 
         // addAction requires an icon to support older devices, but isn't actually shown in newer ones
         if (isRunning) {
             builder.addAction(
                 R.drawable.ic_pause,
-                "stop",
+                "Stop",
                 PendingIntent.getService(
                     context,
                     0,
@@ -53,11 +56,10 @@ class SwatchNotificationManager(private val context: Context) {
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
-            builder.setOngoing(true)
         } else {
             builder.addAction(
                 R.drawable.ic_resume_arrow,
-                "resume",
+                "Resume",
                 PendingIntent.getService(
                     context,
                     0,
@@ -66,14 +68,13 @@ class SwatchNotificationManager(private val context: Context) {
                 )
             )
             builder.setStyle(
-                NotificationCompat.BigTextStyle().setSummaryText("paused")
+                NotificationCompat.BigTextStyle().setSummaryText("Paused")
             )
-            builder.setOngoing(false)
         }
 
         builder.addAction(
             R.drawable.ic_stop,
-            "reset",
+            "Reset",
             PendingIntent.getService(
                 context,
                 1,
@@ -85,7 +86,7 @@ class SwatchNotificationManager(private val context: Context) {
         if (showNotification) {
             with(NotificationManagerCompat.from(context)) {
                 //notificationId is a unique int for each notification that you must define
-                notify(notificationId, builder.build())
+                notify(Constants.SWATCH_NOTIFICATION_ID, builder.build())
             }
         }
     }

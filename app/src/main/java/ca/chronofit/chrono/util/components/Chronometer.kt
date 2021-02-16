@@ -7,6 +7,7 @@ import android.os.SystemClock
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.NotificationManagerCompat
+import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.helpers.SwatchNotificationManager
 import ca.chronofit.chrono.util.helpers.formatTime
 import ca.chronofit.chrono.util.helpers.getTime
@@ -47,9 +48,10 @@ class Chronometer @JvmOverloads constructor(
         super.onWindowVisibilityChanged(visibility)
         notification.showNotification = (visibility != VISIBLE) && (notificationEnabled == true)
         if (visibility == VISIBLE) {
-            NotificationManagerCompat.from(context).cancel(notification.notificationId)
+            closeNotification()
         }
     }
+
 
     private fun updateText(time: String) {
         text = time
@@ -100,11 +102,15 @@ class Chronometer @JvmOverloads constructor(
         delayTime = 0
         prevSec = -1
         updateText(defaultTime)
-        NotificationManagerCompat.from(context).cancel(notification.notificationId)
+        closeNotification()
     }
 
     fun setNotificationEnabled(setting: Boolean) {
         notificationEnabled = setting
+    }
+
+    private fun closeNotification() {
+        NotificationManagerCompat.from(context).cancel(Constants.SWATCH_NOTIFICATION_ID)
     }
 
 }

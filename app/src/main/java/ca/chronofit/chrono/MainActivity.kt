@@ -88,11 +88,13 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         // Create Notification Channels
         createNotificationChannel(
-            Constants.CIRCUIT_NOTIFICATION_CHANNEL,
+            getString(R.string.stopwatch_notification_channel_id),
+            getString(R.string.stopwatch_notification_channel_name),
             "Notifications from your circuit timers."
         )
         createNotificationChannel(
-            Constants.SWATCH_NOTIFICATION_CHANNEL,
+            getString(R.string.circuit_notification_channel_id),
+            getString(R.string.circuit_notification_channel_name),
             "Notifications from your stopwatch."
         )
 
@@ -102,7 +104,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Check for an Update
         checkForUpdate()
     }
-
 
     private fun changeDarkMode(mode: String) {
         when (mode) {
@@ -156,15 +157,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-    private fun createNotificationChannel(name: String, descriptionText: String) {
+    private fun createNotificationChannel(id: String, name: String, descriptionText: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel =
-                NotificationChannel(name, name, NotificationManager.IMPORTANCE_DEFAULT).apply {
-                    description = descriptionText
-                }
-            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
-                channel
-            )
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val channel = NotificationChannel(id, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
     }
 
