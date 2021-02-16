@@ -37,5 +37,5 @@ object Constants {
 
     // Notification Id
     const val SWATCH_NOTIFICATION_ID: Int = 2416638
-    const val TIMER_NOTIFICATION_ID: Int = 341032
+    const val CIRCUIT_NOTIFICATION_ID: Int = 341032
 }

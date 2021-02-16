@@ -93,8 +93,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             "Notifications from your circuit timers."
         )
         createNotificationChannel(
-            getString(R.string.timer_notification_channel_id),
-            getString(R.string.timer_notification_channel_name),
+            getString(R.string.circuit_notification_channel_id),
+            getString(R.string.circuit_notification_channel_name),
             "Notifications from your stopwatch."
         )
 
@@ -169,7 +169,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             notificationManager.createNotificationChannel(channel)
         }
     }
-
 
     private fun initRemoteConfig() {
         // Configure Remote Config

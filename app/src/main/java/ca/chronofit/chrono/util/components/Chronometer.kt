@@ -47,7 +47,7 @@ class Chronometer @JvmOverloads constructor(
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
         notification.showNotification = (visibility != VISIBLE) && (notificationEnabled == true)
-        if(visibility == VISIBLE){
+        if (visibility == VISIBLE) {
             closeNotification()
         }
     }
