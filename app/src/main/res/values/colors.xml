@@ -10,6 +10,7 @@
     <color name="lightTextSecondary">#6F6F6F</color>
 
     <!-- Dark Mode Colors -->
+    <color name="darkBackground">#121212</color>
     <color name="darkText">#DBDBDB</color>
     <color name="darkTextSecondary">#AFAFAF</color>
 
