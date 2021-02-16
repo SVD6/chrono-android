@@ -173,8 +173,9 @@ class SettingsFrag : Fragment() {
             startActivity(intent)
         }
 
+        // Set Version Number
         try {
-            bind.versionNumber.text = "Version " + requireContext().packageManager.getPackageInfo(
+            bind.versionNumber.text = "Test Version " + requireContext().packageManager.getPackageInfo(
                 requireContext().packageName,
                 0
             ).versionName

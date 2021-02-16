@@ -152,7 +152,13 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun lap() {
-        lapCount += 1
+        if (lapCount == 0) {
+            laps.add(LapObject())
+            recyclerView.adapter?.notifyItemInserted(lapCount++)
+            recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount - 1)
+        } else {
+            lapCount += 1
+        }
 
         val currTime = swatch.elapsedTime //SystemClock.elapsedRealtime() - chronometer!!.base
         val timeDiff = currTime - prevTime
@@ -162,8 +168,8 @@ class StopwatchFrag : Fragment() {
         val dec = DecimalFormat("#00")
 
         lap.lapNum = dec.format(lapCount)
-        lap.lapTime = timeDiff
-        lap.totalTime = currTime
+        lap.lapTime = timeDiff.toString()
+        lap.totalTime = currTime.toString()
 
         laps.add(lap)
         recyclerView.adapter?.notifyItemInserted(lapCount)
