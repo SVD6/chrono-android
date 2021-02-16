@@ -116,6 +116,7 @@
                     android:letterSpacing="0"
                     android:text="@string/pause"
                     android:textAllCaps="false"
+                    android:textColor="@color/lightText"
                     android:textSize="@dimen/xl_medium_text"
                     android:textStyle="bold"
                     app:cornerRadius="13dp" />
