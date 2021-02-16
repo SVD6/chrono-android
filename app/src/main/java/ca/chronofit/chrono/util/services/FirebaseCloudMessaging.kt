@@ -29,6 +29,7 @@ class FirebaseCloudMessaging : FirebaseMessagingService() {
         )
 
         val channelId = getString(R.string.default_fcm_notification_channel_id)
+        val channelName = getString(R.string.default_fcm_notification_channel_name)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_notification_logo)
             .setContentTitle(notification.title)
@@ -42,7 +43,7 @@ class FirebaseCloudMessaging : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
-                "fcm notification channel",
+                channelName,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(channel)
