@@ -75,6 +75,9 @@ class StopwatchFrag : Fragment() {
         }
 
         bind.lapButton.setOnClickListener {
+            if (lapCount == 0) {
+                laps.add(LapObject())
+            }
             if (lapCount >= (maxLapCount - 1)) {
                 Toast.makeText(
                     requireContext(),
@@ -152,9 +155,6 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun lap() {
-        if (lapCount == 0) {
-            laps.add(LapObject())
-        }
         lapCount++
 
         val currTime = swatch.elapsedTime
