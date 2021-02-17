@@ -32,7 +32,7 @@ object Constants {
     // Sound Pool IDs
     const val SOUND_SHORT_WHISTLE: String = "Short Whistle"
     const val SOUND_LONG_WHISTLE: String = "Long Whistle"
-    const val SOUND_COMPLETE: Int = 12
+    const val SOUND_COMPLETE: String = "Complete"
 
     // Version Number
     const val VERSION_NUMBER: String = "Test Version 0.2.1"

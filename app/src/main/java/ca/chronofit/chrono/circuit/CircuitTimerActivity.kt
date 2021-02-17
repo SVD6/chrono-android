@@ -133,7 +133,7 @@ class CircuitTimerActivity : BaseActivity() {
 
     private fun initSounds() {
         val audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_ALARM)
+            .setUsage(AudioAttributes.USAGE_MEDIA)
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
             .build()
         soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(1).build()
@@ -145,6 +145,7 @@ class CircuitTimerActivity : BaseActivity() {
             resources.getIdentifier(getSoundFile(soundEffect), "raw", this.packageName),
             1
         )
+        soundMap[Constants.SOUND_COMPLETE] = soundPool.load(this, R.raw.complete, 1)
     }
 
     private fun playSound(sound: String) {
@@ -194,8 +195,10 @@ class CircuitTimerActivity : BaseActivity() {
         // Load celebrate layout
         bind.mainLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
-
         FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
+
+        //Play Complete Sound
+        playSound(Constants.SOUND_COMPLETE)
         // Wait 2.5 seconds before showing the finish prompt
         Handler(
             Looper.getMainLooper()
