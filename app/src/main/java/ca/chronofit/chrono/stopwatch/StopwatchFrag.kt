@@ -126,7 +126,6 @@ class StopwatchFrag : Fragment() {
         recyclerView.adapter = LapViewAdapter(laps)
     }
 
-
     private fun startStopwatch() {
         if (settingsViewModel.notifications.value == null) swatch.setNotificationEnabled(true)
         else settingsViewModel.notifications.value?.let { swatch.setNotificationEnabled(it) }
