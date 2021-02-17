@@ -291,7 +291,7 @@ class CircuitDashboardFrag : Fragment() {
             lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING)!!
         }
 
-        soundEffect = PreferenceManager.get(Constants.DARK_MODE_SETTING).replace("\"", "")
+        soundEffect = PreferenceManager.get(Constants.SOUND_EFFECT_SETTING).replace("\"", "")
 
         // Observe Settings
         settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { _readyTime ->

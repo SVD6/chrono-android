@@ -99,12 +99,12 @@ class SettingsFrag : Fragment() {
         }
 
         // Sound Effect Setting
-        if (PreferenceManager.get<String>(Constants.SOUND_EFFECT_SETTING) == null) {
-            bind.soundEffectDisplay.text = Constants.SOUND_LONG_WHISTLE
+        if (PreferenceManager.get(Constants.SOUND_EFFECT_SETTING) == "") {
             PreferenceManager.put(Constants.SOUND_LONG_WHISTLE, Constants.SOUND_EFFECT_SETTING)
+            bind.soundEffectDisplay.text = Constants.SOUND_LONG_WHISTLE
         } else {
             bind.soundEffectDisplay.text =
-                PreferenceManager.get<String>(Constants.SOUND_EFFECT_SETTING)
+                PreferenceManager.get(Constants.SOUND_EFFECT_SETTING).replace("\"", "")
         }
     }
 

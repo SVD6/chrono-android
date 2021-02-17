@@ -25,7 +25,7 @@ object PreferenceManager {
     }
 
     fun get(key: String): String {
-        return preferences.getString(key, null)!!.toString()
+        return preferences.getString(key, "")!!.toString()
     }
 
     inline fun <reified T> get(key: String): T? {
