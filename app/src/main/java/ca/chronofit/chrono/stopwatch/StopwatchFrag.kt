@@ -51,7 +51,7 @@ class StopwatchFrag : Fragment() {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
 
         // Initialize Everything
-        initialize()
+        init()
 
         // Button Logic
         bind.startButton.setOnClickListener {
@@ -108,7 +108,7 @@ class StopwatchFrag : Fragment() {
         return bind.root
     }
 
-    private fun initialize() {
+    private fun init() {
         recyclerView = bind.recyclerView
         swatch = bind.chronometer
 
@@ -144,7 +144,7 @@ class StopwatchFrag : Fragment() {
     private fun resetStopwatch() {
         swatch.reset()
         swatchState = SwatchState.INIT
-        initialize()
+        init()
         updateButtonUI()
     }
 
