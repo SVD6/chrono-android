@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,7 +19,6 @@ import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentStopwatchBinding
 import ca.chronofit.chrono.util.adapters.LapViewAdapter
 import ca.chronofit.chrono.util.components.Chronometer
-import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.LapObject
 import ca.chronofit.chrono.util.objects.SettingsViewModel
@@ -53,7 +51,7 @@ class StopwatchFrag : Fragment() {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false)
 
         // Initialize Everything
-        initialize()
+        init()
 
         // Button Logic
         bind.startButton.setOnClickListener {
@@ -77,6 +75,9 @@ class StopwatchFrag : Fragment() {
         }
 
         bind.lapButton.setOnClickListener {
+            if (lapCount == 0) {
+                laps.add(LapObject())
+            }
             if (lapCount >= (maxLapCount - 1)) {
                 Toast.makeText(
                     requireContext(),
@@ -107,7 +108,7 @@ class StopwatchFrag : Fragment() {
         return bind.root
     }
 
-    private fun initialize() {
+    private fun init() {
         recyclerView = bind.recyclerView
         swatch = bind.chronometer
 
@@ -124,7 +125,6 @@ class StopwatchFrag : Fragment() {
         laps = ArrayList()
         recyclerView.adapter = LapViewAdapter(laps)
     }
-
 
     private fun startStopwatch() {
         if (settingsViewModel.notifications.value == null) swatch.setNotificationEnabled(true)
@@ -143,7 +143,7 @@ class StopwatchFrag : Fragment() {
     private fun resetStopwatch() {
         swatch.reset()
         swatchState = SwatchState.INIT
-        initialize()
+        init()
         updateButtonUI()
     }
 
@@ -154,9 +154,9 @@ class StopwatchFrag : Fragment() {
     }
 
     private fun lap() {
-        lapCount += 1
+        lapCount++
 
-        val currTime = swatch.elapsedTime //SystemClock.elapsedRealtime() - chronometer!!.base
+        val currTime = swatch.elapsedTime
         val timeDiff = currTime - prevTime
 
         // Create Lap Object
@@ -164,8 +164,8 @@ class StopwatchFrag : Fragment() {
         val dec = DecimalFormat("#00")
 
         lap.lapNum = dec.format(lapCount)
-        lap.lapTime = timeDiff
-        lap.totalTime = currTime
+        lap.lapTime = timeDiff.toString()
+        lap.totalTime = currTime.toString()
 
         laps.add(lap)
         recyclerView.adapter?.notifyItemInserted(lapCount)
