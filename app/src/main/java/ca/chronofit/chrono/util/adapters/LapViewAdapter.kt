@@ -18,10 +18,16 @@ class LapViewAdapter(private val data: List<LapObject>) :
         private val lapTime: MaterialTextView = itemView.findViewById(R.id.lap_time)
         private val totalTime: MaterialTextView = itemView.findViewById(R.id.total_time)
 
-        fun bind(lap: LapObject) {
-            lapNum.text = lap.lapNum.toString()
-            lapTime.text = formatTime(getTime(lap.lapTime), ".")
-            totalTime.text = formatTime(getTime(lap.totalTime),".")
+        fun bind(lap: LapObject, position: Int) {
+            if (position == 0) {
+                lapNum.text = ""
+                lapTime.text = ""
+                totalTime.text = ""
+            } else {
+                lapNum.text = lap.lapNum
+                lapTime.text = formatTime(getTime(lap.lapTime.toLong()), ".")
+                totalTime.text = formatTime(getTime(lap.totalTime.toLong()), ".")
+            }
         }
     }
 
@@ -33,7 +39,7 @@ class LapViewAdapter(private val data: List<LapObject>) :
 
     override fun onBindViewHolder(holder: LapViewHolder, position: Int) {
         val lap = data[position]
-        holder.bind(lap)
+        holder.bind(lap, position)
     }
 
     override fun getItemCount(): Int {
