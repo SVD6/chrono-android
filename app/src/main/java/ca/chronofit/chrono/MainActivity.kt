@@ -52,6 +52,10 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         PreferenceManager.with(this)
 
+        if (PreferenceManager.get<Boolean>(Constants.REVIEW_PROMPT) == null) {
+            PreferenceManager.put(false, Constants.REVIEW_PROMPT)
+        }
+
         initRemoteConfig()
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

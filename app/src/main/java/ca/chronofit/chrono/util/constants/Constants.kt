@@ -9,6 +9,7 @@ object Constants {
     // Shared Preference Values
     const val CIRCUITS: String = "CIRCUITS"
     const val FIRST_RUN: String = "first_run"
+    const val REVIEW_PROMPT: String = "review_prompt"
     const val NUM_COMPLETE: String = "num_complete"
 
     // Settings Shared Preferences
