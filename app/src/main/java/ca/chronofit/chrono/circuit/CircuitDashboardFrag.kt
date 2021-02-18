@@ -97,7 +97,6 @@ class CircuitDashboardFrag : Fragment() {
                     // Circuit Completed (Circuit Timer)
                     // Ideal spot to ask for a rating after a threshold of timers have been run
                     checkForReview()
-                    Log.i("CircuitDashboardFrag", "Completed a circuit.")
                 }
                 Constants.DASH_TO_EDIT -> {
                     // Circuit Edited
@@ -134,7 +133,7 @@ class CircuitDashboardFrag : Fragment() {
                             .logEvent(Events.USER_REVIEWED, Bundle())
                     }
                 } else {
-                    Log.d("CircuitDashFrag", "Problem launching review flow")
+                    Log.e("CircuitDashFrag", "Problem launching review flow")
                 }
             }
         }
@@ -237,7 +236,6 @@ class CircuitDashboardFrag : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog?, position: Int) {
-        Log.i("arrange", position.toString())
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(requireContext()))

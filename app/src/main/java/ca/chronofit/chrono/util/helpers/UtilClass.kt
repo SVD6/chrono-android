@@ -1,6 +1,6 @@
 package ca.chronofit.chrono.util.helpers
 
-import ca.chronofit.chrono.R
+import android.util.Log
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.TimeObject
 import java.text.DecimalFormat
@@ -43,6 +43,9 @@ fun getSoundFile(name: String): String {
     return when (name) {
         Constants.SOUND_LONG_WHISTLE -> "long_whistle"
         Constants.SOUND_SHORT_WHISTLE -> "short_whistle"
-        else -> ""
+        else -> {
+            Log.e("soundFile", "Error getting sound file based on provided name.")
+            ""
+        }
     }
 }
