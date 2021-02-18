@@ -46,6 +46,7 @@ class CircuitDashboardFrag : Fragment() {
     private var readyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var lastRest: Boolean = true
+    private var soundEffect: String = Constants.SOUND_LONG_WHISTLE
 
     private var circuitsObject: CircuitsObject? = null
     private var selectedPosition: Int = 0
@@ -96,7 +97,6 @@ class CircuitDashboardFrag : Fragment() {
                     // Circuit Completed (Circuit Timer)
                     // Ideal spot to ask for a rating after a threshold of timers have been run
                     checkForReview()
-                    Log.i("CircuitDashboardFrag", "Completed a circuit.")
                 }
                 Constants.DASH_TO_EDIT -> {
                     // Circuit Edited
@@ -133,7 +133,7 @@ class CircuitDashboardFrag : Fragment() {
                             .logEvent(Events.USER_REVIEWED, Bundle())
                     }
                 } else {
-                    Log.d("CircuitDashFrag", "Problem launching review flow")
+                    Log.e("CircuitDashFrag", "Problem launching review flow")
                 }
             }
         }
@@ -146,6 +146,7 @@ class CircuitDashboardFrag : Fragment() {
         intent.putExtra("readyTime", readyTime)
         intent.putExtra("audioPrompts", audioPrompts)
         intent.putExtra("lastRest", lastRest)
+        intent.putExtra("soundEffect", soundEffect)
         startActivityForResult(intent, Constants.DASH_TO_TIMER)
     }
 
@@ -235,7 +236,6 @@ class CircuitDashboardFrag : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun deleteCircuit(dialog: BottomSheetDialog?, position: Int) {
-        Log.i("arrange", position.toString())
         val builder =
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(requireContext()))
@@ -289,6 +289,8 @@ class CircuitDashboardFrag : Fragment() {
             lastRest = PreferenceManager.get<Boolean>(Constants.LAST_REST_SETTING)!!
         }
 
+        soundEffect = PreferenceManager.get(Constants.SOUND_EFFECT_SETTING).replace("\"", "")
+
         // Observe Settings
         settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { _readyTime ->
             readyTime = (_readyTime.substring(0, _readyTime.length - 1)).toInt()
@@ -300,6 +302,10 @@ class CircuitDashboardFrag : Fragment() {
 
         settingsViewModel.lastRest.observe(viewLifecycleOwner, { rest ->
             lastRest = rest
+        })
+
+        settingsViewModel.soundEffect.observe(viewLifecycleOwner, { effect ->
+            soundEffect = effect
         })
     }
 

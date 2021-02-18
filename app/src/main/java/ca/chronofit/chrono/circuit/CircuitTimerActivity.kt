@@ -3,7 +3,9 @@ package ca.chronofit.chrono.circuit
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
+import android.media.AudioAttributes
 import android.media.AudioManager
+import android.media.SoundPool
 import android.media.ToneGenerator
 import android.os.*
 import android.transition.Fade
@@ -19,6 +21,7 @@ import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
+import ca.chronofit.chrono.util.helpers.getSoundFile
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -36,6 +39,7 @@ class CircuitTimerActivity : BaseActivity() {
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var skipLastRest: Boolean = false
+    private var soundEffect: String = Constants.SOUND_LONG_WHISTLE
 
     private lateinit var countdown: CountDownTimer
     private var secondsLeft: Float = 0.0f
@@ -50,6 +54,8 @@ class CircuitTimerActivity : BaseActivity() {
     private var timeWork: Int = 0
     private var criticalSeconds: Int = 0
 
+    private lateinit var soundPool: SoundPool
+    private lateinit var soundMap: HashMap<String, Int>
     private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,15 +68,15 @@ class CircuitTimerActivity : BaseActivity() {
         }
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
 
-        circuit = GsonBuilder().create()
-            .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
-        getReadyTime = intent.getIntExtra("readyTime", 5)
-        audioPrompts = intent.getBooleanExtra("audioPrompts", true)
-        skipLastRest = intent.getBooleanExtra("lastRest", false)
+        // Load Data
+        initData()
 
-        // Initialize stuff
+        // Initialize View
         updateButtonUI()
         updateRestUI()
+
+        // Initialize SoundPool
+        initSounds()
 
         bind.startButton.setOnClickListener {
             FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_STARTED, Bundle())
@@ -116,6 +122,37 @@ class CircuitTimerActivity : BaseActivity() {
         }
     }
 
+    private fun initData() {
+        circuit = GsonBuilder().create()
+            .fromJson(intent.getStringExtra("circuitObject"), CircuitObject::class.java)
+        getReadyTime = intent.getIntExtra("readyTime", 5)
+        audioPrompts = intent.getBooleanExtra("audioPrompts", true)
+        skipLastRest = intent.getBooleanExtra("lastRest", false)
+        soundEffect = intent.getStringExtra("soundEffect")!!
+    }
+
+    private fun initSounds() {
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
+        soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(1).build()
+        soundMap = HashMap()
+
+        // Load Sounds
+        soundMap[soundEffect] = soundPool.load(
+            this,
+            resources.getIdentifier(getSoundFile(soundEffect), "raw", this.packageName),
+            1
+        )
+        soundMap[Constants.SOUND_COMPLETE] = soundPool.load(this, R.raw.complete, 1)
+    }
+
+    private fun playSound(sound: String) {
+        //TODO: Set volume properly
+        soundPool.play(soundMap[sound]!!, 1f, 1f, 0, 0, 1f)
+    }
+
     private fun startTimer(seconds: Int, wasPaused: Boolean) {
         var time = seconds.toFloat() * 1000 + 250
         if (wasPaused) {
@@ -158,8 +195,10 @@ class CircuitTimerActivity : BaseActivity() {
         // Load celebrate layout
         bind.mainLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
-
         FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
+
+        //Play Complete Sound
+        playSound(Constants.SOUND_COMPLETE)
         // Wait 2.5 seconds before showing the finish prompt
         Handler(
             Looper.getMainLooper()
@@ -224,7 +263,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun workout() {
-        if (audioPrompts) tone.startTone(ToneGenerator.TONE_DTMF_D, 750)
+        if (audioPrompts) playSound(soundEffect)
         runningState = RunningState.WORK
         updateButtonUI()
         updateRestUI()

@@ -265,7 +265,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onSaveInstanceState(state: Bundle) {
         super.onSaveInstanceState(state)
-        Log.i("state", "saved")
         supportFragmentManager.putFragment(state, Constants.STOPWATCH_FRAG, frag1)
         supportFragmentManager.putFragment(state, Constants.CIRCUIT_FRAG, frag2)
         supportFragmentManager.putFragment(state, Constants.SETTINGS_FRAG, frag3)

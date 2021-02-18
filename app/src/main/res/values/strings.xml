@@ -128,4 +128,9 @@
     <string name="update">Update</string>
     <string name="help_email_subject">Chrono Support Ticket</string>
     <string name="help_email_body">Please let us know what you need help with. Feel free to include screenshots:</string>
+    <string name="sound_effect">Sound Effect</string>
+    <string name="speaker_emoji">🔊</string>
+    <string name="sound_effect_subtitle">Pick the sound you like for your circuits</string>
+    <string name="short_whistle">Short Whistle</string>
+    <string name="long_whistle">Long Whistle</string>
 </resources>
