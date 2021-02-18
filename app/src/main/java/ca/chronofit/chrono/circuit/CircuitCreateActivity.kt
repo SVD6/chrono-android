@@ -58,7 +58,7 @@ class CircuitCreateActivity : BaseActivity() {
             }
         }
 
-        // Button Click Listeners
+        // Button Listeners
         bind.discardButton.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
             finish()
@@ -78,25 +78,36 @@ class CircuitCreateActivity : BaseActivity() {
             selectIconDialog()
         }
         bind.addSet.setOnClickListener {
+            bind.setNum.isCursorVisible = false
             addSet()
         }
         bind.minusSet.setOnClickListener {
+            bind.setNum.isCursorVisible = false
             minusSet()
         }
         bind.addWork.setOnClickListener {
+            bind.setWorkTime.isCursorVisible = false
+            hideKeyboard(currentFocus ?: View(this))
             addWork()
         }
         bind.minusWork.setOnClickListener {
+            bind.setWorkTime.isCursorVisible = false
+            hideKeyboard(currentFocus ?: View(this))
             minusWork()
         }
         bind.addRest.setOnClickListener {
+            bind.setRestTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
             addRest()
         }
         bind.minusRest.setOnClickListener {
+            bind.setRestTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
             minusRest()
         }
+        bind.setNum.setOnClickListener { bind.setNum.isCursorVisible = true }
+        bind.setWorkTime.setOnClickListener { bind.setWorkTime.isCursorVisible = true }
+        bind.setRestTime.setOnClickListener { bind.setRestTime.isCursorVisible = true }
     }
 
     private fun saveCircuit() {
