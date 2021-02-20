@@ -1,7 +1,9 @@
 package ca.chronofit.chrono.util
 
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.CircuitsObject
@@ -25,6 +27,14 @@ open class BaseActivity : AppCompatActivity() {
     public override fun onSaveInstanceState(state: Bundle) {
         state.putBoolean("StateSaved", true)
         super.onSaveInstanceState(state)
+    }
+
+    fun setNavBarInvisible() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        window.navigationBarColor = Color.TRANSPARENT
     }
 
     // The function that checks if dark mode is enabled on a device, used in all the activities

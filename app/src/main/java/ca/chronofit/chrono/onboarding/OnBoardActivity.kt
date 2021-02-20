@@ -1,9 +1,7 @@
 package ca.chronofit.chrono.onboarding
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,9 +9,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityOnboardBinding
-import ca.chronofit.chrono.util.helpers.ZoomOutPageTransformer
+import ca.chronofit.chrono.util.BaseActivity
 
-class OnBoardActivity : AppCompatActivity() {
+class OnBoardActivity : BaseActivity() {
     private lateinit var bind: ActivityOnboardBinding
     private var welcomeFrag: Fragment = OnBoardWelcomeFrag()
     private var circuitFrag: Fragment = OnBoardCircuitFrag()
@@ -27,15 +25,11 @@ class OnBoardActivity : AppCompatActivity() {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_onboard)
 
         // See through nav bar and status bar
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        setNavBarInvisible()
 
         val adapter = OnBoardAdapter(supportFragmentManager)
         bind.pager.adapter = adapter
         bind.pager.offscreenPageLimit = 5
-//        bind.pager.setPageTransformer(true, ZoomOutPageTransformer())
 
         bind.pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(

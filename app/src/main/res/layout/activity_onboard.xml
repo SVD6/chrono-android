@@ -7,8 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        android:paddingHorizontal="@dimen/small_element_padding"
-        android:paddingTop="@dimen/small_element_padding">
+        android:paddingHorizontal="@dimen/small_element_padding">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
