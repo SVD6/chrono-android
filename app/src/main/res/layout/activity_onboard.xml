@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,7 +13,8 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/pager_indicator" />
 
         <com.rd.PageIndicatorView
             android:id="@+id/pager_indicator"
@@ -20,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/xs_large_element_padding"
+            android:layout_marginBottom="@dimen/massive_element_padding"
             android:padding="@dimen/small_element_padding"
             app:piv_animationType="worm"
             app:piv_dynamicCount="true"
@@ -30,5 +32,48 @@
             app:piv_selectedColor="@color/colorAccent"
             app:piv_unselectedColor="@color/select_grey"
             app:piv_viewPager="@id/pager" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="@font/nunito_semibold"
+            android:padding="@dimen/medium_element_padding"
+            android:text="@string/next"
+            android:textSize="@dimen/medium_text"
+            tools:ignore="RelativeOverlap" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="@font/nunito_semibold"
+            android:padding="@dimen/medium_element_padding"
+            android:text="@string/skip"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="@dimen/medium_text"
+            tools:ignore="RelativeOverlap" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/continue_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/huge_element_padding"
+            android:layout_marginBottom="@dimen/xs_medium_element_padding"
+            android:letterSpacing="0"
+            android:paddingVertical="@dimen/small_element_padding"
+            android:text="@string/continue_button"
+            android:textAllCaps="false"
+            android:textSize="@dimen/xl_medium_text"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="25dp" />
+
     </RelativeLayout>
 </layout>

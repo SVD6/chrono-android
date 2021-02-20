@@ -133,4 +133,7 @@
     <string name="sound_effect_subtitle">Pick the sound you like for your circuits</string>
     <string name="short_whistle">Short Whistle</string>
     <string name="long_whistle">Long Whistle</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="continue_button">Continue</string>
 </resources>
