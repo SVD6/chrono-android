@@ -15,6 +15,7 @@ class OnBoardActivity : AppCompatActivity() {
     private var welcomeFrag: Fragment = OnBoardWelcomeFrag()
     private var circuitFrag: Fragment = OnBoardCircuitFrag()
     private var swatchFrag: Fragment = OnBoardSwatchFrag()
+    private var settingFrag: Fragment = OnBoardSettingFrag()
     private var finalFrag: Fragment = OnBoardFinalFrag()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +25,7 @@ class OnBoardActivity : AppCompatActivity() {
 
         val adapter = OnBoardAdapter(supportFragmentManager)
         bind.pager.adapter = adapter
-        bind.pager.offscreenPageLimit = 4
+        bind.pager.offscreenPageLimit = 5
         bind.pager.setPageTransformer(true, ZoomOutPageTransformer())
 
         // after everything is done so last fragment
@@ -41,12 +42,13 @@ class OnBoardActivity : AppCompatActivity() {
                 0 -> welcomeFrag
                 1 -> circuitFrag
                 2 -> swatchFrag
+                3 -> settingFrag
                 else -> finalFrag
             }
         }
 
         override fun getCount(): Int {
-            return 4
+            return 5
         }
     }
 }
