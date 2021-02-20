@@ -304,7 +304,6 @@ class CircuitTimerActivity : BaseActivity() {
             bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
-            bind.closeButton.setImageResource(R.drawable.ic_close_white)
         }
         if (timeRest > 5 && runningState == RunningState.REST && secondsLeft <= 5) {
             bind.currentState.text = getString(R.string.get_ready)
@@ -329,6 +328,7 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.initButtonLayout.visibility = View.GONE
                 bind.runButtonLayout.visibility = View.GONE
                 bind.pauseButtonLayout.visibility = View.VISIBLE
+                bind.closeButton.visibility = View.VISIBLE
 
                 // Just for paused we put non-button UI stuff
                 if (isUsingNightModeResources()) {
@@ -360,17 +360,11 @@ class CircuitTimerActivity : BaseActivity() {
             RunningState.INIT -> {
                 bind.currentSet.text = getString(R.string.empty)
                 bind.currentState.text = getString(R.string.lets_go)
-
-                if (isUsingNightModeResources()) {
-                    bind.closeButton.setImageResource(R.drawable.ic_close_white)
-                } else {
-                    bind.closeButton.setImageResource(R.drawable.ic_close_grey)
-                }
             }
             RunningState.WORK -> {
                 bind.currentState.text = getString(R.string.workout)
                 bind.currentSet.text = "Set " + (sets - currentSet.toString().toInt() + 1)
-
+                bind.closeButton.visibility = View.GONE
                 bind.mainLayout.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
@@ -380,7 +374,6 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind.closeButton.setImageResource(R.drawable.ic_close_white)
             }
             RunningState.REST -> {
                 bind.currentState.text = getString(R.string.rest)
@@ -394,7 +387,6 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
-                bind.closeButton.setImageResource(R.drawable.ic_close_white)
             }
         }
     }

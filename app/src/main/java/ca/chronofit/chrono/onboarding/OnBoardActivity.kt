@@ -1,5 +1,6 @@
 package ca.chronofit.chrono.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
+import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityOnboardBinding
 import ca.chronofit.chrono.util.BaseActivity
@@ -56,17 +58,11 @@ class OnBoardActivity : BaseActivity() {
 
             override fun onPageScrollStateChanged(state: Int) {
             }
-
         })
 
         bind.next.setOnClickListener { nextPage() }
         bind.skip.setOnClickListener { skip() }
-
-        // after everything is done so last fragment
-
-        // change next to say "continue"
-
-        // when continue is pressed -> startActivity(MainActivity)
+        bind.continueButton.setOnClickListener { launchMain() }
     }
 
     private fun nextPage() {
@@ -75,6 +71,10 @@ class OnBoardActivity : BaseActivity() {
 
     private fun skip() {
         bind.pager.currentItem = bind.pager.adapter!!.count - 1
+    }
+
+    private fun launchMain() {
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private inner class OnBoardAdapter constructor(fm: FragmentManager) :
