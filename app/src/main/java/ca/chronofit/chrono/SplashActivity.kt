@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.databinding.ActivitySplashBinding
+import ca.chronofit.chrono.onboarding.OnBoardActivity
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
@@ -57,7 +58,7 @@ class SplashActivity : BaseActivity() {
             Looper.getMainLooper()
         ).postDelayed(
             {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, OnBoardActivity::class.java))
                 finish()
             }, SPLASH_TIMEOUT
         )
