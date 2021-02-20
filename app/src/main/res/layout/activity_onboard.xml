@@ -27,8 +27,8 @@
             app:piv_animationType="worm"
             app:piv_dynamicCount="true"
             app:piv_interactiveAnimation="true"
-            app:piv_padding="15dp"
-            app:piv_radius="6dp"
+            app:piv_padding="18dp"
+            app:piv_radius="5dp"
             app:piv_selectedColor="@color/colorAccent"
             app:piv_unselectedColor="@color/select_grey"
             app:piv_viewPager="@id/pager" />
@@ -80,6 +80,5 @@
             android:visibility="gone"
             app:backgroundTint="@color/colorAccent"
             app:cornerRadius="25dp" />
-
     </RelativeLayout>
 </layout>
