@@ -66,7 +66,8 @@ class Chronometer @JvmOverloads constructor(
             // Runnable calls itself every 10 ms
             runnable = Runnable {
                 if (running) {
-                    elapsedTime = SystemClock.elapsedRealtime() - startedTime - delayTime
+                    elapsedTime =
+                        SystemClock.elapsedRealtime() - startedTime - delayTime // Time elapsed = current time - time sw was started - time spent in pause
                     val elapsedTime = getTime(elapsedTime)
                     val time = formatTime(elapsedTime, ":")
                     notificationTime = time.dropLast(3)
@@ -90,7 +91,7 @@ class Chronometer @JvmOverloads constructor(
     }
 
     fun resume() {
-        delayTime = SystemClock.elapsedRealtime() - stopTime
+        delayTime += SystemClock.elapsedRealtime() - stopTime
         running = true
     }
 
