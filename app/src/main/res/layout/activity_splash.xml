@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/lightmode"
+            android:id="@+id/light_mode"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/primary_gradient"
@@ -18,12 +18,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_splash_screen"></ImageView>
+                android:src="@drawable/ic_splash_screen" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/darkmode"
+            android:id="@+id/dark_mode"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_splash_screen"
-                android:tint="@color/colorAccent"></ImageView>
+                app:tint="@color/colorAccent" />
 
         </RelativeLayout>
 

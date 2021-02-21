@@ -7,9 +7,20 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="android:textViewStyle">@style/MainText</item>
+
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+    </style>
+
+    <style name="MainText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <style name="LighterText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/lightTextSecondary</item>
     </style>
 
     <!-- Theme for all the buttons. -->
@@ -23,12 +34,30 @@
         <item name="cornerRadius">13dp</item>
     </style>
 
-    <!-- Lowercase theme for tab text -->
-    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:fontFamily">@font/nunito_regular</item>
-        <item name="android:textSize">@dimen/xl_medium_text</item>
-        <item name="textAllCaps">false</item>
-        <item name="android:textAllCaps">false</item>
+    <!-- Dialog Styling -->
+    <style name="CustomMaterialDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MaterialAlertDialog.Rounded
+        </item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialAlertDialog.Rounded" parent="">
+        <item name="cornerSize">@dimen/xs_medium_element_padding</item>
+    </style>
+
+    <!-- Bottom Sheet Styling -->
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/xs_large_element_padding</item>
+        <item name="cornerSizeTopLeft">@dimen/xs_large_element_padding</item>
     </style>
 
 </resources>

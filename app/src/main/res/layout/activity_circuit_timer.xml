@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <RelativeLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/large_element_padding"
+                android:clickable="true"
+                android:contentDescription="@string/todo"
+                android:focusable="true"
+                android:padding="@dimen/small_element_padding"
+                android:src="@drawable/ic_close" />
+
+            <LinearLayout
+                android:id="@+id/countdown_lay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/close_button"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/current_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/medium_element_padding"
+                    android:layout_marginVertical="@dimen/medium_element_padding"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="@string/lets_go"
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/xxl_huge_text"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/current_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginVertical="@dimen/medium_element_padding"
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/countdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/huge_element_padding"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="@string/_0"
+                    android:textSize="@dimen/enormous_text" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/init_button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/xs_medium_element_padding"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/start_button"
+                    android:layout_width="125dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/medium_element_padding"
+                    android:backgroundTint="@color/colorAccent"
+                    android:letterSpacing="0"
+                    android:text="@string/start"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
+                    app:cornerRadius="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/run_button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/xs_medium_element_padding"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/pause_button"
+                    android:layout_width="125dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/medium_element_padding"
+                    android:backgroundTint="@color/white"
+                    android:letterSpacing="0"
+                    android:text="@string/pause"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lightText"
+                    android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
+                    app:cornerRadius="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pause_button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/xs_medium_element_padding"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/resume_button"
+                    android:layout_width="125dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/medium_element_padding"
+                    android:backgroundTint="@color/resume_green"
+                    android:letterSpacing="0"
+                    android:text="@string/resume"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
+                    app:cornerRadius="13dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/stop_button"
+                    android:layout_width="125dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/medium_element_padding"
+                    android:backgroundTint="@color/stop_red"
+                    android:letterSpacing="0"
+                    android:text="@string/stop"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
+                    app:cornerRadius="13dp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/celebrate_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/primary_gradient"
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="lottie_celebrate.json"
+                app:lottie_loop="true" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/massive_element_padding"
+                android:gravity="center"
+                android:paddingBottom="@dimen/massive_element_padding"
+                android:text="@string/circuit_complete_celebrate"
+                android:textColor="@color/white"
+                android:textSize="@dimen/huge_text"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

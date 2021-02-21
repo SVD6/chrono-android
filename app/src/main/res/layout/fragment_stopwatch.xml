@@ -6,41 +6,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/stopwatch_header"
             android:layout_width="match_parent"
-            android:layout_height="2in">
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="center"
+            android:padding="@dimen/medium_element_padding"
+            android:text="@string/stopwatch"
+            android:textSize="@dimen/xl_huge_text" />
 
-            <ScrollView
+        <com.bosphere.fadingedgelayout.FadingEdgeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/chrono_layout"
+            android:layout_below="@+id/stopwatch_header"
+            app:fel_edge="top"
+            app:fel_size_top="@dimen/large_element_padding">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:id="@+id/container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"></LinearLayout>
-            </ScrollView>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:fadingEdge="vertical"
+                android:scrollbars="vertical"
+                app:layoutManager="LinearLayoutManager" />
+        </com.bosphere.fadingedgelayout.FadingEdgeLayout>
 
         <LinearLayout
+            android:id="@+id/chrono_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <com.example.chrono.util.components.MyChronometer
+            <ca.chronofit.chrono.util.components.Chronometer
                 android:id="@+id/chronometer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/huge_element_padding"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/opensans_regular"
                 android:gravity="center"
-                android:padding="@dimen/medium_element_padding"
-                android:text="@string/chronometer"
-                android:textSize="@dimen/xxl_huge_text" />
+                android:padding="@dimen/small_element_padding"
+                android:textSize="@dimen/xs_massive_text" />
 
             <LinearLayout
                 android:id="@+id/init_button_lay"
@@ -51,15 +61,17 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/startbutton"
+                    android:id="@+id/start_button"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/resume_green"
+                    android:letterSpacing="0"
                     android:text="@string/start"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
             </LinearLayout>
 
@@ -73,27 +85,31 @@
                 android:visibility="gone">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/stopbutton"
+                    android:id="@+id/stop_button"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/stop_red"
+                    android:letterSpacing="0"
                     android:text="@string/stop"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/lapbutton"
+                    android:id="@+id/lap_button"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/lap_blue"
+                    android:letterSpacing="0"
                     android:text="@string/lap"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp">
 
                 </com.google.android.material.button.MaterialButton>
@@ -109,27 +125,31 @@
                 android:visibility="gone">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/resumebutton"
+                    android:id="@+id/resume_button"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/resume_green"
+                    android:letterSpacing="0"
                     android:text="@string/resume"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/resetbutton"
+                    android:id="@+id/reset_button"
                     android:layout_width="125dp"
                     android:layout_height="60dp"
                     android:layout_margin="@dimen/medium_element_padding"
                     android:backgroundTint="@color/reset_grey"
+                    android:letterSpacing="0"
                     android:text="@string/reset"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/xl_medium_text"
+                    android:textStyle="bold"
                     app:cornerRadius="13dp">
 
                 </com.google.android.material.button.MaterialButton>

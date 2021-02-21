@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/small_element_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="@dimen/small_element_padding"
+                android:text="@string/get_ready_time"
+                android:textSize="@dimen/xl_large_text"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_emoji"
+                android:textSize="@dimen/xl_large_text" />
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_element_padding"
+            android:alpha="0.7"
+            android:paddingHorizontal="@dimen/small_element_padding"
+            android:text="@string/the_number_of_seconds_before_your_circuit_begins"
+            android:textSize="@dimen/xl_medium_text" />
+
+        <RadioGroup
+            android:id="@+id/ready_time_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/small_element_padding">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_5s"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/large_element_padding"
+                android:text="@string/_5s"
+                android:textSize="@dimen/medium_text" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_10s"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/large_element_padding"
+                android:text="@string/_10s"
+                android:textSize="@dimen/medium_text" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_15s"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/large_element_padding"
+                android:text="@string/_15s"
+                android:textSize="@dimen/medium_text" />
+
+        </RadioGroup>
+    </LinearLayout>
+</layout>

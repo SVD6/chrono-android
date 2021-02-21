@@ -1,13 +1,136 @@
 <resources>
-    <string name="app_name">chrono</string>
+    <string name="app_name">ChronoDev</string>
+
+    <string name="empty"> </string>
+
     <string name="stop">Stop</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="reset">Reset</string>
     <string name="lap">Lap</string>
-    <string name="playing">Playing...</string>
-    <string name="stopped">Stopped...</string>
-    <string name="_0">0</string>
     <string name="chronometer">Chronometer</string>
+
+    <string name="_0">0</string>
+    <string name="_30">30</string>
+    <string name="_5">5</string>
+
+    <string name="name_input_hint">Name of Circuit</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+    <string name="todo">TODO</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="sets"> Sets</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="select_an_icon">Select an Icon</string>
+    <string name="sec">sec</string>
+    <string name="rest">Rest</string>
+    <string name="work">Work</string>
+    <string name="workout">Workout</string>
+    <string name="get_ready">Get Ready</string>
+    <string name="circuit_name">Circuit Name</string>
+
+    <string name="lets_go">Let\'s Go!</string>
+    <string name="settings">Settings</string>
+    <string name="circuits">Circuits</string>
+    <string name="stopwatch">Stopwatch</string>
+
+    <!-- Delete Circuit Dialog-->
+    <string name="delete_circuit">Delete Circuit</string>
+    <string name="delete_circuit_subtitle">Do you want to delete this circuit?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Circuit Complete Dialog-->
+    <string name="circuit_complete">Circuit Complete 🥳🥳🥳</string>
+    <string name="circuit_complete_subtitle">Woohoo! You have completed your circuit, good job!!!</string>
+    <string name="circuit_complete_confirm">Finish</string>
+    <string name="circuit_complete_cancel">Restart</string>
+    <string name="circuit_complete_celebrate">Circuit Complete!</string>
+
+    <string name="notifications">Notifications</string>
+    <string name="on">On</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="off">Off</string>
+    <string name="circuit_timer">Circuit Timer</string>
+    <string name="preferences">Preferences</string>
+    <string name="audio_prompts">Audio Prompts</string>
+    <string name="about">About</string>
+    <string name="set">Set</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="get_ready_time">Get Ready Time</string>
+    <string name="time_emoji">⏳</string>
+    <string name="dark_emoji">🕶️</string>
+    <string name="_5s">5s</string>
+    <string name="_10s">10s</string>
+    <string name="_15s">15s</string>
+    <string name="rate_app">Rate App</string>
+    <string name="get_help">Get Help</string>
+    <string name="skip_last_rest">Skip Last Rest</string>
+    <string name="select_icon_subtitle">Use this icon to represent your circuit</string>
+
+    <!-- Drawable Names-->
+    <string-array name="icon_files">
+        <item>drawable/ic_default_icon</item>
+        <item>drawable/ic_arm</item>
+        <item>drawable/ic_heart</item>
+        <item>drawable/ic_star</item>
+        <item>drawable/ic_home</item>
+        <item>drawable/ic_smartphone</item>
+        <item>drawable/ic_smartphone_2</item>
+        <item>drawable/ic_smartwatch</item>
+        <item>drawable/ic_laptop</item>
+        <item>drawable/ic_workout</item>
+        <item>drawable/ic_dumbbell</item>
+        <item>drawable/ic_sets</item>
+        <item>drawable/ic_kettlebell</item>
+        <item>drawable/ic_plates</item>
+        <item>drawable/ic_abs</item>
+        <item>drawable/ic_jump_rope</item>
+        <item>drawable/ic_shoes</item>
+        <item>drawable/ic_whistle</item>
+        <item>drawable/ic_gymnast</item>
+        <item>drawable/ic_mat</item>
+        <item>drawable/ic_resistance</item>
+        <item>drawable/ic_grippers</item>
+        <item>drawable/ic_trampoline</item>
+        <item>drawable/ic_outdoor</item>
+        <item>drawable/ic_gym_bag</item>
+        <item>drawable/ic_gym</item>
+        <item>drawable/ic_bike_machine</item>
+        <item>drawable/ic_bench_press</item>
+        <item>drawable/ic_treadmill</item>
+        <item>drawable/ic_machine</item>
+        <item>drawable/ic_bottle</item>
+    </string-array>
+
+    <!--    Notification Channel Id-->
+    <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
+    <string name="circuit_notification_channel_id">chrono_circuit_default_channel</string>
+    <string name="stopwatch_notification_channel_id">chrono_stopwatch_default_channel</string>
+
+    <!--    Notification Channel Names-->
+    <string name="default_fcm_notification_channel_name">Chrono Cloud Messaging</string>
+    <string name="circuit_notification_channel_name">Chrono Circuit</string>
+    <string name="stopwatch_notification_channel_name">Chrono Stopwatch</string>
+
+    <string name="chrono_logo">Chrono Logo</string>
+    <string name="change_nicon">Change\nIcon</string>
+    <string name="max_char_warning">Maximum 50 characters.</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="system_default">System Default</string>
+    <string name="the_number_of_seconds_before_your_circuit_begins">The number of seconds before your circuit begins</string>
+    <string name="enter_the_dark_side">Enter the dark side</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
+    <string name="update_available_title">Update Available 📲</string>
+    <string name="update_available_subtitle">You are on an older version of Chrono. Please update your app for the latest features and bug fixes.</string>
+    <string name="update">Update</string>
+    <string name="help_email_subject">Chrono Support Ticket</string>
+    <string name="help_email_body">Please let us know what you need help with. Feel free to include screenshots:</string>
+    <string name="sound_effect">Sound Effect</string>
+    <string name="speaker_emoji">🔊</string>
+    <string name="sound_effect_subtitle">Pick the sound you like for your circuits</string>
+    <string name="short_whistle">Short Whistle</string>
+    <string name="long_whistle">Long Whistle</string>
 </resources>

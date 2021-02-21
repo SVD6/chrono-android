@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/circuit_card_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/medium_element_padding"
+    android:layout_marginTop="@dimen/tiny_element_padding"
+    android:layout_marginBottom="@dimen/xs_medium_element_padding"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="@dimen/xs_medium_element_padding"
+    app:cardElevation="@dimen/tiny_element_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/xs_medium_element_padding"
+        android:paddingBottom="@dimen/xs_medium_element_padding"
+        tools:ignore="RtlSymmetry">
+
+        <ImageView
+            android:id="@+id/circuit_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/small_element_padding"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_chrono_app_icon" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/circuit_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/custom_padding_3"
+            android:layout_marginTop="@dimen/xs_medium_element_padding"
+            android:layout_toStartOf="@+id/more_menu"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/medium_element_padding"
+            android:textSize="@dimen/large_text"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/more_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/todo"
+            android:padding="@dimen/xs_medium_element_padding"
+            android:src="@drawable/ic_more" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/num_sets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/circuit_name"
+            android:layout_marginStart="@dimen/custom_padding_1"
+            android:alpha="0.6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/num_sets"
+            android:layout_marginStart="@dimen/custom_padding_2"
+            android:layout_marginTop="@dimen/medium_element_padding">
+
+            <ImageView
+                android:id="@+id/timer_icon"
+                android:layout_width="@dimen/medium_element_padding"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginHorizontal="@dimen/xs_small_element_padding"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_timer_black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rest_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/timer_icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/num_sets"
+            android:layout_marginTop="@dimen/medium_element_padding"
+            android:layout_marginEnd="@dimen/xl_large_element_padding"
+            android:gravity="end">
+
+            <ImageView
+                android:id="@+id/work_icon"
+                android:layout_width="@dimen/medium_element_padding"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginHorizontal="@dimen/xs_small_element_padding"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_clock" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/work_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/work_icon" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

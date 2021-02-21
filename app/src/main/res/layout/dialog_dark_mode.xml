@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/small_element_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="@dimen/small_element_padding"
+                android:text="@string/dark_mode"
+                android:textSize="@dimen/xl_large_text"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dark_emoji"
+                android:textSize="@dimen/xl_large_text" />
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_element_padding"
+            android:alpha="0.7"
+            android:paddingHorizontal="@dimen/small_element_padding"
+            android:text="@string/enter_the_dark_side"
+            android:textSize="@dimen/xl_medium_text" />
+
+        <RadioGroup
+            android:id="@+id/dark_mode_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/small_element_padding">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_on"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/large_element_padding"
+                android:text="@string/on"
+                android:textSize="@dimen/medium_text" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_off"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/large_element_padding"
+                android:text="@string/off"
+                android:textSize="@dimen/medium_text" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_system"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/large_element_padding"
+                android:text="@string/system_default"
+                android:textSize="@dimen/medium_text" />
+
+        </RadioGroup>
+    </LinearLayout>
+</layout>

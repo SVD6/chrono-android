@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/circuits_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="center"
+            android:padding="@dimen/medium_element_padding"
+            android:text="@string/circuits"
+            android:textSize="@dimen/xl_huge_text" />
+
+        <LinearLayout
+            android:id="@+id/dash_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/circuits_header"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/xs_small_element_padding"
+                android:scrollbars="vertical"
+                app:layoutManager="LinearLayoutManager">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/empty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/circuits_header"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/huge_element_padding"
+                android:gravity="center"
+                android:padding="@dimen/medium_element_padding"
+                android:text="\uD83D\uDE31 \uD83D\uDE31 \uD83D\uDE31 \nYou don't have any created Circuits!"
+                android:textSize="@dimen/xl_medium_text" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_circuit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/medium_element_padding"
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_add"
+            app:borderWidth="0dp"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+</layout>
+
+
+
