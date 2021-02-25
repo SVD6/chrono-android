@@ -74,6 +74,7 @@
             android:paddingVertical="@dimen/small_element_padding"
             android:text="@string/continue_button"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textSize="@dimen/xl_medium_text"
             android:textStyle="bold"
             android:visibility="gone"
