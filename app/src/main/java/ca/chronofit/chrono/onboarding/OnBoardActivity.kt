@@ -75,6 +75,7 @@ class OnBoardActivity : BaseActivity() {
 
     private fun launchMain() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private inner class OnBoardAdapter constructor(fm: FragmentManager) :
