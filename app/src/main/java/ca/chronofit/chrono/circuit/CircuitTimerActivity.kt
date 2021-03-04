@@ -31,22 +31,18 @@ import kotlin.math.roundToInt
 
 class CircuitTimerActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitTimerBinding
-
-    enum class TimerState { INIT, RUNNING, PAUSED }
-    enum class RunningState { READY, INIT, WORK, REST }
-
+    private lateinit var soundPool: SoundPool
+    private lateinit var soundMap: HashMap<String, Int>
+    private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
+    private lateinit var countdown: CountDownTimer
+    private var secondsLeft: Float = 0.0f
     private val celebrateTimeout = 2500L // Timeout delay
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var skipLastRest: Boolean = false
     private var soundEffect: String = Constants.SOUND_LONG_WHISTLE
-
-    private lateinit var countdown: CountDownTimer
-    private var secondsLeft: Float = 0.0f
-
     private var timerState: TimerState = TimerState.INIT
     private var runningState: RunningState = RunningState.INIT
-
     private lateinit var circuit: CircuitObject
     private var currentSet: Int = 0
     private var sets: Int = 0
@@ -54,9 +50,8 @@ class CircuitTimerActivity : BaseActivity() {
     private var timeWork: Int = 0
     private var criticalSeconds: Int = 0
 
-    private lateinit var soundPool: SoundPool
-    private lateinit var soundMap: HashMap<String, Int>
-    private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
+    enum class TimerState { INIT, RUNNING, PAUSED }
+    enum class RunningState { READY, INIT, WORK, REST }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

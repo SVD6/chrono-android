@@ -34,10 +34,8 @@ import java.lang.Exception
 class SettingsFrag : Fragment() {
     private lateinit var bind: FragmentSettingsBinding
     private val settingsViewModel: SettingsViewModel by activityViewModels()
-
     private lateinit var soundPool: SoundPool
     private lateinit var soundMap: HashMap<String, Int>
-
     private var versionCount = 0
     private var versionThreshold = 10
     private var isEasterEgg = false
