@@ -125,8 +125,6 @@ class CircuitDashboardFrag : Fragment() {
                             "Thank you for the review. Your feedback is appreciated!",
                             Toast.LENGTH_SHORT
                         ).show()
-                        FirebaseAnalytics.getInstance(requireContext())
-                            .logEvent(Events.USER_REVIEWED, Bundle())
                     }
                 } else {
                     Log.e("CircuitDashFrag", "Problem launching review flow")
