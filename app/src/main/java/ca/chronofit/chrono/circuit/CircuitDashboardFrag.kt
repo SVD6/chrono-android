@@ -38,16 +38,12 @@ import com.google.gson.GsonBuilder
 class CircuitDashboardFrag : Fragment() {
     private lateinit var bind: FragmentCircuitDashboardBinding
     private lateinit var recyclerView: RecyclerView
-
     private val settingsViewModel: SettingsViewModel by activityViewModels()
-
     private lateinit var remoteConfig: FirebaseRemoteConfig
-
     private var readyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var lastRest: Boolean = true
     private var soundEffect: String = Constants.SOUND_LONG_WHISTLE
-
     private var circuitsObject: CircuitsObject? = null
     private var selectedPosition: Int = 0
 

@@ -27,7 +27,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 
 class CircuitCreateActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitCreateBinding
-
     private var selectedIcon: Int = 0
     private var isEdit: Boolean = false
     private var editPosition: Int = -1
