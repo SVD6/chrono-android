@@ -139,4 +139,6 @@
     <string name="short_whistle">Short Whistle</string>
     <string name="long_whistle">Long Whistle</string>
     <string name="stats">Stats</string>
+    <string name="total_time">Total Time</string>
+    <string name="total_circuits">Total Circuits</string>
 </resources>
