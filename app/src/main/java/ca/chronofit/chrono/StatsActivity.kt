@@ -53,7 +53,7 @@ class StatsActivity : BaseActivity() {
         // Total time stat setting
         if (PreferenceManager.get<Int>(Constants.TOTAL_TIME) == null) {
             PreferenceManager.put(BigDecimal(0), Constants.TOTAL_TIME)
-            bind.totalTime.text = getString(R.string._0h0m)
+            bind.totalTime.text = getString(R.string._0h0m0s)
         } else {
             val seconds = PreferenceManager.get<Int>(Constants.TOTAL_TIME)
             bind.totalTime.text = convertSeconds(BigDecimal(seconds!!))

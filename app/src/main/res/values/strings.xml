@@ -142,4 +142,5 @@
     <string name="total_time">Total Time</string>
     <string name="total_circuits">Total Circuits</string>
     <string name="_0h0m">0h 0m</string>
+    <string name="_0h0m0s">0h 0m 0s</string>
 </resources>
