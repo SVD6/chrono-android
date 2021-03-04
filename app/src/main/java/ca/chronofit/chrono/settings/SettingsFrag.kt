@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
+import ca.chronofit.chrono.StatsActivity
 import ca.chronofit.chrono.databinding.DialogDarkModeBinding
 import ca.chronofit.chrono.databinding.DialogReadyTimeBinding
 import ca.chronofit.chrono.databinding.DialogSoundEffectBinding
@@ -201,13 +202,24 @@ class SettingsFrag : Fragment() {
 
         // Set Version Number
         try {
-            bind.versionNumber.text = "Test Version " + requireContext().packageManager.getPackageInfo(
-                requireContext().packageName,
-                0
-            ).versionName
+            bind.versionNumber.text =
+                "Test Version " + requireContext().packageManager.getPackageInfo(
+                    requireContext().packageName,
+                    0
+                ).versionName
         } catch (e: PackageManager.NameNotFoundException) {
             Log.e("MainActivity", e.message!!)
             bind.versionNumber.text = Constants.VERSION_NUMBER
+        }
+
+        // Easter Egg
+        bind.versionNumber.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    StatsActivity::class.java
+                )
+            )
         }
     }
 
