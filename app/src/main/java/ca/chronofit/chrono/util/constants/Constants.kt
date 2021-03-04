@@ -18,6 +18,7 @@ object Constants {
     const val LAST_REST_SETTING: String = "last_rest"
     const val AUDIO_SETTING: String = "prompts"
     const val SOUND_EFFECT_SETTING: String = "sound_effect"
+    const val EASTER_EGG_SETTING: String = "easter_egg"
 
     // Activity Request Codes
     const val DASH_TO_CREATE: Int = 10001

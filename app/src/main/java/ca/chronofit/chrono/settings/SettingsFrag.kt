@@ -33,7 +33,6 @@ import java.lang.Exception
 
 class SettingsFrag : Fragment() {
     private lateinit var bind: FragmentSettingsBinding
-
     private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     private lateinit var soundPool: SoundPool
@@ -110,6 +109,13 @@ class SettingsFrag : Fragment() {
         } else {
             bind.soundEffectDisplay.text =
                 PreferenceManager.get(Constants.SOUND_EFFECT_SETTING).replace("\"", "")
+        }
+
+        // Easter Egg Check
+        if (PreferenceManager.get<Boolean>(Constants.EASTER_EGG_SETTING) == null) {
+            PreferenceManager.put(false, Constants.EASTER_EGG_SETTING)
+        } else {
+            isEasterEgg = PreferenceManager.get<Boolean>(Constants.EASTER_EGG_SETTING)!!
         }
     }
 
@@ -213,9 +219,11 @@ class SettingsFrag : Fragment() {
         }
 
         // Easter Egg
-        bind.versionNumber.setOnClickListener {
-            if (!isEasterEgg) {
-                easterEggLogic()
+        bind.versionNumber.setOnClickListener { easterEggLogic() }
+
+        bind.settingsHeader.setOnClickListener {
+            if (isEasterEgg) {
+                startActivity(Intent(requireContext(), StatsActivity::class.java))
             }
         }
     }
@@ -257,15 +265,11 @@ class SettingsFrag : Fragment() {
         versionCount++
         if (versionCount >= versionThreshold) {
             isEasterEgg = true
-            startActivity(Intent(requireContext(), StatsActivity::class.java))
-        } else {
-            if (versionCount >= 5) {
-                Toast.makeText(
-                    requireContext(),
-                    "You are ${versionThreshold - versionCount} steps closer to a surprise.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            Toast.makeText(
+                requireContext(),
+                "Click on the Settings title to unlock the Easter Egg",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
