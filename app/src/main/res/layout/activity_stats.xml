@@ -37,10 +37,10 @@
                     android:textSize="@dimen/xl_medium_text" />
 
                 <TextView
+                    android:id="@+id/total_circuits"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="64"
                     android:textSize="@dimen/xl_huge_text" />
 
                 <TextView
@@ -55,10 +55,10 @@
                     android:textSize="@dimen/xl_medium_text" />
 
                 <TextView
+                    android:id="@+id/total_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="45hr 65min"
                     android:textSize="@dimen/xl_huge_text" />
 
             </LinearLayout>

@@ -10,6 +10,7 @@ import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.math.BigDecimal
 
 class StatsActivity : BaseActivity() {
     private lateinit var bind: ActivityStatsBinding
@@ -34,7 +35,43 @@ class StatsActivity : BaseActivity() {
             PreferenceManager.put(firstLaunch, Constants.EASTER_EGG_DIALOG)
         }
 
+        getStats()
+
         bind.back.setOnClickListener { finish() }
+    }
+
+    private fun getStats() {
+        // Total circuits stat setting
+        if (PreferenceManager.get<Int>(Constants.TOTAL_CIRCUITS) == null) {
+            PreferenceManager.put(0, Constants.TOTAL_CIRCUITS)
+            bind.totalCircuits.text = getString(R.string._0)
+        } else {
+            bind.totalCircuits.text =
+                PreferenceManager.get<Int>(Constants.TOTAL_CIRCUITS).toString()
+        }
+
+        // Total time stat setting
+        if (PreferenceManager.get<Int>(Constants.TOTAL_TIME) == null) {
+            PreferenceManager.put(BigDecimal(0), Constants.TOTAL_TIME)
+            bind.totalTime.text = getString(R.string._0h0m)
+        } else {
+            val seconds = PreferenceManager.get<Int>(Constants.TOTAL_TIME)
+            bind.totalTime.text = convertSeconds(BigDecimal(seconds!!))
+        }
+    }
+
+    private fun convertSeconds(seconds: BigDecimal): String {
+        return if (seconds == BigDecimal(0)) {
+            "0h 0m 0s"
+        } else {
+            val longVal: Long = seconds.toLong()
+            val hours = longVal.toInt() / 3600
+            var remainder = longVal.toInt() - hours * 3600
+            val mins = remainder / 60
+            remainder -= mins * 60
+            val secs = remainder
+            "${hours}h ${mins}m ${secs}s"
+        }
     }
 
     private fun showEasterEggDialog() {

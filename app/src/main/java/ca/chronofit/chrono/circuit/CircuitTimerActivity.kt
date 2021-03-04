@@ -27,6 +27,7 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
+import java.math.BigDecimal
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : BaseActivity() {
@@ -191,6 +192,21 @@ class CircuitTimerActivity : BaseActivity() {
         bind.mainLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
         FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
+
+        //Save total time and sets
+        if (PreferenceManager.get<Int>(Constants.TOTAL_CIRCUITS) == null) {
+            PreferenceManager.put(1, Constants.TOTAL_CIRCUITS)
+        } else {
+            val currSets = PreferenceManager.get<Int>(Constants.TOTAL_CIRCUITS)!! + 1
+            PreferenceManager.put(currSets, Constants.TOTAL_CIRCUITS)
+        }
+        if (PreferenceManager.get<Int>(Constants.TOTAL_TIME) == null) {
+            PreferenceManager.put(BigDecimal(0), Constants.TOTAL_CIRCUITS)
+        } else {
+            val thisTotal = circuit.sets!!.times(timeWork)
+            val currTotal = PreferenceManager.get<Int>(Constants.TOTAL_TIME)
+            PreferenceManager.put(currTotal!! + thisTotal, Constants.TOTAL_TIME)
+        }
 
         //Play Complete Sound
         playSound(Constants.SOUND_COMPLETE)

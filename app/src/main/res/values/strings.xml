@@ -141,4 +141,5 @@
     <string name="stats">Stats</string>
     <string name="total_time">Total Time</string>
     <string name="total_circuits">Total Circuits</string>
+    <string name="_0h0m">0h 0m</string>
 </resources>
