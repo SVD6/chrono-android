@@ -261,8 +261,15 @@ class SettingsFrag : Fragment() {
 
     private fun easterEggLogic() {
         versionCount++
-        if (versionCount >= versionThreshold) {
+        if (versionCount >= versionThreshold && !isEasterEgg) {
             isEasterEgg = true
+            PreferenceManager.put(true, Constants.EASTER_EGG_SETTING)
+            Toast.makeText(
+                requireContext(),
+                "Click on the Settings title to unlock the Easter Egg",
+                Toast.LENGTH_LONG
+            ).show()
+        } else if (isEasterEgg) {
             Toast.makeText(
                 requireContext(),
                 "Click on the Settings title to unlock the Easter Egg",
