@@ -195,16 +195,6 @@ class CircuitDashboardFrag : Fragment() {
         PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
     }
 
-    private fun easterEgg() {
-        val easterEggCircuit = CircuitObject()
-        easterEggCircuit
-        easterEggCircuit.sets = 69
-    }
-
-    private fun easterEggDialog() {
-
-    }
-
     @SuppressLint("InflateParams")
     private fun showMoreMenu(position: Int) {
         selectedPosition = position

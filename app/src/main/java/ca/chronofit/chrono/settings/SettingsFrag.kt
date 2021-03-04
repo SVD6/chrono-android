@@ -38,6 +38,10 @@ class SettingsFrag : Fragment() {
     private lateinit var soundPool: SoundPool
     private lateinit var soundMap: HashMap<String, Int>
 
+    private var versionCount = 0
+    private var isEasterEgg = false
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
