@@ -5,5 +5,4 @@
     <corners
         android:topLeftRadius="@dimen/large_element_padding"
         android:topRightRadius="@dimen/large_element_padding" />
-
 </shape>
