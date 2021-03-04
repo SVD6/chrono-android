@@ -40,8 +40,8 @@ class SettingsFrag : Fragment() {
     private lateinit var soundMap: HashMap<String, Int>
 
     private var versionCount = 0
+    private var versionThreshold = 10
     private var isEasterEgg = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -214,12 +214,9 @@ class SettingsFrag : Fragment() {
 
         // Easter Egg
         bind.versionNumber.setOnClickListener {
-            startActivity(
-                Intent(
-                    requireContext(),
-                    StatsActivity::class.java
-                )
-            )
+            if (!isEasterEgg) {
+                easterEggLogic()
+            }
         }
     }
 
@@ -253,6 +250,22 @@ class SettingsFrag : Fragment() {
             Toast.makeText(requireContext(), "Error playing sound.", Toast.LENGTH_SHORT).show()
         } else {
             soundPool.play(soundMap[sound]!!, 1f, 1f, 0, 0, 1f)
+        }
+    }
+
+    private fun easterEggLogic() {
+        versionCount++
+        if (versionCount >= versionThreshold) {
+            isEasterEgg = true
+            startActivity(Intent(requireContext(), StatsActivity::class.java))
+        } else {
+            if (versionCount >= 5) {
+                Toast.makeText(
+                    requireContext(),
+                    "You are ${versionThreshold - versionCount} steps closer to a surprise.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
