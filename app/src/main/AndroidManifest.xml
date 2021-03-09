@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
         <activity android:name=".onboarding.OnBoardActivity" />
+        <activity android:name=".StatsActivity"></activity>
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">

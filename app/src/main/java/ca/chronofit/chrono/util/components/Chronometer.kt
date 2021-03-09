@@ -22,14 +22,11 @@ class Chronometer @JvmOverloads constructor(
     private val notification = SwatchNotificationManager(context!!)
     private var notificationEnabled: Boolean? = null
     private var notificationTime = ""
-
     private val swPeriod = 10.toLong() // sw period in milliseconds
     private var prevSec = -1L
     private var defaultTime = "00:00.00"
-
     private var running = false
     private lateinit var runnable: Runnable
-
     private var startedTime = 0L
     private var stopTime = 0L
     var elapsedTime = 0L

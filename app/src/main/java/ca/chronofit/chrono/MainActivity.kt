@@ -35,16 +35,12 @@ import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var bind: ActivityMainBinding
-
     private val settingsViewModel: SettingsViewModel by viewModels()
-
     private lateinit var remoteConfig: FirebaseRemoteConfig
-
+    private lateinit var notificationManager: NotificationManager
     private lateinit var frag1: StopwatchFrag
     private lateinit var frag2: CircuitDashboardFrag
     private lateinit var frag3: SettingsFrag
-
-    private lateinit var notificationManager: NotificationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

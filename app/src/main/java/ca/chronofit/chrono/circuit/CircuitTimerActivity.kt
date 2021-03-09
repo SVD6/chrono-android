@@ -27,26 +27,23 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.GsonBuilder
+import java.math.BigDecimal
 import kotlin.math.roundToInt
 
 class CircuitTimerActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitTimerBinding
-
-    enum class TimerState { INIT, RUNNING, PAUSED }
-    enum class RunningState { READY, INIT, WORK, REST }
-
+    private lateinit var soundPool: SoundPool
+    private lateinit var soundMap: HashMap<String, Int>
+    private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
+    private lateinit var countdown: CountDownTimer
+    private var secondsLeft: Float = 0.0f
     private val celebrateTimeout = 2500L // Timeout delay
     private var getReadyTime: Int = 5
     private var audioPrompts: Boolean = true
     private var skipLastRest: Boolean = false
     private var soundEffect: String = Constants.SOUND_LONG_WHISTLE
-
-    private lateinit var countdown: CountDownTimer
-    private var secondsLeft: Float = 0.0f
-
     private var timerState: TimerState = TimerState.INIT
     private var runningState: RunningState = RunningState.INIT
-
     private lateinit var circuit: CircuitObject
     private var currentSet: Int = 0
     private var sets: Int = 0
@@ -54,9 +51,8 @@ class CircuitTimerActivity : BaseActivity() {
     private var timeWork: Int = 0
     private var criticalSeconds: Int = 0
 
-    private lateinit var soundPool: SoundPool
-    private lateinit var soundMap: HashMap<String, Int>
-    private var tone: ToneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
+    enum class TimerState { INIT, RUNNING, PAUSED }
+    enum class RunningState { READY, INIT, WORK, REST }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -196,6 +192,21 @@ class CircuitTimerActivity : BaseActivity() {
         bind.mainLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
         FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
+
+        //Save total time and sets
+        if (PreferenceManager.get<Int>(Constants.TOTAL_CIRCUITS) == null) {
+            PreferenceManager.put(1, Constants.TOTAL_CIRCUITS)
+        } else {
+            val currSets = PreferenceManager.get<Int>(Constants.TOTAL_CIRCUITS)!! + 1
+            PreferenceManager.put(currSets, Constants.TOTAL_CIRCUITS)
+        }
+        if (PreferenceManager.get<Int>(Constants.TOTAL_TIME) == null) {
+            PreferenceManager.put(BigDecimal(0), Constants.TOTAL_CIRCUITS)
+        } else {
+            val thisTotal = circuit.sets!!.times(timeWork)
+            val currTotal = PreferenceManager.get<Int>(Constants.TOTAL_TIME)
+            PreferenceManager.put(currTotal!! + thisTotal, Constants.TOTAL_TIME)
+        }
 
         //Play Complete Sound
         playSound(Constants.SOUND_COMPLETE)
