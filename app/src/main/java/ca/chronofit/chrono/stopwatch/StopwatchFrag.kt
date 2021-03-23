@@ -28,21 +28,17 @@ import java.text.DecimalFormat
 class StopwatchFrag : Fragment() {
     private lateinit var bind: FragmentStopwatchBinding
     private lateinit var recyclerView: RecyclerView
-
     private val settingsViewModel: SettingsViewModel by activityViewModels()
-
-    enum class SwatchState { INIT, RUNNING, STOPPED }
-
+    private lateinit var broadcastReceiver: BroadcastReceiver
     private lateinit var swatch: Chronometer
     private var swatchState: SwatchState = SwatchState.INIT
-
     private var lapCount = 0
     private var prevTime = 0L
     private var maxLapCount = 99
     private lateinit var laps: ArrayList<LapObject>
 
-    private lateinit var broadcastReceiver: BroadcastReceiver
-
+    enum class SwatchState { INIT, RUNNING, STOPPED }
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

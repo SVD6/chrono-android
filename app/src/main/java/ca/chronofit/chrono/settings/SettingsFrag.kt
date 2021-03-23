@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
+import ca.chronofit.chrono.StatsActivity
 import ca.chronofit.chrono.databinding.DialogDarkModeBinding
 import ca.chronofit.chrono.databinding.DialogReadyTimeBinding
 import ca.chronofit.chrono.databinding.DialogSoundEffectBinding
@@ -32,11 +33,12 @@ import java.lang.Exception
 
 class SettingsFrag : Fragment() {
     private lateinit var bind: FragmentSettingsBinding
-
     private val settingsViewModel: SettingsViewModel by activityViewModels()
-
     private lateinit var soundPool: SoundPool
     private lateinit var soundMap: HashMap<String, Int>
+    private var versionCount = 0
+    private var versionThreshold = 10
+    private var isEasterEgg = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -105,6 +107,13 @@ class SettingsFrag : Fragment() {
         } else {
             bind.soundEffectDisplay.text =
                 PreferenceManager.get(Constants.SOUND_EFFECT_SETTING).replace("\"", "")
+        }
+
+        // Easter Egg Check
+        if (PreferenceManager.get<Boolean>(Constants.EASTER_EGG_SETTING) == null) {
+            PreferenceManager.put(false, Constants.EASTER_EGG_SETTING)
+        } else {
+            isEasterEgg = PreferenceManager.get<Boolean>(Constants.EASTER_EGG_SETTING)!!
         }
     }
 
@@ -197,13 +206,23 @@ class SettingsFrag : Fragment() {
 
         // Set Version Number
         try {
-            bind.versionNumber.text = "Test Version " + requireContext().packageManager.getPackageInfo(
-                requireContext().packageName,
-                0
-            ).versionName
+            bind.versionNumber.text =
+                "Test Version " + requireContext().packageManager.getPackageInfo(
+                    requireContext().packageName,
+                    0
+                ).versionName
         } catch (e: PackageManager.NameNotFoundException) {
             Log.e("MainActivity", e.message!!)
             bind.versionNumber.text = Constants.VERSION_NUMBER
+        }
+
+        // Easter Egg
+        bind.versionNumber.setOnClickListener { easterEggLogic() }
+
+        bind.settingsHeader.setOnClickListener {
+            if (isEasterEgg) {
+                startActivity(Intent(requireContext(), StatsActivity::class.java))
+            }
         }
     }
 
@@ -237,6 +256,25 @@ class SettingsFrag : Fragment() {
             Toast.makeText(requireContext(), "Error playing sound.", Toast.LENGTH_SHORT).show()
         } else {
             soundPool.play(soundMap[sound]!!, 1f, 1f, 0, 0, 1f)
+        }
+    }
+
+    private fun easterEggLogic() {
+        versionCount++
+        if (versionCount >= versionThreshold && !isEasterEgg) {
+            isEasterEgg = true
+            PreferenceManager.put(true, Constants.EASTER_EGG_SETTING)
+            Toast.makeText(
+                requireContext(),
+                "Click on the Settings title to unlock the Easter Egg",
+                Toast.LENGTH_LONG
+            ).show()
+        } else if (isEasterEgg) {
+            Toast.makeText(
+                requireContext(),
+                "Click on the Settings title to unlock the Easter Egg",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

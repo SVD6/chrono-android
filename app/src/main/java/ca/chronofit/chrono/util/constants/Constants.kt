@@ -18,6 +18,8 @@ object Constants {
     const val LAST_REST_SETTING: String = "last_rest"
     const val AUDIO_SETTING: String = "prompts"
     const val SOUND_EFFECT_SETTING: String = "sound_effect"
+    const val EASTER_EGG_SETTING: String = "easter_egg"
+    const val EASTER_EGG_DIALOG: String = "easter_egg_dialog"
 
     // Activity Request Codes
     const val DASH_TO_CREATE: Int = 10001
@@ -28,6 +30,10 @@ object Constants {
     const val DARK_MODE: String = "On"
     const val LIGHT_MODE: String = "Off"
     const val SYSTEM_DEFAULT: String = "System Default"
+
+    // Stat Values Preferences
+    const val TOTAL_CIRCUITS: String = "total_circuits"
+    const val TOTAL_TIME: String = "total_time"
 
     // Sound Pool IDs
     const val SOUND_SHORT_WHISTLE: String = "Short Whistle"
@@ -43,5 +49,5 @@ object Constants {
 
     // Notification Id
     const val SWATCH_NOTIFICATION_ID: Int = 2416638
-    const val CIRCUIT_NOTIFICATION_ID: Int = 341032
+//    const val CIRCUIT_NOTIFICATION_ID: Int = 341032
 }

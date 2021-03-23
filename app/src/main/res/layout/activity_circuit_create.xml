@@ -126,7 +126,7 @@
                             android:layout_centerVertical="true"
                             android:backgroundTint="@color/colorAccent"
                             android:contentDescription="@string/todo"
-                            android:src="@drawable/ic_remove"
+                            android:src="@drawable/ic_minus"
                             app:borderWidth="0dp"
                             app:tint="@color/white" />
 
@@ -189,7 +189,7 @@
                             android:layout_centerVertical="true"
                             android:backgroundTint="@color/colorAccent"
                             android:contentDescription="@string/todo"
-                            android:src="@drawable/ic_remove"
+                            android:src="@drawable/ic_minus"
                             app:borderWidth="0dp"
                             app:tint="@color/white" />
 
@@ -262,7 +262,7 @@
                             android:layout_centerVertical="true"
                             android:backgroundTint="@color/colorAccent"
                             android:contentDescription="@string/todo"
-                            android:src="@drawable/ic_remove"
+                            android:src="@drawable/ic_minus"
                             app:borderWidth="0dp"
                             app:tint="@color/white" />
 

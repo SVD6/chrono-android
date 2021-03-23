@@ -22,14 +22,11 @@ class Chronometer @JvmOverloads constructor(
     private val notification = SwatchNotificationManager(context!!)
     private var notificationEnabled: Boolean? = null
     private var notificationTime = ""
-
     private val swPeriod = 10.toLong() // sw period in milliseconds
     private var prevSec = -1L
     private var defaultTime = "00:00.00"
-
     private var running = false
     private lateinit var runnable: Runnable
-
     private var startedTime = 0L
     private var stopTime = 0L
     var elapsedTime = 0L
@@ -66,7 +63,8 @@ class Chronometer @JvmOverloads constructor(
             // Runnable calls itself every 10 ms
             runnable = Runnable {
                 if (running) {
-                    elapsedTime = SystemClock.elapsedRealtime() - startedTime - delayTime
+                    elapsedTime =
+                        SystemClock.elapsedRealtime() - startedTime - delayTime // Time elapsed = current time - time sw was started - time spent in pause
                     val elapsedTime = getTime(elapsedTime)
                     val time = formatTime(elapsedTime, ":")
                     notificationTime = time.dropLast(3)
@@ -90,7 +88,7 @@ class Chronometer @JvmOverloads constructor(
     }
 
     fun resume() {
-        delayTime = SystemClock.elapsedRealtime() - stopTime
+        delayTime += SystemClock.elapsedRealtime() - stopTime
         running = true
     }
 
