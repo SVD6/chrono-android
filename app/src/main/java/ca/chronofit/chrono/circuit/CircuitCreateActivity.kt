@@ -1,7 +1,6 @@
 package ca.chronofit.chrono.circuit
 
 import `in`.goodiebag.carouselpicker.CarouselPicker
-import android.R.attr.button
 import android.app.Activity
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
@@ -34,6 +33,13 @@ class CircuitCreateActivity : BaseActivity() {
     private var isEdit: Boolean = false
     private var editPosition: Int = -1
     private lateinit var iconNames: TypedArray
+
+    private var showMinSetValueMsg = true
+    private var showMinWorkValueMsg = true
+    private var showMinRestValueMsg = true
+    private var showMaxSetValueMsg = true
+    private var showMaxWorkValueMsg = true
+    private var showMaxRestValueMsg = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,36 +88,36 @@ class CircuitCreateActivity : BaseActivity() {
         bind.addSet.setOnClickListener {
             bind.setNum.isCursorVisible = false
         }
-        bind.addSet.setOnTouchListener(RepeatListener(View.OnClickListener() { addSet() }))
+        bind.addSet.setOnTouchListener(RepeatListener({ addSet() }))
 
         bind.minusSet.setOnClickListener {
             bind.setNum.isCursorVisible = false
         }
-        bind.minusSet.setOnTouchListener(RepeatListener(View.OnClickListener { minusSet() }))
+        bind.minusSet.setOnTouchListener(RepeatListener({ minusSet() }))
 
         bind.addWork.setOnClickListener {
             bind.setWorkTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
         }
-        bind.addWork.setOnTouchListener(RepeatListener(View.OnClickListener { addWork() }))
+        bind.addWork.setOnTouchListener(RepeatListener({ addWork() }))
 
         bind.minusWork.setOnClickListener {
             bind.setWorkTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
         }
-        bind.minusWork.setOnTouchListener(RepeatListener(View.OnClickListener { minusWork() }))
+        bind.minusWork.setOnTouchListener(RepeatListener({ minusWork() }))
 
         bind.addRest.setOnClickListener {
             bind.setRestTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
         }
-        bind.addRest.setOnTouchListener(RepeatListener(View.OnClickListener { addRest() }))
+        bind.addRest.setOnTouchListener(RepeatListener({ addRest() }))
 
         bind.minusRest.setOnClickListener {
             bind.setRestTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
         }
-        bind.minusRest.setOnTouchListener(RepeatListener(View.OnClickListener { minusRest() }))
+        bind.minusRest.setOnTouchListener(RepeatListener({ minusRest() }))
 
         bind.setNum.setOnClickListener { bind.setNum.isCursorVisible = true }
         bind.setWorkTime.setOnClickListener { bind.setWorkTime.isCursorVisible = true }
@@ -299,15 +305,17 @@ class CircuitCreateActivity : BaseActivity() {
 
     private fun addSet() {
         val currentText = bind.setNum.text.toString()
+        showMinSetValueMsg = true
         if (currentText == "") {
             bind.setNum.setText("1")
         } else {
-            if (currentText.toInt() == MAX_SETS) {
+            if (currentText.toInt() == MAX_SETS && showMaxSetValueMsg) {
                 Toast.makeText(
                     this,
                     "Can't have more than 99 sets, take it easy!",
                     Toast.LENGTH_SHORT
                 ).show()
+                showMaxSetValueMsg = false
             } else {
                 bind.setNum.setText((currentText.toInt() + 1).toString())
             }
@@ -316,36 +324,45 @@ class CircuitCreateActivity : BaseActivity() {
 
     private fun minusSet() {
         val currentText = bind.setNum.text.toString()
+        showMaxSetValueMsg = true
         if (currentText == "") {
-            Toast.makeText(
-                this,
-                "Can't have no sets! " + ("\uD83E\uDD14"),
-                Toast.LENGTH_SHORT
-            ).show()
+            if (showMinSetValueMsg) {
+                Toast.makeText(
+                    this,
+                    "Can't have no sets! " + ("\uD83E\uDD14"),
+                    Toast.LENGTH_SHORT
+                ).show()
+                showMinSetValueMsg = false
+            }
         } else {
             if (currentText.toInt() > 0) {
                 bind.setNum.setText(((currentText.toInt() - 1)).toString())
             } else {
-                Toast.makeText(
-                    this,
-                    "Can't have a negative number of sets..? " + ("\uD83E\uDD14"),
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (showMinSetValueMsg) {
+                    Toast.makeText(
+                        this,
+                        "Can't have a negative number of sets..? " + ("\uD83E\uDD14"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showMinSetValueMsg = false
+                }
             }
         }
     }
 
     private fun addWork() {
         val currentText = bind.setWorkTime.text.toString()
+        showMinWorkValueMsg = true
         if (currentText == "") {
             bind.setWorkTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
-            if (currentText.toInt() >= MAX_WORK) {
+            if (currentText.toInt() >= MAX_WORK && showMaxWorkValueMsg) {
                 Toast.makeText(
                     this,
                     "Can't have more than 999 seconds of workout!",
                     Toast.LENGTH_SHORT
                 ).show()
+                showMaxWorkValueMsg = false
             } else {
                 bind.setWorkTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
@@ -354,36 +371,45 @@ class CircuitCreateActivity : BaseActivity() {
 
     private fun minusWork() {
         val currentText = bind.setWorkTime.text.toString()
+        showMaxWorkValueMsg = true
         if (currentText == "") {
-            Toast.makeText(
-                this,
-                "Can't have no work time! " + ("\uD83D\uDE2C"),
-                Toast.LENGTH_SHORT
-            ).show()
+            if (showMinWorkValueMsg) {
+                Toast.makeText(
+                    this,
+                    "Can't have no work time! " + ("\uD83D\uDE2C"),
+                    Toast.LENGTH_SHORT
+                ).show()
+                showMinWorkValueMsg = false
+            }
         } else {
             if (currentText.toInt() > 0) {
                 bind.setWorkTime.setText(roundTimeDown(currentText.toInt()).toString())
             } else {
-                Toast.makeText(
-                    this,
-                    "Can't have a negative time for work " + ("\uD83D\uDE2C"),
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (showMinWorkValueMsg) {
+                    Toast.makeText(
+                        this,
+                        "Can't have a negative time for work " + ("\uD83D\uDE2C"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showMinWorkValueMsg = false
+                }
             }
         }
     }
 
     private fun addRest() {
         val currentText = bind.setRestTime.text.toString()
+        showMinRestValueMsg = true
         if (currentText == "") {
             bind.setRestTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
-            if (currentText.toInt() >= MAX_REST) {
+            if (currentText.toInt() >= MAX_REST && showMaxRestValueMsg) {
                 Toast.makeText(
                     this,
                     "Can't have more than 999 seconds of rest!",
                     Toast.LENGTH_SHORT
                 ).show()
+                showMaxRestValueMsg = false
             } else {
                 bind.setRestTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
@@ -392,21 +418,28 @@ class CircuitCreateActivity : BaseActivity() {
 
     private fun minusRest() {
         val currentText = bind.setRestTime.text.toString()
+        showMaxRestValueMsg = true
         if (currentText == "") {
-            Toast.makeText(
-                this,
-                "Can't have no rest! " + ("\uD83D\uDE2C"),
-                Toast.LENGTH_SHORT
-            ).show()
+            if (showMinRestValueMsg) {
+                Toast.makeText(
+                    this,
+                    "Can't have no rest! " + ("\uD83D\uDE2C"),
+                    Toast.LENGTH_SHORT
+                ).show()
+                showMinRestValueMsg = false
+            }
         } else {
             if (currentText.toInt() > 0) {
                 bind.setRestTime.setText(roundTimeDown(currentText.toInt()).toString())
             } else {
-                Toast.makeText(
-                    this,
-                    "Can't have a negative time for rest " + ("\uD83D\uDE2C"),
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (showMinRestValueMsg) {
+                    Toast.makeText(
+                        this,
+                        "Can't have a negative time for rest " + ("\uD83D\uDE2C"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showMinRestValueMsg = false
+                }
             }
         }
     }
