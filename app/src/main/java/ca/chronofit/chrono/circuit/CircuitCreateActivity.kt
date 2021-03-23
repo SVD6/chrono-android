@@ -1,6 +1,7 @@
 package ca.chronofit.chrono.circuit
 
 import `in`.goodiebag.carouselpicker.CarouselPicker
+import android.R.attr.button
 import android.app.Activity
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
@@ -19,11 +20,13 @@ import ca.chronofit.chrono.databinding.DialogSelectIconBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
+import ca.chronofit.chrono.util.listeners.RepeatListener
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
+
 
 class CircuitCreateActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitCreateBinding
@@ -78,32 +81,38 @@ class CircuitCreateActivity : BaseActivity() {
         }
         bind.addSet.setOnClickListener {
             bind.setNum.isCursorVisible = false
-            addSet()
         }
+        bind.addSet.setOnTouchListener(RepeatListener(View.OnClickListener() { addSet() }))
+
         bind.minusSet.setOnClickListener {
             bind.setNum.isCursorVisible = false
-            minusSet()
         }
+        bind.minusSet.setOnTouchListener(RepeatListener(View.OnClickListener { minusSet() }))
+
         bind.addWork.setOnClickListener {
             bind.setWorkTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
-            addWork()
         }
+        bind.addWork.setOnTouchListener(RepeatListener(View.OnClickListener { addWork() }))
+
         bind.minusWork.setOnClickListener {
             bind.setWorkTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
-            minusWork()
         }
+        bind.minusWork.setOnTouchListener(RepeatListener(View.OnClickListener { minusWork() }))
+
         bind.addRest.setOnClickListener {
             bind.setRestTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
-            addRest()
         }
+        bind.addRest.setOnTouchListener(RepeatListener(View.OnClickListener { addRest() }))
+
         bind.minusRest.setOnClickListener {
             bind.setRestTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
-            minusRest()
         }
+        bind.minusRest.setOnTouchListener(RepeatListener(View.OnClickListener { minusRest() }))
+
         bind.setNum.setOnClickListener { bind.setNum.isCursorVisible = true }
         bind.setWorkTime.setOnClickListener { bind.setWorkTime.isCursorVisible = true }
         bind.setRestTime.setOnClickListener { bind.setRestTime.isCursorVisible = true }

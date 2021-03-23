@@ -10,11 +10,18 @@ class RepeatListener(clickListener: View.OnClickListener) : View.OnTouchListener
     var handler = Handler(Looper.getMainLooper())
     private var onClickListener: View.OnClickListener? = clickListener
     private var touchView: View? = null
+    @Volatile
+    private var counter = 0
 
     private val runnable = object : Runnable {
         override fun run() {
             if (touchView!!.isEnabled) {
-                handler.postDelayed(this, SLOW_INCREMENT_PERIOD)
+                if(counter > 3){
+                    handler.postDelayed(this, FAST_INCREMENT_PERIOD)
+                }else{
+                    handler.postDelayed(this, SLOW_INCREMENT_PERIOD)
+                }
+                counter ++
                 onClickListener!!.onClick(touchView)
             } else {
                 handler.removeCallbacks(this)
@@ -35,12 +42,17 @@ class RepeatListener(clickListener: View.OnClickListener) : View.OnTouchListener
                 return true
             }
             MotionEvent.ACTION_UP -> {
-                //Do nothing
+                handler.removeCallbacks(runnable)
+                touchView!!.isPressed = false
+                touchView = null
+                counter = 0
+                return true
             }
             MotionEvent.ACTION_CANCEL -> {
                 handler.removeCallbacks(runnable)
                 touchView!!.isPressed = false
                 touchView = null
+                counter = 0
                 return true
             }
         }
