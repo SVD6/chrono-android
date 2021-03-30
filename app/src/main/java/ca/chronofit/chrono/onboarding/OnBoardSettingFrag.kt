@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.FragmentOnboardSettingBinding
+import com.bumptech.glide.Glide
 
 class OnBoardSettingFrag : Fragment() {
     private lateinit var bind: FragmentOnboardSettingBinding
@@ -19,6 +20,10 @@ class OnBoardSettingFrag : Fragment() {
         // Inflate the layout for this fragment
         bind =
             DataBindingUtil.inflate(inflater, R.layout.fragment_onboard_setting, container, false)
+
+        // Load in GIF
+        Glide.with(requireContext()).asGif().load(R.raw.settings_gif).into(bind.imageGif)
+
         return bind.root
     }
 }
