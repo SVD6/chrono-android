@@ -1,17 +1,21 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Primary Brand Color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:textViewStyle">@style/MainText</item>
+        <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
 
-        <item name="android:windowTranslucentStatus">true</item>
+        <!-- Other Styles -->
         <item name="android:fontFamily">@font/nunito_regular</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="android:textViewStyle">@style/MainText</item>
     </style>
 
     <style name="MainText" parent="Widget.MaterialComponents.TextView">
