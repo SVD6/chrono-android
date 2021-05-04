@@ -10,6 +10,7 @@ class RepeatListener(clickListener: View.OnClickListener) : View.OnTouchListener
     var handler = Handler(Looper.getMainLooper())
     private var onClickListener: View.OnClickListener? = clickListener
     private var touchView: View? = null
+
     @Volatile
     private var counter = 0
 
@@ -21,7 +22,7 @@ class RepeatListener(clickListener: View.OnClickListener) : View.OnTouchListener
                 } else {
                     handler.postDelayed(this, SLOW_INCREMENT_PERIOD)
                 }
-                counter ++
+                counter++
                 onClickListener!!.onClick(touchView)
             } else {
                 handler.removeCallbacks(this)

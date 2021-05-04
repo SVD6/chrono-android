@@ -359,7 +359,7 @@ class CircuitCreateActivity : BaseActivity() {
             bind.setWorkTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
             if (currentText.toInt() >= MAX_WORK) {
-                if(showMaxWorkValueMsg) {
+                if (showMaxWorkValueMsg) {
                     Toast.makeText(
                         this,
                         "Can't have more than 999 seconds of workout!",
@@ -408,7 +408,7 @@ class CircuitCreateActivity : BaseActivity() {
             bind.setRestTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
             if (currentText.toInt() >= MAX_REST) {
-                if(showMaxRestValueMsg) {
+                if (showMaxRestValueMsg) {
                     Toast.makeText(
                         this,
                         "Can't have more than 999 seconds of rest!",
