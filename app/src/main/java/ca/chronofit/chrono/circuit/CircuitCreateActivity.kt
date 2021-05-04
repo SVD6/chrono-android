@@ -1,6 +1,7 @@
 package ca.chronofit.chrono.circuit
 
 import `in`.goodiebag.carouselpicker.CarouselPicker
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
@@ -41,6 +42,7 @@ class CircuitCreateActivity : BaseActivity() {
     private var showMaxWorkValueMsg = true
     private var showMaxRestValueMsg = true
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PreferenceManager.with(this)
@@ -71,53 +73,57 @@ class CircuitCreateActivity : BaseActivity() {
             setResult(Activity.RESULT_CANCELED)
             finish()
         }
+
         bind.saveButton.setOnClickListener {
             if (validateInputs()) {
                 FirebaseAnalytics.getInstance(this).logEvent(Events.CREATE_COMPLETE, Bundle())
                 saveCircuit()
             }
         }
+
         bind.iconLayout.setOnClickListener {
             hideKeyboard(currentFocus ?: View(this))
             selectIconDialog()
         }
+
         bind.circuitIcon.setOnClickListener {
             hideKeyboard(currentFocus ?: View(this))
             selectIconDialog()
         }
+
         bind.addSet.setOnClickListener {
             bind.setNum.isCursorVisible = false
         }
-        bind.addSet.setOnTouchListener(RepeatListener({ addSet() }))
+        bind.addSet.setOnTouchListener(RepeatListener { addSet() })
 
         bind.minusSet.setOnClickListener {
             bind.setNum.isCursorVisible = false
         }
-        bind.minusSet.setOnTouchListener(RepeatListener({ minusSet() }))
+        bind.minusSet.setOnTouchListener(RepeatListener { minusSet() })
 
         bind.addWork.setOnClickListener {
             bind.setWorkTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
         }
-        bind.addWork.setOnTouchListener(RepeatListener({ addWork() }))
+        bind.addWork.setOnTouchListener(RepeatListener { addWork() })
 
         bind.minusWork.setOnClickListener {
             bind.setWorkTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
         }
-        bind.minusWork.setOnTouchListener(RepeatListener({ minusWork() }))
+        bind.minusWork.setOnTouchListener(RepeatListener { minusWork() })
 
         bind.addRest.setOnClickListener {
             bind.setRestTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
         }
-        bind.addRest.setOnTouchListener(RepeatListener({ addRest() }))
+        bind.addRest.setOnTouchListener(RepeatListener { addRest() })
 
         bind.minusRest.setOnClickListener {
             bind.setRestTime.isCursorVisible = false
             hideKeyboard(currentFocus ?: View(this))
         }
-        bind.minusRest.setOnTouchListener(RepeatListener({ minusRest() }))
+        bind.minusRest.setOnTouchListener(RepeatListener { minusRest() })
 
         bind.setNum.setOnClickListener { bind.setNum.isCursorVisible = true }
         bind.setWorkTime.setOnClickListener { bind.setWorkTime.isCursorVisible = true }
