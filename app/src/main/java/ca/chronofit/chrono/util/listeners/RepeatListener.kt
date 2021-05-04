@@ -16,9 +16,9 @@ class RepeatListener(clickListener: View.OnClickListener) : View.OnTouchListener
     private val runnable = object : Runnable {
         override fun run() {
             if (touchView!!.isEnabled) {
-                if(counter > 3){
+                if (counter > 0) {
                     handler.postDelayed(this, FAST_INCREMENT_PERIOD)
-                }else{
+                } else {
                     handler.postDelayed(this, SLOW_INCREMENT_PERIOD)
                 }
                 counter ++
