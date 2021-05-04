@@ -309,13 +309,15 @@ class CircuitCreateActivity : BaseActivity() {
         if (currentText == "") {
             bind.setNum.setText("1")
         } else {
-            if (currentText.toInt() == MAX_SETS && showMaxSetValueMsg) {
-                Toast.makeText(
-                    this,
-                    "Can't have more than 99 sets, take it easy!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                showMaxSetValueMsg = false
+            if (currentText.toInt() == MAX_SETS) {
+                if (showMaxSetValueMsg) {
+                    Toast.makeText(
+                        this,
+                        "Can't have more than 99 sets, take it easy!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showMaxSetValueMsg = false
+                }
             } else {
                 bind.setNum.setText((currentText.toInt() + 1).toString())
             }
@@ -356,13 +358,15 @@ class CircuitCreateActivity : BaseActivity() {
         if (currentText == "") {
             bind.setWorkTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
-            if (currentText.toInt() >= MAX_WORK && showMaxWorkValueMsg) {
-                Toast.makeText(
-                    this,
-                    "Can't have more than 999 seconds of workout!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                showMaxWorkValueMsg = false
+            if (currentText.toInt() >= MAX_WORK) {
+                if(showMaxWorkValueMsg) {
+                    Toast.makeText(
+                        this,
+                        "Can't have more than 999 seconds of workout!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showMaxWorkValueMsg = false
+                }
             } else {
                 bind.setWorkTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
@@ -403,13 +407,15 @@ class CircuitCreateActivity : BaseActivity() {
         if (currentText == "") {
             bind.setRestTime.setText(TIME_CHANGE_VALUE.toString())
         } else {
-            if (currentText.toInt() >= MAX_REST && showMaxRestValueMsg) {
-                Toast.makeText(
-                    this,
-                    "Can't have more than 999 seconds of rest!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                showMaxRestValueMsg = false
+            if (currentText.toInt() >= MAX_REST) {
+                if(showMaxRestValueMsg) {
+                    Toast.makeText(
+                        this,
+                        "Can't have more than 999 seconds of rest!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showMaxRestValueMsg = false
+                }
             } else {
                 bind.setRestTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
