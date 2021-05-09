@@ -78,6 +78,6 @@ class SplashActivity : BaseActivity() {
     }
 
     companion object {
-        private const val SPLASH_TIMEOUT = 3000L // Timeout delay
+        private const val SPLASH_TIMEOUT = 1500L // Timeout delay
     }
 }
