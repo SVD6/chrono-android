@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/xl_large_element_padding">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/image_gif"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:layout_marginBottom="@dimen/xl_large_element_padding"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/xl_large_element_padding"
             android:contentDescription="@string/todo" />
 
-        <TextView
-            android:id="@+id/title"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/large_element_padding"
-            android:gravity="center"
-            android:text="@string/onboard_setting_title"
-            android:textSize="@dimen/huge_text"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/xl_large_element_padding">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/onboard_setting_subtitle"
-            android:textColor="?android:attr/textColorSecondary"
-            android:textSize="@dimen/medium_text" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/large_element_padding"
+                android:gravity="center"
+                android:text="@string/onboard_setting_title"
+                android:textSize="@dimen/huge_text"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/onboard_setting_subtitle"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/medium_text" />
+
+        </LinearLayout>
+    </RelativeLayout>
 </layout>
