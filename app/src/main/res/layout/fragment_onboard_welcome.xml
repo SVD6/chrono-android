@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="onboarding_welcome.json"
+            app:lottie_fileName="onboard_welcome.json"
             app:lottie_loop="true" />
 
         <TextView
