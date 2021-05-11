@@ -46,12 +46,12 @@ class OnBoardActivity : BaseActivity() {
                     3 -> {
                         bind.skip.visibility = View.VISIBLE
                         bind.next.visibility = View.VISIBLE
-                        bind.continueButton.visibility = View.GONE
+                        bind.buttonPanel.visibility = View.GONE
                     }
                     4 -> {
                         bind.skip.visibility = View.GONE
                         bind.next.visibility = View.GONE
-                        bind.continueButton.visibility = View.VISIBLE
+                        bind.buttonPanel.visibility = View.VISIBLE
                     }
                 }
             }

@@ -152,11 +152,12 @@
     <string name="onboard_setting_title">Dark mode</string>
     <string name="onboard_setting_subtitle">Use the settings page to personalize\nyour Chrono experience. Also there\'s\n dark mode. 🖐 🎤 ⬇</string>
     <string name="onboard_final_title">You\'re all set</string>
-    <string name="onboard_final_subtitle">Feel free to leave us feedback or ask\nfor help in the settings tab. We\n hope you enjoy using Chrono!</string>
+    <string name="onboard_final_subtitle">Feel free to leave us feedback and\nconsider joining our Discord server. We\n hope you enjoy using Chrono!</string>
 
     <string name="stats">Stats</string>
     <string name="total_time">Total Time</string>
     <string name="total_circuits">Total Circuits</string>
     <string name="_0h0m">0h 0m</string>
     <string name="_0h0m0s">0h 0m 0s</string>
+    <string name="discord">Discord</string>
 </resources>

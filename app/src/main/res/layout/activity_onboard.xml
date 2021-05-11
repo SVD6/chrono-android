@@ -63,22 +63,48 @@
             android:textSize="@dimen/medium_text"
             tools:ignore="RelativeOverlap" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/continue_button"
+        <LinearLayout
+            android:id="@+id/button_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginHorizontal="@dimen/huge_element_padding"
-            android:layout_marginBottom="@dimen/xs_medium_element_padding"
-            android:letterSpacing="0"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:paddingVertical="@dimen/small_element_padding"
-            android:text="@string/continue_button"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/xl_medium_text"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:backgroundTint="@color/colorAccent"
-            app:cornerRadius="25dp" />
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/discord_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_element_padding"
+                android:letterSpacing="0"
+                android:paddingHorizontal="@dimen/xs_large_element_padding"
+                android:paddingVertical="@dimen/small_element_padding"
+                android:text="@string/discord"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold"
+                app:backgroundTint="@color/discord_color"
+                app:cornerRadius="25dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/continue_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_element_padding"
+                android:letterSpacing="0"
+                android:paddingHorizontal="@dimen/medium_element_padding"
+                android:paddingVertical="@dimen/small_element_padding"
+                android:text="@string/continue_button"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/xl_medium_text"
+                android:textStyle="bold"
+                app:backgroundTint="@color/colorAccent"
+                app:cornerRadius="25dp" />
+
+        </LinearLayout>
     </RelativeLayout>
 </layout>
