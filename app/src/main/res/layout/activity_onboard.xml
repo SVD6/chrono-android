@@ -70,7 +70,8 @@
             android:layout_alignParentBottom="true"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingVertical="@dimen/small_element_padding"
+            android:paddingTop="@dimen/small_element_padding"
+            android:paddingBottom="@dimen/medium_element_padding"
             android:visibility="gone">
 
             <com.google.android.material.button.MaterialButton

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -29,6 +31,24 @@ class OnBoardActivity : BaseActivity() {
 
         // See through nav bar and status bar
         setNavBarInvisible()
+
+        if (isUsingNightModeResources()) {
+            bind.discordButton.setIconTintResource(R.color.white)
+            bind.discordButton.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.white
+                )
+            )
+            bind.discordButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.discord_color
+                )
+            )
+        } else {
+
+        }
 
         val adapter = OnBoardAdapter(supportFragmentManager)
         bind.pager.adapter = adapter
