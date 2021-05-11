@@ -1,6 +1,7 @@
 package ca.chronofit.chrono.onboarding
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -63,6 +64,10 @@ class OnBoardActivity : BaseActivity() {
         bind.next.setOnClickListener { nextPage() }
         bind.skip.setOnClickListener { skip() }
         bind.continueButton.setOnClickListener { launchMain() }
+
+        bind.discordButton.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/UbWrRxwkgR")))
+        }
     }
 
     private fun nextPage() {

@@ -83,10 +83,10 @@
                 android:paddingVertical="@dimen/small_element_padding"
                 android:text="@string/discord"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/discord_color"
                 android:textSize="@dimen/xl_medium_text"
                 android:textStyle="bold"
-                app:backgroundTint="@color/discord_color"
+                app:backgroundTint="@color/white"
                 app:cornerRadius="25dp" />
 
             <com.google.android.material.button.MaterialButton
