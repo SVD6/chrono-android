@@ -8,6 +8,13 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/xl_large_element_padding">
 
+        <ImageView
+            android:id="@+id/image_gif"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginBottom="@dimen/xl_large_element_padding"
+            android:contentDescription="@string/todo" />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"

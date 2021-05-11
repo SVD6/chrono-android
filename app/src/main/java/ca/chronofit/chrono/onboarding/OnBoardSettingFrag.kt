@@ -21,8 +21,7 @@ class OnBoardSettingFrag : Fragment() {
         bind =
             DataBindingUtil.inflate(inflater, R.layout.fragment_onboard_setting, container, false)
 
-        // Load in GIF
-        Glide.with(requireContext()).asGif().load(R.raw.settings_gif).into(bind.imageGif)
+        Glide.with(requireContext()).asGif().load(R.raw.onboard_dark).into(bind.imageGif)
 
         return bind.root
     }
