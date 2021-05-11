@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/medium_element_padding"
                 android:letterSpacing="0"
-                android:paddingHorizontal="@dimen/xs_large_element_padding"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding"
                 android:paddingVertical="@dimen/small_element_padding"
                 android:text="@string/discord"
                 android:textAllCaps="false"
@@ -87,7 +87,10 @@
                 android:textSize="@dimen/xl_medium_text"
                 android:textStyle="bold"
                 app:backgroundTint="@color/white"
-                app:cornerRadius="25dp" />
+                app:cornerRadius="25dp"
+                app:icon="@drawable/ic_discord_logo"
+                app:iconSize="@dimen/xs_large_element_padding"
+                app:iconTint="@color/discord_color" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/continue_button"
@@ -95,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/medium_element_padding"
                 android:letterSpacing="0"
-                android:paddingHorizontal="@dimen/medium_element_padding"
+                android:paddingHorizontal="@dimen/xs_large_element_padding"
                 android:paddingVertical="@dimen/small_element_padding"
                 android:text="@string/continue_button"
                 android:textAllCaps="false"
