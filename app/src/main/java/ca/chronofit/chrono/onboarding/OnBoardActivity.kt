@@ -1,6 +1,7 @@
 package ca.chronofit.chrono.onboarding
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -29,7 +30,7 @@ class OnBoardActivity : BaseActivity() {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_onboard)
 
         // See through nav bar and status bar
-        setNavBarInvisible()
+        setNavBarInvisible(Color.TRANSPARENT)
 
         if (isUsingNightModeResources()) {
             bind.discordButton.setIconTintResource(R.color.white)

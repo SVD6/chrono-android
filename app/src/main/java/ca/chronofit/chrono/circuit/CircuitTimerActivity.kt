@@ -3,6 +3,7 @@ package ca.chronofit.chrono.circuit
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
+import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
@@ -191,6 +192,8 @@ class CircuitTimerActivity : BaseActivity() {
         // Load celebrate layout
         bind.mainLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
+        window.statusBarColor = ContextCompat.getColor(this, R.color.gradient_start)
+        setNavBarInvisible(ContextCompat.getColor(this, R.color.gradient_end))
         FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
 
         //Save total time and sets
@@ -315,6 +318,9 @@ class CircuitTimerActivity : BaseActivity() {
             bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
+
+            window.statusBarColor = ContextCompat.getColor(this, R.color.stop_red)
+            setNavBarInvisible(ContextCompat.getColor(this, R.color.stop_red))
         }
         if (timeRest > 5 && runningState == RunningState.REST && secondsLeft <= 5) {
             bind.currentState.text = getString(R.string.get_ready)
@@ -358,6 +364,9 @@ class CircuitTimerActivity : BaseActivity() {
                     bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.lightText))
                     bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.lightText))
                 }
+
+                window.statusBarColor = Color.TRANSPARENT
+                setNavBarInvisible(Color.TRANSPARENT)
             }
         }
     }
@@ -367,10 +376,12 @@ class CircuitTimerActivity : BaseActivity() {
         when (runningState) {
             RunningState.READY -> {
                 bind.currentState.text = getString(R.string.get_ready)
+                setNavBarInvisible(Color.TRANSPARENT)
             }
             RunningState.INIT -> {
                 bind.currentSet.text = getString(R.string.empty)
                 bind.currentState.text = getString(R.string.lets_go)
+                setNavBarInvisible(Color.TRANSPARENT)
             }
             RunningState.WORK -> {
                 bind.currentState.text = getString(R.string.workout)
@@ -385,6 +396,9 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
+
+                window.statusBarColor = ContextCompat.getColor(this, R.color.beautiful_blue)
+                setNavBarInvisible(ContextCompat.getColor(this, R.color.beautiful_blue))
             }
             RunningState.REST -> {
                 bind.currentState.text = getString(R.string.rest)
@@ -398,6 +412,9 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
                 bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
+
+                window.statusBarColor = ContextCompat.getColor(this, R.color.rest_yellow)
+                setNavBarInvisible(ContextCompat.getColor(this, R.color.rest_yellow))
             }
         }
     }
