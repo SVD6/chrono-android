@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 app:lottie_autoPlay="true"
-                app:lottie_fileName="lottie_celebrate.json"
+                app:lottie_fileName="animations/lottie_celebrate.json"
                 app:lottie_loop="true" />
 
             <com.google.android.material.textview.MaterialTextView
