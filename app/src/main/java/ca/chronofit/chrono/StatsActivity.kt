@@ -1,8 +1,10 @@
 package ca.chronofit.chrono
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.databinding.ActivityStatsBinding
 import ca.chronofit.chrono.databinding.DialogAlertBinding
@@ -21,6 +23,12 @@ class StatsActivity : BaseActivity() {
 
         bind = DataBindingUtil.setContentView(this, R.layout.activity_stats)
         PreferenceManager.with(this)
+
+        if (isUsingNightModeResources()) {
+            setNavBarInvisible(ContextCompat.getColor(this, R.color.darkSecondary))
+        } else {
+            setNavBarInvisible(Color.TRANSPARENT)
+        }
 
         // Retrieve boolean value from preference manager
         if (PreferenceManager.get<Boolean>(Constants.EASTER_EGG_DIALOG) == null) {
