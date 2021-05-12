@@ -13,6 +13,7 @@
     <color name="darkBackground">#121212</color>
     <color name="darkText">#DBDBDB</color>
     <color name="darkTextSecondary">#AFAFAF</color>
+    <color name="darkSecondary">#2D2D2D</color>
 
     <!-- General Colors -->
     <color name="white">#FFFFFF</color>
