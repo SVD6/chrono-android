@@ -14,7 +14,7 @@
             android:layout_height="350dp"
             android:layout_marginBottom="@dimen/xl_large_element_padding"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="onboard_final.json"
+            app:lottie_fileName="animations/onboard_final.json"
             app:lottie_loop="true" />
 
         <TextView
