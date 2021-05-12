@@ -33,6 +33,8 @@
     <color name="dark_grey">#606060</color>
 
     <color name="discord_color">#6E85D3</color>
+    <color name="gradient_start">#5177FF</color>
+    <color name="gradient_end">#0E1C9F</color>
 
     <!-- Nav Selectors -->
     <color name="select_grey">#DFE0DF</color>

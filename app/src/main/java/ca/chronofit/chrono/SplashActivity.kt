@@ -1,11 +1,15 @@
 package ca.chronofit.chrono
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.databinding.ActivitySplashBinding
 import ca.chronofit.chrono.onboarding.OnBoardActivity
@@ -21,6 +25,9 @@ class SplashActivity : BaseActivity() {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_splash)
 
         PreferenceManager.with(this)
+
+//        setNavBarInvisible()
+
 
         // Get Boolean preference if it's first time app launch
         var isFirstRun = PreferenceManager.get<Boolean>(Constants.FIRST_RUN)
@@ -53,7 +60,9 @@ class SplashActivity : BaseActivity() {
         if (isUsingNightModeResources()) {
             bind.lightMode.visibility = View.GONE
             bind.darkMode.visibility = View.VISIBLE
+            window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         } else {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.gradient_start)
             bind.lightMode.visibility = View.VISIBLE
             bind.darkMode.visibility = View.GONE
         }
