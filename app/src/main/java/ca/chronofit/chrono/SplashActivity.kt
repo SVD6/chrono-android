@@ -23,10 +23,10 @@ class SplashActivity : BaseActivity() {
         PreferenceManager.with(this)
 
         // Get Boolean preference if it's first time app launch
-        var isFirst = PreferenceManager.get<Boolean>(Constants.FIRST_RUN)
+        var isFirstRun = PreferenceManager.get<Boolean>(Constants.FIRST_RUN)
 
-        if (isFirst == null || isFirst) {
-            isFirst = true
+        if (isFirstRun == null || isFirstRun) {
+            isFirstRun = true
             // Set dark mode value to system default
             PreferenceManager.put(false, Constants.FIRST_RUN)
             PreferenceManager.put(Constants.SYSTEM_DEFAULT, Constants.DARK_MODE_SETTING)
@@ -63,7 +63,7 @@ class SplashActivity : BaseActivity() {
             Looper.getMainLooper()
         ).postDelayed(
             {
-                launchActivity(isFirst)
+                launchActivity(isFirstRun)
             }, SPLASH_TIMEOUT
         )
     }
