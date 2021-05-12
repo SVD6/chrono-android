@@ -138,9 +138,26 @@
     <string name="sound_effect_subtitle">Pick the sound you like for your circuits</string>
     <string name="short_whistle">Short Whistle</string>
     <string name="long_whistle">Long Whistle</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="continue_button">Continue</string>
+
+    <!-- OnBoarding Titles/Subtitles -->
+    <string name="onboard_welcome_title">Welcome</string>
+    <string name="onboard_welcome_subtitle">Thank you for choosing Chrono! Let\'s\nwalk you through how our app\nworks.</string>
+    <string name="onboard_circuit_title">Save custom circuits</string>
+    <string name="onboard_circuit_subtitle">Customize your circuit with your\n desired times, title, and icon. Click on\n your saved circuit to run it.</string>
+    <string name="onboard_swatch_title">Use the stopwatch</string>
+    <string name="onboard_swatch_subtitle">With integrated lap functionality, our\n stopwatch will help you time\n basically anything.</string>
+    <string name="onboard_setting_title">Dark mode</string>
+    <string name="onboard_setting_subtitle">Use the settings page to personalize\nyour Chrono experience. Also there\'s\n dark mode. 🖐 🎤 ⬇</string>
+    <string name="onboard_final_title">You\'re all set</string>
+    <string name="onboard_final_subtitle">Feel free to leave us feedback and\nconsider joining our Discord server. We\n hope you enjoy using Chrono!</string>
+
     <string name="stats">Stats</string>
     <string name="total_time">Total Time</string>
     <string name="total_circuits">Total Circuits</string>
     <string name="_0h0m">0h 0m</string>
     <string name="_0h0m0s">0h 0m 0s</string>
+    <string name="discord">Discord</string>
 </resources>

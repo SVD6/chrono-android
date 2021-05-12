@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.databinding.ActivitySplashBinding
+import ca.chronofit.chrono.onboarding.OnBoardActivity
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.PreferenceManager
@@ -19,10 +20,15 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_splash)
 
-        val prefs = getSharedPreferences("ca.chronofit.chrono", MODE_PRIVATE)
+        PreferenceManager.with(this)
 
-        if (prefs.getBoolean(Constants.FIRST_RUN, true)) {
-            prefs.edit().putBoolean(Constants.FIRST_RUN, false).apply()
+        // Get Boolean preference if it's first time app launch
+        var isFirstRun = PreferenceManager.get<Boolean>(Constants.FIRST_RUN)
+
+        if (isFirstRun == null || isFirstRun) {
+            isFirstRun = true
+            // Set dark mode value to system default
+            PreferenceManager.put(false, Constants.FIRST_RUN)
             PreferenceManager.put(Constants.SYSTEM_DEFAULT, Constants.DARK_MODE_SETTING)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             delegate.applyDayNight()
@@ -57,10 +63,18 @@ class SplashActivity : BaseActivity() {
             Looper.getMainLooper()
         ).postDelayed(
             {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                launchActivity(isFirstRun)
             }, SPLASH_TIMEOUT
         )
+    }
+
+    private fun launchActivity(isFirst: Boolean) {
+        if (isFirst) {
+            startActivity(Intent(this, OnBoardActivity::class.java))
+        } else {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        finish()
     }
 
     companion object {
