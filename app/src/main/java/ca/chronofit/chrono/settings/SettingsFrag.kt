@@ -29,7 +29,6 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
-import java.lang.Exception
 
 class SettingsFrag : Fragment() {
     private lateinit var bind: FragmentSettingsBinding
@@ -182,24 +181,30 @@ class SettingsFrag : Fragment() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=$packageName")
+                        Uri.parse(getString(R.string.app_rating_primary_link) + "$packageName")
                     )
                 )
             } catch (e: ActivityNotFoundException) {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                        Uri.parse(getString(R.string.app_rating_secondary_link) + "$packageName")
                     )
                 )
             }
+        }
+
+        bind.joinDiscord.setOnClickListener {
+            val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.discord_invite_link)))
+            startActivity(intent)
         }
 
         // Privacy Policy Launch
         bind.privacyPolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://chronofit.herokuapp.com/privacyPolicy")
+                Uri.parse(getString(R.string.privacy_page_link))
             )
             startActivity(intent)
         }

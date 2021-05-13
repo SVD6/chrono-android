@@ -130,7 +130,6 @@
                         android:id="@+id/ready_time_display"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:alpha="0.8"
                         android:fontFamily="@font/nunito_semibold"
                         android:gravity="end"
@@ -312,6 +311,37 @@
                     android:background="@color/grey_light_divider" />
 
                 <RelativeLayout
+                    android:id="@+id/join_discord"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingVertical="@dimen/medium_element_padding"
+                        android:text="@string/join_discord"
+                        android:textSize="@dimen/large_text" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/todo"
+                        android:paddingHorizontal="@dimen/tiny_element_padding"
+                        android:src="@drawable/ic_discord_logo"
+                        app:tint="@color/reset_grey" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                    android:background="@color/grey_light_divider" />
+
+                <RelativeLayout
                     android:id="@+id/privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -335,6 +365,7 @@
                         android:src="@drawable/ic_lock"
                         app:tint="@color/reset_grey" />
                 </RelativeLayout>
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/version_number"

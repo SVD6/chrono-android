@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="privacy_page_link">https://chronofit.herokuapp.com/privacyPolicy</string>
+    <string name="discord_invite_link">https://discord.gg/UbWrRxwkgR</string>
+    <string name="app_rating_primary_link">market://details?id=</string>
+    <string name="app_rating_secondary_link">https://play.google.com/store/apps/details?id=</string>
+</resources>
