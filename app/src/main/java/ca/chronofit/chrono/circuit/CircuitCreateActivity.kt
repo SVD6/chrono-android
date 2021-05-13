@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +48,12 @@ class CircuitCreateActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         PreferenceManager.with(this)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
+
+        if (isUsingNightModeResources()) {
+            setNavBarInvisible(ContextCompat.getColor(this, R.color.darkSecondary))
+        } else {
+            setNavBarInvisible(Color.TRANSPARENT)
+        }
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 

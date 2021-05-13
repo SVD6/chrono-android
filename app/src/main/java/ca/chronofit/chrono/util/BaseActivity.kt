@@ -29,12 +29,12 @@ open class BaseActivity : AppCompatActivity() {
         super.onSaveInstanceState(state)
     }
 
-    fun setNavBarInvisible() {
+    fun setNavBarInvisible(color: Int) {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        window.navigationBarColor = Color.TRANSPARENT
+        window.navigationBarColor = color
     }
 
     // The function that checks if dark mode is enabled on a device, used in all the activities

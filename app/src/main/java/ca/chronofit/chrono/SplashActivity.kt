@@ -1,11 +1,13 @@
 package ca.chronofit.chrono
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.databinding.ActivitySplashBinding
 import ca.chronofit.chrono.onboarding.OnBoardActivity
@@ -53,9 +55,13 @@ class SplashActivity : BaseActivity() {
         if (isUsingNightModeResources()) {
             bind.lightMode.visibility = View.GONE
             bind.darkMode.visibility = View.VISIBLE
+            window.statusBarColor = Color.BLACK
+            setNavBarInvisible(Color.BLACK)
         } else {
             bind.lightMode.visibility = View.VISIBLE
             bind.darkMode.visibility = View.GONE
+            window.statusBarColor = ContextCompat.getColor(this, R.color.gradient_start)
+            setNavBarInvisible(ContextCompat.getColor(this, R.color.gradient_end))
         }
 
         // Set the time out delay and launch main activity afterwards
