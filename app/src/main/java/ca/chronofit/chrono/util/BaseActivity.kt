@@ -2,7 +2,10 @@ package ca.chronofit.chrono.util
 
 import android.content.res.Configuration
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import ca.chronofit.chrono.util.constants.Constants
@@ -30,10 +33,17 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun setNavBarInvisible(color: Int) {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            window.insetsController?.setSystemBarsAppearance(
+//                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS or WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS,
+//                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+//            )
+//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            @Suppress("DEPRECATION")
+//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+//        }
+//        @Suppress("DEPRECATION")
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         window.navigationBarColor = color
     }
 

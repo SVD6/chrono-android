@@ -53,12 +53,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if (isUsingNightModeResources()) {
-            setNavBarInvisible(ContextCompat.getColor(this, R.color.darkSecondary))
-        } else {
-            setNavBarInvisible(Color.TRANSPARENT)
-        }
-
         if (savedInstanceState == null) {
             val fragTransaction = supportFragmentManager.beginTransaction()
 
