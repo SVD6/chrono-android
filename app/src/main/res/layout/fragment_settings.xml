@@ -321,7 +321,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/join_discord"
+                        android:text="@string/discord"
                         android:textSize="@dimen/large_text" />
 
                     <ImageView
