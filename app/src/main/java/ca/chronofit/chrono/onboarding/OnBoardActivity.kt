@@ -84,7 +84,7 @@ class OnBoardActivity : BaseActivity() {
         bind.continueButton.setOnClickListener { launchMain() }
 
         bind.discordButton.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/UbWrRxwkgR")))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.discord_invite_link))))
         }
     }
 
