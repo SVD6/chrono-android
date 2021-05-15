@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,6 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 
-
 class CircuitCreateActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitCreateBinding
     private var selectedIcon: Int = 0
@@ -48,12 +46,6 @@ class CircuitCreateActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         PreferenceManager.with(this)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
-
-        if (isUsingNightModeResources()) {
-            setNavBarInvisible(ContextCompat.getColor(this, R.color.darkSecondary))
-        } else {
-            setNavBarInvisible(Color.TRANSPARENT)
-        }
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 

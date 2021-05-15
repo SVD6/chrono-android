@@ -56,12 +56,10 @@ class SplashActivity : BaseActivity() {
             bind.lightMode.visibility = View.GONE
             bind.darkMode.visibility = View.VISIBLE
             window.statusBarColor = Color.BLACK
-            setNavBarInvisible(Color.BLACK)
         } else {
             bind.lightMode.visibility = View.VISIBLE
             bind.darkMode.visibility = View.GONE
             window.statusBarColor = ContextCompat.getColor(this, R.color.gradient_start)
-            setNavBarInvisible(ContextCompat.getColor(this, R.color.gradient_end))
         }
 
         // Set the time out delay and launch main activity afterwards

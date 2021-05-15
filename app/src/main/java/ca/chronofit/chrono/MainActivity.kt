@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -52,12 +51,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         initRemoteConfig()
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (isUsingNightModeResources()) {
-            setNavBarInvisible(ContextCompat.getColor(this, R.color.darkSecondary))
-        } else {
-            setNavBarInvisible(Color.TRANSPARENT)
-        }
 
         if (savedInstanceState == null) {
             val fragTransaction = supportFragmentManager.beginTransaction()
