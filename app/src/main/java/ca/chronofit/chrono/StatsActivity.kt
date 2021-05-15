@@ -24,12 +24,6 @@ class StatsActivity : BaseActivity() {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_stats)
         PreferenceManager.with(this)
 
-        if (isUsingNightModeResources()) {
-            setNavBarInvisible(ContextCompat.getColor(this, R.color.darkSecondary))
-        } else {
-            setNavBarInvisible(Color.TRANSPARENT)
-        }
-
         // Retrieve boolean value from preference manager
         if (PreferenceManager.get<Boolean>(Constants.EASTER_EGG_DIALOG) == null) {
             PreferenceManager.put(true, Constants.EASTER_EGG_DIALOG)
