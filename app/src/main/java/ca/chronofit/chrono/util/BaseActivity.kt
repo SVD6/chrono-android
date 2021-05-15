@@ -1,12 +1,7 @@
 package ca.chronofit.chrono.util
 
 import android.content.res.Configuration
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsetsController
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.CircuitsObject
@@ -30,26 +25,6 @@ open class BaseActivity : AppCompatActivity() {
     public override fun onSaveInstanceState(state: Bundle) {
         state.putBoolean("StateSaved", true)
         super.onSaveInstanceState(state)
-    }
-
-    fun setNavBarInvisible(color: Int) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            window.insetsController?.setSystemBarsAppearance(
-//                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS or WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS,
-//                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-//            )
-//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            @Suppress("DEPRECATION")
-//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-//        }
-//        @Suppress("DEPRECATION")
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            window.decorView.systemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-        }
-        window.navigationBarColor = color
     }
 
     // The function that checks if dark mode is enabled on a device, used in all the activities

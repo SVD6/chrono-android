@@ -29,9 +29,6 @@ class OnBoardActivity : BaseActivity() {
 
         bind = DataBindingUtil.setContentView(this, R.layout.activity_onboard)
 
-        // See through nav bar and status bar
-        setNavBarInvisible(Color.TRANSPARENT)
-
         if (isUsingNightModeResources()) {
             bind.discordButton.setIconTintResource(R.color.white)
             bind.discordButton.setTextColor(
@@ -84,7 +81,12 @@ class OnBoardActivity : BaseActivity() {
         bind.continueButton.setOnClickListener { launchMain() }
 
         bind.discordButton.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.discord_invite_link))))
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.discord_invite_link))
+                )
+            )
         }
     }
 
