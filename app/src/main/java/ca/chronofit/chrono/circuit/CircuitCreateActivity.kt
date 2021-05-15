@@ -49,12 +49,6 @@ class CircuitCreateActivity : BaseActivity() {
         PreferenceManager.with(this)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
 
-        if (isUsingNightModeResources()) {
-            setNavBarInvisible(ContextCompat.getColor(this, R.color.darkSecondary))
-        } else {
-            setNavBarInvisible(Color.TRANSPARENT)
-        }
-
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 
         if (intent.getBooleanExtra("isEdit", false)) {
