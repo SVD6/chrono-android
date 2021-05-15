@@ -2,37 +2,48 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/xl_large_element_padding">
+        android:layout_height="match_parent">
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/text_layout"
             app:lottie_autoPlay="true"
             app:lottie_fileName="animations/onboard_welcome.json"
             app:lottie_loop="true" />
 
-        <TextView
-            android:id="@+id/title"
+        <LinearLayout
+            android:id="@+id/text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/large_element_padding"
-            android:gravity="center"
-            android:text="@string/onboard_welcome_title"
-            android:textSize="@dimen/huge_text"
-            android:textStyle="bold" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/large_element_padding"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/xl_large_element_padding">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/onboard_welcome_subtitle"
-            android:textColor="?android:attr/textColorSecondary"
-            android:textSize="@dimen/medium_text" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/large_element_padding"
+                android:gravity="center"
+                android:text="@string/onboard_welcome_title"
+                android:textSize="@dimen/huge_text"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/onboard_welcome_subtitle"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/medium_text" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </layout>
