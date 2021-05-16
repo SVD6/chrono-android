@@ -1,63 +1,41 @@
 {
   "project_info": {
-    "project_number": "836711410960",
-    "firebase_url": "https://chrono-92a7e.firebaseio.com",
-    "project_id": "chrono-92a7e",
-    "storage_bucket": "chrono-92a7e.appspot.com"
+    "project_number": "179986963091",
+    "project_id": "chrono-production",
+    "storage_bucket": "chrono-production.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:836711410960:android:7a1d13989a2ca71077c995",
+        "mobilesdk_app_id": "1:179986963091:android:f8d264ba097d4423650b66",
         "android_client_info": {
           "package_name": "ca.chronofit.chrono"
         }
       },
       "oauth_client": [
         {
-          "client_id": "836711410960-fb5l5odvr808gvs2rlv0jtpaplee7hal.apps.googleusercontent.com",
+          "client_id": "179986963091-v9eq2v2tn0vpf8a2khltha36igqvnk1p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.chronofit.chrono",
+            "certificate_hash": "f015b1e9871fdc0b9c0308d7c5d681280b6da3bf"
+          }
+        },
+        {
+          "client_id": "179986963091-a7r56jceluf3lseaoou1fsni9j6bbla3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAmED1nMXveEkAyv4rDPwwbUPKUYRAlIJE"
+          "current_key": "AIzaSyDSUrvVoki6TwZOBD880cNUur1xWzSuC3g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "836711410960-fb5l5odvr808gvs2rlv0jtpaplee7hal.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:836711410960:android:d4c16a61fee1adba77c995",
-        "android_client_info": {
-          "package_name": "com.example.chrono"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "836711410960-fb5l5odvr808gvs2rlv0jtpaplee7hal.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAmED1nMXveEkAyv4rDPwwbUPKUYRAlIJE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "836711410960-fb5l5odvr808gvs2rlv0jtpaplee7hal.apps.googleusercontent.com",
+              "client_id": "179986963091-a7r56jceluf3lseaoou1fsni9j6bbla3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
