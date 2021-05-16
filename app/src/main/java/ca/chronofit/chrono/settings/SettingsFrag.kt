@@ -181,14 +181,14 @@ class SettingsFrag : Fragment() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.app_rating_primary_link) + "$packageName")
+                        Uri.parse(getString(R.string.app_rating_primary_link) + packageName)
                     )
                 )
             } catch (e: ActivityNotFoundException) {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.app_rating_secondary_link) + "$packageName")
+                        Uri.parse(getString(R.string.app_rating_secondary_link) + packageName)
                     )
                 )
             }
@@ -212,7 +212,7 @@ class SettingsFrag : Fragment() {
         // Set Version Number
         try {
             bind.versionNumber.text =
-                "Test Version " + requireContext().packageManager.getPackageInfo(
+                "Version " + requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
                 ).versionName
