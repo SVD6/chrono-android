@@ -63,13 +63,11 @@
             android:textSize="@dimen/medium_text"
             tools:ignore="RelativeOverlap" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/button_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:orientation="horizontal"
             android:paddingTop="@dimen/small_element_padding"
             android:paddingBottom="@dimen/medium_element_padding"
             android:visibility="gone">
@@ -78,8 +76,10 @@
                 android:id="@+id/discord_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_marginHorizontal="@dimen/medium_element_padding"
                 android:letterSpacing="0"
+                android:maxLines="1"
                 android:paddingHorizontal="@dimen/xs_medium_element_padding"
                 android:paddingVertical="@dimen/small_element_padding"
                 android:text="@string/discord"
@@ -97,8 +97,10 @@
                 android:id="@+id/continue_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_marginHorizontal="@dimen/medium_element_padding"
                 android:letterSpacing="0"
+                android:maxLines="1"
                 android:paddingHorizontal="@dimen/xs_large_element_padding"
                 android:paddingVertical="@dimen/small_element_padding"
                 android:text="@string/continue_button"
@@ -107,8 +109,9 @@
                 android:textSize="@dimen/xl_medium_text"
                 android:textStyle="bold"
                 app:backgroundTint="@color/colorAccent"
-                app:cornerRadius="25dp" />
+                app:cornerRadius="25dp"
+                tools:ignore="RelativeOverlap" />
 
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>
