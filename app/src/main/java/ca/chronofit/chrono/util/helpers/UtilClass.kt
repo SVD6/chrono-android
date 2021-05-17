@@ -1,8 +1,5 @@
 package ca.chronofit.chrono.util.helpers
 
-import android.content.Context
-import android.util.Log
-import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.TimeObject
 import java.text.DecimalFormat
 
