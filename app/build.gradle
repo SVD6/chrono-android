@@ -12,7 +12,7 @@ android {
         applicationId "ca.chronofit.chrono"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 4
+        versionCode 5
         versionName "1.0.0"
         buildFeatures.dataBinding = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
