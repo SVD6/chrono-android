@@ -1,7 +1,5 @@
 package ca.chronofit.chrono.util.helpers
 
-import android.util.Log
-import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.objects.TimeObject
 import java.text.DecimalFormat
 
@@ -37,15 +35,4 @@ fun formatTime(time: TimeObject, separator: String): String {
     text += df.format(time.seconds) + "."
     text += time.milliseconds.toString() + time.tenMilliseconds.toString()
     return text
-}
-
-fun getSoundFile(name: String): String {
-    return when (name) {
-        Constants.SOUND_LONG_WHISTLE -> "long_whistle"
-        Constants.SOUND_SHORT_WHISTLE -> "short_whistle"
-        else -> {
-            Log.e("soundFile", "Error getting sound file based on provided name.")
-            ""
-        }
-    }
 }

@@ -22,7 +22,6 @@ import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
-import ca.chronofit.chrono.util.helpers.getSoundFile
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -137,11 +136,7 @@ class CircuitTimerActivity : BaseActivity() {
         soundMap = HashMap()
 
         // Load Sounds
-        soundMap[soundEffect] = soundPool.load(
-            this,
-            resources.getIdentifier(getSoundFile(soundEffect), "raw", this.packageName),
-            1
-        )
+        soundMap[soundEffect] = soundPool.load(this, getSoundFile(soundEffect), 1)
         soundMap[Constants.SOUND_COMPLETE] = soundPool.load(this, R.raw.complete, 1)
     }
 
@@ -422,6 +417,14 @@ class CircuitTimerActivity : BaseActivity() {
             5
         } else {
             0
+        }
+    }
+
+    private fun getSoundFile(name: String): Int {
+        return when (name) {
+            Constants.SOUND_LONG_WHISTLE -> R.raw.long_whistle
+            Constants.SOUND_SHORT_WHISTLE -> R.raw.short_whistle
+            else -> R.raw.long_whistle
         }
     }
 }
