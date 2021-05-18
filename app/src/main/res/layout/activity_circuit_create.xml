@@ -58,10 +58,12 @@
                     android:layout_toEndOf="@+id/icon_layout"
                     android:backgroundTint="@color/colorAccent"
                     android:hint="@string/circuit_name"
+                    android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:lines="1"
                     android:maxLength="50"
                     android:maxLines="1"
+                    android:nextFocusForward="@id/set_num"
                     android:singleLine="true"
                     android:textSize="@dimen/huge_text" />
 
@@ -135,10 +137,12 @@
                         android:background="@null"
                         android:gravity="center"
                         android:hint="@string/_0"
+                        android:imeOptions="actionNext"
                         android:inputType="number"
                         android:lines="1"
                         android:maxLength="2"
                         android:maxLines="1"
+                        android:nextFocusForward="@id/set_work"
                         android:singleLine="true"
                         android:textSize="@dimen/xxl_huge_text" />
 
@@ -199,10 +203,12 @@
                         android:background="@null"
                         android:gravity="center"
                         android:hint="@string/_0"
+                        android:imeOptions="actionNext"
                         android:inputType="number"
                         android:lines="1"
                         android:maxLength="3"
                         android:maxLines="1"
+                        android:nextFocusForward="@id/set_rest"
                         android:singleLine="true"
                         android:textSize="@dimen/xxl_huge_text" />
 
@@ -273,6 +279,7 @@
                         android:background="@null"
                         android:gravity="center"
                         android:hint="@string/_0"
+                        android:imeOptions="actionDone"
                         android:inputType="number"
                         android:lines="1"
                         android:maxLength="3"
