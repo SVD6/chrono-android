@@ -76,7 +76,7 @@ class SplashActivity : BaseActivity() {
         if (isFirst) {
             startActivity(Intent(this, OnBoardActivity::class.java))
         } else {
-            startActivity(Intent(this, OnBoardActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
         finish()
     }

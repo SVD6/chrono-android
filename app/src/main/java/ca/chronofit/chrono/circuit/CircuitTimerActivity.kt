@@ -22,6 +22,7 @@ import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
+import ca.chronofit.chrono.util.helpers.allocateForDeviceBars
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -63,6 +64,7 @@ class CircuitTimerActivity : BaseActivity() {
             exitTransition = Fade()
         }
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_timer)
+        allocateForDeviceBars(resources, bind.mainLayout)
 
         // Load Data
         initData()
@@ -185,7 +187,7 @@ class CircuitTimerActivity : BaseActivity() {
 
     private fun celebrate() {
         // Load celebrate layout
-        bind.mainLayout.visibility = View.GONE
+        bind.timerLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
         window.statusBarColor = ContextCompat.getColor(this, R.color.gradient_start)
         FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
@@ -308,7 +310,7 @@ class CircuitTimerActivity : BaseActivity() {
     // Update UI for every tick, possibly need to do more in the future
     fun updateTimerUI() {
         if (criticalSeconds != 0 && secondsLeft <= criticalSeconds && runningState == RunningState.WORK) {
-            bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
+            bind.timerLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
             bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.white))
             bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.white))
@@ -342,7 +344,7 @@ class CircuitTimerActivity : BaseActivity() {
 
                 // Just for paused we put non-button UI stuff
                 if (isUsingNightModeResources()) {
-                    bind.mainLayout.setBackgroundColor(
+                    bind.timerLayout.setBackgroundColor(
                         ContextCompat.getColor(
                             this,
                             R.color.darkBackground
@@ -352,7 +354,7 @@ class CircuitTimerActivity : BaseActivity() {
                     bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.darkText))
                     bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.darkText))
                 } else {
-                    bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                    bind.timerLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
                     bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.lightText))
                     bind.currentSet.setTextColor(ContextCompat.getColor(this, R.color.lightText))
                     bind.currentState.setTextColor(ContextCompat.getColor(this, R.color.lightText))
@@ -377,7 +379,7 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.currentState.text = getString(R.string.workout)
                 bind.currentSet.text = "Set " + (sets - currentSet.toString().toInt() + 1)
                 bind.closeButton.visibility = View.GONE
-                bind.mainLayout.setBackgroundColor(
+                bind.timerLayout.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
                         R.color.beautiful_blue
@@ -392,7 +394,7 @@ class CircuitTimerActivity : BaseActivity() {
             RunningState.REST -> {
                 bind.currentState.text = getString(R.string.rest)
 
-                bind.mainLayout.setBackgroundColor(
+                bind.timerLayout.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
                         R.color.rest_yellow
