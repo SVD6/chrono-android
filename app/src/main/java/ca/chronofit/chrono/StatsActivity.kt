@@ -1,17 +1,17 @@
 package ca.chronofit.chrono
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import ca.chronofit.chrono.databinding.ActivityStatsBinding
 import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
+import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.analytics.FirebaseAnalytics
 import java.math.BigDecimal
 
 class StatsActivity : BaseActivity() {
@@ -34,6 +34,7 @@ class StatsActivity : BaseActivity() {
         if (firstLaunch) {
             showEasterEggDialog()
             firstLaunch = false
+            FirebaseAnalytics.getInstance(this).logEvent(Events.EASTER_EGG_FOUND, Bundle())
             PreferenceManager.put(firstLaunch, Constants.EASTER_EGG_DIALOG)
         }
 
