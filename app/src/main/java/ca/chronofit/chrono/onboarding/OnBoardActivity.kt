@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityOnboardBinding
 import ca.chronofit.chrono.util.BaseActivity
+import ca.chronofit.chrono.util.helpers.allocateForNavBar
 
 class OnBoardActivity : BaseActivity() {
     private lateinit var bind: ActivityOnboardBinding
@@ -28,13 +28,7 @@ class OnBoardActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         bind = DataBindingUtil.setContentView(this, R.layout.activity_onboard)
-
-        val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        val navBarSize = resources.getDimensionPixelSize(resourceId)
-        println("debug: $navBarSize")
-        val params = bind.mainLayout.layoutParams as FrameLayout.LayoutParams
-        params.setMargins(0, 0, 0, navBarSize)
-        bind.mainLayout.layoutParams = params
+        allocateForNavBar(resources, bind.mainLayout)
 
         if (isUsingNightModeResources()) {
             bind.discordButton.setIconTintResource(R.color.white)

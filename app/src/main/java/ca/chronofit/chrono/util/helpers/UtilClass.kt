@@ -1,5 +1,8 @@
 package ca.chronofit.chrono.util.helpers
 
+import android.content.res.Resources
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import ca.chronofit.chrono.util.objects.TimeObject
 import java.text.DecimalFormat
 
@@ -35,4 +38,13 @@ fun formatTime(time: TimeObject, separator: String): String {
     text += df.format(time.seconds) + "."
     text += time.milliseconds.toString() + time.tenMilliseconds.toString()
     return text
+}
+
+fun allocateForNavBar(res: Resources, view: ViewGroup) {
+    val resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android")
+    val navBarSize = res.getDimensionPixelSize(resourceId)
+    println("debug: $navBarSize")
+    val params = view.layoutParams as FrameLayout.LayoutParams
+    params.setMargins(0, 0, 0, navBarSize)
+    view.layoutParams = params
 }
