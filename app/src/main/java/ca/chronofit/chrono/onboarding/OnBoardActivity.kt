@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -27,6 +28,13 @@ class OnBoardActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         bind = DataBindingUtil.setContentView(this, R.layout.activity_onboard)
+
+        val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        val navBarSize = resources.getDimensionPixelSize(resourceId)
+        println("debug: $navBarSize")
+        val params = bind.mainLayout.layoutParams as FrameLayout.LayoutParams
+        params.setMargins(0, 0, 0, navBarSize)
+        bind.mainLayout.layoutParams = params
 
         if (isUsingNightModeResources()) {
             bind.discordButton.setIconTintResource(R.color.white)
