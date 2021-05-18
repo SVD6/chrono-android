@@ -97,6 +97,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/xl_large_element_padding">
 
@@ -190,7 +192,7 @@
                         app:tint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/set_work_time"
+                        android:id="@+id/set_work"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -208,7 +210,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/set_work_time"
+                        android:layout_toEndOf="@+id/set_work"
                         android:paddingTop="@dimen/large_element_padding"
                         android:text="@string/sec"
                         android:textSize="@dimen/xs_medium_text" />
@@ -264,7 +266,7 @@
                         app:tint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/set_rest_time"
+                        android:id="@+id/set_rest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -282,7 +284,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/set_rest_time"
+                        android:layout_toEndOf="@+id/set_rest"
                         android:paddingTop="@dimen/large_element_padding"
                         android:text="@string/sec"
                         android:textSize="@dimen/xs_medium_text" />
