@@ -20,6 +20,7 @@ import ca.chronofit.chrono.databinding.DialogSelectIconBinding
 import ca.chronofit.chrono.util.BaseActivity
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
+import ca.chronofit.chrono.util.helpers.allocateForDeviceBars
 import ca.chronofit.chrono.util.listeners.RepeatListener
 import ca.chronofit.chrono.util.objects.CircuitObject
 import ca.chronofit.chrono.util.objects.CircuitsObject
@@ -44,8 +45,10 @@ class CircuitCreateActivity : BaseActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        PreferenceManager.with(this)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
+        allocateForDeviceBars(resources, bind.mainLayout)
+
+        PreferenceManager.with(this)
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
 

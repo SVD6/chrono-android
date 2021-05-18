@@ -40,11 +40,13 @@ fun formatTime(time: TimeObject, separator: String): String {
     return text
 }
 
-fun allocateForNavBar(res: Resources, view: ViewGroup) {
-    val resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android")
-    val navBarSize = res.getDimensionPixelSize(resourceId)
+fun allocateForDeviceBars(res: Resources, view: ViewGroup) {
+    val navBar = res.getIdentifier("navigation_bar_height", "dimen", "android")
+    val statusBar = res.getIdentifier("status_bar_height", "dimen", "android")
+    val navBarSize = res.getDimensionPixelSize(navBar)
+    val statusBarSize = res.getDimensionPixelSize(statusBar)
     println("debug: $navBarSize")
     val params = view.layoutParams as FrameLayout.LayoutParams
-    params.setMargins(0, 0, 0, navBarSize)
+    params.setMargins(0, statusBarSize, 0, navBarSize)
     view.layoutParams = params
 }

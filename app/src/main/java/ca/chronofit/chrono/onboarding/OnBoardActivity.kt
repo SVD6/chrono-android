@@ -14,7 +14,7 @@ import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityOnboardBinding
 import ca.chronofit.chrono.util.BaseActivity
-import ca.chronofit.chrono.util.helpers.allocateForNavBar
+import ca.chronofit.chrono.util.helpers.allocateForDeviceBars
 
 class OnBoardActivity : BaseActivity() {
     private lateinit var bind: ActivityOnboardBinding
@@ -26,9 +26,8 @@ class OnBoardActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         bind = DataBindingUtil.setContentView(this, R.layout.activity_onboard)
-        allocateForNavBar(resources, bind.mainLayout)
+        allocateForDeviceBars(resources, bind.mainLayout)
 
         if (isUsingNightModeResources()) {
             bind.discordButton.setIconTintResource(R.color.white)
