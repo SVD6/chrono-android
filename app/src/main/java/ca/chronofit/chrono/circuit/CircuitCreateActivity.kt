@@ -127,6 +127,12 @@ class CircuitCreateActivity : BaseActivity() {
         bind.setNum.setOnClickListener { bind.setNum.isCursorVisible = true }
         bind.setWorkTime.setOnClickListener { bind.setWorkTime.isCursorVisible = true }
         bind.setRestTime.setOnClickListener { bind.setRestTime.isCursorVisible = true }
+
+        bind.mainLayout.setOnTouchListener { _, _ ->
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+            return@setOnTouchListener true
+        }
     }
 
     private fun saveCircuit() {
