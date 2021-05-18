@@ -19,4 +19,5 @@ object Events {
 
     // Other
     const val USER_REVIEWED = "user_reviewed"
+    const val EASTER_EGG_FOUND = "easter_egg_found"
 }
