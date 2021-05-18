@@ -41,6 +41,7 @@
                     android:layout_marginHorizontal="@dimen/medium_element_padding"
                     android:layout_marginVertical="@dimen/medium_element_padding"
                     android:fontFamily="@font/nunito_bold"
+                    android:gravity="center_horizontal"
                     android:text="@string/lets_go"
                     android:textAllCaps="true"
                     android:textSize="@dimen/xxl_huge_text"
