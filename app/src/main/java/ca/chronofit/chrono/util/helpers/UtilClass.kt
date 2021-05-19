@@ -45,7 +45,6 @@ fun allocateForDeviceBars(res: Resources, view: ViewGroup) {
     val statusBar = res.getIdentifier("status_bar_height", "dimen", "android")
     val navBarSize = res.getDimensionPixelSize(navBar)
     val statusBarSize = res.getDimensionPixelSize(statusBar)
-    println("debug: $navBarSize")
     val params = view.layoutParams as FrameLayout.LayoutParams
     params.setMargins(0, statusBarSize, 0, navBarSize)
     view.layoutParams = params
