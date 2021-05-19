@@ -93,51 +93,59 @@ class CircuitCreateActivity : BaseActivity() {
             selectIconDialog()
         }
 
-        bind.addSet.setOnClickListener {
-            bind.setNum.isCursorVisible = false
-        }
-        bind.addSet.setOnTouchListener(RepeatListener { addSet() })
+        bind.addSet.setOnTouchListener(RepeatListener {
+            hideKeyboard(bind.addSet)
+            hideCursors()
+            addSet()
+        })
 
-        bind.minusSet.setOnClickListener {
-            bind.setNum.isCursorVisible = false
-        }
-        bind.minusSet.setOnTouchListener(RepeatListener { minusSet() })
-
-        bind.addWork.setOnClickListener {
-            bind.setWorkTime.isCursorVisible = false
+        bind.minusSet.setOnTouchListener(RepeatListener {
             hideKeyboard(currentFocus ?: View(this))
-        }
-        bind.addWork.setOnTouchListener(RepeatListener { addWork() })
+            hideCursors()
+            minusSet()
+        })
 
-        bind.minusWork.setOnClickListener {
-            bind.setWorkTime.isCursorVisible = false
+        bind.addWork.setOnTouchListener(RepeatListener {
             hideKeyboard(currentFocus ?: View(this))
-        }
-        bind.minusWork.setOnTouchListener(RepeatListener { minusWork() })
+            hideCursors()
+            addWork()
+        })
 
-        bind.addRest.setOnClickListener {
-            bind.setRestTime.isCursorVisible = false
+        bind.minusWork.setOnTouchListener(RepeatListener {
             hideKeyboard(currentFocus ?: View(this))
-        }
-        bind.addRest.setOnTouchListener(RepeatListener { addRest() })
+            hideCursors()
+            minusWork()
+        })
 
-        bind.minusRest.setOnClickListener {
-            bind.setRestTime.isCursorVisible = false
+        bind.addRest.setOnTouchListener(RepeatListener {
             hideKeyboard(currentFocus ?: View(this))
-        }
-        bind.minusRest.setOnTouchListener(RepeatListener { minusRest() })
+            hideCursors()
+            addRest()
+        })
+
+        bind.minusRest.setOnTouchListener(RepeatListener {
+            hideKeyboard(currentFocus ?: View(this))
+            hideCursors()
+            minusRest()
+        })
 
         bind.setNum.setOnClickListener { bind.setNum.isCursorVisible = true }
-        bind.setWorkTime.setOnClickListener { bind.setWorkTime.isCursorVisible = true }
-        bind.setRestTime.setOnClickListener { bind.setRestTime.isCursorVisible = true }
+        bind.setWork.setOnClickListener { bind.setWork.isCursorVisible = true }
+        bind.setRest.setOnClickListener { bind.setRest.isCursorVisible = true }
+
+        bind.mainLayout.setOnTouchListener { _, _ ->
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            if (imm.isAcceptingText) imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+            return@setOnTouchListener true
+        }
     }
 
     private fun saveCircuit() {
         val circuit = CircuitObject()
         circuit.name = bind.circuitName.text.toString()
         circuit.sets = bind.setNum.text.toString().toInt()
-        circuit.work = bind.setWorkTime.text.toString().toInt()
-        circuit.rest = bind.setRestTime.text.toString().toInt()
+        circuit.work = bind.setWork.text.toString().toInt()
+        circuit.rest = bind.setRest.text.toString().toInt()
         circuit.iconId = selectedIcon
 
         // Save circuit in Shared Preferences
@@ -166,8 +174,8 @@ class CircuitCreateActivity : BaseActivity() {
                 (PreferenceManager.get<CircuitsObject>(Constants.CIRCUITS))!!.circuits!![position]
             bind.circuitName.setText(circuit.name)
             bind.setNum.setText(circuit.sets.toString())
-            bind.setWorkTime.setText(circuit.work.toString())
-            bind.setRestTime.setText(circuit.rest.toString())
+            bind.setWork.setText(circuit.work.toString())
+            bind.setRest.setText(circuit.rest.toString())
 
             // Set Circuit Icon
             val icons = resources.obtainTypedArray(R.array.icon_files)
@@ -198,11 +206,11 @@ class CircuitCreateActivity : BaseActivity() {
             Toast.makeText(this, "Invalid Number of Sets.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (!(bind.setWorkTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
+        if (!(bind.setWork.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
             Toast.makeText(this, "Invalid Work Time.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (!(bind.setRestTime.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
+        if (!(bind.setRest.text.toString().matches(("^[1-9]\\d*\$").toRegex()))) {
             Toast.makeText(this, "Invalid Rest Time", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -361,10 +369,10 @@ class CircuitCreateActivity : BaseActivity() {
     }
 
     private fun addWork() {
-        val currentText = bind.setWorkTime.text.toString()
+        val currentText = bind.setWork.text.toString()
         showMinWorkValueMsg = true
         if (currentText == "") {
-            bind.setWorkTime.setText(TIME_CHANGE_VALUE.toString())
+            bind.setWork.setText(TIME_CHANGE_VALUE.toString())
         } else {
             if (currentText.toInt() >= MAX_WORK) {
                 if (showMaxWorkValueMsg) {
@@ -376,13 +384,13 @@ class CircuitCreateActivity : BaseActivity() {
                     showMaxWorkValueMsg = false
                 }
             } else {
-                bind.setWorkTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
+                bind.setWork.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
         }
     }
 
     private fun minusWork() {
-        val currentText = bind.setWorkTime.text.toString()
+        val currentText = bind.setWork.text.toString()
         showMaxWorkValueMsg = true
         if (currentText == "") {
             if (showMinWorkValueMsg) {
@@ -395,7 +403,7 @@ class CircuitCreateActivity : BaseActivity() {
             }
         } else {
             if (currentText.toInt() > 0) {
-                bind.setWorkTime.setText(roundTimeDown(currentText.toInt()).toString())
+                bind.setWork.setText(roundTimeDown(currentText.toInt()).toString())
             } else {
                 if (showMinWorkValueMsg) {
                     Toast.makeText(
@@ -410,10 +418,10 @@ class CircuitCreateActivity : BaseActivity() {
     }
 
     private fun addRest() {
-        val currentText = bind.setRestTime.text.toString()
+        val currentText = bind.setRest.text.toString()
         showMinRestValueMsg = true
         if (currentText == "") {
-            bind.setRestTime.setText(TIME_CHANGE_VALUE.toString())
+            bind.setRest.setText(TIME_CHANGE_VALUE.toString())
         } else {
             if (currentText.toInt() >= MAX_REST) {
                 if (showMaxRestValueMsg) {
@@ -425,13 +433,13 @@ class CircuitCreateActivity : BaseActivity() {
                     showMaxRestValueMsg = false
                 }
             } else {
-                bind.setRestTime.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
+                bind.setRest.setText(floorVal(currentText.toInt() + TIME_CHANGE_VALUE).toString())
             }
         }
     }
 
     private fun minusRest() {
-        val currentText = bind.setRestTime.text.toString()
+        val currentText = bind.setRest.text.toString()
         showMaxRestValueMsg = true
         if (currentText == "") {
             if (showMinRestValueMsg) {
@@ -444,7 +452,7 @@ class CircuitCreateActivity : BaseActivity() {
             }
         } else {
             if (currentText.toInt() > 0) {
-                bind.setRestTime.setText(roundTimeDown(currentText.toInt()).toString())
+                bind.setRest.setText(roundTimeDown(currentText.toInt()).toString())
             } else {
                 if (showMinRestValueMsg) {
                     Toast.makeText(
@@ -456,6 +464,13 @@ class CircuitCreateActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private fun hideCursors() {
+        bind.circuitName.isCursorVisible = false
+        bind.setNum.isCursorVisible = false
+        bind.setRest.isCursorVisible = false
+        bind.setWork.isCursorVisible = false
     }
 
     companion object {
