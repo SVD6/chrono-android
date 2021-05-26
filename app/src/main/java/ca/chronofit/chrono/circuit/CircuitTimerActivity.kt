@@ -8,7 +8,10 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
 import android.media.ToneGenerator
-import android.os.*
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.transition.Fade
 import android.view.LayoutInflater
 import android.view.View

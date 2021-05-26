@@ -42,7 +42,7 @@
     <string name="cancel">Cancel</string>
 
     <!-- Circuit Complete Dialog -->
-    <string name="circuit_complete">Circuit Complete 🥳🥳🥳</string>
+    <string name="circuit_complete">Circuit Complete🥳🥳🥳</string>
     <string name="circuit_complete_subtitle">Woohoo! You have completed your circuit, good job!!!</string>
     <string name="circuit_complete_confirm">Finish</string>
     <string name="circuit_complete_cancel">Restart</string>

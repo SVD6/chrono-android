@@ -12,11 +12,10 @@
             android:id="@+id/dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
             android:lines="1"
             android:maxLines="1"
             android:padding="@dimen/small_element_padding"
-            android:text="@string/delete_circuit"
+            android:text="@string/todo"
             android:textSize="@dimen/xl_large_text"
             android:textStyle="bold" />
 
