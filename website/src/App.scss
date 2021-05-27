@@ -1,0 +1,436 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@900:400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+
+// COLOR TOKENS
+$text-highlight: #4F60F8;
+$text-highlight-subtitle: #9ba5fd;
+$hover-dark: rgb(38, 38, 170);
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+*:focus {
+  outline: none;
+}
+
+// GENERAL FONTS
+
+p,h1,h2,h3,h4{
+  margin:0;
+  padding: 0;
+}
+
+h1{
+  font-family: 'Nunito';
+  font-weight: 900;
+  font-size: 4em;
+  color: $text-highlight;
+}
+
+h2{
+  font-family: 'Nunito';
+  font-weight: 700;
+  font-size: 2em;
+  color: $text-highlight;
+}
+
+// INFORMATION SECTIONS
+
+.info-section-title h1{
+  width: 100%;
+  display: block;
+  font-family: 'Nunito';
+  font-weight: 400;
+}
+
+.info-section{
+  padding: 30px;
+}
+
+// QUOTE BLOCK
+
+.quote-block h1{
+  font-size: 2em;
+}
+
+.quote-block-subtitle{
+  font-size: 2em;
+  color: $text-highlight-subtitle;
+  
+}
+
+.quote-block-subtitle.sm{
+  font-size: 1em;
+  color: $text-highlight-subtitle;
+  font-weight: 500;
+  
+}
+
+// NAVIGATION
+
+nav{
+  position: fixed;
+  top: 3.8rem;
+  left: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 0px;
+}
+
+.nav-toggle{
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.nav-link{
+  padding: 10px 30px;
+  display: block;
+  text-decoration: none;
+  font-family: 'Lato';
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: $text-highlight-subtitle;
+  font-family: 'Nunito';
+}
+
+.nav-link:hover, .nav-link:focus{
+  color: $hover-dark;
+}
+
+// COVER
+.cover-logo{
+  width: 250px;
+}
+
+.footer-logo{
+  max-width: 50%;
+  max-height: 70vh;
+}
+
+.cover {
+  font-size: calc(10px + 2vmin);
+  // background: linear-gradient(270deg, rgb(33, 8, 102) 0%, #3342c4);
+  background: linear-gradient(270deg, rgb(63, 29, 158) 0%, #4F60F8);
+  // background: linear-gradient(148deg, rgba(5,0,85,1) 0%, rgba(101,0,134,1) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.tagline{
+  font-size: 0.7em;
+  padding-bottom: 30px;
+  color: $text-highlight-subtitle;
+  text-align: center;
+}
+
+.cover-image{
+  width: 50%;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  animation: fadeInAnimation ease 5s;
+}
+.cover-screenshot{
+  max-height: 80vh;
+  max-width: 100%;
+  animation: fadeInAnimationDrop ease 5s;
+}
+
+.cover-content{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInAnimation ease 3s;
+}
+.footer-content{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInAnimation ease 3s;
+  border-top: 10px black;
+}
+
+.footer-ruler{
+  padding: 0;
+  margin: 0;
+  color: #232323;
+  background-color: #232323;
+}
+
+.cover-image{
+  height: 80vh;
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .cover-image{
+      display:block;
+    }
+}
+
+// BUTTONS
+
+.download-button{
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  background-color: white;
+  font-family: 'Nunito';
+  font-size: 1rem;
+  color: $text-highlight;
+  border: none;
+  border-radius: 50px;
+  width: auto;
+  cursor: pointer;
+  transition: background-color ease-in-out 1s;
+  transition: color ease-in-out 0.5s;
+}
+
+.download-button:hover{
+  background-color: $hover-dark;
+  color: white;
+}
+
+.download-button:focus{
+  background-color: $hover-dark;
+  color: white;
+}
+
+.info-section-cardlist{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+// FEATURE CARD
+
+.info-section{
+  min-height: 100vh;
+}
+
+.footer-section{
+  min-height: 20vh;
+  max-height: 50vh;
+  font-size: calc(8px + 1vmin);
+  background: #232323;
+  // background: linear-gradient(148deg, rgba(5,0,85,1) 0%, rgba(101,0,134,1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+  padding: 15px;
+  color: rgb(219, 215, 215);
+  border-top: 10px black;
+}
+
+.feature-card{
+  width: 0%;
+  min-width: 320px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  padding-bottom: 20px;
+  margin: 10px;
+  justify-content: center;
+  border-radius: 10px;
+  transition: background-color ease-in-out 700ms;
+}
+
+.feature-description{
+  text-align: center;
+}
+
+.feature-card .quote-block{
+  height: 5em;
+  justify-content: center;
+  text-align:center;
+}
+
+.feature-gif{
+  max-width: 90%;
+  max-height: 70vh;
+  border-radius: 20px;
+  border: solid 5px $text-highlight-subtitle;
+  height: auto;
+  cursor: pointer;
+}
+
+.back-button{
+  max-width: 5%;
+  max-height: 5%;
+}
+
+.discord-content{
+  color: $text-highlight-subtitle;
+  padding-top: 30px;
+  width: 100%;
+}
+
+.privacy-back-button{
+  max-width: 3%;
+  max-height: 3%;
+}
+
+.discord-logo{
+  max-width: 50%;
+  max-height: 50%;
+}
+
+.feature-card h2{
+  transition: color ease-in-out 500ms;
+}
+
+.feature-card:hover, .feature-card:focus, .feature-card:focus-within{
+  outline: none;
+  background-color: $hover-dark;
+}
+
+.feature-card:hover h2,.feature-card:focus h2, .feature-card:focus-within h2{
+  color: white;
+}
+
+// FOOTER
+
+#contact {
+  font-size: calc(10px + 2vmin);
+  height: 100vh;
+  background: linear-gradient(148deg, #4F60F8, rgb(106, 64, 223) 0%);
+  // background: linear-gradient(148deg, rgba(5,0,85,1) 0%, rgba(101,0,134,1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+  padding: 50px;
+  color: white;
+}
+
+.contact-title{
+  width: 100%;
+  display: inline-block;
+}
+
+.contact-title h1{
+  color: white;
+  padding:15px 0 15px 0;
+  font-size: 2rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .contact-title h1{
+    color: white;
+    padding:15px 0 15px 0;
+    font-size: 3rem;
+  }
+}
+
+.contact-content{
+  color: white;
+  width: 100%;
+}
+
+.contact-content h3{
+  color: $text-highlight-subtitle;
+}
+
+// ANIMATION KEYFRAMES
+
+@keyframes fadeInAnimation { 
+  0% { 
+      opacity: 0; 
+  } 
+  100% { 
+      opacity: 1; 
+   } 
+}
+
+@keyframes fadeInAnimationDrop { 
+  0% { 
+    transform: scale(0.9);
+    opacity: 0; 
+  } 
+  25% {
+    transform: scale(0.9);
+    opacity: 0; 
+  }
+  100% { 
+    transform: scale(1);
+    opacity: 1;  
+   } 
+}
+
+a:hover { 
+  color: black; 
+  text-decoration: underline; 
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 2px;
+  text-align: center;
+}
+
+.privacy {
+  background: white;
+  padding: 80px;
+  color:black;
+}
+
+.credits {
+  background: white;
+  padding: 80px;
+  color:black;
+  height: 100vh;
+}
+
+.credits-title  {
+  color:$text-highlight
+}
+
+.privacy-title  {
+  color:$text-highlight
+}
+
+.credits-text {
+  color: black;
+}
+
+
+.privacy-text{
+  color:black;
+}
+
+.privacy > p{
+  padding-top: 10px;
+}
+
+.privacy > h4{
+  padding-top: 15px;
+}
+
+ul > li > a:hover{
+  color: blue;
+}
+
+ul > li > a:link{
+  color: black;
+}
+
+ul > li > a:visited{
+  color: darkmagenta;
+}
