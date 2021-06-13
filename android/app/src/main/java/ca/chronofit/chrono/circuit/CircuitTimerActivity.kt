@@ -110,15 +110,7 @@ class CircuitTimerActivity : BaseActivity() {
             updateRestUI()
         }
 
-        bind.closeButton.setOnClickListener {
-            FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_EXITED, Bundle())
-            // Make sure that the timer is shut down
-            if (timerState != TimerState.INIT) {
-                countdown.cancel()
-            }
-            setResult(Activity.RESULT_CANCELED)
-            finish()
-        }
+        bind.closeButton.setOnClickListener { exitTimer() }
     }
 
     private fun initData() {
@@ -309,7 +301,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     // Update UI for every tick, possibly need to do more in the future
-    fun updateTimerUI() {
+    private fun updateTimerUI() {
         if (criticalSeconds != 0 && secondsLeft <= criticalSeconds && runningState == RunningState.WORK) {
             bind.mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.stop_red))
             bind.countdown.setTextColor(ContextCompat.getColor(this, R.color.white))
@@ -429,5 +421,20 @@ class CircuitTimerActivity : BaseActivity() {
             Constants.SOUND_SHORT_WHISTLE -> R.raw.short_whistle
             else -> R.raw.long_whistle
         }
+    }
+
+    private fun exitTimer() {
+        FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_EXITED, Bundle())
+        // Make sure that the timer is shut down
+        if (timerState != TimerState.INIT) {
+            countdown.cancel()
+        }
+        setResult(Activity.RESULT_CANCELED)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        exitTimer()
+        super.onBackPressed()
     }
 }
