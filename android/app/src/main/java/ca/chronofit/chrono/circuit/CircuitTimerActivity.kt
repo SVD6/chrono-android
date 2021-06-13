@@ -371,7 +371,7 @@ class CircuitTimerActivity : BaseActivity() {
             RunningState.WORK -> {
                 bind.currentState.text = getString(R.string.workout)
                 bind.currentSet.text = "Set " + (sets - currentSet.toString().toInt() + 1)
-                bind.closeButton.visibility = View.GONE
+                bind.closeButton.visibility = View.INVISIBLE
                 bind.mainLayout.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
