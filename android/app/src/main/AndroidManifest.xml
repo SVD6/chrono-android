@@ -40,7 +40,7 @@
                 <!-- Accepts URIs that begin with "http://www.chronofit.ca/shareCircuit” -->
                 <data android:scheme="http"
                     android:host="www.chronofit.ca"
-                    android:pathPrefix="/shareCircuit" />
+                    android:pathPrefix="/shareCircuit/" />
                 <!-- note that the leading "/" is required for pathPrefix-->
             </intent-filter>
         </activity>
