@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -167,7 +168,6 @@
             android:id="@+id/celebrate_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/primary_gradient"
             android:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -177,21 +177,104 @@
                 android:layout_centerHorizontal="true"
                 app:lottie_autoPlay="true"
                 app:lottie_fileName="animations/lottie_celebrate.json"
-                app:lottie_loop="true" />
+                app:lottie_loop="false" />
 
-            <com.google.android.material.textview.MaterialTextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                android:padding="@dimen/medium_element_padding">
+
+                <TextView
+                    android:id="@+id/intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/medium_element_padding"
+                    android:gravity="center"
+                    android:text="Awesome!\nYou made it"
+                    android:textColor="@color/weird_green"
+                    android:textSize="@dimen/huge_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Now here's a completely\n useless fact to use for\n your next icebreaker"
+                    android:textColor="@color/weird_green"
+                    android:textSize="@dimen/medium_text"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="@dimen/massive_element_padding"
-                android:gravity="center"
-                android:paddingBottom="@dimen/massive_element_padding"
-                android:text="@string/circuit_complete_celebrate"
-                android:textColor="@color/white"
-                android:textSize="@dimen/huge_text"
-                android:textStyle="bold" />
+                android:background="@drawable/background_circuit_complete"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/large_element_padding"
+                    android:text="Did You Know . . ."
+                    android:textColor="@color/weird_green"
+                    android:textSize="@dimen/huge_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/large_element_padding"
+                    android:gravity="center"
+                    android:maxLines="5"
+                    android:textSize="@dimen/medium_text"
+                    tools:text="When frightened, nine-banded armadillos will jump vertically about 3-4 feet in the air." />
+
+                <LinearLayout
+                    android:id="@+id/stop_button_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/xs_medium_element_padding"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/restart_button"
+                        android:layout_width="125dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="@dimen/medium_element_padding"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:letterSpacing="0"
+                        android:text="Restart"
+                        android:textAllCaps="false"
+                        android:textColor="#496263"
+                        android:textSize="@dimen/xl_medium_text"
+                        app:cornerRadius="13dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/finish_button"
+                        android:layout_width="125dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="@dimen/medium_element_padding"
+                        android:backgroundTint="#496263"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:letterSpacing="0"
+                        android:text="Finish"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/xl_medium_text"
+                        app:cornerRadius="13dp">
+
+                    </com.google.android.material.button.MaterialButton>
+                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 </layout>

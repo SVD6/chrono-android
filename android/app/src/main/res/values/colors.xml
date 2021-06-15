@@ -39,4 +39,6 @@
 
     <!-- Nav Selectors -->
     <color name="select_grey">#DFE0DF</color>
+
+    <color name="weird_green">#496263</color>
 </resources>
