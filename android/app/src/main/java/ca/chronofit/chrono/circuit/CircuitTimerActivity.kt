@@ -176,17 +176,20 @@ class CircuitTimerActivity : BaseActivity() {
                 if (currentSet != 0) {
                     when (runningState) {
                         RunningState.READY -> {
-                            workout()
+//                            workout()
+                            complete()
                         }
                         RunningState.WORK -> {
                             if (currentSet == 1 && skipLastRest) {
                                 complete()
                             } else {
-                                rest()
+//                                rest()
+                                complete()
                             }
                         }
                         RunningState.REST -> {
-                            workout()
+//                            workout()
+                            complete()
                         }
                         else -> complete()
                     }
@@ -199,13 +202,11 @@ class CircuitTimerActivity : BaseActivity() {
 
     private fun complete() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
-        bind.fact.text = fact
         bind.mainLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
 
         FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
         playSound(Constants.SOUND_COMPLETE)
-
 
         bind.finishButton.setOnClickListener {
             setResult(Activity.RESULT_OK)
@@ -217,6 +218,20 @@ class CircuitTimerActivity : BaseActivity() {
             finish()
         }
 
+        bind.fact.text = fact
+        val thisTotal = circuit.sets!!.times(timeWork)
+        when {
+            thisTotal <= 10 -> {
+                bind.quote.text = getString(R.string.quote_weak)
+            }
+            thisTotal in 11..29 -> {
+                bind.quote.text = getString(R.string.quote_medium)
+            }
+            else -> {
+                bind.quote.text = getString(R.string.quote_strong)
+            }
+        }
+
         if (PreferenceManager.get<Int>(Constants.TOTAL_CIRCUITS) == null) {
             PreferenceManager.put(1, Constants.TOTAL_CIRCUITS)
         } else {
@@ -226,7 +241,6 @@ class CircuitTimerActivity : BaseActivity() {
         if (PreferenceManager.get<Int>(Constants.TOTAL_TIME) == null) {
             PreferenceManager.put(BigDecimal(0), Constants.TOTAL_CIRCUITS)
         } else {
-            val thisTotal = circuit.sets!!.times(timeWork)
             val currTotal = PreferenceManager.get<Int>(Constants.TOTAL_TIME)
             PreferenceManager.put(currTotal!! + thisTotal, Constants.TOTAL_TIME)
         }
@@ -243,6 +257,7 @@ class CircuitTimerActivity : BaseActivity() {
             client.newCall(request).execute().use { response ->
                 if (response.isSuccessful) {
                     val responseObj = JSONObject(response.body!!.string())
+                    println("debug: $responseObj")
                     fact = responseObj.getString("text")
                 } else {
                     throw java.io.IOException("Unexpected code $response")

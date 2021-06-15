@@ -42,10 +42,8 @@
     <string name="cancel">Cancel</string>
 
     <!-- Circuit Complete Dialog -->
-    <string name="circuit_complete">Circuit Complete🥳🥳🥳</string>
-    <string name="circuit_complete_subtitle">Woohoo! You have completed your circuit, good job!!!</string>
-    <string name="circuit_complete_confirm">Finish</string>
-    <string name="circuit_complete_cancel">Restart</string>
+    <string name="circuit_complete_finish">Finish</string>
+    <string name="circuit_complete_restart">Restart</string>
     <string name="circuit_complete_celebrate">Circuit Complete!</string>
 
     <!-- Easter Egg Dialog -->
@@ -73,41 +71,6 @@
     <string name="get_help">Get Help</string>
     <string name="skip_last_rest">Skip Last Rest</string>
     <string name="select_icon_subtitle">Use this icon to represent your circuit</string>
-
-    <!-- Drawable Names-->
-    <string-array name="icon_files">
-        <item>drawable/ic_default_icon</item>
-        <item>drawable/ic_arm</item>
-        <item>drawable/ic_heart</item>
-        <item>drawable/ic_star</item>
-        <item>drawable/ic_home</item>
-        <item>drawable/ic_smartphone</item>
-        <item>drawable/ic_smartphone_2</item>
-        <item>drawable/ic_smartwatch</item>
-        <item>drawable/ic_laptop</item>
-        <item>drawable/ic_workout</item>
-        <item>drawable/ic_dumbbell</item>
-        <item>drawable/ic_sets</item>
-        <item>drawable/ic_kettlebell</item>
-        <item>drawable/ic_plates</item>
-        <item>drawable/ic_abs</item>
-        <item>drawable/ic_jump_rope</item>
-        <item>drawable/ic_shoes</item>
-        <item>drawable/ic_whistle</item>
-        <item>drawable/ic_gymnast</item>
-        <item>drawable/ic_mat</item>
-        <item>drawable/ic_resistance</item>
-        <item>drawable/ic_grippers</item>
-        <item>drawable/ic_trampoline</item>
-        <item>drawable/ic_outdoor</item>
-        <item>drawable/ic_gym_bag</item>
-        <item>drawable/ic_gym</item>
-        <item>drawable/ic_bike_machine</item>
-        <item>drawable/ic_bench_press</item>
-        <item>drawable/ic_treadmill</item>
-        <item>drawable/ic_machine</item>
-        <item>drawable/ic_bottle</item>
-    </string-array>
 
     <!--    Notification Channel Id-->
     <string name="default_fcm_notification_channel_id">chrono_fcm_default_channel</string>
@@ -160,4 +123,45 @@
     <string name="_0h0m">0h 0m</string>
     <string name="_0h0m0s">0h 0m 0s</string>
     <string name="discord">Discord</string>
+
+    <string name="quote_weak"> Great Job!\nYou made it 🙌</string>
+    <string name="quote_medium">Awesome!\nYou made it 💪</string>
+    <string name="quote_strong">Insane!\nYou made it 🥵</string>
+    <string name="circuit_complete_subtitle">Now here\'s a completely\n useless fact to use for\n your next icebreaker</string>
+    <string name="did_you_know">Did You Know . . .</string>
+
+    <!-- String Arrays -->
+    <string-array name="icon_files">
+        <item>drawable/ic_default_icon</item>
+        <item>drawable/ic_arm</item>
+        <item>drawable/ic_heart</item>
+        <item>drawable/ic_star</item>
+        <item>drawable/ic_home</item>
+        <item>drawable/ic_smartphone</item>
+        <item>drawable/ic_smartphone_2</item>
+        <item>drawable/ic_smartwatch</item>
+        <item>drawable/ic_laptop</item>
+        <item>drawable/ic_workout</item>
+        <item>drawable/ic_dumbbell</item>
+        <item>drawable/ic_sets</item>
+        <item>drawable/ic_kettlebell</item>
+        <item>drawable/ic_plates</item>
+        <item>drawable/ic_abs</item>
+        <item>drawable/ic_jump_rope</item>
+        <item>drawable/ic_shoes</item>
+        <item>drawable/ic_whistle</item>
+        <item>drawable/ic_gymnast</item>
+        <item>drawable/ic_mat</item>
+        <item>drawable/ic_resistance</item>
+        <item>drawable/ic_grippers</item>
+        <item>drawable/ic_trampoline</item>
+        <item>drawable/ic_outdoor</item>
+        <item>drawable/ic_gym_bag</item>
+        <item>drawable/ic_gym</item>
+        <item>drawable/ic_bike_machine</item>
+        <item>drawable/ic_bench_press</item>
+        <item>drawable/ic_treadmill</item>
+        <item>drawable/ic_machine</item>
+        <item>drawable/ic_bottle</item>
+    </string-array>
 </resources>
