@@ -168,7 +168,7 @@
             android:id="@+id/celebrate_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/celebrate_animation"
@@ -218,7 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/large_element_padding"
+                    android:layout_margin="@dimen/large_element_padding"
                     android:text="@string/did_you_know"
                     android:textColor="@color/white"
                     android:textSize="@dimen/huge_text"
@@ -230,7 +230,9 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="@dimen/large_element_padding"
-                    android:ellipsize="end"
+                    android:autoSizeMaxTextSize="@dimen/large_text"
+                    android:autoSizeMinTextSize="@dimen/smaller_text"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/medium_text"
