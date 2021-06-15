@@ -73,25 +73,6 @@ class CircuitTimerActivity : BaseActivity() {
         getFact()
     }
 
-    private fun getFact() {
-        val client = OkHttpClient()
-
-        thread {
-            val request = Request.Builder()
-                .url(getString(R.string.fact_api))
-                .build()
-
-            client.newCall(request).execute().use { response ->
-                if (response.isSuccessful) {
-                    val responseObj = JSONObject(response.body!!.string())
-                    fact = responseObj.getString("text")
-                } else {
-                    throw java.io.IOException("Unexpected code $response")
-                }
-            }
-        }
-    }
-
     private fun setupView() {
         bind.startButton.setOnClickListener {
             FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_STARTED, Bundle())
@@ -248,6 +229,25 @@ class CircuitTimerActivity : BaseActivity() {
             val thisTotal = circuit.sets!!.times(timeWork)
             val currTotal = PreferenceManager.get<Int>(Constants.TOTAL_TIME)
             PreferenceManager.put(currTotal!! + thisTotal, Constants.TOTAL_TIME)
+        }
+    }
+
+    private fun getFact() {
+        val client = OkHttpClient()
+
+        thread {
+            val request = Request.Builder()
+                .url(getString(R.string.fact_api))
+                .build()
+
+            client.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    val responseObj = JSONObject(response.body!!.string())
+                    fact = responseObj.getString("text")
+                } else {
+                    throw java.io.IOException("Unexpected code $response")
+                }
+            }
         }
     }
 
