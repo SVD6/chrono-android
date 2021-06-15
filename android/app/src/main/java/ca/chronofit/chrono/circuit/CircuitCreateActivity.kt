@@ -482,7 +482,6 @@ class CircuitCreateActivity : BaseActivity() {
         val intentAction = intent.action
         val intentData = intent.data
         if (Intent.ACTION_VIEW == intentAction) {
-
             intentData?.lastPathSegment?.also { recipeId ->
                 Uri.parse("http://www.chronofit.ca/shareCircuit")
                     .buildUpon()

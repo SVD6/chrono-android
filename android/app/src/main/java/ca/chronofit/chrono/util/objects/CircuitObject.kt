@@ -12,6 +12,6 @@ class CircuitObject {
     }
 
     fun shareString(): String {
-        return "Check out my Chrono Circuit: https://www.chronofit.ca/shareCircuit/name=$name&sets=$sets&work=$work&rest=$rest"
+        return "Check out my Chrono Circuit: http://www.chronofit.ca/shareCircuit/name=$name&sets=$sets&work=$work&rest=$rest"
     }
 }
