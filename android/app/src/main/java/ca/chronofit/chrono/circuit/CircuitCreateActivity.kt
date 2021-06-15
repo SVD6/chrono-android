@@ -3,8 +3,10 @@ package ca.chronofit.chrono.circuit
 import `in`.goodiebag.carouselpicker.CarouselPicker
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +50,7 @@ class CircuitCreateActivity : BaseActivity() {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_circuit_create)
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
-
+        handleIntent(intent)
         if (intent.getBooleanExtra("isEdit", false)) {
             isEdit = true
             editPosition = intent.getIntExtra("circuitPosition", -1)
@@ -296,6 +298,12 @@ class CircuitCreateActivity : BaseActivity() {
         builder.show()
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+
     // Floor to a multiple of timeChangeVal
     private fun floorVal(valToFloor: Int): Int {
         return (valToFloor / TIME_CHANGE_VALUE) * (TIME_CHANGE_VALUE)
@@ -468,6 +476,27 @@ class CircuitCreateActivity : BaseActivity() {
         bind.setNum.isCursorVisible = false
         bind.setRest.isCursorVisible = false
         bind.setWork.isCursorVisible = false
+    }
+
+    private fun handleIntent(intent: Intent) {
+        val intentAction = intent.action
+        val intentData = intent.data
+        if (Intent.ACTION_VIEW == intentAction) {
+
+            intentData?.lastPathSegment?.also { recipeId ->
+                Uri.parse("http://www.chronofit.ca/shareCircuit")
+                    .buildUpon()
+                    .appendPath(recipeId)
+                    .build().also { appData ->
+                        val toast = Toast.makeText(
+                            applicationContext,
+                            appData.toString(),
+                            Toast.LENGTH_LONG
+                        )
+                        toast.show()
+                    }
+            }
+        }
     }
 
     companion object {
