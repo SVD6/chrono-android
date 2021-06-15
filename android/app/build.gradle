@@ -67,6 +67,7 @@ dependencies {
     // Other
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.airbnb.android:lottie:3.6.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
     // Third Party Libraries
     implementation 'com.github.GoodieBag:CarouselPicker:v1.2'
