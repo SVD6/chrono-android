@@ -1,5 +1,6 @@
 package ca.chronofit.chrono.circuit
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
@@ -127,6 +128,26 @@ class CircuitTimerActivity : BaseActivity() {
 
         bind.closeButton.setOnClickListener { exitTimer() }
 
+        bind.celebrateAnimation.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator?) {
+                println("debug: animation started")
+                bind.celebrateAnimation.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                println("debug: animation ended")
+                bind.celebrateAnimation.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                println("debug: animation cancelled")
+            }
+
+            override fun onAnimationRepeat(animation: Animator?) {
+                println("debug: animation repeated")
+            }
+        })
+
         updateButtonUI()
         updateRestUI()
     }
@@ -203,6 +224,7 @@ class CircuitTimerActivity : BaseActivity() {
 
         FirebaseAnalytics.getInstance(this).logEvent(Events.CIRCUIT_COMPLETED, Bundle())
         playSound(Constants.SOUND_COMPLETE)
+
 
         bind.finishButton.setOnClickListener {
             setResult(Activity.RESULT_OK)

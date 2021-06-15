@@ -12,7 +12,7 @@
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/close_button"
@@ -168,10 +168,10 @@
             android:id="@+id/celebrate_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
+                android:id="@+id/celebrate_animation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -193,7 +193,6 @@
                     android:layout_marginVertical="@dimen/medium_element_padding"
                     android:gravity="center"
                     android:text="Awesome!\nYou made it"
-                    android:textColor="@color/weird_green"
                     android:textSize="@dimen/huge_text"
                     android:textStyle="bold" />
 
@@ -202,7 +201,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Now here's a completely\n useless fact to use for\n your next icebreaker"
-                    android:textColor="@color/weird_green"
                     android:textSize="@dimen/medium_text"
                     android:textStyle="bold" />
 
@@ -221,7 +219,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/large_element_padding"
                     android:text="Did You Know . . ."
-                    android:textColor="@color/weird_green"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/huge_text"
                     android:textStyle="bold" />
 
@@ -233,6 +231,7 @@
                     android:layout_marginHorizontal="@dimen/large_element_padding"
                     android:gravity="center"
                     android:maxLines="5"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/medium_text"
                     tools:text="When frightened, nine-banded armadillos will jump vertically about 3-4 feet in the air." />
 
@@ -254,7 +253,7 @@
                         android:letterSpacing="0"
                         android:text="Restart"
                         android:textAllCaps="false"
-                        android:textColor="#496263"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="@dimen/xl_medium_text"
                         app:cornerRadius="13dp" />
 
@@ -263,7 +262,7 @@
                         android:layout_width="125dp"
                         android:layout_height="60dp"
                         android:layout_margin="@dimen/medium_element_padding"
-                        android:backgroundTint="#496263"
+                        android:backgroundTint="@color/gradient_end"
                         android:fontFamily="@font/nunito_semibold"
                         android:letterSpacing="0"
                         android:text="Finish"
