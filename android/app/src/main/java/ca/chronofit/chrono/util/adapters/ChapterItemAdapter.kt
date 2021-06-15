@@ -12,13 +12,13 @@ import ca.chronofit.chrono.R
 import ca.chronofit.chrono.util.objects.CircuitObject
 import com.google.android.material.textview.MaterialTextView
 
-class CircuitViewAdapter(
+class ChapterItemAdapter(
     private val data: List<CircuitObject>,
     private val clickListener: (CircuitObject) -> Unit,
     private val menuClickListener: (Int) -> Unit,
     private val context: Context
 ) :
-    RecyclerView.Adapter<CircuitViewAdapter.CircuitViewHolder>() {
+    RecyclerView.Adapter<ChapterItemAdapter.CircuitViewHolder>() {
 
     class CircuitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val name: MaterialTextView = itemView.findViewById(R.id.circuit_name)
@@ -43,8 +43,8 @@ class CircuitViewAdapter(
             else
                 numSets.text = circuit.sets.toString() + " Sets"
 
-            timeRest.text = "Rest:  " + circuit.rest.toString() + "s"
-            timeWork.text = "Work:  " + circuit.work.toString() + "s"
+            timeRest.text = "Rest: " + circuit.rest.toString() + "s"
+            timeWork.text = "Work: " + circuit.work.toString() + "s"
 
             // Set Circuit Icon
             val icons: TypedArray = context.resources.obtainTypedArray(R.array.icon_files)
@@ -63,7 +63,7 @@ class CircuitViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CircuitViewHolder {
         val adapterLayout =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_circuit_card, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_circuit, parent, false)
         return CircuitViewHolder(adapterLayout)
     }
 

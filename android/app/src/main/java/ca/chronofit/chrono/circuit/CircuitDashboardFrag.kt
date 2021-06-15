@@ -19,7 +19,7 @@ import ca.chronofit.chrono.databinding.DialogAlertBinding
 import ca.chronofit.chrono.databinding.FragmentCircuitDashboardBinding
 import ca.chronofit.chrono.databinding.FragmentDashboardBottomSheetBinding
 import ca.chronofit.chrono.util.BaseActivity
-import ca.chronofit.chrono.util.adapters.CircuitViewAdapter
+import ca.chronofit.chrono.util.adapters.ChapterItemAdapter
 import ca.chronofit.chrono.util.constants.Constants
 import ca.chronofit.chrono.util.constants.Events
 import ca.chronofit.chrono.util.objects.CircuitObject
@@ -310,7 +310,7 @@ class CircuitDashboardFrag : Fragment() {
             bind.recyclerView.visibility = View.VISIBLE
             bind.emptyLayout.visibility = View.GONE
 
-            recyclerView.adapter = CircuitViewAdapter(
+            recyclerView.adapter = ChapterItemAdapter(
                 circuitsObject?.circuits!!,
                 { circuitObject: CircuitObject -> circuitClicked(circuitObject) },
                 { position: Int -> showMoreMenu(position) }, requireContext()
