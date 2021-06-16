@@ -8,6 +8,7 @@ import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -482,19 +483,18 @@ class CircuitCreateActivity : BaseActivity() {
         val intentAction = intent.action
         val intentData = intent.data
         if (Intent.ACTION_VIEW == intentAction) {
-            intentData?.lastPathSegment?.also { recipeId ->
-                Uri.parse("http://www.chronofit.ca/shareCircuit")
-                    .buildUpon()
-                    .appendPath(recipeId)
-                    .build().also { appData ->
-                        val toast = Toast.makeText(
-                            applicationContext,
-                            appData.toString(),
-                            Toast.LENGTH_LONG
-                        )
-                        toast.show()
-                    }
+            val name = intentData!!.getQueryParameter("name")
+            val sets = intentData.getQueryParameter("sets")
+            val work = intentData.getQueryParameter("work")
+            val rest = intentData.getQueryParameter("rest")
+            if (name != null) {
+                Log.e(null, name)
             }
+            bind.circuitName.setText(name)
+            bind.setNum.setText(sets)
+            bind.setWork.setText(work)
+            bind.setRest.setText(rest)
+
         }
     }
 
