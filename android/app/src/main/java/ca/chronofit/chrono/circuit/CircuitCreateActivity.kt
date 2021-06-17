@@ -52,11 +52,6 @@ class CircuitCreateActivity : BaseActivity() {
 
         iconNames = resources.obtainTypedArray(R.array.icon_files)
         handleIntent(intent)
-        if (intent.getBooleanExtra("isEdit", false)) {
-            isEdit = true
-            editPosition = intent.getIntExtra("circuitPosition", -1)
-            loadCircuitInfo(editPosition)
-        }
 
         bind.circuitName.addTextChangedListener {
             if (bind.circuitName.length() >= MAX_CHARACTERS) {
@@ -146,6 +141,11 @@ class CircuitCreateActivity : BaseActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
     }
 
     private fun saveCircuit() {
@@ -305,10 +305,6 @@ class CircuitCreateActivity : BaseActivity() {
         builder.show()
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
-    }
 
     // Floor to a multiple of timeChangeVal
     private fun floorVal(valToFloor: Int): Int {
@@ -510,6 +506,10 @@ class CircuitCreateActivity : BaseActivity() {
             bind.setNum.setText(sets)
             bind.setWork.setText(work)
             bind.setRest.setText(rest)
+        } else if (intent.getBooleanExtra("isEdit", false)) {
+            isEdit = true
+            editPosition = intent.getIntExtra("circuitPosition", -1)
+            loadCircuitInfo(editPosition)
         }
     }
 

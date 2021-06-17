@@ -54,7 +54,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if(intent.getIntExtra("deeplinkResult", 0) == Activity.RESULT_OK){
+        if(intent.getIntExtra("deeplinkResult", Activity.RESULT_CANCELED) == Activity.RESULT_OK){
             Toast.makeText(applicationContext, "Circuit added and saved!", Toast.LENGTH_SHORT)
                 .show()
         }
