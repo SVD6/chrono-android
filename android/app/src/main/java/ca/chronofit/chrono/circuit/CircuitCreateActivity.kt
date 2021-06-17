@@ -496,7 +496,7 @@ class CircuitCreateActivity : BaseActivity() {
         val intentAction = intent.action
         val intentData = intent.data
         if (Intent.ACTION_VIEW == intentAction) {
-            val uri = Uri.parse(intentData.toString().replace(" ", ""))
+            val uri = Uri.parse(intentData.toString())
             val name = uri!!.getQueryParameter("name")
             val sets = uri.getQueryParameter("sets")
             val work = uri.getQueryParameter("work")
