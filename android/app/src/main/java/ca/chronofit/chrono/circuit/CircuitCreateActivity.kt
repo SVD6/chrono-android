@@ -72,15 +72,14 @@ class CircuitCreateActivity : BaseActivity() {
 
         // Button Listeners
         bind.discardButton.setOnClickListener {
-            setResult(Activity.RESULT_CANCELED)
-            finish()
+            navBack(Activity.RESULT_CANCELED)
         }
 
         bind.saveButton.setOnClickListener {
             if (validateInputs()) {
                 FirebaseAnalytics.getInstance(this).logEvent(Events.CREATE_COMPLETE, Bundle())
                 saveCircuit()
-                navBack()
+                navBack(Activity.RESULT_OK)
             }
         }
 
@@ -143,7 +142,7 @@ class CircuitCreateActivity : BaseActivity() {
 
     override fun onBackPressed() {
         if (isTaskRoot) {
-            navBack()
+            navBack(Activity.RESULT_CANCELED)
         } else {
             super.onBackPressed()
         }
@@ -173,7 +172,6 @@ class CircuitCreateActivity : BaseActivity() {
             circuits!!.circuits!!.add(circuit)
         }
         PreferenceManager.put(circuits, Constants.CIRCUITS)
-        navBack()
     }
 
     private fun loadCircuitInfo(position: Int) {
@@ -479,12 +477,13 @@ class CircuitCreateActivity : BaseActivity() {
         }
     }
 
-    private fun navBack() {
+    private fun navBack(result: Int?) {
         if (!isTaskRoot) {
-            setResult(Activity.RESULT_OK)
+            setResult(result!!)
             finish()
-        }else{
+        } else {
             val navToMainActivity = Intent(this, MainActivity::class.java)
+            navToMainActivity.putExtra("deeplinkResult", result)
             startActivity(navToMainActivity)
             finish()
         }
@@ -501,7 +500,7 @@ class CircuitCreateActivity : BaseActivity() {
         val intentAction = intent.action
         val intentData = intent.data
         if (Intent.ACTION_VIEW == intentAction) {
-            val uri = Uri.parse(intentData.toString())
+            val uri = Uri.parse(intentData.toString().replace(" ", ""))
             val name = uri!!.getQueryParameter("name")
             val sets = uri.getQueryParameter("sets")
             val work = uri.getQueryParameter("work")
