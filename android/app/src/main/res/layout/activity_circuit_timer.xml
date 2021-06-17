@@ -35,11 +35,10 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/current_state"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
                     android:layout_marginHorizontal="@dimen/medium_element_padding"
-                    android:layout_marginVertical="@dimen/medium_element_padding"
                     android:fontFamily="@font/nunito_bold"
                     android:text="@string/lets_go"
                     android:textAllCaps="true"

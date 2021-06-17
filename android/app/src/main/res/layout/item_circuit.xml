@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/circuit_card_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+        android:layout_marginBottom="@dimen/xs_medium_element_padding"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="@dimen/xs_medium_element_padding"
+        app:cardElevation="@dimen/tiny_element_padding">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/xs_medium_element_padding">
+
+            <ImageView
+                android:id="@+id/circuit_icon"
+                android:layout_width="@dimen/circuit_icon_display"
+                android:layout_height="@dimen/circuit_icon_display"
+                android:contentDescription="@string/todo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_dumbbell" />
+
+            <ImageView
+                android:id="@+id/more_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/header_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/circuit_icon"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/circuit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/custom_padding_4"
+                    android:layout_marginEnd="@dimen/xs_large_element_padding"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:textSize="@dimen/xl_medium_text"
+                    tools:text="Title of Circuit" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/num_sets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/custom_padding_4"
+                    android:alpha="0.6"
+                    tools:text="6 sets" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/work_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/custom_padding_4"
+                android:layout_marginTop="@dimen/medium_element_padding"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/circuit_icon"
+                app:layout_constraintTop_toBottomOf="@+id/header_layout">
+
+                <ImageView
+                    android:layout_width="@dimen/medium_element_padding"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_run" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/work_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    tools:text="Work: 60s" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_element_padding"
+                android:layout_marginEnd="@dimen/medium_element_padding"
+                android:layout_toRightOf="@+id/work_layout"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header_layout">
+
+                <ImageView
+                    android:layout_width="@dimen/medium_element_padding"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/tiny_element_padding"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_restore" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/rest_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    tools:text="Rest: 60s" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
