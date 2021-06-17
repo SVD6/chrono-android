@@ -8,7 +8,6 @@ import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -17,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
+import ca.chronofit.chrono.MainActivity
 import ca.chronofit.chrono.R
 import ca.chronofit.chrono.databinding.ActivityCircuitCreateBinding
 import ca.chronofit.chrono.databinding.DialogSelectIconBinding
@@ -80,6 +80,7 @@ class CircuitCreateActivity : BaseActivity() {
             if (validateInputs()) {
                 FirebaseAnalytics.getInstance(this).logEvent(Events.CREATE_COMPLETE, Bundle())
                 saveCircuit()
+                navBack()
             }
         }
 
@@ -140,6 +141,14 @@ class CircuitCreateActivity : BaseActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        if (isTaskRoot) {
+            navBack()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun saveCircuit() {
         val circuit = CircuitObject()
         circuit.name = bind.circuitName.text.toString()
@@ -164,8 +173,7 @@ class CircuitCreateActivity : BaseActivity() {
             circuits!!.circuits!!.add(circuit)
         }
         PreferenceManager.put(circuits, Constants.CIRCUITS)
-        setResult(Activity.RESULT_OK)
-        finish()
+        navBack()
     }
 
     private fun loadCircuitInfo(position: Int) {
@@ -303,7 +311,6 @@ class CircuitCreateActivity : BaseActivity() {
         super.onNewIntent(intent)
         handleIntent(intent)
     }
-
 
     // Floor to a multiple of timeChangeVal
     private fun floorVal(valToFloor: Int): Int {
@@ -472,6 +479,17 @@ class CircuitCreateActivity : BaseActivity() {
         }
     }
 
+    private fun navBack() {
+        if (!isTaskRoot) {
+            setResult(Activity.RESULT_OK)
+            finish()
+        }else{
+            val navToMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(navToMainActivity)
+            finish()
+        }
+    }
+
     private fun hideCursors() {
         bind.circuitName.isCursorVisible = false
         bind.setNum.isCursorVisible = false
@@ -483,18 +501,16 @@ class CircuitCreateActivity : BaseActivity() {
         val intentAction = intent.action
         val intentData = intent.data
         if (Intent.ACTION_VIEW == intentAction) {
-            val name = intentData!!.getQueryParameter("name")
-            val sets = intentData.getQueryParameter("sets")
-            val work = intentData.getQueryParameter("work")
-            val rest = intentData.getQueryParameter("rest")
-            if (name != null) {
-                Log.e(null, name)
-            }
+            val uri = Uri.parse(intentData.toString())
+            val name = uri!!.getQueryParameter("name")
+            val sets = uri.getQueryParameter("sets")
+            val work = uri.getQueryParameter("work")
+            val rest = uri.getQueryParameter("rest")
+
             bind.circuitName.setText(name)
             bind.setNum.setText(sets)
             bind.setWork.setText(work)
             bind.setRest.setText(rest)
-
         }
     }
 
