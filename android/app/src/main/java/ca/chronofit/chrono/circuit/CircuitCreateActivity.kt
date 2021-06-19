@@ -33,7 +33,6 @@ class CircuitCreateActivity : BaseActivity() {
     private var isEdit: Boolean = false
     private var editPosition: Int = -1
     private lateinit var iconNames: TypedArray
-
     private var showMinSetValueMsg = true
     private var showMinWorkValueMsg = true
     private var showMinRestValueMsg = true

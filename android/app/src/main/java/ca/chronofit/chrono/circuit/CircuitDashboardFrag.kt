@@ -84,18 +84,15 @@ class CircuitDashboardFrag : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 Constants.DASH_TO_CREATE -> {
-                    // Circuit Added
                     loadData()
                     Toast.makeText(requireContext(), "Circuit added and saved!", Toast.LENGTH_SHORT)
                         .show()
                 }
                 Constants.DASH_TO_TIMER -> {
-                    // Circuit Completed (Circuit Timer)
                     // Ideal spot to ask for a rating after a threshold of timers have been run
                     checkForReview()
                 }
                 Constants.DASH_TO_EDIT -> {
-                    // Circuit Edited
                     loadData()
                     Toast.makeText(
                         requireContext(),
@@ -193,12 +190,10 @@ class CircuitDashboardFrag : Fragment() {
     private fun showMoreMenu(position: Int) {
         selectedPosition = position
 
-        // Roll out the bottom sheet as a dialog
         val bottomSheetFrag = BottomSheetDialog(requireContext())
         val fragBinding =
             FragmentDashboardBottomSheetBinding.inflate(LayoutInflater.from(requireContext()))
 
-        // Layout logic
         fragBinding.deleteLayout.setOnClickListener {
             deleteCircuit(bottomSheetFrag, position)
         }
@@ -223,7 +218,6 @@ class CircuitDashboardFrag : Fragment() {
             startActivity(Intent.createChooser(sendIntent, null))
         }
 
-        // Show Bottom Sheet
         bottomSheetFrag.setContentView(fragBinding.root)
         bottomSheetFrag.show()
     }
@@ -234,24 +228,20 @@ class CircuitDashboardFrag : Fragment() {
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(requireContext()))
 
-        // Set Dialog Views
         dialogBinding.dialogTitle.text =
             "Delete " + circuitsObject?.circuits!![position].name
         dialogBinding.dialogSubtitle.text = getString(R.string.delete_circuit_subtitle)
         dialogBinding.confirm.text = getString(R.string.delete)
         dialogBinding.cancel.text = getString(R.string.cancel)
 
-        // Button Logic
         dialogBinding.cancel.setOnClickListener {
             builder.dismiss()
         }
 
         dialogBinding.confirm.setOnClickListener {
-            // Dismiss popups
             builder.dismiss()
             dialog!!.dismiss()
 
-            // Remove from model and recyclerview
             circuitsObject?.circuits?.remove(circuitsObject?.circuits!![position])
             recyclerView.adapter?.notifyItemRemoved(position)
             recyclerView.adapter?.notifyItemRangeChanged(position, circuitsObject?.circuits!!.size)
@@ -260,17 +250,14 @@ class CircuitDashboardFrag : Fragment() {
                 loadEmptyUI()
             }
 
-            // Save updated list in local storage
             PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
         }
 
-        // Display the Dialog
         builder.setView(dialogBinding.root)
         builder.show()
     }
 
     private fun observeSettings() {
-        // Retrieve Settings if they exist
         if (PreferenceManager.get<Int>(Constants.GET_READY_SETTING) != null) {
             readyTime = PreferenceManager.get<Int>(Constants.GET_READY_SETTING)!!
         }
@@ -285,7 +272,6 @@ class CircuitDashboardFrag : Fragment() {
 
         soundEffect = PreferenceManager.get(Constants.SOUND_EFFECT_SETTING).replace("\"", "")
 
-        // Observe Settings
         settingsViewModel.getReadyTime.observe(viewLifecycleOwner, { _readyTime ->
             readyTime = (_readyTime.substring(0, _readyTime.length - 1)).toInt()
         })
