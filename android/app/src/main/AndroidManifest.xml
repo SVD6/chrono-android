@@ -32,7 +32,18 @@
         <activity
             android:name=".circuit.CircuitCreateActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="chronofit.ca"
+                    android:scheme="https"
+                    android:pathPrefix="/circuitShare"
+                    />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".circuit.CircuitTimerActivity"
             android:screenOrientation="portrait" />

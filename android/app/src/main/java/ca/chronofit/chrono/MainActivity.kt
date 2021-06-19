@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -28,6 +29,7 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -99,6 +101,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         // Check for an Update
         checkForUpdate()
+        Firebase.dynamicLinks.getDynamicLink(intent).addOnSuccessListener (this){ pendingDynamicLinkData ->
+            var deepLink:Uri? = null
+            var parameter: String? = null
+            if (pendingDynamicLinkData != null){
+                deepLink = pendingDynamicLinkData.link
+                parameter = pendingDynamicLinkData.link?.getQueryParameter("name")
+            }
+            val toast = Toast.makeText(this, parameter.toString(),Toast.LENGTH_LONG)
+            toast.show()
+        }
     }
 
     private fun changeDarkMode(mode: String) {

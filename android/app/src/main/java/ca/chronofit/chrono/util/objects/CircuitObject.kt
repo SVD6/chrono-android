@@ -12,6 +12,11 @@ class CircuitObject {
     }
 
     fun shareString(): String {
-        return "Check out my Chrono Circuit: $name\nSets: $sets\nWork: $work sec\nRest: $rest sec"
+        return "Check out my Chrono Circuit: https://chronofit.page.link/circuitShare?name=\"$name\"\nSets=\"$sets\"\nWork=\"$work\"\nRest=\"$rest\""
     }
+
+    fun shareURL(): String {
+        return "https://www.chronofit.ca/?name=$name&Sets=$sets&Work=$work&Rest=$rest"
+    }
+
 }
