@@ -13,7 +13,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -101,16 +100,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         // Check for an Update
         checkForUpdate()
-        Firebase.dynamicLinks.getDynamicLink(intent).addOnSuccessListener (this){ pendingDynamicLinkData ->
-            var deepLink:Uri? = null
-            var parameter: String? = null
-            if (pendingDynamicLinkData != null){
-                deepLink = pendingDynamicLinkData.link
-                parameter = pendingDynamicLinkData.link?.getQueryParameter("name")
-            }
-            val toast = Toast.makeText(this, parameter.toString(),Toast.LENGTH_LONG)
-            toast.show()
-        }
+        handleIntent()
     }
 
     private fun changeDarkMode(mode: String) {
@@ -269,6 +259,41 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Display the Dialog
         builder.setView(dialogBinding.root)
         builder.show()
+    }
+
+    private fun handleIntent() {
+        Firebase.dynamicLinks.getDynamicLink(intent)
+            .addOnSuccessListener(this) { pendingDynamicLinkData ->
+                var deepLink: Uri? = null
+                if (pendingDynamicLinkData != null) {
+                    deepLink = pendingDynamicLinkData.link
+                    if (deepLink.toString().contains(
+                            getString(R.string.share_circuit_url_suffix),
+                            ignoreCase = true
+                        )
+                    ) {
+                        val circuitName =
+                            pendingDynamicLinkData.link?.getQueryParameter(getString(R.string.name))
+                                .orEmpty()
+                                .replace("\"", "")
+                        val circuitSets =
+                            pendingDynamicLinkData.link?.getQueryParameter(getString(R.string.sets))
+                                .orEmpty().replace("\"", "")
+                        val circuitWork =
+                            pendingDynamicLinkData.link?.getQueryParameter(getString(R.string.work))
+                                .orEmpty().replace("\"", "")
+                        val circuitRest =
+                            pendingDynamicLinkData.link?.getQueryParameter(getString(R.string.rest))
+                                .orEmpty().replace("\"", "")
+                        frag2.startCircuitCreateActivity(
+                            circuitName,
+                            circuitSets,
+                            circuitWork,
+                            circuitRest
+                        )
+                    }
+                }
+            }
     }
 
     override fun onSaveInstanceState(state: Bundle) {

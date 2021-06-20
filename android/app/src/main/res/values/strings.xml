@@ -29,6 +29,7 @@
     <string name="workout">Workout</string>
     <string name="get_ready">Get Ready</string>
     <string name="circuit_name">Circuit Name</string>
+    <string name="name">Name</string>
 
     <string name="lets_go">Let\'s Go!</string>
     <string name="settings">Settings</string>
@@ -160,4 +161,9 @@
     <string name="_0h0m">0h 0m</string>
     <string name="_0h0m0s">0h 0m 0s</string>
     <string name="discord">Discord</string>
+
+    <!--    DeepLinking constants-->
+    <string name="share_circuit_url_suffix">shareCircuit</string>
+    <string name="is_circuit_shared">isCircuitShared</string>
+
 </resources>

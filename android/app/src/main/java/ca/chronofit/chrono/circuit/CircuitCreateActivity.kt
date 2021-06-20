@@ -55,6 +55,13 @@ class CircuitCreateActivity : BaseActivity() {
             loadCircuitInfo(editPosition)
         }
 
+        if (intent.getBooleanExtra(getString(R.string.is_circuit_shared), false)) {
+            bind.circuitName.setText(intent.getStringExtra(getString(R.string.circuit_name)))
+            bind.setNum.setText(intent.getStringExtra(getString(R.string.sets)))
+            bind.setWork.setText(intent.getStringExtra(getString(R.string.work)))
+            bind.setRest.setText(intent.getStringExtra(getString(R.string.rest)))
+        }
+
         bind.circuitName.addTextChangedListener {
             if (bind.circuitName.length() >= MAX_CHARACTERS) {
                 bind.circuitNameWarning.visibility = View.VISIBLE

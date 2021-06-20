@@ -111,6 +111,20 @@ class CircuitDashboardFrag : Fragment() {
         }
     }
 
+    fun startCircuitCreateActivity(name: String, sets: String, work: String, rest: String) {
+        val startIntent = Intent(requireContext(), CircuitCreateActivity::class.java)
+        startIntent.putExtra(getString(R.string.is_circuit_shared), true)
+        startIntent.putExtra(getString(R.string.circuit_name), name)
+        startIntent.putExtra(getString(R.string.sets), sets)
+        startIntent.putExtra(getString(R.string.work), work)
+        startIntent.putExtra(getString(R.string.rest), rest)
+        startActivityForResult(
+            startIntent,
+            Constants.DASH_TO_CREATE
+        )
+    }
+
+
     @Suppress("NAME_SHADOWING")
     private fun checkForReview() {
         if ((PreferenceManager.get<Int>(Constants.NUM_COMPLETE) != null) && (PreferenceManager.get<Int>(
@@ -221,7 +235,7 @@ class CircuitDashboardFrag : Fragment() {
                 action = Intent.ACTION_SEND
                 putExtra(
                     Intent.EXTRA_TEXT,
-                    url
+                    "Check out my Chrono Circuit: $url"
                 )
 
                 type = "text/plain"
@@ -333,7 +347,7 @@ class CircuitDashboardFrag : Fragment() {
 
     private fun createLink(position: Int): String {
         val dynamicLink = Firebase.dynamicLinks.dynamicLink {
-            link = Uri.parse(circuitsObject!!.circuits?.get(position)!!.shareURL())
+            link = Uri.parse(circuitsObject!!.circuits?.get(position)!!.generateDeeplinkURL())
             domainUriPrefix = "https://chronofit.page.link/"
             androidParameters {
             }
