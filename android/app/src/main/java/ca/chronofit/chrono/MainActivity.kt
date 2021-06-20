@@ -264,7 +264,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun handleIntent() {
         Firebase.dynamicLinks.getDynamicLink(intent)
             .addOnSuccessListener(this) { pendingDynamicLinkData ->
-                var deepLink: Uri? = null
+                val deepLink: Uri?
                 if (pendingDynamicLinkData != null) {
                     deepLink = pendingDynamicLinkData.link
                     if (deepLink.toString().contains(
