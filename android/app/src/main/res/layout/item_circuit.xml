@@ -119,7 +119,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     tools:text="Rest: 60s" />
+
             </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
+
 </layout>
