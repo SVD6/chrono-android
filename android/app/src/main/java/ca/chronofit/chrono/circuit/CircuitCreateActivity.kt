@@ -349,19 +349,10 @@ class CircuitCreateActivity : BaseActivity() {
                 ).show()
                 showMinSetValueMsg = false
             }
+        } else if (currentText == "1") {
+            bind.setNum.setText("")
         } else {
-            if (currentText.toInt() > 0) {
-                bind.setNum.setText(((currentText.toInt() - 1)).toString())
-            } else {
-                if (showMinSetValueMsg) {
-                    Toast.makeText(
-                        this,
-                        "Can't have a negative number of sets..? " + ("\uD83E\uDD14"),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    showMinSetValueMsg = false
-                }
-            }
+            bind.setNum.setText(((currentText.toInt() - 1)).toString())
         }
     }
 
@@ -398,19 +389,10 @@ class CircuitCreateActivity : BaseActivity() {
                 ).show()
                 showMinWorkValueMsg = false
             }
+        } else if (currentText.toInt() <= 5) {
+            bind.setWork.setText("")
         } else {
-            if (currentText.toInt() > 0) {
-                bind.setWork.setText(roundTimeDown(currentText.toInt()).toString())
-            } else {
-                if (showMinWorkValueMsg) {
-                    Toast.makeText(
-                        this,
-                        "Can't have a negative time for work " + ("\uD83D\uDE2C"),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    showMinWorkValueMsg = false
-                }
-            }
+            bind.setWork.setText(roundTimeDown(currentText.toInt()).toString())
         }
     }
 
@@ -447,19 +429,10 @@ class CircuitCreateActivity : BaseActivity() {
                 ).show()
                 showMinRestValueMsg = false
             }
+        } else if (currentText.toInt() <= 5) {
+            bind.setRest.setText("")
         } else {
-            if (currentText.toInt() > 0) {
-                bind.setRest.setText(roundTimeDown(currentText.toInt()).toString())
-            } else {
-                if (showMinRestValueMsg) {
-                    Toast.makeText(
-                        this,
-                        "Can't have a negative time for rest " + ("\uD83D\uDE2C"),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    showMinRestValueMsg = false
-                }
-            }
+            bind.setRest.setText(roundTimeDown(currentText.toInt()).toString())
         }
     }
 
