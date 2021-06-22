@@ -12,7 +12,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/opensans_bold"
             android:gravity="center"
-            android:padding="@dimen/medium_element_padding"
+            android:paddingTop="@dimen/medium_element_padding"
+            android:paddingBottom="@dimen/small_element_padding"
             android:text="@string/stopwatch"
             android:textSize="@dimen/xl_huge_text" />
 
@@ -31,6 +32,7 @@
                 android:fadingEdge="vertical"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager" />
+
         </com.bosphere.fadingedgelayout.FadingEdgeLayout>
 
         <LinearLayout
@@ -73,6 +75,7 @@
                     android:textSize="@dimen/xl_medium_text"
                     android:textStyle="bold"
                     app:cornerRadius="13dp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -113,6 +116,7 @@
                     app:cornerRadius="13dp">
 
                 </com.google.android.material.button.MaterialButton>
+
             </LinearLayout>
 
             <LinearLayout
@@ -153,7 +157,11 @@
                     app:cornerRadius="13dp">
 
                 </com.google.android.material.button.MaterialButton>
+
             </LinearLayout>
+
         </LinearLayout>
+
     </RelativeLayout>
+
 </layout>

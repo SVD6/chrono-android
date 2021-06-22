@@ -3,380 +3,387 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/settings_header"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:fontFamily="@font/opensans_bold"
-            android:gravity="center"
-            android:padding="@dimen/medium_element_padding"
-            android:text="@string/settings"
-            android:textSize="@dimen/xl_huge_text" />
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/medium_element_padding"
+            android:scrollbars="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/settings_header">
-
-            <LinearLayout
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/settings_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/medium_element_padding">
+                android:fontFamily="@font/opensans_bold"
+                android:gravity="center"
+                android:paddingTop="@dimen/medium_element_padding"
+                android:paddingBottom="@dimen/small_element_padding"
+                android:text="@string/settings"
+                android:textSize="@dimen/xl_huge_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding"
+                android:text="@string/preferences"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/dark_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/dark_mode_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/dark_mode"
+                    android:textSize="@dimen/large_text" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/dark_mode_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.8"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:gravity="end"
+                    android:paddingHorizontal="@dimen/small_element_padding"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:textSize="@dimen/medium_text" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding"
-                    android:text="@string/preferences"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold" />
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/notifications"
+                    android:textSize="@dimen/large_text" />
 
-                <RelativeLayout
-                    android:id="@+id/dark_mode"
-                    android:layout_width="match_parent"
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/notification_switch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:enabled="true"
+                    app:useMaterialThemeColors="false"
+                    tools:ignore="RelativeOverlap" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/dark_mode_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/dark_mode"
-                        android:textSize="@dimen/large_text" />
+            </RelativeLayout>
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/dark_mode_display"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:alpha="0.8"
-                        android:fontFamily="@font/nunito_semibold"
-                        android:gravity="end"
-                        android:paddingHorizontal="@dimen/small_element_padding"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:textSize="@dimen/medium_text" />
-                </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_element_padding"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding"
+                android:text="@string/circuit_timer"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/notifications"
-                        android:textSize="@dimen/large_text" />
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/notification_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:enabled="true"
-                        app:useMaterialThemeColors="false"
-                        tools:ignore="RelativeOverlap" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
+            <RelativeLayout
+                android:id="@+id/get_ready_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_element_padding"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding"
-                    android:text="@string/circuit_timer"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold" />
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/get_ready_time"
+                    android:textSize="@dimen/large_text" />
 
-                <RelativeLayout
-                    android:id="@+id/get_ready_time"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/ready_time_display"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
+                    android:alpha="0.8"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:gravity="end"
+                    android:paddingHorizontal="@dimen/small_element_padding"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:textSize="@dimen/medium_text" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/get_ready_time"
-                        android:textSize="@dimen/large_text" />
+            </RelativeLayout>
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/ready_time_display"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.8"
-                        android:fontFamily="@font/nunito_semibold"
-                        android:gravity="end"
-                        android:paddingHorizontal="@dimen/small_element_padding"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:textSize="@dimen/medium_text" />
-                </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/skip_last_rest"
-                        android:textSize="@dimen/large_text" />
-
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:id="@+id/last_rest_switch"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/small_element_padding"
-                        android:gravity="center" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/audio_prompts"
-                        android:textSize="@dimen/large_text" />
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/audio_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:enabled="true"
-                        app:useMaterialThemeColors="false" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
-
-                <RelativeLayout
-                    android:id="@+id/sound_effect"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/sound_effect_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/sound_effect"
-                        android:textSize="@dimen/large_text" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/sound_effect_display"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:alpha="0.8"
-                        android:fontFamily="@font/nunito_semibold"
-                        android:gravity="end"
-                        android:paddingHorizontal="@dimen/small_element_padding"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:textSize="@dimen/medium_text" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_element_padding"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding"
-                    android:text="@string/about"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold" />
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/skip_last_rest"
+                    android:textSize="@dimen/large_text" />
 
-                <RelativeLayout
-                    android:id="@+id/get_help"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/last_rest_switch"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/small_element_padding"
+                    android:gravity="center" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        style="@style/Widget.MaterialComponents.TextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/get_help"
-                        android:textSize="@dimen/large_text" />
+            </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/todo"
-                        android:paddingHorizontal="@dimen/tiny_element_padding"
-                        android:src="@drawable/ic_help"
-                        app:tint="@color/reset_grey" />
-                </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
-
-                <RelativeLayout
-                    android:id="@+id/rate_app"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        style="@style/Widget.MaterialComponents.TextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/rate_app"
-                        android:textSize="@dimen/large_text" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/todo"
-                        android:src="@drawable/ic_star_rate"
-                        app:tint="@color/reset_grey" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
-
-                <RelativeLayout
-                    android:id="@+id/join_discord"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/discord"
-                        android:textSize="@dimen/large_text" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/todo"
-                        android:paddingHorizontal="@dimen/tiny_element_padding"
-                        android:src="@drawable/ic_discord_logo"
-                        app:tint="@color/reset_grey" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
-                    android:background="@color/grey_light_divider" />
-
-                <RelativeLayout
-                    android:id="@+id/privacy_policy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/xs_medium_element_padding">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingVertical="@dimen/medium_element_padding"
-                        android:text="@string/privacy_policy"
-                        android:textSize="@dimen/large_text" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/todo"
-                        android:paddingHorizontal="@dimen/tiny_element_padding"
-                        android:src="@drawable/ic_lock"
-                        app:tint="@color/reset_grey" />
-                </RelativeLayout>
-
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/version_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/small_element_padding"
-                    android:alpha="0.7"
-                    android:gravity="center"
-                    android:padding="@dimen/small_element_padding"
-                    android:textSize="@dimen/smaller_text" />
-            </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/audio_prompts"
+                    android:textSize="@dimen/large_text" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/audio_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:enabled="true"
+                    app:useMaterialThemeColors="false" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
+
+            <RelativeLayout
+                android:id="@+id/sound_effect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/sound_effect_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/sound_effect"
+                    android:textSize="@dimen/large_text" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/sound_effect_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.8"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:gravity="end"
+                    android:paddingHorizontal="@dimen/small_element_padding"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:textSize="@dimen/medium_text" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_element_padding"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding"
+                android:text="@string/about"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/get_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/Widget.MaterialComponents.TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/get_help"
+                    android:textSize="@dimen/large_text" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/todo"
+                    android:paddingHorizontal="@dimen/tiny_element_padding"
+                    android:src="@drawable/ic_help"
+                    app:tint="@color/reset_grey" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
+
+            <RelativeLayout
+                android:id="@+id/rate_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/Widget.MaterialComponents.TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/rate_app"
+                    android:textSize="@dimen/large_text" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_star_rate"
+                    app:tint="@color/reset_grey" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
+
+            <RelativeLayout
+                android:id="@+id/join_discord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/discord"
+                    android:textSize="@dimen/large_text" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/todo"
+                    android:paddingHorizontal="@dimen/tiny_element_padding"
+                    android:src="@drawable/ic_discord_logo"
+                    app:tint="@color/reset_grey" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/xs_medium_element_padding"
+                android:background="@color/grey_light_divider" />
+
+            <RelativeLayout
+                android:id="@+id/privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/xs_medium_element_padding">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingVertical="@dimen/medium_element_padding"
+                    android:text="@string/privacy_policy"
+                    android:textSize="@dimen/large_text" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/todo"
+                    android:paddingHorizontal="@dimen/tiny_element_padding"
+                    android:src="@drawable/ic_lock"
+                    app:tint="@color/reset_grey" />
+
+            </RelativeLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/version_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/small_element_padding"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="@dimen/small_element_padding"
+                android:textSize="@dimen/smaller_text" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </layout>
