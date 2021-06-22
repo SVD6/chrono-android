@@ -17,17 +17,52 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/circuits_header"
+                    android:id="@+id/page_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans_bold"
                     android:gravity="center"
-                    android:padding="@dimen/medium_element_padding"
+                    android:paddingTop="@dimen/medium_element_padding"
+                    android:paddingBottom="@dimen/small_element_padding"
                     android:text="@string/circuits"
                     android:textSize="@dimen/xl_huge_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/sort_chips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/medium_element_padding"
+                    app:checkedChip="@+id/chip_popular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/page_header"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_popular"
+                        style="@style/CustomChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/popularity" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_date"
+                        style="@style/CustomChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recently_added" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_alphabetical"
+                        style="@style/CustomChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/a_to_z" />
+
+                </com.google.android.material.chip.ChipGroup>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
@@ -35,9 +70,8 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/xs_small_element_padding"
                     app:layoutManager="LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/circuits_header"
+                    app:layout_constraintTop_toBottomOf="@+id/sort_chips"
                     tools:listitem="@layout/item_circuit" />
-
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/empty_layout"
@@ -46,11 +80,13 @@
                     android:layout_marginTop="@dimen/huge_element_padding"
                     android:gravity="center"
                     android:padding="@dimen/medium_element_padding"
-                    android:text="\uD83D\uDE31 \uD83D\uDE31 \uD83D\uDE31 \nYou don't have any created Circuits!"
+                    android:text="@string/empty_dashboard_text"
                     android:textSize="@dimen/xl_medium_text"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/circuits_header" />
+                    app:layout_constraintTop_toBottomOf="@id/page_header" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

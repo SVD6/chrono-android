@@ -62,4 +62,8 @@
         <item name="cornerSizeTopLeft">@dimen/xs_large_element_padding</item>
     </style>
 
+    <style name="CustomChip" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/circuit_sort_chips</item>
+    </style>
+
 </resources>

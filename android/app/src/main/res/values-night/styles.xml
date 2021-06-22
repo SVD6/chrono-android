@@ -24,4 +24,9 @@
     <style name="LighterText" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/darkTextSecondary</item>
     </style>
+
+    <style name="CustomChip" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/circuit_sort_chips_dark</item>
+    </style>
+
 </resources>
