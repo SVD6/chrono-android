@@ -181,14 +181,14 @@ class SettingsFrag : Fragment() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.app_rating_primary_link) + "$packageName")
+                        Uri.parse(getString(R.string.app_rating_primary_link) + packageName)
                     )
                 )
             } catch (e: ActivityNotFoundException) {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.app_rating_secondary_link) + "$packageName")
+                        Uri.parse(getString(R.string.app_rating_secondary_link) + packageName)
                     )
                 )
             }
