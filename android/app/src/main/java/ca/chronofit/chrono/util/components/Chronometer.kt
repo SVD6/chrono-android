@@ -22,7 +22,7 @@ class Chronometer @JvmOverloads constructor(
     private val notification = SwatchNotificationManager(context!!)
     private var notificationEnabled: Boolean? = null
     private var notificationTime = ""
-    private val swPeriod = 10.toLong() // sw period in milliseconds
+    private val swPeriod = 10.toLong()
     private var prevSec = -1L
     private var defaultTime = "00:00.00"
     private var running = false
@@ -49,7 +49,6 @@ class Chronometer @JvmOverloads constructor(
         }
     }
 
-
     private fun updateText(time: String) {
         text = time
     }
@@ -60,7 +59,6 @@ class Chronometer @JvmOverloads constructor(
             startedTime = SystemClock.elapsedRealtime()
             val handler = Handler(Looper.getMainLooper())
 
-            // Runnable calls itself every 10 ms
             runnable = Runnable {
                 if (running) {
                     elapsedTime =
@@ -110,5 +108,4 @@ class Chronometer @JvmOverloads constructor(
     private fun closeNotification() {
         NotificationManagerCompat.from(context).cancel(Constants.SWATCH_NOTIFICATION_ID)
     }
-
 }
