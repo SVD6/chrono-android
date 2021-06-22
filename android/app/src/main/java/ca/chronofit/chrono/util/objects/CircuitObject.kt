@@ -5,6 +5,7 @@ class CircuitObject {
     var sets: Int? = null
     var work: Int? = null
     var rest: Int? = null
+    var count: Int? = null
     var iconId: Int? = null
 
     override fun toString(): String {

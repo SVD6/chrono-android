@@ -56,14 +56,33 @@ class CircuitDashboardFrag : Fragment() {
             inflater, R.layout.fragment_circuit_dashboard,
             container, false
         )
-        PreferenceManager.with(activity as BaseActivity)
-
-        remoteConfig = Firebase.remoteConfig
-
         recyclerView = bind.recyclerView
+
+        PreferenceManager.with(activity as BaseActivity)
+        remoteConfig = Firebase.remoteConfig
+        observeSettings()
         loadData()
+
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
+        bind.sortChips.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.chip_alphabetical -> {
+                    circuitsObject?.circuits!!.sortBy { circuit -> circuit.name }
+                    recyclerView.adapter!!.notifyItemRangeChanged(
+                        0,
+                        circuitsObject?.circuits!!.size
+                    )
+                }
+                R.id.chip_date -> {
+
+                }
+                R.id.chip_popular -> {
+
+                }
+            }
+        }
 
         bind.addCircuit.setOnClickListener {
             FirebaseAnalytics.getInstance(requireContext())
@@ -73,8 +92,6 @@ class CircuitDashboardFrag : Fragment() {
                 Constants.DASH_TO_CREATE
             )
         }
-
-        observeSettings()
 
         return bind.root
     }
@@ -89,7 +106,6 @@ class CircuitDashboardFrag : Fragment() {
                         .show()
                 }
                 Constants.DASH_TO_TIMER -> {
-                    // Ideal spot to ask for a rating after a threshold of timers have been run
                     checkForReview()
                 }
                 Constants.DASH_TO_EDIT -> {
