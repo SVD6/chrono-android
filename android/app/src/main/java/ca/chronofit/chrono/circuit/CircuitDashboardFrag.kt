@@ -84,18 +84,14 @@ class CircuitDashboardFrag : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 Constants.DASH_TO_CREATE -> {
-                    // Circuit Added
                     loadData()
                     Toast.makeText(requireContext(), "Circuit added and saved!", Toast.LENGTH_SHORT)
                         .show()
                 }
                 Constants.DASH_TO_TIMER -> {
-                    // Circuit Completed (Circuit Timer)
-                    // Ideal spot to ask for a rating after a threshold of timers have been run
                     checkForReview()
                 }
                 Constants.DASH_TO_EDIT -> {
-                    // Circuit Edited
                     loadData()
                     Toast.makeText(
                         requireContext(),
@@ -180,12 +176,10 @@ class CircuitDashboardFrag : Fragment() {
     private fun itemMoved(current: Int, target: Int) {
         recyclerView.adapter!!.notifyItemMoved(current, target)
 
-        // Update Model
         val circuit = circuitsObject!!.circuits!![current]
         circuitsObject!!.circuits!!.removeAt(current)
         circuitsObject!!.circuits!!.add(target, circuit)
 
-        // Save updated list in local storage
         PreferenceManager.put(circuitsObject, Constants.CIRCUITS)
     }
 
@@ -234,9 +228,8 @@ class CircuitDashboardFrag : Fragment() {
             MaterialAlertDialogBuilder(requireContext(), R.style.CustomMaterialDialog).create()
         val dialogBinding = DialogAlertBinding.inflate(LayoutInflater.from(requireContext()))
 
-        // Set Dialog Views
         dialogBinding.dialogTitle.text =
-            "Delete " + circuitsObject?.circuits!![position].name
+            getString(R.string.delete_circuit_title, circuitsObject?.circuits!![position].name)
         dialogBinding.dialogSubtitle.text = getString(R.string.delete_circuit_subtitle)
         dialogBinding.confirm.text = getString(R.string.delete)
         dialogBinding.cancel.text = getString(R.string.cancel)

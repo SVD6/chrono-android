@@ -41,7 +41,7 @@ object Constants {
     const val SOUND_COMPLETE: String = "Complete"
 
     // Version Number
-    const val VERSION_NUMBER: String = "Test Version 0.2.1"
+    const val VERSION_NUMBER: String = "Test Version 1.0.2"
 
     // Remote Config Keys
     const val CONFIG_REVIEW_THRESHOLD: String = "app_review_threshold"

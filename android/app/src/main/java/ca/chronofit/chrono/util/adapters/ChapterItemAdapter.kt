@@ -39,11 +39,11 @@ class ChapterItemAdapter(
             name.text = circuit.name
 
             if (circuit.sets == 1)
-                numSets.text = circuit.sets.toString() + " Set"
+                numSets.text = context.getString(R.string.circuit_sets_single, circuit.sets)
             else
-                numSets.text = circuit.sets.toString() + " Sets"
+                numSets.text = context.getString(R.string.circuit_sets, circuit.sets)
 
-            timeRest.text = "Rest: " + circuit.rest.toString() + "s"
+            timeRest.text = context.getString(R.string.circuit_rest, circuit.rest)
             timeWork.text = "Work: " + circuit.work.toString() + "s"
 
             // Set Circuit Icon
