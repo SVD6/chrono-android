@@ -1,6 +1,7 @@
 package ca.chronofit.chrono.circuit
 
 import android.animation.Animator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
@@ -231,6 +232,10 @@ class CircuitTimerActivity : BaseActivity() {
                 bind.quote.text = getString(R.string.quote_strong)
             }
         }
+
+        bind.factAnimation!!.setAnimation("animations/cat_yoga_adomuka.json")
+        bind.factAnimation!!.repeatCount = ValueAnimator.INFINITE
+        bind.factAnimation!!.playAnimation()
 
         if (PreferenceManager.get<Int>(Constants.TOTAL_CIRCUITS) == null) {
             PreferenceManager.put(1, Constants.TOTAL_CIRCUITS)

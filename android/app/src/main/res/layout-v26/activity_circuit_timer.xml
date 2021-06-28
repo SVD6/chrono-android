@@ -71,6 +71,7 @@
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="100dp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -96,6 +97,7 @@
                     android:textSize="@dimen/xl_medium_text"
                     android:textStyle="bold"
                     app:cornerRadius="13dp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -121,6 +123,7 @@
                     android:textSize="@dimen/xl_medium_text"
                     android:textStyle="bold"
                     app:cornerRadius="13dp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -162,9 +165,10 @@
                     app:cornerRadius="13dp" />
 
             </LinearLayout>
+
         </RelativeLayout>
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/celebrate_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -174,59 +178,75 @@
                 android:id="@+id/celebrate_animation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_fileName="animations/lottie_celebrate.json"
                 app:lottie_loop="false" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/quote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:orientation="vertical"
-                android:padding="@dimen/medium_element_padding">
+                android:layout_marginHorizontal="@dimen/medium_element_padding"
+                android:layout_marginVertical="@dimen/medium_element_padding"
+                android:gravity="center"
+                android:padding="@dimen/small_element_padding"
+                android:textSize="@dimen/huge_text"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/quote_strong" />
 
-                <TextView
-                    android:id="@+id/quote"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/medium_element_padding"
-                    android:layout_marginVertical="@dimen/medium_element_padding"
-                    android:gravity="center"
-                    android:textSize="@dimen/huge_text"
-                    android:textStyle="bold"
-                    tools:text="@string/quote_strong" />
+            <TextView
+                android:id="@+id/quote_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/circuit_complete_subtitle"
+                android:textSize="@dimen/medium_text"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/quote" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/circuit_complete_subtitle"
-                    android:textSize="@dimen/medium_text"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/medium_element_padding"
                 android:background="@drawable/background_circuit_complete"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quote_subtitle"
+                app:layout_constraintVertical_bias="1">
 
                 <TextView
+                    android:id="@+id/fact_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_margin="@dimen/large_element_padding"
                     android:text="@string/did_you_know"
                     android:textColor="@color/white"
                     android:textSize="@dimen/huge_text"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/fact_animation"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fact_header"
+                    app:layout_constraintWidth_percent="0.5" />
 
                 <TextView
                     android:id="@+id/fact"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="@dimen/large_element_padding"
@@ -236,15 +256,20 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/medium_text"
+                    app:layout_constraintBottom_toTopOf="@+id/button_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fact_animation"
                     tools:text="When frightened, nine-banded armadillos will jump vertically about 3-4 feet in the air." />
 
                 <LinearLayout
-                    android:id="@+id/stop_button_lay"
+                    android:id="@+id/button_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/xs_medium_element_padding"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/restart_button"
@@ -275,8 +300,13 @@
                         app:cornerRadius="13dp">
 
                     </com.google.android.material.button.MaterialButton>
+
                 </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </RelativeLayout>
+
 </layout>
