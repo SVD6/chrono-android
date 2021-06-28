@@ -128,7 +128,7 @@
     <string name="quote_medium">You made it 💪</string>
     <string name="quote_strong">You made it 🥵</string>
     <string name="circuit_complete_subtitle">Now here\'s a completely\n useless fact to use for\n your next icebreaker!</string>
-    <string name="did_you_know">Did You Know . . .</string>
+    <string name="did_you_know">Did You Know?</string>
 
     <!-- String Arrays -->
     <string-array name="icon_files">

@@ -188,51 +188,38 @@
 
             <TextView
                 android:id="@+id/quote"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginHorizontal="@dimen/medium_element_padding"
-                android:layout_marginVertical="@dimen/medium_element_padding"
-                android:gravity="center"
-                android:padding="@dimen/small_element_padding"
+                android:layout_marginTop="@dimen/large_element_padding"
                 android:textSize="@dimen/huge_text"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/quote_subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/quote_strong" />
 
             <TextView
                 android:id="@+id/quote_subtitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/huge_element_padding"
+                android:layout_marginTop="-20dp"
+                android:fontFamily="@font/nunito_semibold"
                 android:gravity="center"
                 android:text="@string/circuit_complete_subtitle"
                 android:textSize="@dimen/medium_text"
-                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/quote" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bottom_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="@dimen/medium_element_padding"
                 android:background="@drawable/background_circuit_complete"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quote_subtitle"
-                app:layout_constraintVertical_bias="1">
-
-                <TextView
-                    android:id="@+id/fact_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/large_element_padding"
-                    android:text="@string/did_you_know"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/huge_text"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/fact_animation"
@@ -241,67 +228,75 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fact_header"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/fact_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/medium_element_padding"
+                    android:text="@string/did_you_know"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/xl_large_text"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fact_animation" />
 
                 <TextView
                     android:id="@+id/fact"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="@dimen/large_element_padding"
-                    android:autoSizeMaxTextSize="@dimen/large_text"
-                    android:autoSizeMinTextSize="@dimen/smaller_text"
+                    android:layout_marginBottom="@dimen/medium_element_padding"
+                    android:autoSizeMaxTextSize="@dimen/xl_medium_text"
+                    android:autoSizeMinTextSize="@dimen/xs_small_text"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
+                    android:paddingHorizontal="@dimen/large_element_padding"
                     android:textColor="@color/white"
                     android:textSize="@dimen/medium_text"
-                    app:layout_constraintBottom_toTopOf="@+id/button_layout"
+                    app:layout_constraintBottom_toTopOf="@+id/restart_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fact_animation"
+                    app:layout_constraintTop_toBottomOf="@+id/fact_header"
                     tools:text="When frightened, nine-banded armadillos will jump vertically about 3-4 feet in the air." />
 
-                <LinearLayout
-                    android:id="@+id/button_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/xs_medium_element_padding"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/restart_button"
+                    android:layout_width="125dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/medium_element_padding"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/circuit_complete_restart"
+                    android:textAllCaps="false"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/xl_medium_text"
+                    app:cornerRadius="13dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/finish_button"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/restart_button"
-                        android:layout_width="125dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="@dimen/medium_element_padding"
-                        android:backgroundTint="@color/white"
-                        android:fontFamily="@font/nunito_semibold"
-                        android:letterSpacing="0"
-                        android:text="@string/circuit_complete_restart"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_grey"
-                        android:textSize="@dimen/xl_medium_text"
-                        app:cornerRadius="13dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/finish_button"
+                    android:layout_width="125dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="@dimen/medium_element_padding"
+                    android:backgroundTint="@color/gradient_end"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/circuit_complete_finish"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/xl_medium_text"
+                    app:cornerRadius="13dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/restart_button">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/finish_button"
-                        android:layout_width="125dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="@dimen/medium_element_padding"
-                        android:backgroundTint="@color/gradient_end"
-                        android:fontFamily="@font/nunito_semibold"
-                        android:letterSpacing="0"
-                        android:text="@string/circuit_complete_finish"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/xl_medium_text"
-                        app:cornerRadius="13dp">
-
-                    </com.google.android.material.button.MaterialButton>
-
-                </LinearLayout>
+                </com.google.android.material.button.MaterialButton>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
