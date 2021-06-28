@@ -201,7 +201,7 @@ class CircuitTimerActivity : BaseActivity() {
     }
 
     private fun complete() {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        window.statusBarColor = Color.TRANSPARENT
         bind.mainLayout.visibility = View.GONE
         bind.celebrateLayout.visibility = View.VISIBLE
 
