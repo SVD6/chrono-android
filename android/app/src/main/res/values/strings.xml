@@ -164,4 +164,13 @@
         <item>drawable/ic_machine</item>
         <item>drawable/ic_bottle</item>
     </string-array>
+
+    <string-array name="chrono_cat_files">
+        <item>animations/cat_yoga_adomuka.json</item>
+        <item>animations/cat_yoga_bakasana.json</item>
+        <item>animations/cat_yoga_trikonasana.json</item>
+        <item>animations/cat_yoga_virabhadrasana.json</item>
+        <item>animations/cat_yoga_vrksasana.json</item>
+    </string-array>
+
 </resources>

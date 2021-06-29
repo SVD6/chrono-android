@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
+import android.content.res.TypedArray
 import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.AudioManager
@@ -33,6 +34,7 @@ import org.json.JSONObject
 import java.math.BigDecimal
 import kotlin.concurrent.thread
 import kotlin.math.roundToInt
+import kotlin.random.Random
 
 class CircuitTimerActivity : BaseActivity() {
     private lateinit var bind: ActivityCircuitTimerBinding
@@ -233,7 +235,10 @@ class CircuitTimerActivity : BaseActivity() {
             }
         }
 
-        bind.factAnimation!!.setAnimation("animations/cat_yoga_adomuka.json")
+        val animations: TypedArray = resources.obtainTypedArray(R.array.chrono_cat_files)
+        val selectedAnimation = animations.getString(Random.nextInt(1, 5) - 1)
+
+        bind.factAnimation!!.setAnimation(selectedAnimation)
         bind.factAnimation!!.repeatCount = ValueAnimator.INFINITE
         bind.factAnimation!!.playAnimation()
 
@@ -249,6 +254,8 @@ class CircuitTimerActivity : BaseActivity() {
             val currTotal = PreferenceManager.get<Int>(Constants.TOTAL_TIME)
             PreferenceManager.put(currTotal!! + thisTotal, Constants.TOTAL_TIME)
         }
+
+        animations.recycle()
     }
 
     private fun getFact() {
