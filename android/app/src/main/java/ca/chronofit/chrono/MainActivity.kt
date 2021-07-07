@@ -28,6 +28,7 @@ import ca.chronofit.chrono.util.objects.PreferenceManager
 import ca.chronofit.chrono.util.objects.SettingsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -99,6 +100,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         // Check for an Update
         checkForUpdate()
+        handleIntent()
     }
 
     private fun changeDarkMode(mode: String) {
@@ -257,6 +259,41 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         // Display the Dialog
         builder.setView(dialogBinding.root)
         builder.show()
+    }
+
+    private fun handleIntent() {
+        Firebase.dynamicLinks.getDynamicLink(intent)
+            .addOnSuccessListener(this) { pendingDynamicLinkData ->
+                val deepLink: Uri?
+                if (pendingDynamicLinkData != null) {
+                    deepLink = pendingDynamicLinkData.link
+                    if (deepLink.toString().contains(
+                            getString(R.string.share_circuit_url_suffix),
+                            ignoreCase = true
+                        )
+                    ) {
+                        val circuitName =
+                            pendingDynamicLinkData.link?.getQueryParameter(getString(R.string.name))
+                                .orEmpty()
+                                .replace("\"", "")
+                        val circuitSets =
+                            pendingDynamicLinkData.link?.getQueryParameter(getString(R.string.sets))
+                                .orEmpty().replace("\"", "")
+                        val circuitWork =
+                            pendingDynamicLinkData.link?.getQueryParameter(getString(R.string.work))
+                                .orEmpty().replace("\"", "")
+                        val circuitRest =
+                            pendingDynamicLinkData.link?.getQueryParameter(getString(R.string.rest))
+                                .orEmpty().replace("\"", "")
+                        frag2.startCircuitCreateActivity(
+                            circuitName,
+                            circuitSets,
+                            circuitWork,
+                            circuitRest
+                        )
+                    }
+                }
+            }
     }
 
     override fun onSaveInstanceState(state: Bundle) {
